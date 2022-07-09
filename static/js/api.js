@@ -35,10 +35,10 @@ async function handleLogin() {
         password:document.getElementById("password").value        
     }
     console.log(loginData)
-    const response=await fetch(`${backend_base_url}/user/login/`, {
+    const response=await fetch(`${backend_base_url}user/login/`, {
         headers:{
-            Accept:'application/json',
-            'Content-type':'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         method:'POST',
         body:JSON.stringify(loginData)
