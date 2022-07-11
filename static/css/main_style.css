@@ -1,16 +1,15 @@
 body,p,h1{
     margin: 0;
     background: #C4D7E0;
+    /* overflow-x: hidden; */
 }
 .main_screen{
     width: 100vw;
 }
 .navbar{
     background: #C4D7E0;
-    /* border-bottom: 1px solid #e7e7e7; */
     height: 50px;
     width: 100%;
-    /* position: fixed; */
     align-items: center;
     justify-content: space-between;
     display: flex;
@@ -20,7 +19,6 @@ body,p,h1{
 }
 .logo{
     margin-left: 10px;
-    /* margin-top: 10px; */
     font-size: 20px;
     font-weight: bold;
     color: #000;
@@ -39,13 +37,10 @@ body,p,h1{
     outline: none;
 }
 .serch_button{
-    /* right:0px; */
-    /* position: absolute; */
     width: 50px;
     height: 32px;
     border-radius: 5px;
     border: 1px solid #e7e7e7;
-    /* background-color: #0051ff; */
     color: #000;
     font-weight: bold;
 }
@@ -60,7 +55,6 @@ body,p,h1{
     align-items: center;
     justify-content: center;
     margin-right: 10px;
-    /* margin-top: 10px; */
 }
 .user_profile img{
     width: 30px;
@@ -77,7 +71,6 @@ body,p,h1{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
     border-radius: 8px;
     margin: 30px;
     width: 150px;
@@ -85,7 +78,6 @@ body,p,h1{
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
-    /* margin-top: 20px; */
     top: 20px;
     left: 0;
 }
@@ -123,10 +115,7 @@ body,p,h1{
     width: 100vw;
     display: flex;
 }
-.top_article::webkit-scrollbar{
-    scrollbar-width: none;
-    display: none;
-}
+
 .right_section{
     width: calc(100% - 300px);
     display: flex;
@@ -137,13 +126,31 @@ body,p,h1{
     font-size: 20px;
 }
 .top_article{
+    position: relative;
     flex-shrink:0;
     display: flex;
     margin: 30px;
     width: 100%;
     height: 500px;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
+    overflow-x: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    /* scrollbar-width: none; Firefox */
+}
+.scroll_button{
+    display: flex;
+    justify-content: center;
+}
+.scroll_button div{
+    background-color: #000;
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.top_article::-webkit-scrollbar{
+    scrollbar-width: none;
+    display: none;
 }
 .top_article_list{
     margin: 0 20px;
@@ -154,7 +161,6 @@ body,p,h1{
     flex-shrink:0;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     border-radius: 8px;
 }
 .top_article_info{
@@ -223,8 +229,6 @@ body,p,h1{
 .main_article_list{
     width: 100%;
    display: flex;
-   /* justify-content: center; */
-   /* justify-content: space-around; */
    flex-wrap: wrap;
     margin-left: 50px;
    margin-top: 30px;
@@ -239,15 +243,61 @@ body,p,h1{
     height: 250px;
     background-color: aliceblue;;
     border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     transform: rotate(5deg);
+    background-color: rgb(255, 255, 255);
 }
 .article_list_box img{
     width: 300px;
     height: 90%;
     object-fit: cover;
+}
+.modal_box{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+.modal_content{
+    width: 800px;
+    height: 1000px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.modal_content img{
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
+.modal_desc{
+    padding: 15px;
+}
+.modal_desc img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.modal_profile{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.modal_profile div{
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 14px;
 }
