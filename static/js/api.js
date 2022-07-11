@@ -1,6 +1,5 @@
 const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/petrasche_f/"
-// const frontend_base_url = "http://127.0.0.1:5500/"
+const frontend_base_url = "http://127.0.0.1:5500/"
 
 
 //회원가입
@@ -20,11 +19,12 @@ async function handleSignup(){
         body:JSON.stringify(signupData)
     })
     response_json=await response.json()
+    print(response_json)
 
     if (response.status==200) {
         window.location.replace(`${frontend_base_url}login.html`);
     }else{
-        alert(response.status)
+        alert(response_json['username'],response_json['email'],response_json['password'], response_json['error'])
     }
 }
 
@@ -58,6 +58,6 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload)
         window.location.replace(`${frontend_base_url}`)
     } else {
-        alert(response.status)
+        alert(response_json)
     }
 }

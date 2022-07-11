@@ -62,3 +62,14 @@ body{
     font-weight: bold;
          
 }
+
+.login-inner select{
+    background-color: #1c2e55;
+    margin: 0 auto;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    height:40px;
+    width: 250px;
+    color:whitesmoke
+}
