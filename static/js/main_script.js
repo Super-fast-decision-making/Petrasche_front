@@ -21,9 +21,8 @@ const GetImgList = () => {
   ];
 
   img_lists.forEach(function (item, index) {
-    // -15,15 랜덤 숫자 생성
-    let random = Math.floor(Math.random() * (15 - (-15) + 1)) + (-15);
-    let html = `<div style="transform: rotate(${random}deg);" class="article_list_box">
+    let random = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+    let html = `<div onclick="modal_open()" style="transform: rotate(${random}deg);" class="article_list_box">
     <img src="${item}" alt="">
 </div>`
     document.getElementById("main_article_list").innerHTML += html;
@@ -45,6 +44,23 @@ function top_right_scroll() {
     document.getElementById("top_article").scrollLeft = scroll_left + 1;
     setTimeout("top_right_scroll()", 1);
   }
+}
+
+function modal_open() {
+  document.getElementById("modal_box").style.display = "flex";
+}
+
+function modal_desc_info() {
+  document.getElementById("modal_info_btn").style.display = "none";
+  document.getElementById("modal_desc").style.display = "flex";
+  document.getElementById("modal_info_colse_btn").style.display = "flex";
+}
+
+function modal_close() {
+  document.getElementById("modal_box").style.display = "none";
+  document.getElementById("modal_desc").style.display = "none";
+  document.getElementById("modal_info_colse_btn").style.display = "none";
+  document.getElementById("modal_info_btn").style.display = "flex";
 }
 
 GetImgList();

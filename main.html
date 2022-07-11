@@ -11,16 +11,28 @@
 </head>
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-    <div class="modal_box">
+    <div id="modal_box" class="modal_box">
         <div class="modal_content">
-            <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG" alt="">
-            <div class="modal_desc">
-                <div class="modal_profile">
-                    <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG" alt="">
-                    <div>강아지 사육사</div>
-                </div>
-                <p>내용</p>
+            <img src="https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__480.jpg"
+                alt="">
+            <div id="modal_desc" class="modal_desc">
+
             </div>
+            <div id="modal_info_btn" onclick="modal_desc_info()" class="modal_info_btn">
+                상세 페이지
+            </div>
+            <div id="modal_info_colse_btn" onclick="modal_close()" class="modal_close">
+                페이지 닫기
+            </div>
+            <div class="modal_profile">
+                <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
+                alt="">
+                <div class="modal_profile_account">우리 아지매</div>
+            </div>
+            <div class="modal_like">
+                <i class="fa-solid fa-heart"></i>
+                <div style="margin-left: 5px;">999</div>
+            </div>            
         </div>
     </div>
 
@@ -163,20 +175,20 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
                 <div class="scroll_button">
                     <div onclick="top_left_scroll()"><i class="fa-solid fa-angle-left"></i></div>
                     <div onclick="top_right_scroll()"><i class="fa-solid fa-angle-right"></i></div>
                 </div>
 
-               
+
 
 
                 <div id="main_article_list" class="main_article_list">
 
                 </div>
-                
+
 
             </div>
 
