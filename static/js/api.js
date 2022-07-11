@@ -7,7 +7,9 @@ async function handleSignup(){
     const signupData = {
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
-        password:document.getElementById("password").value
+        password:document.getElementById("password").value,
+        birthday:document.getElementById("birthday").value,
+        is_active:document.getElementById("is_active").value,
     }
     console.log(signupData)
     const response = await fetch(`${backend_base_url}user/`,{
