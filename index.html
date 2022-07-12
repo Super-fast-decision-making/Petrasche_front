@@ -11,10 +11,13 @@
 </head>
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="load_img">
+        <img src="/static/load_img/icon-1s-200px.gif" alt="" srcset="">
+    </div>
+    <!-- 상세 모달 -->
     <div id="modal_box" class="modal_box">
         <div class="modal_content">
-            <img src="https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__480.jpg"
-                alt="">
+            <img src="https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__480.jpg" alt="">
             <div id="modal_desc" class="modal_desc">
 
             </div>
@@ -26,16 +29,40 @@
             </div>
             <div class="modal_profile">
                 <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
-                alt="">
+                    alt="">
                 <div class="modal_profile_account">우리 아지매</div>
             </div>
             <div class="modal_like">
                 <i class="fa-solid fa-heart"></i>
                 <div style="margin-left: 5px;">999</div>
-            </div>            
+            </div>
         </div>
     </div>
+    <!--  -->
 
+
+    <!-- 업로드 모달 -->
+    <div id="upload_modal" class="upload_modal">
+        <div class="upload_modal_box">
+            <input type="file" multiple accept="image/*" id="upload_file" hidden>
+            <div id="upload_submit_button" class="upload_submit_button">
+                <i onclick="upload_modal_submit()" class="fa-solid fa-circle-check"></i>
+                <i onclick="upload_modal_cancel()" class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <button onclick="upload_file()" class="upload_modal_btn" id="upload_modal_btn">
+                <i class="fa-solid fa-camera"></i>
+            </button>
+            <div id="preview_multi_img" class="preview_multi_img">
+                
+            </div>
+            <img id="preview_img" class="preview_img"
+                src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
+                alt="" srcset="">
+        </div>
+        <div id="upload_model_content" class="upload_model_content">
+            <textarea id="upload_content" cols="30" rows="10" placeholder="내용작성"></textarea>
+        </div>
+    </div>
 
 
     <div class="main_screen">
@@ -73,6 +100,10 @@
                 <div class="menu_petshop">
                     <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
                     펫샵
+                </div>
+                <div onclick="upload_modal_open()" class="menu_upload">
+                    <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                    업로드
                 </div>
             </div>
 

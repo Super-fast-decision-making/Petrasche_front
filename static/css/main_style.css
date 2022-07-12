@@ -5,6 +5,10 @@ h1 {
     background: #C4D7E0;
     /* overflow-x: hidden; */
 }
+.body_scroll_stop{
+    overflow: hidden;
+    touch-action: none;
+}
 
 .main_screen {
     width: 100vw;
@@ -88,7 +92,7 @@ h1 {
     border-radius: 8px;
     margin: 30px;
     width: 150px;
-    height: 250px;
+    height: 350px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
@@ -97,6 +101,7 @@ h1 {
 }
 
 .left_menu div {
+    cursor: pointer;
     padding: 10px 30px;
     font-size: 20px;
     font-weight: bold;
@@ -124,6 +129,7 @@ h1 {
 }
 
 .menu_petshop {
+    
     display: flex;
     flex-direction: column;
 }
@@ -131,6 +137,14 @@ h1 {
 .menu_petshop img {
     width: 30px;
     height: 30px;
+}
+.menu_upload{
+    display: flex;
+    flex-direction: column;
+}
+.menu_upload img{
+    width:30px;
+    height:30px;
 }
 
 .top_section {
@@ -404,6 +418,143 @@ h1 {
     font-size: 30px;
     font-weight: bold;
 }
+.upload_modal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+.upload_modal_box{
+    position: relative;
+    width: 800px;
+    height: 700px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.upload_modal_btn{
+    display: flex;
+    align-items: center;
+    color: red;
+    font-size: 50px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    /* display: none; */
+}
+.upload_submit_button{
+    position: absolute;
+    top:0px;
+    left:0px;
+    display: flex;
+    align-items: center;
+    color: red;
+    font-size: 50px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: none;
+    z-index: 30;
+}
+.upload_submit_button i{
+    margin: 5px;
+    z-index: 10;
+}
+.preview_img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+.preview_multi_img{
+    top:0;
+    right:0;
+    position: absolute;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: scroll;
+    display: none;
+}
+.preview_multi_img img{
+    width: 80%;
+    height: 100px;
+    padding: 5px;
+    margin-top: 10px;
+    object-fit: cover;
+    border: 3px solid #e7e7e7;
+    /* border-style: dotted; */
+    border-radius: 10px;
+}
+.upload_model_content{
+    width: 20%;
+    margin-left: 5px;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    overflow: scroll;
+    animation: fadeinleft 0.5s;
+    display: none;
+}
+.upload_model_content textarea{
+    width: 95%;
+    height: 95%;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
+}
+.load_img{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 9999;
+}
+.load_img img{
+    width: 100px;
+    height: 100px;
+    animation: rotate 0.5s;
+}
+@keyframes fadeinleft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 @keyframes scale {
     0% {
         transform: scale(0.5);
