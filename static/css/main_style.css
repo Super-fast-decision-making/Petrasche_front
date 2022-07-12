@@ -263,13 +263,14 @@ h1 {
 }
 
 .main_article_list {
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-wrap: wrap;
     margin-left: 50px;
     margin-top: 30px;
     justify-content: center;
-    border: 1px solid #e7e7e7;
+    border: 10px solid #e7e7e7;
+    border-style: dotted;
     border-radius: 10px;
 }
 
