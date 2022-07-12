@@ -25,6 +25,10 @@
             
             background-color: #D9D9D9;
         }
+        .user_container {
+            display: flex;
+            justify-content: space-between;
+        }
         .user_box {
             display: flex;
             justify-content: center;
@@ -60,10 +64,20 @@
             font-size: 20px;
         }
         .user_introduction {
-
+            padding-left: 10px;
         }
         .introduction {
-            margin: 10px;
+            font-size: 15px;
+        }
+        .user_button_box {
+            padding: 10px;
+            margin-right: 20px;
+        }
+        .menu_change_button_box {
+            padding: 10px;
+        }
+        .menu_change_button {
+            font-size: 15px;
         }
         .article_container {
             display: flex;
@@ -121,20 +135,29 @@
 <body>
     <div class="wrapper">
         <div class="main_container">
-            <div class="user_box">
-                <div class="user_profile">
-                    <div class="user_img_box">
-                        <img class="user_img" src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+            <div class="user_container">
+                <div class="user_box">
+                    <div class="user_profile">
+                        <div class="user_img_box">
+                            <img class="user_img" src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                        </div>
+                        <div class="user_id_box">
+                            <span class="user_id">
+                                goeun
+                            </span>
+                        </div>
                     </div>
-                    <div class="user_id_box">
-                        <span class="user_id">
-                            goeun
-                        </span>
+                    <div class="user_introduction">
+                        <div class="introduction">
+                            안녕하세요 캣맘 김고은입니다.
+                        </div>
                     </div>
                 </div>
-                <div class="user_introduction">
-                    <div class="introduction">
-                        안녕하세요 캣맘 김고은입니다.
+                <div class="user_button_box">
+                    <div class="menu_change_button_box">
+                        <button class="menu_change_button" type="button" onclick="">
+                            회원정보
+                        </button>
                     </div>
                 </div>
             </div>
@@ -172,9 +195,8 @@
                             이창수
                         </div>
                     </div>
-
                 </div>
-        </div>
+            </div>
         </div>
     </div>  
 </body>
