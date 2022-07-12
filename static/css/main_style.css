@@ -10,6 +10,10 @@ h1 {
     touch-action: none;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 .main_screen {
     width: 100vw;
 }
@@ -326,11 +330,13 @@ h1 {
 
 .modal_content {
     position: relative;
-    width: 1200px;
-    height: 1000px;
+    width: 1000px;
+    height: 800px;
     background-color: white;
     border-radius: 8px;
     display: flex;
+    border-radius: 8px;
+    overflow: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -411,7 +417,7 @@ h1 {
 .modal_like{
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    right: 10px;
     display: flex;
     align-items: center;
     color: red;
@@ -489,8 +495,13 @@ h1 {
     width: 20%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    overflow: scroll;
-    display: none;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* display: none; */
+    /* IE and Edge */
+    /* scrollbar-width: none;  */
+    /* Firefox */
 }
 .preview_multi_img img{
     width: 80%;
@@ -505,7 +516,7 @@ h1 {
 .upload_model_content{
     width: 20%;
     margin-left: 5px;
-    height: 60%;
+    height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -523,9 +534,11 @@ h1 {
     border: none;
     resize: none;
     outline: none;
+    overflow: scroll;
     font-size: 14px;
     font-weight: bold;
     border-radius: 10px;
+    -ms-overflow-style: none;
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
 }
 .load_img{
@@ -537,9 +550,10 @@ h1 {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
-    z-index: 9999;
+    z-index: 99999;
+    
 }
-.load_img img{
+.load_img img{ 
     width: 100px;
     height: 100px;
     animation: rotate 0.5s;
