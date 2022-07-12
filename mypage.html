@@ -8,172 +8,11 @@
 
     <!------CSS---------->
     <link rel="stylesheet" type="text/css" href="./static/css/login.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/mypage.css">
+
     <!------JS---------->
-    <!-- <script src="./static/js/api.js"></script> -->
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #C4D7E0;
-        }
-        .main_container{
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-
-            padding: 20px 20px 50px 50px;
-            
-            background-color: #D9D9D9;
-        }
-        .user_container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .user_box {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-
-            height: 150px;
-            padding: 20px;
-
-        }
-        .user_profile {
-            display: flex;
-        }
-        .user_img_box{
-            width: 50px;
-            height: 50px;
-            margin: 10px;
-
-            border-radius: 50px;
-            border: 2px solid #ffffff;
-            overflow: hidden;
-
-            background-color: black;
-        }
-        .user_img {
-            width: 100%;
-        }
-        .user_id_box {
-            display: flex;
-            align-items: center;
-            margin: 10px;
-        }
-        .user_id {
-            font-size: 20px;
-        }
-        .user_introduction {
-            padding-left: 10px;
-        }
-        .introduction {
-            font-size: 15px;
-        }
-        .user_button_box {
-            padding: 10px;
-            margin-right: 20px;
-        }
-        .menu_change_button_box {
-            padding: 10px;
-        }
-        .menu_change_button {
-            font-size: 15px;
-        }
-        .article_container {
-            display: flex;
-        }
-        .article_box {
-            display: flex;
-            flex-direction: column;
-            
-            padding: 20px 20px 20px 20px;
-            border-radius: 3px;
-
-            background-color: #ffffff;
-        }
-        .article_box_line {
-            display: flex;
-            justify-content: space-around;
-        }
-        .article_card {
-            width: 190px;
-            height: 190px;
-            margin: 10px;
-
-            background-color: #D9D9D9;
-        }
-        .pet_select_box {
-            display: flex;
-            flex-direction: column;
-            margin-top: 5px;
-        }
-        .pet_botton_box {
-            margin: 0 0 2px 1px;
-            padding: 5px;
-            padding-right: 7px;
-
-            background-color: #ffffff;
-            border: 1px solid #bab7b7;
-            border-radius: 5px;
-        }
-        .pet_button {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            text-align: center;
-            cursor: default;
-
-            font-size: 14px;
-
-            width: 25px;
-        }
-        .pet_botton_box:hover {
-            background-color: #eeecec;
-
-        }
-    </style>
-    <script>
-        const backend_base_url = "http://127.0.0.1:8000"
-        const frontend_base_url = "http://127.0.0.1:5500"
-
-        // 내 게시물 불러오기
-        async function getMyArticle() {
-            const response = await fetch(`${backend_base_url}/article/myarticle/`, {
-                method: 'GET',
-                headers: {
-                Accept: 'application/json',
-                'Content-type': 'application/json',
-                'Authorization':"Bearer "+localStorage.getItem("user_access_token")
-                },
-
-            })
-            response_json = await response.json()
-            return response_json
-        }
-    </script>
-    <script>
-        // 내 게시물 불러오기
-        async function loadMyArticle() {
-            articles = await getMyArticle()
-
-            for(let i=0; i<articles.length; i++) {
-                
-                let content = articles[i].content
-                let images = articles[i].images
-                for(let i=0; i<images.length; i++) {
-                    let image = images[i]
-                }
-                let likes = articles[i].likes
-                let is_active = articles[i].is_active
-                console.log(content)
-                console.log(image)
-                console.log(likes)
-                console.log(is_active)
-
-            }
-        }
-
-        loadMyArticle()
-    </script>
+    <script src="./static/js/api.js"></script>
+    <script src="./static/js/mypage.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -192,7 +31,7 @@
                     </div>
                     <div class="user_introduction">
                         <div class="introduction">
-                            안녕하세요 캣맘 김고은입니다.
+                            안녕하세요 김고은입니다.
                         </div>
                     </div>
                 </div>
@@ -205,22 +44,7 @@
                 </div>
             </div>
             <div class="article_container">
-                <div class="article_box">
-                    <div class="article_box_line">
-                        <div class="article_card"></div>
-                        <div class="article_card"></div>
-                        <div class="article_card"></div>
-                    </div>
-                    <div class="article_box_line">
-                        <div class="article_card"></div>
-                        <div class="article_card"></div>
-                        <div class="article_card"></div>
-                    </div>
-                    <div class="article_box_line">
-                        <div class="article_card"></div>
-                        <div class="article_card"></div>
-                        <div class="article_card"></div>
-                    </div>
+                <div id="article_box" class="article_box">
                 </div>
                 <div class="pet_select_box">
                     <div class="pet_botton_box">

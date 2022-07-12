@@ -63,3 +63,17 @@ async function handleLogin() {
         alert(response_json)
     }
 }
+
+// 내 게시물 불러오기(전체)
+async function getMyArticle() {
+    const response = await fetch(`${backend_base_url}article/myarticle/`, {
+        method: 'GET',
+        headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json',
+        'Authorization':"Bearer "+localStorage.getItem("user_access_token")
+        }
+    })
+    response_json = await response.json()
+    return response_json
+}
