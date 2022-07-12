@@ -63,14 +63,18 @@ function modal_close() {
   document.getElementById("modal_box").style.display = "none";
   document.getElementById("modal_desc").style.display = "none";
   document.getElementById("modal_info_colse_btn").style.display = "none";
-  document.getElementById("modal_info_btn").style.display = "flex";
+  // document.getElementById("modal_info_btn").style.display = "flex";
+  document.body.style.overflow = "auto";
+  document.body.style.touchAction = "auto";
 }
-//body click modal close
+
+//바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
   if (e.target.id == "modal_box") {
     modal_close();
   }
 });
+
 function upload_file() {
   document.getElementById("upload_file").click();
   document
@@ -131,7 +135,7 @@ function upload_modal_submit() {
     for (let i = 0; i < upload_file.length; i++) {
       formData.append("image_lists", upload_file[i]);
     }
-
+    document.getElementById("now_loading").style.display = "flex";
     fetch("http://127.0.0.1:8000/article/", {
       method: "POST",
       body: formData,
@@ -139,10 +143,12 @@ function upload_modal_submit() {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
       },
     })
+
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
         upload_modal_cancel();
+        document.getElementById("now_loading").style.display = "none";
       });
   }
 }
