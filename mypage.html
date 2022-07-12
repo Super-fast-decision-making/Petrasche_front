@@ -21,7 +21,7 @@
                 <div class="user_box">
                     <div class="user_profile">
                         <div class="user_img_box">
-                            <img class="user_img" src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                            <img src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
                         </div>
                         <div class="user_id_box">
                             <span class="user_id">
@@ -37,14 +37,18 @@
                 </div>
                 <div class="user_button_box">
                     <div class="menu_change_button_box">
-                        <button class="menu_change_button" type="button" onclick="">
+                        <button id="menu_change_button" type="button" onclick="changeButton()">
                             회원정보
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="article_container">
-                <div id="article_box" class="article_box">
+            <div class="show_container">
+                <div class="show_box">
+                    <div id="article_box" class="article_box">
+                    </div>
+                    <div class="user_info_box">
+                    </div>
                 </div>
                 <div class="pet_select_box">
                     <div class="pet_botton_box">
