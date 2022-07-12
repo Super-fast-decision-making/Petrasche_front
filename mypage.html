@@ -9,7 +9,7 @@
     <!------CSS---------->
     <link rel="stylesheet" type="text/css" href="./static/css/login.css">
     <!------JS---------->
-    <script src="./static/js/api.js"></script>
+    <!-- <script src="./static/js/api.js"></script> -->
     <style>
         body {
             margin: 0;
@@ -131,6 +131,49 @@
 
         }
     </style>
+    <script>
+        const backend_base_url = "http://127.0.0.1:8000"
+        const frontend_base_url = "http://127.0.0.1:5500"
+
+        // 내 게시물 불러오기
+        async function getMyArticle() {
+            const response = await fetch(`${backend_base_url}/article/myarticle/`, {
+                method: 'GET',
+                headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization':"Bearer "+localStorage.getItem("user_access_token")
+                },
+
+            })
+            response_json = await response.json()
+            return response_json
+        }
+    </script>
+    <script>
+        // 내 게시물 불러오기
+        async function loadMyArticle() {
+            articles = await getMyArticle()
+
+            for(let i=0; i<articles.length; i++) {
+                
+                let content = articles[i].content
+                let images = articles[i].images
+                for(let i=0; i<images.length; i++) {
+                    let image = images[i]
+                }
+                let likes = articles[i].likes
+                let is_active = articles[i].is_active
+                console.log(content)
+                console.log(image)
+                console.log(likes)
+                console.log(is_active)
+
+            }
+        }
+
+        loadMyArticle()
+    </script>
 </head>
 <body>
     <div class="wrapper">
