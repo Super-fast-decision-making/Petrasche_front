@@ -21,7 +21,8 @@ const GetImgList = () => {
   ];
 
   img_lists.forEach(function (item, index) {
-    let random = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+    let random = 0;
+    // let random = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
     let html = `<div onclick="modal_open()" style="transform: rotate(${random}deg);" class="article_list_box">
     <img src="${item}" alt="">
 </div>`
@@ -62,5 +63,11 @@ function modal_close() {
   document.getElementById("modal_info_colse_btn").style.display = "none";
   document.getElementById("modal_info_btn").style.display = "flex";
 }
+//body click modal close
+document.body.addEventListener("click", function (e) {
+  if (e.target.id == "modal_box") {
+    modal_close();
+  }
+});
 
 GetImgList();
