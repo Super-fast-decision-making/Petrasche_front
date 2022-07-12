@@ -25,7 +25,7 @@ const GetImgList = () => {
     // let random = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
     let html = `<div onclick="modal_open()" style="transform: rotate(${random}deg);" class="article_list_box">
     <img src="${item}" alt="">
-</div>`
+</div>`;
     document.getElementById("main_article_list").innerHTML += html;
   });
 };
@@ -49,6 +49,8 @@ function top_right_scroll() {
 
 function modal_open() {
   document.getElementById("modal_box").style.display = "flex";
+  document.body.style.overflow = "hidden";
+  document.body.style.touchAction = "none";
 }
 
 function modal_desc_info() {
@@ -69,5 +71,79 @@ document.body.addEventListener("click", function (e) {
     modal_close();
   }
 });
+function upload_file() {
+  document.getElementById("upload_file").click();
+  document
+    .getElementById("upload_file")
+    .addEventListener("change", function (e) {
+      let files = e.target.files;
+      document.getElementById("upload_modal_btn").style.display = "none";
+      if (files.length > 1) {
+        document.getElementById("upload_modal_btn").style.display = "none";
+        document.getElementById("preview_img").src = URL.createObjectURL(
+          files[0]
+        );
+        document.getElementById("preview_img").style.display = "flex";
+        document.getElementById("preview_multi_img").innerHTML = "";
+        for (let i = 0; i < files.length - 1; i++) {
+          let src = URL.createObjectURL(files[i + 1]);
+          let html = `<img src="${src}" alt="">`;
+          document.getElementById("preview_multi_img").innerHTML += html;
+        }
+        document.getElementById("preview_multi_img").style.display = "flex";
+        document.getElementById("upload_submit_button").style.display = "flex";
+      } else {
+        document.getElementById("upload_modal_btn").style.display = "none";
+        document.getElementById("preview_img").src = URL.createObjectURL(
+          files[0]
+        );
+        document.getElementById("preview_img").style.display = "flex";
+        document.getElementById("upload_submit_button").style.display = "flex";
+      }
+      // console.log(files);
+    });
+}
+function upload_modal_open() {
+  document.getElementById("upload_modal").style.display = "flex";
+  document.body.style.overflow = "hidden";
+  document.body.style.touchAction = "none";
+}
+function upload_modal_cancel() {
+  document.getElementById("upload_content").value = "";
+  document.getElementById("upload_file").value = "";
+  document.getElementById("upload_modal").style.display = "none";
+  document.getElementById("preview_img").style.display = "none";
+  document.getElementById("preview_multi_img").style.display = "none";
+  document.getElementById("upload_submit_button").style.display = "none";
+  document.getElementById("upload_model_content").style.display = "none";
+  document.getElementById("upload_modal_btn").style.display = "flex";
+}
 
+function upload_modal_submit() {
+  let upload_content = document.getElementById("upload_content").value;
+  let upload_file = document.getElementById("upload_file").files;
+  let upload_modal_content = document.getElementById("upload_model_content");
+  if (upload_content == "") {
+    upload_modal_content.style.display = "flex";
+  } else {
+    let formData = new FormData();
+    formData.append("content", upload_content);
+    for (let i = 0; i < upload_file.length; i++) {
+      formData.append("image_lists", upload_file[i]);
+    }
+
+    fetch("http://127.0.0.1:8000/article/", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        upload_modal_cancel();
+      });
+  }
+}
 GetImgList();
