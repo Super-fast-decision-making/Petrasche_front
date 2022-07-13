@@ -6,11 +6,18 @@ async function loadMyArticle() {
         let image = articles[i].images[0]
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
-            `<div class="article_card">
-                <img src='${image}'/>
+            `<div class="article_card" >
+                <img src='${image}' >
+                <div style="position:relative; background-color:black; width:100%; height:30px; top:-34px;opacity:0.3"><i class="fa fa-heart"></i></div>
             </div>`
+        
     }
 }
+// async function loadUserInfo(){
+//     console.log("찍히긴함")
+//     userinfo = await getUserInfo()
+//     console.log(userinfo)
+// }
 
 function changeButton() {
     const article_box = document.getElementById("article_box")
@@ -39,4 +46,5 @@ async function showUserInfo() {
 }
 
 loadMyArticle()
+loadUserInfo()
 
