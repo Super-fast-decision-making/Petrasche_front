@@ -23,17 +23,17 @@
 <body>
     <div class="wrapper">
         <div class="left_menu">
-            <div class="menu_dog">
+            <div class="menu_dog" id="menu_like" onclick="showMyArticle()">
                 <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                 나의 글
             </div>
 
-            <div class="menu_cat">
+            <div class="menu_cat" id="menu_" onclick="showUserInfo()">
                 <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
                 프로필
             </div>
 
-            <div class="menu_like" id="menu_like" onclick="startLikeTab()">
+            <div class="menu_like" id="menu_like" onclick="showLike()">
                 <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
                 좋아요
             </div>
@@ -82,8 +82,8 @@
                     </div>
                     <!-- 프로필 변경 메뉴 -->
                     <div id="user_info_box" class="user_info_box">
-                        <div class="user_profile_section">
-                            <div class="user_profile_box">
+                        <div id="user_profile_section" class="user_profile_section">
+                            <!-- <div class="user_profile_box">
                                 <div class="user_profile_item">
                                     <p>비밀번호</p>
                                     <button type="button" onclick="">변경</button>
@@ -93,13 +93,13 @@
                                     <input id="user_profile_email" type="email" value="" style="width: 80px;" />
                                     <span>@</span>
                                     <input id="user_profile_domain" type="email" value="" style="width: 80px;" />
-                                    <!-- <select name="language" >
+                                    <select name="language" >
                                         <option value="none">이메일</option>
                                         <option value="gmail">gmail.com</option>
                                         <option value="naver">naver.com</option>
                                         <option value="daum">hanmail.net</option>
                                         <option value="self">직접 입력</option>
-                                      </select> -->
+                                      </select>
                                 </div>
                                 <div class="user_profile_item">
                                     <p>연락처</p>
@@ -118,12 +118,12 @@
                                     <label for="남성">남성</label>
                                     <input type="radio" id="gender" name="gender" value="모름">
                                     <label for="모름">모름</label>
-                                    <!-- <input type="" value="남성"/> -->
+                                    <input type="" value="남성"/>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="pet_profile_section">
-                            <div class="pet_profile_card">
+                        <div id="pet_profile_section" class="pet_profile_section">
+                            <!-- <div class="pet_profile_card">
                                 <div class="pet_img">
                                     <img src="" />
                                 </div>
@@ -146,7 +146,7 @@
                                 <div class="pet_name">
                                     <p></p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
         </div>
     </div>
    <!-- 상세 모달 -->
-   <div id="modal_box" class="modal_box">
+   <div id="modal_box" class="modal_box" onclick="closeDetailModal()">
     <div class="modal_content">
         <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
             alt="">
@@ -240,17 +240,5 @@
                     </div>
                     <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
                 </div>
-
-
-    <script>
-        function startLikeTab(){
-            document.getElementById("article_box").style.display="none"
-            document.getElementById("user_info_box").style.display="none"
-            document.getElementById("like_article_box").style.display="flex"
-
-            
-
-        }
-    </script>  
 </body>
 </html>
