@@ -3,6 +3,7 @@ async function loadMyArticle() {
     articles = await getMyArticle()
     console.log(articles)
     for(let i=0; i<articles.length; i++) {
+        
         let image = articles[i].images[0]
         let like_num=articles[i].like_num
         const article_box = document.getElementById("article_box")
@@ -14,11 +15,7 @@ async function loadMyArticle() {
         
     }
 }
-// async function loadUserInfo(){
-//     console.log("찍히긴함")
-//     userinfo = await getUserInfo()
-//     console.log(userinfo)
-// }
+
 
 function changeButton() {
     const article_box = document.getElementById("article_box")
