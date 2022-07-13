@@ -58,13 +58,13 @@ body {
     height: 30px;
 }
 
-.menu_petshop {
+.menu_like {
 
     display: flex;
     flex-direction: column;
 }
 
-.menu_petshop img {
+.menu_like img {
     width: 30px;
     height: 30px;
 }
