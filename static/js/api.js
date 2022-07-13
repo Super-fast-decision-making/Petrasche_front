@@ -64,6 +64,7 @@ async function handleLogin() {
         alert(response_json)
     }
 }
+
 // 내 게시물 불러오기(전체)
 async function getMyArticle() {
     const response = await fetch(`${backend_base_url}article/myarticle/`, {
@@ -77,6 +78,7 @@ async function getMyArticle() {
     response_json = await response.json()
     return response_json
 }
+
 
 async function getUserInfo() {
     const response = await fetch(`${backend_base_url}user/`, {

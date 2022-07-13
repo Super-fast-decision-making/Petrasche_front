@@ -4,13 +4,21 @@ async function loadMyArticle() {
     console.log(articles)
     for(let i=0; i<articles.length; i++) {
         let image = articles[i].images[0]
+        let like_num=articles[i].like_num
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
-            `<div class="article_card">
-                <img src='${image}'/>
+            `<div class="article_card" >
+                <img src='${image}' >
+                <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
+        
     }
 }
+// async function loadUserInfo(){
+//     console.log("찍히긴함")
+//     userinfo = await getUserInfo()
+//     console.log(userinfo)
+// }
 
 function changeButton() {
     const article_box = document.getElementById("article_box")
@@ -39,4 +47,5 @@ async function showUserInfo() {
 }
 
 loadMyArticle()
+loadUserInfo()
 

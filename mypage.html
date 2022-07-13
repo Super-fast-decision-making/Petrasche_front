@@ -13,9 +13,36 @@
     <!------JS---------->
     <script src="./static/js/api.js"></script>
     <script src="./static/js/mypage.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+    <script src="https://use.fortawesome.com/99966411.js"></script>
+    <style>
+
+    </style>
 </head>
 <body>
     <div class="wrapper">
+        <div class="left_menu">
+            <div class="menu_dog">
+                <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
+                댕댕이
+            </div>
+
+            <div class="menu_cat">
+                <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
+                냥냥이
+            </div>
+
+            <div class="menu_petshop">
+                <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
+                펫샵
+            </div>
+            <div onclick="upload_modal_open()" class="menu_upload">
+                <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                업로드
+            </div>
+        </div>
+
         <div class="main_container">
             <div class="user_container">
                 <div class="user_box">
@@ -46,7 +73,8 @@
             <div class="show_container">
                 <div class="show_box">
                     <!-- 게시물 메뉴 -->
-                    <div id="article_box" class="article_box">
+                    <div id="article_box" class="article_box" style="background-color:pink; width:100%; height:100%">
+
                     </div>
                     <!-- 프로필 변경 메뉴 -->
                     <div id="user_info_box" class="user_info_box">
