@@ -45,7 +45,7 @@ function modal_open(id) {
         let html = `<div class="modal_comment_text">
                         <div class="balloon_03">
                             <div>
-                                ${item.comment}
+                                ${item.comment}asdsad
                             </div>
                         </div>
                         <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
