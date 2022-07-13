@@ -50,7 +50,25 @@ function changeButton() {
 
 async function loadUserInfo() {
     let user = await getUserInfo()
-    const menu_change_button = document.getElementById("menu_change_button")
+    console.log(user)
+
+    const email = document.getElementById("user_profile_email")
+    const domain = document.getElementById("user_profile_domain")
+    const phone = document.getElementById("user_profile_phone")
+    const birthday = document.getElementById("user_profile_birthday")
+    // const gender = document.getElementsByName("gender")
+
+    let email_id = user.email.split('@')[0]
+    let email_domain = user.email.split('@')[1]
+
+    email.setAttribute("value", email_id)
+    domain.setAttribute("value", email_domain)
+    phone.setAttribute("value", user.phone)
+    birthday.setAttribute("value", user.birthday)
+    var chkList = document.querySelectorAll("input[name=gender]:checked");
+    chkList.forEach(function (ch) {
+        console.log(ch.value);
+    });
 
     //좋아요 페이지 아티클 보이기
     for (let i=0; i<user['like_articles'].length; i++){
@@ -62,7 +80,6 @@ async function loadUserInfo() {
             <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
         </div>`
     }
-
 }
 loadUserInfo()
 loadMyArticle()
