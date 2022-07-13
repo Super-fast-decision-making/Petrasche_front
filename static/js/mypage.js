@@ -41,30 +41,23 @@ function showLike(){
 }
 
 
-// 디테일 모달  열고 닫기
+// 디테일 모달  열기+보여주기
 async function openDetailModal(id){
     const modal_box = document.getElementById("modal_box")
 
     modal_box.style.display="flex"
-    // console.log(id)
-    console.log("************")
     const article = await getDetailArticle(id)
-    // console.log(article)
-    // console.log(article.content)
+
     const modal_box_img = document.getElementById("modal_box_img")
     const author= document.getElementById("author")
     const content= document.getElementById("content")
 
     author.innerHTML = article.author
     content.innerHTML = article.content
-    console.log(article.images[0])
-    modal_box_img.attr("src", article.images[0])
+    modal_box_img.src = article.images[0]
     
 }
-
-
-
-
+// 디테일 모달  닫기
 function closeDetailModal(){
     document.getElementById("modal_box").style.display= "none"
 }
