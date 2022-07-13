@@ -1,19 +1,23 @@
 // 내 게시물 불러오기(전체)
 async function loadMyArticle() {
     articles = await getMyArticle()
-    console.log(articles)
+    // console.log(articles)
+    
     for(let i=0; i<articles.length; i++) {
         
         let image = articles[i].images[0]
         let like_num=articles[i].like_num
+        let id = articles[i].id
+        
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
             `<div class="article_card" >
-                <img src='${image}'  onclick="openDetailModal()">
+                <img src='${image}'  id="article_card_img${id}" onclick=openDetailModal(${id})>
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
-    }
+    }  
 }
+
 // 탭 보이기
 function showMyArticle() {
     document.getElementById("article_box").style.display="flex"
@@ -37,11 +41,30 @@ function showLike(){
 }
 
 
-//디테일 모달 
-function openDetailModal(){
+// 디테일 모달  열고 닫기
+async function openDetailModal(id){
     const modal_box = document.getElementById("modal_box")
+
     modal_box.style.display="flex"
+    // console.log(id)
+    console.log("************")
+    const article = await getDetailArticle(id)
+    // console.log(article)
+    // console.log(article.content)
+    const modal_box_img = document.getElementById("modal_box_img")
+    const author= document.getElementById("author")
+    const content= document.getElementById("content")
+
+    author.innerHTML = article.user
+    content.innerHTML = article.content
+    console.log(article.images[0])
+    modal_box_img.attr("src", article.images[0])
+    
 }
+
+
+
+
 function closeDetailModal(){
     document.getElementById("modal_box").style.display= "none"
 }

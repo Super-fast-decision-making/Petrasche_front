@@ -92,3 +92,18 @@ async function getUserInfo() {
     response_json = await response.json()
     return response_json
 }
+
+
+//특정 id값에 해당하는 게시물 불러오기 (디테일 모달)
+async function getDetailArticle(id){
+    const response = await fetch(`${backend_base_url}article/${id}/`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        }
+    })
+    response_json = await response.json()
+    return response_json
+}
