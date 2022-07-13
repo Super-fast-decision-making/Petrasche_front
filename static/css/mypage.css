@@ -188,7 +188,7 @@ body {
     margin: 5px;
 }
 .user_profile_box {
-    width: 230px;
+    width: 250px;
     /* height: 400px; */
     padding: 20px;
 
@@ -203,7 +203,9 @@ body {
     margin: 10px 0 10px 0;
 }
 .user_profile_item button {
-
+    margin-left: 10px;
+    padding: 0;
+    
 }
 .user_profile_item input {
     height: 30px;
@@ -219,7 +221,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
 
-    width: 500px;
+    max-width: 400px;
     margin: 5px;
 }
 .pet_profile_card {
@@ -228,17 +230,18 @@ body {
     align-items: center;
     flex-direction: column;
 
-    margin: 10px;
+    margin: 7px;
+    height: 210px;
 
     border-radius: 17px;
     border: 1px solid #9a9a9a;
     background-color: #ffffff;
 }
 .pet_img {
-    width: 180px;
-    height: 160px;
+    width: 160px;
+    height: 140px;
 
-    margin: 20px 20px 10px 20px;
+    margin: 10px 10px 10px 10px;
 
     background-color: #9c9b9b;
 }
