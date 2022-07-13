@@ -16,7 +16,6 @@ async function loadMyArticle() {
     }
 }
 
-
 function changeButton() {
     const article_box = document.getElementById("article_box")
     const user_info_box = document.getElementById("user_info_box")
@@ -26,7 +25,7 @@ function changeButton() {
     
 
     if (menu_change_button.innerText == "프로필 변경") {
-        showUserInfo()
+        loadUserInfo()
         article_box.style.display = "none"
         pet_select_box.style.display = "none"
         like_article_box.style.display = "none"
@@ -41,11 +40,12 @@ function changeButton() {
     }
 }
 
-async function showUserInfo() {
+async function loadUserInfo() {
     let user = await getUserInfo()
     console.log(user)
+
+    const menu_change_button = document.getElementById("menu_change_button")
+
 }
 
 loadMyArticle()
-loadUserInfo()
-
