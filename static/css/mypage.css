@@ -72,16 +72,14 @@ body {
 }
 .show_box {
     width: 100%;
-
-    padding: 20px 20px 20px 20px;
     border-radius: 3px;
-
-    background-color: #ffffff;
 }
 .article_box {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+
+    background-color: #ffffff;
 }
 .article_card {
     width: 190px;
@@ -97,7 +95,35 @@ body {
 .user_info_box {
     display: none;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+.user_profile_section {
+    margin: 5px;
+}
+.user_profile_box {
+    width: 270px;
+    height: 400px;
+
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.pet_profile_section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 500px;
+    margin: 5px;
+}
+.pet_profile_card {
+    width: 200px;
+    height: 260px;
+    margin: 10px;
+
+    border-radius: 17px;
+    border: 1px solid #9a9a9a;
+    background-color: #ffffff;
 }
 .pet_select_box {
     display: flex;
