@@ -14,11 +14,6 @@ async function loadMyArticle() {
         
     }
 }
-// async function loadUserInfo(){
-//     console.log("찍히긴함")
-//     userinfo = await getUserInfo()
-//     console.log(userinfo)
-// }
 
 function changeButton() {
     const article_box = document.getElementById("article_box")
@@ -28,7 +23,7 @@ function changeButton() {
     
 
     if (menu_change_button.innerText == "프로필 변경") {
-        showUserInfo()
+        loadUserInfo()
         article_box.style.display = "none"
         pet_select_box.style.display = "none"
         user_info_box.style.display = "flex"
@@ -41,11 +36,12 @@ function changeButton() {
     }
 }
 
-async function showUserInfo() {
+async function loadUserInfo() {
     let user = await getUserInfo()
     console.log(user)
+
+    const menu_change_button = document.getElementById("menu_change_button")
+
 }
 
 loadMyArticle()
-loadUserInfo()
-
