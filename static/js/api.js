@@ -77,3 +77,16 @@ async function getMyArticle() {
     response_json = await response.json()
     return response_json
 }
+
+async function getUserInfo() {
+    const response = await fetch(`${backend_base_url}user/`, {
+        method: 'GET',
+        headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json',
+        'Authorization':"Bearer "+localStorage.getItem("user_access_token")
+        }
+    })
+    response_json = await response.json()
+    return response_json
+}

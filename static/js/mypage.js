@@ -17,7 +17,7 @@ function changeButton() {
     const menu_change_button = document.getElementById("menu_change_button")
 
     if (menu_change_button.innerText == "회원정보") {
-        // let user = getUserInfo()
+        showUserInfo()
         // menu_change_button.setAttribute("onclick", "changeButton("+{}+")")
         article_box.style.display = "none"
         menu_change_button.innerText = "게시물 보기"
@@ -27,4 +27,10 @@ function changeButton() {
     }
 }
 
+async function showUserInfo() {
+    let user = await getUserInfo()
+    console.log(user)
+}
+
 loadMyArticle()
+
