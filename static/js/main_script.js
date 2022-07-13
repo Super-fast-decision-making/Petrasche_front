@@ -34,9 +34,25 @@ function modal_open(id) {
     .then((res) => res.json())
     .then((data) => {
       let images = data.images
-      console.log(images)
+      let content = data.content
+      let comments = data.comment
+      console.log(comments)
       document.getElementById("modal_box_img").src = images[0];
-      console.log(document.getElementById("modal_box_img").src)
+      document.getElementById("modal_content_text").innerHTML = content
+      document.getElementById("modal_comment_list").innerHTML = ""
+      comments.forEach((item) => {
+        console.log(item)
+        let html = `<div class="modal_comment_text">
+                        <div class="balloon_03">
+                            <div>
+                                ${item.comment}asdsad
+                            </div>
+                        </div>
+                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
+                    </div>
+                    `
+        document.getElementById("modal_comment_list").innerHTML += html
+      })
       document.getElementById("modal_comment_submit").addEventListener("click", function () {
         let src = document.getElementById("modal_box_img").src;
         let index = images.indexOf(src);
