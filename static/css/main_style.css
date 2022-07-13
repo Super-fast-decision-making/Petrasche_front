@@ -477,7 +477,7 @@ h1 {
 }
 
 .modal_desc {
-    width: 100%;
+    width: 30%;
     height: 100%;
     display: flex;
     flex-direction: column;
