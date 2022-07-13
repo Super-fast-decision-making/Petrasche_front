@@ -33,7 +33,7 @@
                 프로필
             </div>
 
-            <div class="menu_like">
+            <div class="menu_like" id="menu_like" onclick="startLikeTab()">
                 <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
                 좋아요
             </div>
@@ -72,8 +72,12 @@
             </div>
             <div class="show_container">
                 <div class="show_box">
-                    <!-- 게시물 메뉴 -->
+                    <!-- 내 전체 게시물 메뉴 -->
                     <div id="article_box" class="article_box" style="background-color:pink; width:100%; height:100%">
+
+                    </div>
+                    <!-- 좋아요 메뉴 -->
+                    <div id="like_article_box" class="like_article_box" style="background-color:rgb(192, 193, 255); width:100%; height:100%;display:none">
 
                     </div>
                     <!-- 프로필 변경 메뉴 -->
@@ -163,6 +167,14 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
+    <script>
+        function startLikeTab(){
+            document.getElementById("article_box").style.display="none"
+            document.getElementById("user_info_box").style.display="none"
+            document.getElementById("like_article_box").style.display="flex"
+
+        }
+    </script>  
 </body>
 </html>
