@@ -21,7 +21,6 @@ function changeButton() {
 
     if (menu_change_button.innerText == "프로필 변경") {
         showUserInfo()
-        // menu_change_button.setAttribute("onclick", "changeButton("+{}+")")
         article_box.style.display = "none"
         pet_select_box.style.display = "none"
         user_info_box.style.display = "flex"

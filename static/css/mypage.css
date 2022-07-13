@@ -117,13 +117,39 @@ body {
     margin: 5px;
 }
 .pet_profile_card {
-    width: 200px;
-    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    /* width: 180px;
+    height: 245px; */
     margin: 10px;
+    /* padding: 20px; */
 
     border-radius: 17px;
     border: 1px solid #9a9a9a;
     background-color: #ffffff;
+}
+.pet_img {
+    width: 200px;
+    height: 180px;
+
+    margin: 20px 20px 10px 20px;
+
+    background-color: #9c9b9b;
+}
+.pet_name {
+    display: flex;
+    align-items: center;
+
+    margin: 10px auto 15px auto;
+}
+.pet_name p {
+    text-align: center;
+    margin: 0;
+    font-size: 25px;
+    font-weight: 600;
 }
 .pet_select_box {
     display: flex;
