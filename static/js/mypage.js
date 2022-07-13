@@ -55,7 +55,7 @@ async function openDetailModal(id){
     const author= document.getElementById("author")
     const content= document.getElementById("content")
 
-    author.innerHTML = article.user
+    author.innerHTML = article.author
     content.innerHTML = article.content
     console.log(article.images[0])
     modal_box_img.attr("src", article.images[0])
