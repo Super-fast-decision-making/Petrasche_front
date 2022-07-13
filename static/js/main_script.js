@@ -21,8 +21,8 @@ const GetImgList = () => {
   ];
 
   img_lists.forEach(function (item, index) {
-    let random = 0;
-    // let random = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
+    // let random = 0;
+    let random = Math.floor(Math.random() * (10 - (-10) + 1)) + (-10);
     let html = `<div onclick="modal_open()" style="transform: rotate(${random}deg);" class="article_list_box">
     <img src="${item}" alt="">
 </div>`;
@@ -58,6 +58,33 @@ function modal_desc_info() {
   document.getElementById("modal_desc").style.display = "flex";
   document.getElementById("modal_info_colse_btn").style.display = "flex";
 }
+
+//image slider
+function image_slider() {
+  let src_list = ["https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
+    "https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
+    "https://cdn.pixabay.com/photo/2016/10/31/14/55/rottweiler-1785760__340.jpg",
+    "https://cdn.pixabay.com/photo/2019/05/27/19/08/puppy-4233378__340.jpg",
+    "https://cdn.pixabay.com/photo/2016/01/05/17/51/maltese-1123016__480.jpg",
+    "https://cdn.pixabay.com/photo/2017/07/31/21/15/dog-2561134__480.jpg",
+    "https://cdn.pixabay.com/photo/2016/11/29/05/09/child-1867463__480.jpg",
+    "https://cdn.pixabay.com/photo/2016/11/21/15/48/dog-1846066__480.jpg",
+    "https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__480.jpg",
+    "https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
+    "https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
+    "https://cdn.pixabay.com/photo/2016/10/31/14/55/rottweiler-1785760__340.jpg",
+    "https://cdn.pixabay.com/photo/2019/05/27/19/08/puppy-4233378__340.jpg",
+  ];
+  let src = document.getElementById("modal_box_img").src
+  document.getElementById("modal_box_img").src = src_list[1];
+  document.getElementById("modal_box_img").animate([{ opacity: 0 }, { opacity: 1 }], {
+    duration: 1000,
+    fill: "forwards",
+  });
+
+
+}
+
 
 function modal_close() {
   document.getElementById("modal_box").style.display = "none";
@@ -127,6 +154,7 @@ function upload_modal_submit() {
   let upload_content = document.getElementById("upload_content").value;
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
+  console.log(upload_content);
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
   } else {
