@@ -157,7 +157,7 @@ async function loadUserInfo() {
 
         like_article_box.innerHTML +=
         `<div class="article_card" >
-            <img src='${like_article['imgurl'][0]}' >
+            <img src='${like_article['imgurl'][0]}' onclick="openDetailModal(${like_article['id']})">
             <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
         </div>`
     }
