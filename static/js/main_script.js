@@ -1,3 +1,10 @@
+//바디 클릭시 모달 창 닫기 기본 모달
+document.body.addEventListener("click", function (e) {
+  if (e.target.id == "modal_box") {
+    modal_close();
+  }
+});
+
 const GetImgList = () => {
   fetch("http://127.0.0.1:8000/article/")
     .then((res) => res.json())
@@ -54,31 +61,27 @@ function modal_open(id) {
         document.getElementById("modal_comment_list").innerHTML += html
       })
       document.getElementById("modal_comment_submit").addEventListener("click", function () {
+
         let src = document.getElementById("modal_box_img").src;
-        let index = images.indexOf(src);
-        console.log(images.length)
-        console.log(index)
+        console.log('53번째줄 src는?' + src)
+        let index = images.findIndex((item) => item == src);
+        console.log('인덱스 번호 :' + index)
+        console.log('이미지 갯수 :' + images.length)
+        console.log('이미지 링크 :' + src);
         if (index < images.length - 1) {
           image_slider(images[index + 1]);
         } else {
           image_slider(images[0]);
         }
       }
-      );
-    });
-  document.getElementById("modal_box").style.display = "flex";
-  document.body.style.overflow = "hidden";
-  document.body.style.touchAction = "none";
-}
+      let image_slide_button = document.getElementById("modal_comment_submit")
+      image_slide_button.removeEventListener("clcik", ImageSlide);
+      image_slide_button.addEventListener("click", ImageSlide);
 
-function modal_desc_info(id) {
-  document.getElementById("modal_info_btn").style.display = "none";
-  document.getElementById("modal_desc").style.display = "flex";
-  document.getElementById("modal_info_colse_btn").style.display = "flex";
+})
 }
 
 function image_slider(img) {
-
   document.getElementById("modal_box_img").src = img
   document
     .getElementById("modal_box_img")
@@ -88,19 +91,20 @@ function image_slider(img) {
     });
 }
 
+function modal_desc_info(id) {
+  document.getElementById("modal_info_btn").style.display = "none";
+  document.getElementById("modal_desc").style.display = "flex";
+  document.getElementById("modal_info_colse_btn").style.display = "flex";
+}
+
 function modal_close() {
   document.getElementById("modal_box").style.display = "none";
   document.getElementById("modal_box_img").src = "";
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
-}
 
-//바디 클릭시 모달 창 닫기 기본 모달
-document.body.addEventListener("click", function (e) {
-  if (e.target.id == "modal_box") {
-    modal_close();
-  }
-});
+  // document.getElementById("modal_comment_submit").removeEventListener("click", myHandler);
+}
 
 function upload_file() {
   document.getElementById("upload_file").click();
