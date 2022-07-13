@@ -4,11 +4,12 @@ async function loadMyArticle() {
     console.log(articles)
     for(let i=0; i<articles.length; i++) {
         let image = articles[i].images[0]
+        let like_num=articles[i].like_num
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
             `<div class="article_card" >
                 <img src='${image}' >
-                <div style="position:relative; background-color:black; width:100%; height:30px; top:-34px;opacity:0.3"><i class="fa fa-heart"></i></div>
+                <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
         
     }
