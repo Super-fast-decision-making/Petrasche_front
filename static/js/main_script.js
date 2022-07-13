@@ -1,33 +1,15 @@
 const GetImgList = () => {
-  let img_lists = [
-    "https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/10/31/14/55/rottweiler-1785760__340.jpg",
-    "https://cdn.pixabay.com/photo/2019/05/27/19/08/puppy-4233378__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/01/05/17/51/maltese-1123016__480.jpg",
-    "https://cdn.pixabay.com/photo/2017/07/31/21/15/dog-2561134__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/29/05/09/child-1867463__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/21/15/48/dog-1846066__480.jpg",
-    "https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__480.jpg",
-    "https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/10/31/14/55/rottweiler-1785760__340.jpg",
-    "https://cdn.pixabay.com/photo/2019/05/27/19/08/puppy-4233378__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/01/05/17/51/maltese-1123016__480.jpg",
-    "https://cdn.pixabay.com/photo/2017/07/31/21/15/dog-2561134__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/29/05/09/child-1867463__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/21/15/48/dog-1846066__480.jpg",
-    "https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036__480.jpg",
-  ];
-
-  img_lists.forEach(function (item, index) {
-    // let random = 0;
-    let random = Math.floor(Math.random() * (10 - -10 + 1)) + -10;
-    let html = `<div onclick="modal_open()" style="transform: rotate(${random}deg);" class="article_list_box">
-    <img src="${item}" alt="">
-</div>`;
-    document.getElementById("main_article_list").innerHTML += html;
-  });
+  fetch("http://127.0.0.1:8000/article/")
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((item) => {
+        let random = Math.floor(Math.random() * (10 - -10 + 1)) + -10;
+        let html = `<div onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
+        <img src="${item.images[0]}" alt="">
+        </div>`;
+        document.getElementById("main_article_list").innerHTML += html;
+      });
+    });
 };
 
 function top_left_scroll() {
@@ -47,35 +29,41 @@ function top_right_scroll() {
   }
 }
 
-function modal_open() {
+function modal_open(id) {
+  fetch(`http://127.0.0.1:8000/article/${id}/`)
+    .then((res) => res.json())
+    .then((data) => {
+      let images = data.images
+      console.log(images)
+      document.getElementById("modal_box_img").src = images[0];
+      console.log(document.getElementById("modal_box_img").src)
+      document.getElementById("modal_comment_submit").addEventListener("click", function () {
+        let src = document.getElementById("modal_box_img").src;
+        let index = images.indexOf(src);
+        console.log(images.length)
+        console.log(index)
+        if (index < images.length - 1) {
+          image_slider(images[index + 1]);
+        } else {
+          image_slider(images[0]);
+        }
+      }
+      );
+    });
   document.getElementById("modal_box").style.display = "flex";
   document.body.style.overflow = "hidden";
   document.body.style.touchAction = "none";
 }
 
-function modal_desc_info() {
+function modal_desc_info(id) {
   document.getElementById("modal_info_btn").style.display = "none";
   document.getElementById("modal_desc").style.display = "flex";
   document.getElementById("modal_info_colse_btn").style.display = "flex";
 }
 
-//image slider
-function image_slider() {
-  let src_list = [
-    "https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
-    "https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/10/31/14/55/rottweiler-1785760__340.jpg",
-  ];
-  let src = document.getElementById("modal_box_img").src;
-  let index = src_list.indexOf(src);
-  console.log(index);
-  document.getElementById("modal_image_count").innerHTML =
-    src_list.indexOf(src) + 1 + "/" + src_list.length;
-  if (index < src_list.length - 1) {
-    document.getElementById("modal_box_img").src = src_list[index + 1];
-  } else {
-    document.getElementById("modal_box_img").src = src_list[0];
-  }
+function image_slider(img) {
+
+  document.getElementById("modal_box_img").src = img
   document
     .getElementById("modal_box_img")
     .animate([{ opacity: 0 }, { opacity: 1 }], {
@@ -86,9 +74,7 @@ function image_slider() {
 
 function modal_close() {
   document.getElementById("modal_box").style.display = "none";
-  document.getElementById("modal_desc").style.display = "none";
-  document.getElementById("modal_info_colse_btn").style.display = "none";
-  // document.getElementById("modal_info_btn").style.display = "flex";
+  document.getElementById("modal_box_img").src = "";
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
 }
@@ -177,4 +163,5 @@ function upload_modal_submit() {
       });
   }
 }
+
 GetImgList();
