@@ -9,11 +9,17 @@ async function loadMyArticle() {
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
             `<div class="article_card" >
-                <img src='${image}' >
+                <img src='${image}'  onclick="openDetailModal()">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
         
     }
+}
+
+//디테일 모달 
+function openDetailModal(){
+    const modal_box = document.getElementById("modal_box")
+    modal_box.style.display="flex"
 }
 
 function changeButton() {
@@ -40,12 +46,26 @@ function changeButton() {
     }
 }
 
+function appendMyArticles(){
+    for (let i=0; i<user['like_articles'].length; i++){
+        let like_article = user['like_articles'][i]
+        like_article_box.innerHTML +=
+        `<div class="article_card" >
+            <img src='${like_article['imgurl'][0]}' >
+            <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
+        </div>`
+    }
+}
+
 async function loadUserInfo() {
     let user = await getUserInfo()
     console.log(user)
-
     const menu_change_button = document.getElementById("menu_change_button")
+    appendMyArticles()
+
+
+
 
 }
-
+// loadUserInfo()
 loadMyArticle()
