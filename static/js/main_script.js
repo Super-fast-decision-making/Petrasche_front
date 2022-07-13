@@ -40,15 +40,28 @@ function modal_open(id) {
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
-      let images = data.images;
+      let images = data.images
+      let content = data.content
+      let comments = data.comment
+      console.log(comments)
       document.getElementById("modal_box_img").src = images[0];
-      document.getElementById("modal_content_text").innerHTML = data.content;
-      document.getElementById("modal_box").style.display = "flex";
-      document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none";
-      console.log('맨처음 이미지 소스는?' + document.getElementById("modal_box_img").src)
+      document.getElementById("modal_content_text").innerHTML = content
+      document.getElementById("modal_comment_list").innerHTML = ""
+      comments.forEach((item) => {
+        console.log(item)
+        let html = `<div class="modal_comment_text">
+                        <div class="balloon_03">
+                            <div>
+                                ${item.comment}asdsad
+                            </div>
+                        </div>
+                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
+                    </div>
+                    `
+        document.getElementById("modal_comment_list").innerHTML += html
+      })
+      document.getElementById("modal_comment_submit").addEventListener("click", function () {
 
-      const ImageSlide = () => {
         let src = document.getElementById("modal_box_img").src;
         console.log('53번째줄 src는?' + src)
         let index = images.findIndex((item) => item == src);
