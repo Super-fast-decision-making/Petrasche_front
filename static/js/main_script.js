@@ -74,7 +74,7 @@ function image_slider() {
     "https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
     "https://cdn.pixabay.com/photo/2016/10/31/14/55/rottweiler-1785760__340.jpg",
     "https://cdn.pixabay.com/photo/2019/05/27/19/08/puppy-4233378__340.jpg",
-];
+  ];
   let src = document.getElementById("modal_box_img").src
   document.getElementById("modal_box_img").src = src_list[1];
   document.getElementById("modal_box_img").animate([{ opacity: 0 }, { opacity: 1 }], {
@@ -82,7 +82,7 @@ function image_slider() {
     fill: "forwards",
   });
 
-  
+
 }
 
 
@@ -154,6 +154,7 @@ function upload_modal_submit() {
   let upload_content = document.getElementById("upload_content").value;
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
+  console.log(upload_content);
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
   } else {

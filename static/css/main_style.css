@@ -498,7 +498,7 @@ h1 {
     overflow-y: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    /* display: none; */
+    display: none;
     /* IE and Edge */
     /* scrollbar-width: none;  */
     /* Firefox */
@@ -554,8 +554,8 @@ h1 {
     
 }
 .load_img img{ 
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     animation: rotate 0.5s;
 }
 @keyframes fadeinleft {
