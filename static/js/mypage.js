@@ -46,26 +46,29 @@ function changeButton() {
     }
 }
 
-function appendMyArticles(){
+
+let user=await getUserInfo
+
+
+async function loadUserInfo() {
+    let user = await getUserInfo()
+    const menu_change_button = document.getElementById("menu_change_button")
+
+    //좋아요 페이지 아티클 보이기
     for (let i=0; i<user['like_articles'].length; i++){
         let like_article = user['like_articles'][i]
+
         like_article_box.innerHTML +=
         `<div class="article_card" >
             <img src='${like_article['imgurl'][0]}' >
             <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
         </div>`
     }
-}
 
-async function loadUserInfo() {
-    let user = await getUserInfo()
-    console.log(user)
-    const menu_change_button = document.getElementById("menu_change_button")
-    appendMyArticles()
 
 
 
 
 }
-// loadUserInfo()
+loadUserInfo()
 loadMyArticle()
