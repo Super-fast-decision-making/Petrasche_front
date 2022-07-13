@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +12,6 @@
     <script src="./static/js/api.js"></script>
 
 </head>
-
 <body>
     <div class="wrapper">
         <div class="login-box">
@@ -21,42 +19,39 @@
                 <h1 style="margin-top: 30px;">Petrasche</h1>
             </div>
             <div id="sign-in-first-page">
-                <div class="login-inner">
-                    <input type="input" class="form-control" placeholder="email" name="email" id='email' required />
+                <div class="login-inner" >
+                    <input type="input" class="form-control" placeholder="email" name="email" id='email'  required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
-                    <input type="input" class="form-control" placeholder="username" name="username" id='username'
-                        required />
+                    <input type="input" class="form-control" placeholder="username" name="username" id='username'  required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
-                    <input type="password" class="form-control" placeholder="password" name="password" id='password'
-                        required />
+                    <input type="password" class="form-control" placeholder="password" name="password" id='password'  required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
-                    <input type="password" class="form-control" placeholder="password2" name="password2" id='password2'
-                        required />
+                    <input type="password" class="form-control" placeholder="password2" name="password2" id='password2'  required />
                 </div>
                 <div style="width:100%; height: 50px">1/2</div>
 
             </div>
             <div id="sign-in-2nd-page" style="display:none">
-                <label for="birthday" style="justify-content: center;display: flex;">birthday</label>
+                <label for="birthday" style="justify-content: center;display: flex;" >birthday</label>
                 <div style="width:100%; height: 20px"></div>
-                <div class="login-inner">
-
-                    <input type="date" placeholder="birthday" name="birthday" id='birthday' required />
+                <div class="login-inner" >
+                    
+                    <input type="date" placeholder="birthday" name="birthday" id='birthday'  required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <label for="gender" style="justify-content: center;display: flex;">gender</label>
                 <div style="width:100%; height: 20px"></div>
-                <div class="login-inner">
-                    <select id="gender" name="gender" class="form-control">
+                <div class="login-inner" >
+                    <select id="gender" name="gender" class="form-control" >
                         <option disabled selected value>select gender</option>
                         <option value="2">Woman</option>
-                        <option value="1">Man</option>
+                        <option value="1">Man</option>                        
                     </select>
 
                 </div>
@@ -76,15 +71,15 @@
                 <button class="login-button" type="button" onclick="moveToProfileInput()">다음 페이지</button>
             </div>
             <div id="signup" class="login-inner" style="display: none">
-                <button class="login-button" type="button" onclick="handleSignup()">회원가입</button>
+                <button  class="login-button" type="button" onclick="handleSignup()">회원가입</button>
             </div>
             <div>
                 <a href="/login.html">계정이 있으신가요? 로그인</a>
             </div>
         </div>
-    </div>
+    </div>  
     <script>
-        function moveToProfileInput() {
+        function moveToProfileInput(){
             document.getElementById('sign-in-first-page').style.display = "none"
             document.getElementById('sign-in-2nd-page').style.display = "inline"
             document.getElementById('next-page').style.display = "none"
@@ -93,5 +88,4 @@
         }
     </script>
 </body>
-
 </html>
