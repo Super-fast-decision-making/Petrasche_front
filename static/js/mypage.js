@@ -47,8 +47,6 @@ function changeButton() {
 }
 
 
-let user=await getUserInfo
-
 
 async function loadUserInfo() {
     let user = await getUserInfo()
@@ -64,10 +62,6 @@ async function loadUserInfo() {
             <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
         </div>`
     }
-
-
-
-
 
 }
 loadUserInfo()
