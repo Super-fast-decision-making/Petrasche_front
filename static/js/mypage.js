@@ -44,7 +44,24 @@ async function loadUserInfo() {
     let user = await getUserInfo()
     console.log(user)
 
-    const menu_change_button = document.getElementById("menu_change_button")
+    const email = document.getElementById("user_profile_email")
+    const domain = document.getElementById("user_profile_domain")
+    const phone = document.getElementById("user_profile_phone")
+    const birthday = document.getElementById("user_profile_birthday")
+    // const gender = document.getElementsByName("gender")
+
+    let email_id = user.email.split('@')[0]
+    let email_domain = user.email.split('@')[1]
+
+    email.setAttribute("value", email_id)
+    domain.setAttribute("value", email_domain)
+    phone.setAttribute("value", user.phone)
+    birthday.setAttribute("value", user.birthday)
+    var chkList = document.querySelectorAll("input[name=gender]:checked");
+    chkList.forEach(function (ch) {
+        console.log(ch.value);
+    });
+
 
 }
 
