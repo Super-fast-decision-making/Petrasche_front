@@ -22,7 +22,6 @@ async function handleSignup(){
         body:JSON.stringify(signupData)
     })
     response_json=await response.json()
-    print(response_json)
 
     if (response.status==200) {
         window.location.replace(`${frontend_base_url}login.html`);
