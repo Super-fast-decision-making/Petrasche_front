@@ -71,7 +71,7 @@ async function openDetailModal(id){
                         ${article.comment[i].comment}
                     </div>
                 </div>
-                <div class="modal_comment_user">${article.comment[i].user} <span>${article.comment[i].date}</span></div>
+                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
             </div>
             `
     }
