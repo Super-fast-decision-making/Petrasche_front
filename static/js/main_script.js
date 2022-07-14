@@ -50,7 +50,7 @@ function modal_open(id) {
       let images = data.images
       let content = data.content
       let comments = data.comment
-      console.log(comments)
+      // console.log(comments)
       document.getElementById("modal_box_img").src = images[0];
       document.getElementById("modal_content_text").innerHTML = content
       document.getElementById("modal_comment_list").innerHTML = ""
@@ -62,7 +62,7 @@ function modal_open(id) {
                                 ${item.comment}asdsad
                             </div>
                         </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
+                        <div class="modal_comment_user">${item.user} <span>1일전</span></div>
                     </div>
                     `
         document.getElementById("modal_comment_list").innerHTML += html
