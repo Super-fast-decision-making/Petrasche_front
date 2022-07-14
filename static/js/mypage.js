@@ -46,6 +46,7 @@ async function openDetailModal(id){
 
     modal_box.style.display="flex"
     const article = await getDetailArticle(id)
+    console.log(article)
 
     const modal_box_img = document.getElementById("modal_box_img")
     const author= document.getElementById("author")
@@ -68,7 +69,7 @@ async function openDetailModal(id){
                         ${article.comment[i].comment}
                     </div>
                 </div>
-                <div class="modal_comment_user">${article.comment[i].user} <span>1일전</span></div>
+                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
             </div>
             `
     }
