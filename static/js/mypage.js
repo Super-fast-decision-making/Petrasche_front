@@ -42,6 +42,7 @@ function showLike(){
 
 // 디테일 모달  열기+보여주기
 async function openDetailModal(id){
+    document.getElementById("mypage_modal_comment_list").innerHTML=""
     const modal_box = document.getElementById("modal_box")
 
     modal_box.style.display="flex"
@@ -70,28 +71,24 @@ async function openDetailModal(id){
                         ${article.comment[i].comment}
                     </div>
                 </div>
-                <div class="modal_comment_user">${article.comment[i].user} <span>1일전</span></div>
+                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
             </div>
             `
     }
     
 }
-//디테일 모달  닫기
-// function closeDetailModal(){
-//     document.getElementById("modal_box").style.display= "none"
-//     document.getElementById("mypage_modal_comment_list").innerHTML=""
-// }
+
 
 //바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
     console.log("여기는 일단 옴")
     if (e.target.id == "modal_box") {
     //   modal_close();
-      document.getElementById("modal_box").style.display = "none";
-      document.getElementById("modal_box_img").src = "";
-      document.body.style.overflow = "auto";
-      document.body.style.touchAction = "auto";
-      document.getElementById("mypage_modal_comment_list").innerHTML=""
+        document.getElementById("modal_box").style.display = "none";
+        document.getElementById("modal_box_img").src = "";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+        // document.getElementById("mypage_modal_comment_list").innerHTML=""
     }
 });
 
@@ -99,8 +96,9 @@ document.body.addEventListener("click", function (e) {
 async function sendComment(id){
     console.log(document.getElementById("modal_comment_text").value)
     const comment = document.getElementById("modal_comment_text").value
-    // const id = "5"
-    await postComment(id, comment)
+    await postComment(id, comment)  
+    openDetailModal(id)
+    document.getElementById("modal_comment_text").value=""
 }
 
 
