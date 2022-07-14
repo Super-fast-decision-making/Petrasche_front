@@ -51,38 +51,37 @@ async function openDetailModal(id){
     const modal_box_img = document.getElementById("modal_box_img")
     const author= document.getElementById("author")
     const content= document.getElementById("content")
-    const comment_list=document.getElementById("modal_comment_list")
+    const comment_list=document.getElementById("mypage_modal_comment_list")
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
+   
+    console.log(article.comment[0])
 
-    console.log(article.comment)
-    comment_list.innerText="야호"
-    comment_list.innerHTML="야호"
 
     for (let i=0; i<article.comment.length;i++){
         console.log(article.comment[i].comment)
-        comment_list.innerHTML="야호"
-        comment_list.innerHTML=
+        comment_list.innerHTML+=
             `
             <div class="modal_comment_text">
                 <div class="balloon_03">
                     <div>
-                        저도 동네 친구라서 같이 애견 카페 가보고 싶네요. 시간 되시면 DM주세요.
+                        ${article.comment[i].comment}
                     </div>
                 </div>
-                <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
+                <div class="modal_comment_user">${article.comment[i].user} <span>1일전</span></div>
             </div>
             `
-
     }
     
 }
 // 디테일 모달  닫기
 function closeDetailModal(){
     document.getElementById("modal_box").style.display= "none"
+    document.getElementById("mypage_modal_comment_list").innerHTML=""
 }
+
 
 // 유저 정보 불러오기
 async function loadUserInfo() {
