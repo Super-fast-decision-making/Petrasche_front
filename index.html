@@ -19,11 +19,15 @@
         <div class="modal_content">
             <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
                 alt="">
+            <div id="like_icon_on" class="like_icon_on"><i class="fa-solid fa-heart"></i><span> 45</span></div>
+            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span> 45</span></div>
+            <div id="heart_ani" class="heart_ani"><i class="fa-solid fa-heart"></i></div>
             <div id="modal_desc" class="modal_desc">
+                <div id="article_delete" class="article_delete"><i class="fa-solid fa-trash-can-arrow-up"></i></div>
                 <div class="modal_user_profile">
                     <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
                         srcset="">
-                    <div>강아지 사육사</div>
+                    <div id="modal_username">강아지 사육사</div>
                 </div>
                 <div id="modal_content_list" class="modal_content_list">
                     <div id="modal_content_text">
@@ -32,50 +36,6 @@
                 </div>
                 <div class="modal_comment_list" id="modal_comment_list">
 
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                강아지 정말 이쁩니다.
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
-
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                강아지 너무 맛있게 생겼......아닙니다......
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
-
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                저도 동네 친구라서 같이 애견 카페 가보고 싶네요. 시간 되시면 DM주세요.
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
-
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                나비야, 나비야 이리 날아오너라<br>
-                                노랑나비, 흰 나비 춤을 추며 오너라<br>
-                                봄바람에 꽃잎도 방긋방긋 웃으며<br>
-                                참새도 짹짹짹 노래하며 춤춘다<br>
-                                봄바람에 꽃잎도 방긋방긋 웃으며<br>
-                                참새도 짹짹짹 노래하며 춤춘다<br>
-                                나비야, 나비야 이리 날아오너라<br>
-                                노랑나비, 흰 나비 춤을 추며 오너라<br>
-                                나비야, 나비야 이리 날아오너라<br>
-                                노랑나비, 흰 나비 춤을 추며 오너라
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
                 </div>
                 <div id="modal_comment_input" class="modal_comment_input">
                     <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
@@ -120,13 +80,14 @@
                 <button class="serch_button">검색</button>
             </div>
             <div class="user_info">
-                <div class="user_profile">
+                <div id="user_profile" class="user_profile">
                     <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
                         alt="">
                 </div>
-                <!-- <div class="user">
-                    유저님 반갑습니다
-                </div> -->
+                <div class="user">
+                    <span style="font-size:12px; font-weight: bold;" id="user">유저님</span>님 환영합니다.
+                </div>
+                <div onclick="Logout()" class="logout">로그아웃</div>
             </div>
         </nav>
 
