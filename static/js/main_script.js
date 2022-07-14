@@ -5,6 +5,13 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+//바디 클릭시 업로드 모달 창 닫기
+document.body.addEventListener("click", function (e) {
+  if (e.target.id == "upload_modal") {
+    upload_modal_cancel();
+  }
+});
+
 const GetImgList = () => {
   fetch("http://127.0.0.1:8000/article/")
     .then((res) => res.json())
@@ -74,11 +81,8 @@ function modal_open(id) {
           image_slider(images[0]);
         }
       }
-      let image_slide_button = document.getElementById("modal_comment_submit")
-      image_slide_button.removeEventListener("clcik", ImageSlide);
-      image_slide_button.addEventListener("click", ImageSlide);
-
-})
+      )
+    });
 }
 
 function image_slider(img) {
