@@ -52,12 +52,13 @@ async function openDetailModal(id){
     const content= document.getElementById("content")
     const comment_list=document.getElementById("mypage_modal_comment_list")
     const submit_button=document.getElementById("modal_comment_submit")
+
     
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
-    // submit_button.setAttribute("onclick", sendComment(article.id))
+    submit_button.setAttribute("onClick", `sendComment(${article.id})`)
 
     for (let i=0; i<article.comment.length;i++){
         // console.log(article.comment[i].comment)
@@ -93,10 +94,10 @@ async function openDetailModal(id){
 // //   });
 
 //댓글 전송하기
-async function sendComment(){
+async function sendComment(id){
     console.log(document.getElementById("modal_comment_text").value)
     const comment = document.getElementById("modal_comment_text").value
-    const id = "5"
+    // const id = "5"
     await postComment(id, comment)
 }
 
