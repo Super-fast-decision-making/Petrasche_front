@@ -12,7 +12,7 @@ async function handleSignup(){
         is_active_val:document.getElementById("is_active").value,
         gender_choice:document.getElementById("gender").value,
     }
-    console.log(signupData)
+
     const response = await fetch(`${backend_base_url}user/`,{
         headers:{
             Accept:'application/json',
@@ -37,7 +37,7 @@ async function handleLogin() {
         email:document.getElementById("email").value,
         password:document.getElementById("password").value        
     }
-    console.log(loginData)
+
     const response=await fetch(`${backend_base_url}user/login/`, {
         headers:{
             'Accept': 'application/json',
@@ -107,3 +107,28 @@ async function getDetailArticle(id){
     response_json = await response.json()
     return response_json
 }
+
+
+//댓글 달기
+async function postComment(id, comment){
+    const commentData={
+        comment: comment
+    }
+    console.log(commentData)
+    const response = await fetch(`http://127.0.0.1:8000/article/comment/${id}/`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(commentData)
+    }).then(response => response.json())
+        .then(data => {
+            // ResponseloadComments(data)
+
+        })
+
+}
+
+

@@ -1,7 +1,6 @@
 // 내 게시물 불러오기(전체)
 async function loadMyArticle() {
     articles = await getMyArticle()
-    // console.log(articles)
     
     for(let i=0; i<articles.length; i++) {
         
@@ -52,16 +51,16 @@ async function openDetailModal(id){
     const author= document.getElementById("author")
     const content= document.getElementById("content")
     const comment_list=document.getElementById("mypage_modal_comment_list")
+    const submit_button=document.getElementById("modal_comment_submit")
+    
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
-   
-    console.log(article.comment[0])
-
+    // submit_button.setAttribute("onClick", sendComment())
 
     for (let i=0; i<article.comment.length;i++){
-        console.log(article.comment[i].comment)
+        // console.log(article.comment[i].comment)
         comment_list.innerHTML+=
             `
             <div class="modal_comment_text">
@@ -76,11 +75,31 @@ async function openDetailModal(id){
     }
     
 }
-// 디테일 모달  닫기
-function closeDetailModal(){
-    document.getElementById("modal_box").style.display= "none"
-    document.getElementById("mypage_modal_comment_list").innerHTML=""
+//디테일 모달  닫기
+// function closeDetailModal(){
+//     document.getElementById("modal_box").style.display= "none"
+//     document.getElementById("mypage_modal_comment_list").innerHTML=""
+// }
+
+//바디 클릭시 모달 창 닫기 기본 모달
+// document.body.addEventListener("click", function (e) {
+//     if (e.target.id == "modal_box") {
+//     //   modal_close();
+//       document.getElementById("modal_box").style.display = "none";
+//     //   document.getElementById("modal_box_img").src = "";
+//     //   document.body.style.overflow = "auto";
+//     //   document.body.style.touchAction = "auto";
+//     }
+// //   });
+
+//댓글 전송하기
+async function sendComment(){
+    console.log(document.getElementById("modal_comment_text").value)
+    const comment = document.getElementById("modal_comment_text").value
+    const id = "5"
+    await postComment(id, comment)
 }
+
 
 
 // 유저 정보 불러오기

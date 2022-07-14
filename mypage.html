@@ -171,7 +171,7 @@
         </div>
     </div>
    <!-- 상세 모달 -->
-   <div id="modal_box" class="modal_box" onclick="closeDetailModal()">
+   <div id="modal_box" class="modal_box">
     <div class="modal_content">
         <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
             alt="">
@@ -195,55 +195,10 @@
                 </div>
             </div>
             <div id="mypage_modal_comment_list" class="modal_comment_list">
-<!-- 
-                <div class="modal_comment_text">
-                    <div class="balloon_03">
-                        <div>
-                            강아지 정말 이쁩니다.
-                        </div>
-                    </div>
-                    <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                </div>
-
-                <div class="modal_comment_text">
-                    <div class="balloon_03">
-                        <div>
-                            강아지 너무 맛있게 생겼......아닙니다......
-                        </div>
-                    </div>
-                    <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                </div>
-
-                <div class="modal_comment_text">
-                    <div class="balloon_03">
-                        <div>
-                            저도 동네 친구라서 같이 애견 카페 가보고 싶네요. 시간 되시면 DM주세요.
-                        </div>
-                    </div>
-                    <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                </div>
-
-                <div class="modal_comment_text">
-                    <div class="balloon_03">
-                        <div>
-                            나비야, 나비야 이리 날아오너라<br>
-                            노랑나비, 흰 나비 춤을 추며 오너라<br>
-                            봄바람에 꽃잎도 방긋방긋 웃으며<br>
-                            참새도 짹짹짹 노래하며 춤춘다<br>
-                            봄바람에 꽃잎도 방긋방긋 웃으며<br>
-                            참새도 짹짹짹 노래하며 춤춘다<br>
-                            나비야, 나비야 이리 날아오너라<br>
-                            노랑나비, 흰 나비 춤을 추며 오너라<br>
-                            나비야, 나비야 이리 날아오너라<br>
-                            노랑나비, 흰 나비 춤을 추며 오너라
-                        </div>
-                    </div>
-                    <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                </div> -->
             </div>
             <div class="modal_comment_input">
                 <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
-                <div id="modal_comment_submit" class="modal_comment_submit">전송</div>
+                <div id="modal_comment_submit" class="modal_comment_submit" onclick="sendComment()">전송</div>
             </div>
         </div>
     </div>
