@@ -170,7 +170,7 @@ async function loadUserInfo() {
     chkList.forEach(function (ch) {
         console.log(ch.value);
     });
-    console.log(user.petprofile);
+    // console.log(user.petprofile);
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     let petprofiles = user.petprofile
