@@ -57,7 +57,7 @@ async function openDetailModal(id){
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
-    // submit_button.setAttribute("onClick", sendComment())
+    // submit_button.setAttribute("onclick", sendComment(article.id))
 
     for (let i=0; i<article.comment.length;i++){
         // console.log(article.comment[i].comment)
