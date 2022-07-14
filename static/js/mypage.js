@@ -101,6 +101,7 @@ async function sendComment(id){
     const comment = document.getElementById("modal_comment_text").value
     // const id = "5"
     await postComment(id, comment)
+    document.getElementById("modal_comment_text").value=""
 }
 
 
