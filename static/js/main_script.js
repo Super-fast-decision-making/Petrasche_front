@@ -44,6 +44,7 @@ function top_right_scroll() {
 }
 
 function modal_open(id) {
+  document.getElementById("modal_box").style.display="flex"
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
