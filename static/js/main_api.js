@@ -2,16 +2,14 @@ const BACK_END_URL = "http://127.0.0.1:8000/article/";
 const USER_URL = "http://127.0.0.1:8000/user/";
 
 const GetUserInfo = () => {
-
   fetch(USER_URL, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      "Authorization": "Bearer " + localStorage.getItem("user_access_token")
-    }
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+    },
   })
-
     .then((res) => res.json())
     .then((res) => {
       if (res.username == null) {
@@ -20,8 +18,8 @@ const GetUserInfo = () => {
       } else {
         document.getElementById("user").innerHTML = res.username;
       }
-    })
-}
+    });
+};
 
 const GetImgList = () => {
   fetch(BACK_END_URL)
@@ -29,7 +27,7 @@ const GetImgList = () => {
     .then((data) => {
       data.forEach((item) => {
         // 기울기 0
-        // let random = 0; 
+        // let random = 0;
         // 기울기 -5 ~ 5
         let random = Math.floor(Math.random() * 10) - 5;
         let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
@@ -87,12 +85,15 @@ function modal_open(id) {
     .then((data) => {
       if (data.likes.indexOf(user_name) != -1) {
         document.getElementById("like_icon_off").style.display = "none";
-        document.getElementById("like_icon_on").innerHTML = `<i class="fa-solid fa-heart"></i><span> ${data.likes.length}</span>`
+        document.getElementById(
+          "like_icon_on"
+        ).innerHTML = `<i class="fa-solid fa-heart"></i><span> ${data.likes.length}</span>`;
         document.getElementById("like_icon_on").style.display = "flex";
-
       } else {
         document.getElementById("like_icon_on").style.display = "none";
-        document.getElementById("like_icon_off").innerHTML = `<i class="fa-regular fa-heart"></i><span>${data.likes.length}</span>`
+        document.getElementById(
+          "like_icon_off"
+        ).innerHTML = `<i class="fa-regular fa-heart"></i><span>${data.likes.length}</span>`;
         document.getElementById("like_icon_off").style.display = "flex";
       }
 
@@ -100,7 +101,7 @@ function modal_open(id) {
         document.getElementById("article_delete").style.display = "block";
         document.getElementById("article_delete").onclick = () => {
           ArticleDelete(id);
-        }
+        };
       } else {
         document.getElementById("article_delete").style.display = "none";
       }
@@ -109,22 +110,50 @@ function modal_open(id) {
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
       document.getElementById("modal_box_img").ondblclick = () => {
-        LikeOn(id)
-      }
+        LikeOn(id);
+      };
+      document.getElementById("like_icon_off").onclick = () => {
+        LikeOn(id);
+      };
+      document.getElementById("like_icon_on").onclick = () => {
+        LikeOn(id);
+      };
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
       comments.forEach((item) => {
-        let html = `<div class="modal_comment_text">
+        if (item.user == user_id) {
+          let html = `<div class="modal_comment_text">
                           <div class="balloon_03">
                               <div>
                                   ${item.comment}
                               </div>
                           </div>
-                          <div class="modal_comment_user">${item.username} <span>1일전</span></div>
+                          <div class="modal_comment_user">
+                          <div>${item.username}</div>
+                          <div>${item.date}</div>
+                          <div onclick="CommentDelete(${item.id},${data.id})" class="comment_delete">삭제</div>
+                          <div class="comment_edit">수정</div>
+                          </div>
                       </div>
                       `;
-        document.getElementById("modal_comment_list").innerHTML += html;
+                      document.getElementById("modal_comment_list").innerHTML += html;
+        } else {
+          let html = `<div class="modal_comment_text">
+                      <div class="balloon_03">
+                      <div>
+                      ${item.comment}
+                      </div>
+                      </div>
+                      <div class="modal_comment_user">
+                      <div>${item.username}</div>
+                      <div>${item.date}</div>
+                      </div>
+                      </div>`;
+                      document.getElementById("modal_comment_list").innerHTML += html;
+        }
+        
+        
       });
       let comment_html = `<textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
         <div onclick="CommentUpload(${id})" id="modal_comment_submit" class="modal_comment_submit">전송</div>`;
@@ -137,7 +166,7 @@ const CommentUpload = (id) => {
   let comment_content = document.getElementById("modal_comment_text").value;
   if (comment_content == "") {
     alert("댓글을 입력해주세요");
-    return
+    return;
   }
 
   const data = {
@@ -153,7 +182,7 @@ const CommentUpload = (id) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      modal_open(id)
+      modal_open(id);
     });
 };
 
@@ -162,7 +191,7 @@ const Logout = () => {
   localStorage.removeItem("user_refresh_token");
   localStorage.removeItem("payload");
   window.location.href = "./login.html";
-}
+};
 
 const LikeOn = (id) => {
   fetch(`${BACK_END_URL}like/${id}/`, {
@@ -177,12 +206,11 @@ const LikeOn = (id) => {
       document.getElementById("heart_ani").style.display = "block";
       setTimeout(() => {
         document.getElementById("heart_ani").style.display = "none";
-      }
-        , 500);
+      }, 500);
 
-      modal_open(id)
+      modal_open(id);
     });
-}
+};
 const ArticleDelete = (id) => {
   fetch(BACK_END_URL + "myarticle/" + id + "/", {
     method: "DELETE",
@@ -195,9 +223,24 @@ const ArticleDelete = (id) => {
     .then((res) => {
       alert("삭제 완료");
       window.location.reload();
-    }
-    );
-}
+    });
+};
+
+const CommentDelete = (id,article_id) => {
+  console.log(article_id)
+  fetch(BACK_END_URL + "comment/" + id + "/", {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      alert("삭제 완료");
+      modal_open(article_id);
+    });
+};
 
 GetUserInfo();
 GetImgList();
