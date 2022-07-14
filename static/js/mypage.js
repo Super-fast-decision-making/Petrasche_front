@@ -53,8 +53,6 @@ async function openDetailModal(id){
     const comment_list=document.getElementById("mypage_modal_comment_list")
     const submit_button=document.getElementById("modal_comment_submit")
 
-    
-
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
@@ -76,22 +74,17 @@ async function openDetailModal(id){
     }
     
 }
-//디테일 모달  닫기
-// function closeDetailModal(){
-//     document.getElementById("modal_box").style.display= "none"
-//     document.getElementById("mypage_modal_comment_list").innerHTML=""
-// }
 
 //바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
     console.log("여기는 일단 옴")
     if (e.target.id == "modal_box") {
     //   modal_close();
-      document.getElementById("modal_box").style.display = "none";
-      document.getElementById("modal_box_img").src = "";
-      document.body.style.overflow = "auto";
-      document.body.style.touchAction = "auto";
-      document.getElementById("mypage_modal_comment_list").innerHTML=""
+        document.getElementById("modal_box").style.display = "none";
+        document.getElementById("modal_box_img").src = "";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+        document.getElementById("mypage_modal_comment_list").innerHTML=""
     }
 });
 
