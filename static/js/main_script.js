@@ -112,3 +112,7 @@ function upload_modal_cancel() {
   document.getElementById("upload_model_content").style.display = "none";
   document.getElementById("upload_modal_btn").style.display = "flex";
 }
+
+function modal_edit_cancel() {
+  document.getElementById("modal_edit_box").style.display = "none";
+}
