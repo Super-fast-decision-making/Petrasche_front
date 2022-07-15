@@ -100,18 +100,20 @@ async function sendComment(){
     await postComment(id, comment)
 }
 
-
+// 유저 정보 수정
+async function saveUserInfo(user_id) {
+    let response = await putUserInfo(user_id)
+    console.log(response)
+    alert('저장 완료')
+}
 
 // 유저 정보 불러오기
 async function loadUserInfo() {
+    user_profile_section.innerHTML = ''
     let user = await getUserInfo()
     console.log(user)
 
-    const article_box = document.getElementById("article_box")
-    const user_info_box = document.getElementById("user_info_box")
     const user_profile_section = document.getElementById("user_profile_section")
-    
-    const menu_change_button = document.getElementById("menu_change_button")
     const like_article_box = document.getElementById("like_article_box")
 
     user_profile_section.innerHTML +=
@@ -122,16 +124,7 @@ async function loadUserInfo() {
             </div>
             <div class="user_profile_item">
                 <p>이메일</p>
-                <input id="user_profile_email" type="email" value="" style="width: 80px;" />
-                <span>@</span>
-                <input id="user_profile_domain" type="email" value="" style="width: 80px;" />
-                <select name="language" >
-                    <option value="none">이메일</option>
-                    <option value="gmail">gmail.com</option>
-                    <option value="naver">naver.com</option>
-                    <option value="daum">hanmail.net</option>
-                    <option value="self">직접 입력</option>
-                </select>
+                <span id="user_profile_email"></span>
             </div>
             <div class="user_profile_item">
                 <p>연락처</p>
@@ -144,31 +137,48 @@ async function loadUserInfo() {
             </div>
             <div class="user_profile_item">
                 <p>성별</p>
-                <input type="radio" id="gender" name="gender" value="여성">
-                <label for="여성">여성</label>
-                <input type="radio" id="gender" name="gender" value="남성">
+                <input type="radio" id="gender_male" name="gender" value=1>
                 <label for="남성">남성</label>
-                <input type="radio" id="gender" name="gender" value="모름">
+                <input type="radio" id="gender_female" name="gender" value=2>
+                <label for="여성">여성</label>
+                <input type="radio" id="gender_unknown" name="gender" value="모름">
                 <label for="모름">모름</label>
-                <input type="" value="남성"/>
+            </div>
+            <div class="user_profile_save">
+                <button type="button" onclick="saveUserInfo(${user.id})">저장</button>
             </div>
         </div>`
-    const user_id = document.getElementById("user_id")
+    const username = document.getElementById("user_id")
     const email = document.getElementById("user_profile_email")
-    const domain = document.getElementById("user_profile_domain")
+    // const email = document.getElementById("user_profile_email")
+    // const domain = document.getElementById("user_profile_domain")
     const phone = document.getElementById("user_profile_phone")
     const birthday = document.getElementById("user_profile_birthday")
-    const gender = document.getElementsByName("gender")
+    const gender_female = document.getElementById("gender_female")
+    const gender_male = document.getElementsByName("gender_male")
+    const gender_unknown = document.getElementsByName("gender_male")
 
-    let email_id = user.email.split('@')[0]
-    let email_domain = user.email.split('@')[1]
+    // let email_id = user.email.split('@')[0]
+    // let email_domain = user.email.split('@')[1]
     
-    user_id.innerHTML = user.username
-    email.setAttribute("value", email_id)
-    domain.setAttribute("value", email_domain)
-    phone.setAttribute("value", user.phone)
+    username.innerHTML = user.username
+    email.innerText = user.email
+    // email.setAttribute("value", email_id)
+    // domain.setAttribute("value", email_domain)
+    phone.setAttribute("value", user.phone_num)
     birthday.setAttribute("value", user.birthday)
-    var chkList = document.querySelectorAll("input[name=gender]:checked");
+
+    if (user.gender == 1) {
+        gender_male.checked = true
+    } 
+    if (user.gender == 2) {
+        gender_female.checked = true
+    }
+    // if (user.gender == 3) {
+    //     gender_unknown.checked = true
+    // }
+
+    const chkList = document.querySelectorAll("input[name=gender]:checked");
     chkList.forEach(function (ch) {
         console.log(ch.value);
     });
