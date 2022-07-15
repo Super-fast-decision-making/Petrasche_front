@@ -231,8 +231,7 @@ body {
     margin: 5px;
 }
 .user_profile_box {
-    width: 250px;
-    /* height: 400px; */
+    width: 230px;
     padding: 20px;
 
     border-radius: 8px;
@@ -258,6 +257,14 @@ body {
 .user_profile_item select {
     height: 30px;
     font-size: 15px;
+}
+.user_profile_save {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto 20px auto;
+}
+.user_profile_save button {
+    font-size: 17px;
 }
 .pet_profile_section{
     display: flex;
