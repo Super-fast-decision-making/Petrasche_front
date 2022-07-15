@@ -127,7 +127,32 @@ async function postComment(id, comment){
             // ResponseloadComments(data)
 
         })
-
 }
 
+async function putUserInfo(user_id) {
+    const chkList = document.querySelectorAll("input[name=gender]:checked");
+    gender = ''
+    chkList.forEach(function (ch) {
+        console.log(ch.value);
+        gender = ch.value
+    });
+
+    const userData={
+        phone: document.getElementById("user_profile_phone").value,
+        birthday: document.getElementById("user_profile_birthday").value,
+        gender: gender      
+    }
+    console.log(userData)
+    const response = await fetch(`${backend_base_url}user/authonly/${user_id}/`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body:JSON.stringify(userData)
+    })
+    response_json = await response.json()
+    return response_json
+}
 
