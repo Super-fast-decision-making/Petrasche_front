@@ -99,8 +99,12 @@ function modal_open(id) {
 
       if (data.user == user_id) {
         document.getElementById("article_delete").style.display = "block";
+        document.getElementById("article_edit").style.display = "block";
         document.getElementById("article_delete").onclick = () => {
           ArticleDelete(id);
+        };
+        document.getElementById("article_edit").onclick = () => {
+          ArticleEdit(id);
         };
       } else {
         document.getElementById("article_delete").style.display = "none";
@@ -133,11 +137,11 @@ function modal_open(id) {
                           <div>${item.username}</div>
                           <div>${item.date}</div>
                           <div onclick="CommentDelete(${item.id},${data.id})" class="comment_delete">삭제</div>
-                          <div class="comment_edit">수정</div>
+                          <div onclick="CommentEdit(${item.id},${data.id})" class="comment_edit">수정</div>
                           </div>
                       </div>
                       `;
-                      document.getElementById("modal_comment_list").innerHTML += html;
+          document.getElementById("modal_comment_list").innerHTML += html;
         } else {
           let html = `<div class="modal_comment_text">
                       <div class="balloon_03">
@@ -150,10 +154,8 @@ function modal_open(id) {
                       <div>${item.date}</div>
                       </div>
                       </div>`;
-                      document.getElementById("modal_comment_list").innerHTML += html;
+          document.getElementById("modal_comment_list").innerHTML += html;
         }
-        
-        
       });
       let comment_html = `<textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
         <div onclick="CommentUpload(${id})" id="modal_comment_submit" class="modal_comment_submit">전송</div>`;
@@ -212,35 +214,122 @@ const LikeOn = (id) => {
     });
 };
 const ArticleDelete = (id) => {
-  fetch(BACK_END_URL + "myarticle/" + id + "/", {
-    method: "DELETE",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      alert("삭제 완료");
-      window.location.reload();
-    });
+  let confirm_delete = confirm("삭제하시겠습니까?");
+  if (confirm_delete) {
+    fetch(BACK_END_URL + "myarticle/" + id + "/", {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        alert("삭제 완료");
+        window.location.reload();
+      });
+  } else {
+    return;
+  }
 };
 
-const CommentDelete = (id,article_id) => {
-  console.log(article_id)
-  fetch(BACK_END_URL + "comment/" + id + "/", {
-    method: "DELETE",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      alert("삭제 완료");
-      modal_open(article_id);
-    });
-};
+const ArticleEdit = (id) => {
+  document.getElementById("modal_edit_box").style.display = "flex";
+  document.getElementById("modal_edit_text").value = document
+    .getElementById("modal_content_text")
+    .innerHTML.replace(/<br>/g, "\n");
+
+  document.getElementById("modal_edit_button").onclick = () => {
+    let content = document.getElementById("modal_edit_text").value;
+    content = content.replace(/\n/g, "<br>");
+    if (content == "") {
+      alert("내용을 입력해주세요");
+      return;
+    }
+    let confirm_edit = confirm("수정하시겠습니까?");
+    if (confirm_edit) {
+      const data = {
+        content: content,
+      };
+      fetch(BACK_END_URL + `myarticle/${id}/`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert("수정 완료");
+          console.log(res);
+          document.getElementById("modal_edit_box").style.display = "none";
+          modal_open(id);
+        });
+    } else {
+      return;
+    }
+  };
+}
+
+const CommentEdit = (id,article_id,text) => {
+  document.getElementById("modal_edit_box").style.display = "flex";
+  let node = event.target.parentNode
+  let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText
+  document.getElementById("modal_edit_text").value = comment_value.replace(/<br>/g, "\n");
+
+  document.getElementById("modal_edit_button").onclick = () => {
+    let comment = document.getElementById("modal_edit_text").value;
+    comment = comment.replace(/\n/g, "<br>");
+    if (comment == "") {
+      alert("내용을 입력해주세요");
+      return;
+    }
+    let confirm_edit = confirm("수정하시겠습니까?");
+    if (confirm_edit) {
+      const data = {
+        comment: comment,
+      };
+      fetch(BACK_END_URL + `comment/${id}/`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert("수정 완료");
+          console.log(res);
+          document.getElementById("modal_edit_box").style.display = "none";
+          modal_open(article_id);
+        });
+    } else {
+      return;
+    }
+  }
+}
+
+  const CommentDelete = (id, article_id) => {
+    let confirm_delete = confirm("삭제하시겠습니까?");
+    if (confirm_delete) {
+      fetch(BACK_END_URL + "comment/" + id + "/", {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert("삭제 완료");
+          modal_open(article_id);
+        });
+    } else {
+      return;
+    }
+  };
 
 GetUserInfo();
 GetImgList();
