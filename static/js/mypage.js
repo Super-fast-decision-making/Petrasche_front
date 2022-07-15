@@ -1,10 +1,15 @@
 // 내 게시물 불러오기(전체)
 async function loadMyArticle() {
-    articles = await getMyArticle()
-    
+    const show_box = document.getElementById("show_box")
+    show_box.innerHTML = 
+    `<div id ="article_box_wrapper">
+        <div id="article_box" class="article_box" style="display:flex" >
+        </div>
+    </div>`
+
+    let articles = await getMyArticle()
     
     for(let i=0; i<articles.length; i++) {
-        
         let image = articles[i].images[0]
         let like_num=articles[i].like_num
         let id = articles[i].id
@@ -18,29 +23,29 @@ async function loadMyArticle() {
     }  
 }
 
-// 탭 보이기
-function showMyArticle() {
-    document.getElementById("article_box_wrapper").style.display="flex"
-    document.getElementById("user_info_box").style.display="none"
-    document.getElementById("like_article_box_wrapper").style.display="none"
-    document.getElementById("pet_select_box").style.display="flex"
-}
+// // 탭 보이기
+// function showMyArticle() {
+//     document.getElementById("article_box_wrapper").style.display="flex"
+//     document.getElementById("user_info_box").style.display="none"
+//     document.getElementById("like_article_box_wrapper").style.display="none"
+//     document.getElementById("pet_select_box").style.display="flex"
+// }
 
-function showUserInfo() {
+// function showUserInfo() {
     
-    document.getElementById("user_info_box").style.display="flex"
-    document.getElementById("like_article_box_wrapper").style.display="none"
-    document.getElementById("pet_select_box").style.display="none"
-    document.getElementById("article_box_wrapper").style.display="none"
-}
+//     document.getElementById("user_info_box").style.display="flex"
+//     document.getElementById("like_article_box_wrapper").style.display="none"
+//     document.getElementById("pet_select_box").style.display="none"
+//     document.getElementById("article_box_wrapper").style.display="none"
+// }
 
-function showLike(){
+// function showLike(){
     
-    document.getElementById("user_info_box").style.display="none"
-    document.getElementById("like_article_box_wrapper").style.display="flex"
-    document.getElementById("article_box_wrapper").style.display="none"
-    document.getElementById("pet_select_box").style.display="flex"
-}
+//     document.getElementById("user_info_box").style.display="none"
+//     document.getElementById("like_article_box_wrapper").style.display="flex"
+//     document.getElementById("article_box_wrapper").style.display="none"
+//     document.getElementById("pet_select_box").style.display="flex"
+// }
 
 
 // 디테일 모달  열기+보여주기
@@ -56,8 +61,6 @@ async function openDetailModal(id){
     const content= document.getElementById("content")
     const comment_list=document.getElementById("mypage_modal_comment_list")
     const submit_button=document.getElementById("modal_comment_submit")
-
-    
 
     author.innerHTML = article.author
     content.innerHTML = article.content
@@ -78,9 +81,7 @@ async function openDetailModal(id){
             </div>
             `
     }
-    
 }
-
 
 //바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
@@ -113,11 +114,16 @@ async function saveUserInfo(user_id) {
 
 // 유저 정보 불러오기
 async function loadUserInfo() {
-    // user_profile_section.innerHTML = ''
+    const show_box = document.getElementById("show_box")
+    show_box.innerHTML = 
+    `<div id="user_info_box" class="user_info_box">
+        <div id="user_profile_section" class="user_profile_section">
+        </div>
+    </div>`
+
     let user = await getUserInfo()
     console.log(user)
 
-    const user_profile_section = document.getElementById("user_profile_section")
     const like_article_box = document.getElementById("like_article_box")
     const user_profile_img = document.getElementById("user_profile_img")
     const introduction = document.getElementById("introduction")
@@ -147,8 +153,6 @@ async function loadUserInfo() {
                 <label for="남성">남성</label>
                 <input type="radio" id="gender_female" name="gender" value=2>
                 <label for="여성">여성</label>
-                <input type="radio" id="gender_unknown" name="gender" value="모름">
-                <label for="모름">모름</label>
             </div>
             <div class="user_profile_save">
                 <button type="button" onclick="saveUserInfo(${user.id})">저장</button>
@@ -156,23 +160,15 @@ async function loadUserInfo() {
         </div>`
     const username = document.getElementById("user_id")
     const email = document.getElementById("user_profile_email")
-    // const email = document.getElementById("user_profile_email")
-    // const domain = document.getElementById("user_profile_domain")
     const phone = document.getElementById("user_profile_phone")
     const birthday = document.getElementById("user_profile_birthday")
-    const gender_female = document.getElementById("gender_female")
     const gender_male = document.getElementsByName("gender_male")
-    const gender_unknown = document.getElementsByName("gender_male")
-
-    // let email_id = user.email.split('@')[0]
-    // let email_domain = user.email.split('@')[1]
+    const gender_female = document.getElementById("gender_female")
     
     username.innerHTML = user.username
     introduction.innerHTML = user.introduction
     user_profile_img.src = user.profile_img
     email.innerText = user.email
-    // email.setAttribute("value", email_id)
-    // domain.setAttribute("value", email_domain)
     phone.setAttribute("value", user.phone_num)
     birthday.setAttribute("value", user.birthday)
 
@@ -185,12 +181,6 @@ async function loadUserInfo() {
     // if (user.gender == 3) {
     //     gender_unknown.checked = true
     // }
-
-    const chkList = document.querySelectorAll("input[name=gender]:checked");
-    chkList.forEach(function (ch) {
-        console.log(ch.value);
-    });
-    console.log(user.petprofile);
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     let petprofiles = user.petprofile
@@ -208,8 +198,19 @@ async function loadUserInfo() {
                 </div>
             </div>`
     }
-    
-    //좋아요 페이지 아티클 보이기
+}
+
+//좋아요 페이지 아티클 보이기
+async function loadLikeArticle() {
+    const show_box = document.getElementById("show_box")
+    show_box.innerHTML = 
+    `<div id="like_article_box_wrapper">
+        <div id="like_article_box" class="like_article_box" >
+        </div>
+    </div>`
+
+    let user = await getUserInfo()
+
     for (let i=0; i<user['like_articles'].length; i++){
         let like_article = user['like_articles'][i]
 
@@ -222,4 +223,3 @@ async function loadUserInfo() {
 }
 
 loadMyArticle()
-loadUserInfo()

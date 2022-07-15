@@ -175,7 +175,10 @@ body {
 }
 #article_box_wrapper{
     width:855px;
-   display:flex; 
+    display:flex;
+    background-color:white;
+    padding:23px;
+    border-radius: 8px;
 }
 
 .article_box {
@@ -209,7 +212,10 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 #like_article_box_wrapper{
-    display:none; 
+    display:flex;
+    background-color:white;
+    padding:23px;
+    border-radius:8px;
 }
 .like_article_box{
     display: flex;
@@ -223,7 +229,7 @@ body {
 }
 
 .user_info_box {
-    display: none;
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
