@@ -77,14 +77,36 @@
                 <a href="/login.html">계정이 있으신가요? 로그인</a>
             </div>
         </div>
-    </div>  
+    </div>
+    <a href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"></a>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
     <script>
         function moveToProfileInput(){
             document.getElementById('sign-in-first-page').style.display = "none"
             document.getElementById('sign-in-2nd-page').style.display = "inline"
             document.getElementById('next-page').style.display = "none"
             document.getElementById('signup').style.display = "flex"
+        }
 
+        //b1ae05cf3f44682ccf7ffba8606235b3
+        window.Kakao.init("b1ae05cf3f44682ccf7ffba8606235b3");
+        function kakaoLogin(){
+            window.Kakao.Auth.login({
+                scope:'profile_nickname, account_email, gender',
+                success: function(authoObj){
+                    console.log(authoObj);
+                    window.Kakao.API.request({
+                        url:'/v2/user/me',
+                        success: res => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account);
+                            console.log(kakao_account.email)
+                            console.log(kakao_account.profile.nickname)
+                        }
+                    });
+                }
+
+            });
         }
     </script>
 </body>
