@@ -119,6 +119,8 @@ async function loadUserInfo() {
     `<div id="user_info_box" class="user_info_box">
         <div id="user_profile_section" class="user_profile_section">
         </div>
+        <div id="pet_profile_section" class="pet_profile_section">
+        </div>
     </div>`
 
     let user = await getUserInfo()
