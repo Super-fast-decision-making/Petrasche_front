@@ -20,23 +20,25 @@ async function loadMyArticle() {
 
 // 탭 보이기
 function showMyArticle() {
-    document.getElementById("article_box").style.display="flex"
+    document.getElementById("article_box_wrapper").style.display="flex"
     document.getElementById("user_info_box").style.display="none"
-    document.getElementById("like_article_box").style.display="none"
+    document.getElementById("like_article_box_wrapper").style.display="none"
     document.getElementById("pet_select_box").style.display="flex"
 }
 
 function showUserInfo() {
-    document.getElementById("article_box").style.display="none"
+    
     document.getElementById("user_info_box").style.display="flex"
-    document.getElementById("like_article_box").style.display="none"
+    document.getElementById("like_article_box_wrapper").style.display="none"
     document.getElementById("pet_select_box").style.display="none"
+    document.getElementById("article_box_wrapper").style.display="none"
 }
 
 function showLike(){
-    document.getElementById("article_box").style.display="none"
+    
     document.getElementById("user_info_box").style.display="none"
-    document.getElementById("like_article_box").style.display="flex"
+    document.getElementById("like_article_box_wrapper").style.display="flex"
+    document.getElementById("article_box_wrapper").style.display="none"
     document.getElementById("pet_select_box").style.display="flex"
 }
 
