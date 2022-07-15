@@ -102,6 +102,20 @@
                             console.log(kakao_account);
                             console.log(kakao_account.email)
                             console.log(kakao_account.profile.nickname)
+                            const signupData = {
+                                email: kakao_account.email,
+                                username: kakao_account.profile.nickname
+                            }
+                            // const response = await fetch('http://127.0.0.1:8000/user/',{
+                            //     headers:{
+                            //         Accept:'application/json',
+                            //         'Content-type':'application/json'
+                            //     },
+                            //     method:'POST',
+                            //     body:JSON.stringify(signupData)
+                            // })
+                            // response_json=await response.json()
+                            // console.log(reseponse_json)
                         }
                     });
                 }
