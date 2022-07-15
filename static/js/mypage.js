@@ -2,6 +2,7 @@
 async function loadMyArticle() {
     articles = await getMyArticle()
     
+    
     for(let i=0; i<articles.length; i++) {
         
         let image = articles[i].images[0]
@@ -114,6 +115,8 @@ async function loadUserInfo() {
     
     const menu_change_button = document.getElementById("menu_change_button")
     const like_article_box = document.getElementById("like_article_box")
+    const user_profile_img = document.getElementById("user_profile_img")
+    const introduction = document.getElementById("introduction")
 
     user_profile_section.innerHTML +=
         `<div class="user_profile_box">
@@ -165,6 +168,8 @@ async function loadUserInfo() {
     let email_domain = user.email.split('@')[1]
     
     user_id.innerHTML = user.username
+    introduction.innerHTML = user.introduction
+    user_profile_img.src = user.profile_img
     email.setAttribute("value", email_id)
     domain.setAttribute("value", email_domain)
     phone.setAttribute("value", user.phone)
