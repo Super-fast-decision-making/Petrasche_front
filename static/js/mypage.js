@@ -2,6 +2,7 @@
 async function loadMyArticle() {
     articles = await getMyArticle()
     
+    
     for(let i=0; i<articles.length; i++) {
         
         let image = articles[i].images[0]
@@ -42,6 +43,7 @@ function showLike(){
 
 // 디테일 모달  열기+보여주기
 async function openDetailModal(id){
+    document.getElementById("mypage_modal_comment_list").innerHTML=""
     const modal_box = document.getElementById("modal_box")
 
     modal_box.style.display="flex"
@@ -52,12 +54,13 @@ async function openDetailModal(id){
     const content= document.getElementById("content")
     const comment_list=document.getElementById("mypage_modal_comment_list")
     const submit_button=document.getElementById("modal_comment_submit")
+
     
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
-    // submit_button.setAttribute("onClick", sendComment())
+    submit_button.setAttribute("onClick", `sendComment(${article.id})`)
 
     for (let i=0; i<article.comment.length;i++){
         // console.log(article.comment[i].comment)
@@ -69,35 +72,34 @@ async function openDetailModal(id){
                         ${article.comment[i].comment}
                     </div>
                 </div>
-                <div class="modal_comment_user">${article.comment[i].user} <span>1일전</span></div>
+                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
             </div>
             `
     }
     
 }
-//디테일 모달  닫기
-// function closeDetailModal(){
-//     document.getElementById("modal_box").style.display= "none"
-//     document.getElementById("mypage_modal_comment_list").innerHTML=""
-// }
+
 
 //바디 클릭시 모달 창 닫기 기본 모달
-// document.body.addEventListener("click", function (e) {
-//     if (e.target.id == "modal_box") {
-//     //   modal_close();
-//       document.getElementById("modal_box").style.display = "none";
-//     //   document.getElementById("modal_box_img").src = "";
-//     //   document.body.style.overflow = "auto";
-//     //   document.body.style.touchAction = "auto";
-//     }
-// //   });
+document.body.addEventListener("click", function (e) {
+    console.log("여기는 일단 옴")
+    if (e.target.id == "modal_box") {
+    //   modal_close();
+        document.getElementById("modal_box").style.display = "none";
+        document.getElementById("modal_box_img").src = "";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+        // document.getElementById("mypage_modal_comment_list").innerHTML=""
+    }
+});
 
 //댓글 전송하기
-async function sendComment(){
+async function sendComment(id){
     console.log(document.getElementById("modal_comment_text").value)
     const comment = document.getElementById("modal_comment_text").value
-    const id = "5"
-    await postComment(id, comment)
+    await postComment(id, comment)  
+    openDetailModal(id)
+    document.getElementById("modal_comment_text").value=""
 }
 
 // 유저 정보 수정
@@ -115,6 +117,8 @@ async function loadUserInfo() {
 
     const user_profile_section = document.getElementById("user_profile_section")
     const like_article_box = document.getElementById("like_article_box")
+    const user_profile_img = document.getElementById("user_profile_img")
+    const introduction = document.getElementById("introduction")
 
     user_profile_section.innerHTML +=
         `<div class="user_profile_box">
@@ -162,6 +166,8 @@ async function loadUserInfo() {
     // let email_domain = user.email.split('@')[1]
     
     username.innerHTML = user.username
+    introduction.innerHTML = user.introduction
+    user_profile_img.src = user.profile_img
     email.innerText = user.email
     // email.setAttribute("value", email_id)
     // domain.setAttribute("value", email_domain)
