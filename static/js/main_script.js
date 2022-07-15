@@ -59,6 +59,7 @@ function modal_close() {
   document.getElementById("modal_box").style.display = "none";
   document.getElementById("modal_box_img").src = "";
   document.getElementById("modal_comment_text").value = "";
+  document.getElementById("like_user_list").style.display = "none";
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
 
@@ -111,6 +112,8 @@ function upload_modal_cancel() {
   document.getElementById("upload_submit_button").style.display = "none";
   document.getElementById("upload_model_content").style.display = "none";
   document.getElementById("upload_modal_btn").style.display = "flex";
+  document.body.style.overflow = "auto";
+  document.body.style.touchAction = "auto";
 }
 
 function modal_edit_cancel() {
