@@ -13,13 +13,27 @@ const GetUserInfo = () => {
     .then((res) => res.json())
     .then((res) => {
       if (res.username == null) {
-        alert("로그인이 필요합니다");
+        
         window.location.href = "./login.html";
       } else {
         document.getElementById("user").innerHTML = res.username;
       }
     });
 };
+const Refresh_Token = () => {
+  fetch(USER_URL + "refresh/", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      localStorage.setItem("user_access_token", res.access);
+    });
+}
 
 const GetImgList = () => {
   fetch(BACK_END_URL)
@@ -38,6 +52,33 @@ const GetImgList = () => {
           </div>
           </div>`;
         document.getElementById("main_article_list").innerHTML += html;
+      });
+    });
+};
+
+const GetTopList = () => {
+  fetch(`${BACK_END_URL}top/`)
+    .then((res) => res.json())
+    .then((data) => {
+      document.getElementById("top_article").innerHTML = "";
+
+      data.forEach((item) => {
+        let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
+      <img src="${item.images[0]}" alt="">
+      <div class="top_article_info">
+          <div class="article_like_info">
+            <div>좋아요 ${item.like_num}개</div>
+            <div>댓글 ${item.comment.length}개</div>
+          </div>
+          <div>
+              <img src="${item.images[0]}" alt="">
+              <div class="top_article_user_name">${item.author}</div>
+          </div>
+          <div>
+              ${item.content}
+          </div>
+      </div>`;
+        document.getElementById("top_article").innerHTML += html;
       });
     });
 };
@@ -93,7 +134,7 @@ function modal_open(id) {
         document.getElementById("like_icon_on").style.display = "none";
         document.getElementById(
           "like_icon_off"
-        ).innerHTML = `<i class="fa-regular fa-heart"></i><span>${data.likes.length}</span>`;
+        ).innerHTML = `<i class="fa-regular fa-heart"></i><span> ${data.likes.length}</span>`;
         document.getElementById("like_icon_off").style.display = "flex";
       }
 
@@ -108,19 +149,54 @@ function modal_open(id) {
         };
       } else {
         document.getElementById("article_delete").style.display = "none";
+        document.getElementById("article_edit").style.display = "none";
       }
       let images = data.images;
       let content = data.content;
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
+      document.getElementById("slide_left").onclick = () => {
+        let index = images.indexOf(
+          document.getElementById("modal_box_img").src
+        );
+        if (index == 0) {
+          index = images.length - 1;
+        } else {
+          index--;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+          .getElementById("modal_box_img")
+          .animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 1000,
+            fill: "forwards",
+          });
+      };
+      document.getElementById("slide_right").onclick = () => {
+        let index = images.indexOf(
+          document.getElementById("modal_box_img").src
+        );
+        if (index == images.length - 1) {
+          index = 0;
+        } else {
+          index++;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+          .getElementById("modal_box_img")
+          .animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 1000,
+            fill: "forwards",
+          });
+      };
       document.getElementById("modal_box_img").ondblclick = () => {
         LikeOn(id);
       };
       document.getElementById("like_icon_off").onclick = () => {
-        LikeOn(id);
+        LikeUserList(data.likes);
       };
       document.getElementById("like_icon_on").onclick = () => {
-        LikeOn(id);
+        LikeUserList(data.likes);
       };
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
@@ -270,13 +346,16 @@ const ArticleEdit = (id) => {
       return;
     }
   };
-}
+};
 
-const CommentEdit = (id,article_id,text) => {
+const CommentEdit = (id, article_id, text) => {
   document.getElementById("modal_edit_box").style.display = "flex";
-  let node = event.target.parentNode
-  let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText
-  document.getElementById("modal_edit_text").value = comment_value.replace(/<br>/g, "\n");
+  let node = event.target.parentNode;
+  let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
+  document.getElementById("modal_edit_text").value = comment_value.replace(
+    /<br>/g,
+    "\n"
+  );
 
   document.getElementById("modal_edit_button").onclick = () => {
     let comment = document.getElementById("modal_edit_text").value;
@@ -308,28 +387,48 @@ const CommentEdit = (id,article_id,text) => {
     } else {
       return;
     }
-  }
-}
+  };
+};
 
-  const CommentDelete = (id, article_id) => {
-    let confirm_delete = confirm("삭제하시겠습니까?");
-    if (confirm_delete) {
-      fetch(BACK_END_URL + "comment/" + id + "/", {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          alert("삭제 완료");
-          modal_open(article_id);
-        });
-    } else {
-      return;
+const CommentDelete = (id, article_id) => {
+  let confirm_delete = confirm("삭제하시겠습니까?");
+  if (confirm_delete) {
+    fetch(BACK_END_URL + "comment/" + id + "/", {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        alert("삭제 완료");
+        modal_open(article_id);
+      });
+  } else {
+    return;
+  }
+};
+
+const LikeUserList = (like_user) => {
+  if (like_user.length == 0) {
+    document.getElementById("like_user_list").style.display = "flex";
+  } else {
+    document.getElementById("like_user_list").innerHTML = "";
+    like_user.forEach((user) => {
+      document.getElementById(
+        "like_user_list"
+      ).innerHTML += `<div>${user}</div>`;
+    });
+    document.getElementById("like_user_list").style.display = "flex";
+  }
+  document.getElementById("like_user_list").onclick = () => {
+    if (document.getElementById("like_user_list").style.display == "flex") {
+      document.getElementById("like_user_list").style.display = "none";
     }
   };
+};
 
 GetUserInfo();
 GetImgList();
+GetTopList();
