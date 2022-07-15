@@ -113,7 +113,7 @@ async function saveUserInfo(user_id) {
 
 // 유저 정보 불러오기
 async function loadUserInfo() {
-    user_profile_section.innerHTML = ''
+    // user_profile_section.innerHTML = ''
     let user = await getUserInfo()
     console.log(user)
 
