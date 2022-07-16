@@ -44,9 +44,8 @@ function article_box_hover(target) {
   target.children[1].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
   target.addEventListener("mouseleave", function (e) {
     target.children[1].style.display = "none";
-    target.children[1].style.backgroundColor = null
-  }
-  );
+    target.children[1].style.backgroundColor = null;
+  });
 }
 
 function modal_desc_info(id) {
@@ -96,7 +95,6 @@ function upload_file() {
         document.getElementById("preview_img").style.display = "flex";
         document.getElementById("upload_submit_button").style.display = "flex";
       }
-      // console.log(files);
     });
 }
 function upload_modal_open() {

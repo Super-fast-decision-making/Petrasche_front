@@ -388,6 +388,7 @@ body {
     left: 10px;
     width: 100px;
     height: fit-content;
+    max-height: 80%;
     border-radius: 10px;
     background-color: white;
     display: flex;
@@ -956,7 +957,6 @@ body {
     height: 200px;
     animation: rotate 0.5s;
 }
-
 /* top transform */
 @keyframes fadeintop {
     from {
