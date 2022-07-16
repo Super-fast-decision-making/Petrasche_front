@@ -4,13 +4,18 @@ const frontend_base_url = "http://127.0.0.1:5500/"
 
 //회원가입
 async function handleSignup(){
+    const gender_check = document.querySelectorAll("input[name=gender]:checked");
+    gender_check.forEach((ch) => {
+        gender = ch.value
+    })
+
     const signupData = {
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
         password:document.getElementById("password").value,
         birthday_date:document.getElementById("birthday").value,
         is_active_val:document.getElementById("is_active").value,
-        gender_choice:document.getElementById("gender").value,
+        gender_choice:gender,
     }
 
     const response = await fetch(`${backend_base_url}user/`,{
