@@ -79,6 +79,13 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
     <script>
         function moveToProfileInput(){
+            let pass = document.getElementById('password').value;
+            let pass2 = document.getElementById('password2').value;
+            if(pass != pass2){
+                alert("비밀번호가 일치하지 않습니다.");
+                return;
+            }
+
             document.getElementById('sign-in-first-page').style.display = "none"
             document.getElementById('sign-in-2nd-page').style.display = "inline"
             document.getElementById('next-page').style.display = "none"
