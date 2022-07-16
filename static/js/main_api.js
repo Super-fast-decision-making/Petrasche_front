@@ -13,14 +13,18 @@ const GetUserInfo = () => {
     .then((res) => res.json())
     .then((res) => {
       if (res.username == null) {
-        
         window.location.href = "./login.html";
       } else {
         document.getElementById("user").innerHTML = res.username;
       }
     });
 };
+
 const Refresh_Token = () => {
+  const PayLoad = JSON.parse(localStorage.getItem("payload"));
+  if (PayLoad.exp > (Date.now() / 1000)){
+    return;
+  } else {
   fetch(USER_URL + "refresh/", {
     method: "POST",
     headers: {
@@ -28,14 +32,19 @@ const Refresh_Token = () => {
       "Content-type": "application/json",
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
     },
+    body: JSON.stringify({
+      refresh: localStorage.getItem("user_refresh_token"),
+    }),
   })
     .then((res) => res.json())
     .then((res) => {
       localStorage.setItem("user_access_token", res.access);
     });
+  }
 }
 
 const GetImgList = () => {
+  document.getElementById("main_article_list").innerHTML = "";
   fetch(BACK_END_URL)
     .then((res) => res.json())
     .then((data) => {
@@ -432,3 +441,4 @@ const LikeUserList = (like_user) => {
 GetUserInfo();
 GetImgList();
 GetTopList();
+Refresh_Token();
