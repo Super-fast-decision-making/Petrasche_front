@@ -62,6 +62,7 @@ function modal_close() {
   document.getElementById("like_user_list").style.display = "none";
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
+  // GetImgList();
 
   // document.getElementById("modal_comment_submit").removeEventListener("click", myHandler);
 }
