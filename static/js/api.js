@@ -5,6 +5,16 @@ const frontend_base_url = "http://127.0.0.1:5500/"
 //회원가입
 async function handleSignup(){
     const gender_check = document.querySelectorAll("input[name=gender]:checked");
+    const birthday = document.getElementById("birthday").value
+    if (birthday == ""){
+        alert("생년월일을 입력해 주세요!")
+        return
+    }
+    if (gender_check.length <= 0){
+        alert("성별을 선택해 주세요!")
+        return
+    }
+
     gender_check.forEach((ch) => {
         gender = ch.value
     })
