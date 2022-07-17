@@ -13,14 +13,23 @@ body{
     min-height: 100vh;
     }
 .login-box{
+    position: relative;
     width:400px;
     height:500px;
     background-color: aliceblue;
-    border-radius: 8px;            
+    border-radius: 8px;
 }
 .login-box div{
     text-align: center;
 
+}
+.login_box_img{
+    top: calc(0px - 100px);
+    left:0;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: #c4d7e0;
 }
 
 .login-box div h1 {
