@@ -89,30 +89,84 @@
             </div>
         </div>
     </div>
-   <!-- 상세 모달 -->
-   <div id="modal_box" class="modal_box">
-    <div class="modal_content">
-        <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
-            alt="">
-        <div id="modal_desc" class="modal_desc">
-            <div class="modal_user_profile">
-                <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
-                    srcset="">
-                <div id="author">강아지 사육사</div>
-            </div>
-            <div id="modal_content_list" class="modal_content_list">
-                <div id="content">
+
+    <!-- 반려동물 등록 모달 -->
+    <div id="add_pet_modal_box" class="add_pet_modal_box">
+        <div class="add_pet_modal_content">
+            <div class="add_pet_profile_box">
+                <div class="add_pet_profile_box_l">
+                    <div class="add_pet_profile_img">
+                        <img src="" />
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>이름</p>
+                        <input id="add_pet_profile_name" type="text" value=""/>
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>생년월일</p>
+                        <input id="add_pet_profile_birthday" type="date"  value=""/>
+                    </div>
+                </div>
+                <div class="add_pet_profile_box_r">
+                    <div class="add_pet_profile_item">
+                        <p>종류</p>
+                        <input type="radio" id="pet_dog" name="pet" value=1>
+                        <label for="강아지">강아지</label>
+                        <input type="radio" id="pet_cat" name="pet" value=2>
+                        <label for="고양이">고양이</label>
+                        <input type="radio" id="pet_etc" name="pet" value=3>
+                        <label for="그외">그외</label>
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>크기</p>
+                        <input type="radio" id="size_small" name="size" value=1>
+                        <label for="소형">소형</label>
+                        <input type="radio" id="pet_medium" name="size" value=2>
+                        <label for="중형">중형</label>
+                        <input type="radio" id="pet_large" name="size" value=3>
+                        <label for="대형">대형</label>
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>성별</p>
+                        <input type="radio" id="pet_gender_male" name="pet_gender" value=1>
+                        <label for="남성">남성</label>
+                        <input type="radio" id="pet_gender_female" name="pet_gender" value=2>
+                        <label for="여성">여성</label>
+                        <input type="radio" id="pet_gender_unknown" name="pet_gender" value=3>
+                        <label for="모름">모름</label>
+                    </div>  
                 </div>
             </div>
-            <div id="mypage_modal_comment_list" class="modal_comment_list">
-            </div>
-            <div class="modal_comment_input">
-                <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
-                <div id="modal_comment_submit" class="modal_comment_submit" onclick="sendComment()">전송</div>
+            <div class="add_pet_profile_save">
+                <button type="button" onclick="addPetProfile()">등록</button>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- 상세 모달 -->
+    <div id="modal_box" class="modal_box">
+        <div class="modal_content">
+            <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
+                alt="">
+            <div id="modal_desc" class="modal_desc">
+                <div class="modal_user_profile">
+                    <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
+                        srcset="">
+                    <div id="author">강아지 사육사</div>
+                </div>
+                <div id="modal_content_list" class="modal_content_list">
+                    <div id="content">
+                    </div>
+                </div>
+                <div id="mypage_modal_comment_list" class="modal_comment_list">
+                </div>
+                <div class="modal_comment_input">
+                    <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
+                    <div id="modal_comment_submit" class="modal_comment_submit" onclick="sendComment()">전송</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!------JS---------->
     <script src="./static/js/api.js"></script>
     <script src="./static/js/mypage.js"></script>

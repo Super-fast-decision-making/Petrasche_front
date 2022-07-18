@@ -1,4 +1,4 @@
-// 내 게시물 불러오기(전체)
+// 내 게시물 전체 불러오기(메뉴)
 async function loadMyArticle() {
     document.getElementById("user_button_box").style.display = "none"
     
@@ -100,16 +100,37 @@ async function sendComment(id){
 // 유저 정보 수정
 async function saveUserInfo(user_id) {
     let response = await putUserInfo(user_id)
-    alert('저장 완료')
+    alert('변경 완료')
 }
 
-// 유저 정보 불러오기
+// 반려동물 등록
+async function AddPetProfile() {
+    console("ok")
+}
+
+// 반려동물 등록 모달 활성화
+async function showAddPetProfile() {
+    const add_pet_modal_box = document.getElementById("add_pet_modal_box")
+    add_pet_modal_box.style.display="flex"
+}
+
+// 반려동물 등록 모달 비활성화(바디 클릭)
+document.body.addEventListener("click", function (e) {
+    if (e.target.id == "add_pet_modal_box") {
+        document.getElementById("add_pet_modal_box").style.display = "none";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+    }
+});
+
+// 회원 정보 불러오기(메뉴)
 async function loadUserInfo() {
+    // 반려동물 등록 버튼 활성화
     const user_button_box = document.getElementById("user_button_box")
     document.getElementById("user_button_box").style.display = "flex"
     user_button_box.innerHTML = 
     `<div class="menu_change_button_box">
-        <button id="menu_change_button" class="menu_change_button" type="button" onclick="changeButton()">
+        <button id="menu_change_button" class="menu_change_button" type="button" onclick="showAddPetProfile()">
             반려동물 등록
         </button>
     </div>`
