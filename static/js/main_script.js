@@ -48,12 +48,6 @@ function article_box_hover(target) {
   });
 }
 
-function modal_desc_info(id) {
-  document.getElementById("modal_info_btn").style.display = "none";
-  document.getElementById("modal_desc").style.display = "flex";
-  document.getElementById("modal_info_colse_btn").style.display = "flex";
-}
-
 function modal_close() {
   document.getElementById("modal_box").style.display = "none";
   document.getElementById("modal_box_img").src = "";
@@ -117,4 +111,9 @@ function upload_modal_cancel() {
 
 function modal_edit_cancel() {
   document.getElementById("modal_edit_box").style.display = "none";
+}
+
+function pet_profile(id) {
+  console.log(id.children[1])
+  id.children[1].style.display = "flex";
 }
