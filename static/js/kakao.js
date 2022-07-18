@@ -59,7 +59,6 @@ function handleKakaoSignup(authoObj, signupData) {
                     alert(res.error)
                     window.location.replace(`${frontend_base_url}signup.html`);
                 })
-
             }
         })
 }
