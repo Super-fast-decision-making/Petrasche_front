@@ -68,7 +68,6 @@ async function handleLogin() {
         email:document.getElementById("email").value,
         password:document.getElementById("password").value        
     }
-
     const response=await fetch(`${backend_base_url}user/login/`, {
         headers:{
             'Accept': 'application/json',
@@ -78,7 +77,6 @@ async function handleLogin() {
         body:JSON.stringify(loginData)
     })
     response_json=await response.json()
-
     if (response.status == 200) {
         localStorage.setItem("user_access_token", response_json.access)
         localStorage.setItem("user_refresh_token", response_json.refresh)
