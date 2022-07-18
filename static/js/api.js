@@ -3,20 +3,20 @@ const frontend_base_url = "http://127.0.0.1:5500/"
 
 
 // 회원가입
-async function handleSignup(){
+async function handleSignup() {
     const gender_check = document.querySelectorAll("input[name=gender]:checked");
 
-    const day= document.getElementById("day").value.split("일")[0]
-    const month= document.getElementById("month").value.split("월")[0]
-    const year= document.getElementById("year").value.split("년")[0]
-    console.log(year+"-"+month+"-"+day)
-    
-    const birthday = year+"-"+month+"-"+day
-    if (birthday == ""){
+    const day = document.getElementById("day").value.split("일")[0]
+    const month = document.getElementById("month").value.split("월")[0]
+    const year = document.getElementById("year").value.split("년")[0]
+    console.log(year + "-" + month + "-" + day)
+
+    const birthday = year + "-" + month + "-" + day
+    if (birthday == "") {
         alert("생년월일을 입력해 주세요!")
         return
     }
-    if (gender_check.length <= 0){
+    if (gender_check.length <= 0) {
         alert("성별을 선택해 주세요!")
         return
     }
@@ -28,34 +28,34 @@ async function handleSignup(){
     const signupData = {
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
-        password:document.getElementById("password").value,
-        birthday_date:birthday,
-        is_active_val:document.getElementById("is_active").value,
-        gender_choice:gender,
+        password: document.getElementById("password").value,
+        birthday_date: birthday,
+        is_active_val: document.getElementById("is_active").value,
+        gender_choice: gender,
     }
 
-    const response = await fetch(`${backend_base_url}user/`,{
-        headers:{
-            Accept:'application/json',
-            'Content-type':'application/json'
+    const response = await fetch(`${backend_base_url}user/`, {
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json'
         },
-        method:'POST',
-        body:JSON.stringify(signupData)
+        method: 'POST',
+        body: JSON.stringify(signupData)
     })
-    response_json=await response.json()
+    response_json = await response.json()
 
-    if (response.status==200) {
+    if (response.status == 200) {
         window.location.replace(`${frontend_base_url}login.html`);
-    }else{
-        if (response_json.email){
+    } else {
+        if (response_json.email) {
             alert("중복된 이메일 입니다.")
             window.location.replace(`${frontend_base_url}signup.html`);
         }
-        else if (response_json.username){
+        else if (response_json.username) {
             alert("중복된 닉네임 입니다.")
             window.location.replace(`${frontend_base_url}signup.html`);
         }
-        else{
+        else {
             alert("오류가 발생했습니다.")
             window.location.replace(`${frontend_base_url}signup.html`);
         }
@@ -64,21 +64,19 @@ async function handleSignup(){
 
 // 로그인
 async function handleLogin() {
-    const loginData={
-        email:document.getElementById("email").value,
-        password:document.getElementById("password").value        
+    const loginData = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
     }
-
-    const response=await fetch(`${backend_base_url}user/login/`, {
-        headers:{
+    const response = await fetch(`${backend_base_url}user/login/`, {
+        headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        method:'POST',
-        body:JSON.stringify(loginData)
+        method: 'POST',
+        body: JSON.stringify(loginData)
     })
-    response_json=await response.json()
-
+    response_json = await response.json()
     if (response.status == 200) {
         localStorage.setItem("user_access_token", response_json.access)
         localStorage.setItem("user_refresh_token", response_json.refresh)
@@ -92,7 +90,7 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload)
         window.location.replace(`${frontend_base_url}`)
     } else {
-        alert("아이디 또는 비밀번호가 일치하지 않습니다.") 
+        alert("아이디 또는 비밀번호가 일치하지 않습니다.")
     }
 }
 
@@ -126,7 +124,7 @@ async function getUserInfo() {
 
 
 // 특정 id값에 해당하는 게시물 불러오기 (디테일 모달)
-async function getDetailArticle(id){
+async function getDetailArticle(id) {
     const response = await fetch(`${backend_base_url}article/${id}/`, {
         method: 'GET',
         headers: {
@@ -141,8 +139,8 @@ async function getDetailArticle(id){
 
 
 // 댓글 달기
-async function postComment(id, comment){
-    const commentData={
+async function postComment(id, comment) {
+    const commentData = {
         comment: comment
     }
     console.log(commentData)
@@ -169,10 +167,10 @@ async function putUserInfo(user_id) {
         gender = ch.value
     });
 
-    const userData={
+    const userData = {
         phone: document.getElementById("user_profile_phone").value,
         birthday: document.getElementById("user_profile_birthday").value,
-        gender: gender      
+        gender: gender
     }
     console.log(userData)
     const response = await fetch(`${backend_base_url}user/authonly/${user_id}/`, {
@@ -182,7 +180,7 @@ async function putUserInfo(user_id) {
             'Content-type': 'application/json',
             'Authorization': "Bearer " + localStorage.getItem("user_access_token")
         },
-        body:JSON.stringify(userData)
+        body: JSON.stringify(userData)
     })
     response_json = await response.json()
     return response_json
@@ -190,7 +188,7 @@ async function putUserInfo(user_id) {
 
 // 반려동물 등록
 async function postPetProfile(name, birthday, type, gender, size) {
-    const petProfileData={
+    const petProfileData = {
         name: name,
         birthday: birthday,
         type: type,
