@@ -41,7 +41,8 @@ async function loadMyArticle() {
     introduction.innerHTML = user.introduction
     user_profile_img.src = user.profile_img
 
-    for (let i = 0; i < user.petprofile.length; i++) {
+    let petprofiles = user.petprofile
+    for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
         pet_select_box.innerHTML +=
             `<div class="pet_botton_box">
