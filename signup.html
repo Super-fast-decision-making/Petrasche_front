@@ -122,16 +122,24 @@
                 }
             });
         }
-        async function handleKakaoSignup(authoObj,signupData){
+        function handleKakaoSignup(authoObj,signupData){
             const kakaoSignupData = Object.assign({}, authoObj, signupData);
-            // console.log(kakaoSignupData)
-            const response = await fetch('http://127.0.0.1:8000/user/kakao/',{
+            const response = fetch('http://127.0.0.1:8000/user/kakao/',{
                 headers:{
                     Accept:'application/json',
                     'Content-type':'application/json'
                 },
                 method:'POST',
                 body:JSON.stringify(kakaoSignupData)
+            })
+            .then((res)=>res.json())
+            .then((res)=>{
+                console.log(res)
+                console.log(res.msg)
+                if (res.msg=="로그인 성공"){
+                    localStorage.setItem("user_access_token", res.access)
+                    localStorage.setItem("user_refresh_token", res.refesh)
+                }
             })
         }
         
