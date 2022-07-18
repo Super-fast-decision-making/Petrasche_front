@@ -1,3 +1,6 @@
+// const backend_base_url = "http://127.0.0.1:8000/"
+// const frontend_base_url = "http://127.0.0.1:5500/"
+
 
 Kakao.init("b1ae05cf3f44682ccf7ffba8606235b3")
 function kakaoLogin(){
@@ -24,7 +27,7 @@ function kakaoLogin(){
 
 function handleKakaoSignup(authoObj,signupData){
     const kakaoSignupData = Object.assign({}, authoObj, signupData);
-    const response = fetch('http://127.0.0.1:8000/user/kakao/',{
+    const response = fetch(`${backend_base_url}user/kakao/`,{
         headers:{
             Accept:'application/json',
             'Content-type':'application/json'
@@ -46,16 +49,15 @@ function handleKakaoSignup(authoObj,signupData){
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
                 localStorage.setItem("payload", jsonPayload)
-                window.location.replace("http://127.0.0.1:5500/index.html")
+                window.location.replace(`${frontend_base_url}index.html`)
             })
         } else if(res.status===201){
             alert("회원가입에 성공하셨습니다. 로그인을 해주세요.");
-            window.location.replace("http://127.0.0.1:5500/login.html");
+            window.location.replace(`${frontend_base_url}login.html`);
         } else if(res.status===400){
             res.json().then((res)=>{
-                console.log(res.error)
                 alert(res.error)
-                window.location.replace("http://127.0.0.1:5500/signup.html");
+                window.location.replace(`${frontend_base_url}signup.html`);
             })
             
         }
