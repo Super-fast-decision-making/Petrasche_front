@@ -142,12 +142,12 @@ body {
     height:100%;
     object-fit:cover
 }
-.user_id_box {
+.username_box {
     display: flex;
     align-items: center;
     margin: 10px;
 }
-.user_id {
+.username {
     font-size: 20px;
 }
 .user_introduction {
@@ -295,11 +295,14 @@ body {
 }
 .pet_img {
     width: 160px;
-    height: 140px;
 
     margin: 10px 10px 10px 10px;
+    overflow: hidden;
 
     background-color: #9c9b9b;
+}
+.pet_img img {
+    height: 160px;
 }
 .pet_name {
     display: flex;

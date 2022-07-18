@@ -29,12 +29,19 @@ async function loadMyArticle() {
             </div>`
     }
 
+    const username = document.getElementById("username")
+    const introduction = document.getElementById("introduction")
+    const user_profile_img = document.getElementById("user_profile_img")
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
 
     let user = await getUserInfo()
-    let petprofiles = user.petprofile
-    for (let i = 0; i < petprofiles.length; i++) {
+
+    username.innerHTML = user.username
+    introduction.innerHTML = user.introduction
+    user_profile_img.src = user.profile_img
+
+    for (let i = 0; i < user.petprofile.length; i++) {
         let pet_name = petprofiles[i].name
         pet_select_box.innerHTML +=
             `<div class="pet_botton_box">
@@ -155,15 +162,15 @@ async function loadUserInfo() {
     const user_button_box = document.getElementById("user_button_box")
     document.getElementById("user_button_box").style.display = "flex"
     user_button_box.innerHTML =
-        `< div class="menu_change_button_box" >
+        `<div class="menu_change_button_box">
             <button id="menu_change_button" class="menu_change_button" type="button" onclick="showAddPetProfile()">
                 반려동물 등록
             </button>
-    </div > `
+        </div > `
 
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
-        `< div id = "show_box" class="show_box" >
+        `<div id = "show_box" class="show_box">
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>
@@ -175,11 +182,8 @@ async function loadUserInfo() {
     let user = await getUserInfo()
 
     const user_profile_section = document.getElementById("user_profile_section")
-    const user_profile_img = document.getElementById("user_profile_img")
-    const introduction = document.getElementById("introduction")
-
     user_profile_section.innerHTML +=
-        `< div class="user_profile_box" >
+        `<div class="user_profile_box">
             <div class="user_profile_item">
                 <p>비밀번호</p>
                 <button type="button" onclick="">변경</button>
@@ -208,16 +212,12 @@ async function loadUserInfo() {
                 <button type="button" onclick="saveUserInfo(${user.id})">저장</button>
             </div>
         </div > `
-    const username = document.getElementById("user_id")
     const email = document.getElementById("user_profile_email")
     const phone = document.getElementById("user_profile_phone")
     const birthday = document.getElementById("user_profile_birthday")
     const gender_male = document.getElementsByName("gender_male")
     const gender_female = document.getElementById("gender_female")
 
-    username.innerHTML = user.username
-    introduction.innerHTML = user.introduction
-    user_profile_img.src = user.profile_img
     email.innerText = user.email
     phone.setAttribute("value", user.phone_num)
     birthday.setAttribute("value", user.birthday)
@@ -234,14 +234,14 @@ async function loadUserInfo() {
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     let petprofiles = user.petprofile
-
+    console.log(petprofiles)
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
-        // let pet_image = petprofiles[i].image
+        let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
-            `< div class="pet_profile_card" >
+            `<div class="pet_profile_card">
                 <div class="pet_img">
-                    <img src="" />
+                    <img src="${pet_profile_img}" />
                 </div>
                 <div class="pet_name">
                     <p>${pet_name}</p>
@@ -256,7 +256,7 @@ async function loadLikeArticle() {
 
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
-        `< div id = "show_box" class="show_box" >
+        `<div id = "show_box" class="show_box">
             <div id="like_article_box_wrapper">
                 <div id="like_article_box" class="like_article_box" >
                 </div>
@@ -269,10 +269,10 @@ async function loadLikeArticle() {
         let like_article = user['like_articles'][i]
 
         like_article_box.innerHTML +=
-            `< div class="article_card" >
-            <img src='${like_article[' imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})" >
+            `<div class="article_card">
+                <img src='${like_article['imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})" >
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
-        </div > `
+            </div > `
     }
 }
 
