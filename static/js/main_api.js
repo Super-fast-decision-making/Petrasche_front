@@ -174,7 +174,7 @@ function modal_open(id) {
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
-      if (data.likes.indexOf(user_name) != -1) {
+      if (data.likes.indexOf(user_id) != -1) {
         document.getElementById("like_icon_off").style.display = "none";
         document.getElementById(
           "like_icon_on"
