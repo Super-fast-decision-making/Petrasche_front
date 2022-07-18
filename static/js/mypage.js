@@ -1,9 +1,9 @@
 // 내 게시물 전체 불러오기(메뉴)
 async function loadMyArticle() {
     document.getElementById("user_button_box").style.display = "none"
-    
+
     const show_container = document.getElementById("show_container")
-    show_container.innerHTML = 
+    show_container.innerHTML =
         `<div id="show_box" class="show_box">
             <div id ="article_box_wrapper">
                 <div id="article_box" class="article_box" style="display:flex" >
@@ -15,12 +15,12 @@ async function loadMyArticle() {
         `
 
     let articles = await getMyArticle()
-    
-    for(let i=0; i<articles.length; i++) {
+
+    for (let i = 0; i < articles.length; i++) {
         let image = articles[i].images[0]
-        let like_num=articles[i].like_num
+        let like_num = articles[i].like_num
         let id = articles[i].id
-        
+
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
             `<div class="article_card" >
@@ -31,12 +31,12 @@ async function loadMyArticle() {
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
-    
+
     let user = await getUserInfo()
     let petprofiles = user.petprofile
-    for(let i=0; i<petprofiles.length; i++){
+    for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
-        pet_select_box.innerHTML += 
+        pet_select_box.innerHTML +=
             `<div class="pet_botton_box">
                 <div class="pet_button">
                     ${pet_name}
@@ -46,26 +46,26 @@ async function loadMyArticle() {
 }
 
 // 디테일 모달 열기+보여주기
-async function openDetailModal(id){
-    document.getElementById("mypage_modal_comment_list").innerHTML=""
+async function openDetailModal(id) {
+    document.getElementById("mypage_modal_comment_list").innerHTML = ""
     const modal_box = document.getElementById("modal_box")
 
-    modal_box.style.display="flex"
+    modal_box.style.display = "flex"
     const article = await getDetailArticle(id)
 
     const modal_box_img = document.getElementById("modal_box_img")
-    const author= document.getElementById("author")
-    const content= document.getElementById("content")
-    const comment_list=document.getElementById("mypage_modal_comment_list")
-    const submit_button=document.getElementById("modal_comment_submit")
+    const author = document.getElementById("author")
+    const content = document.getElementById("content")
+    const comment_list = document.getElementById("mypage_modal_comment_list")
+    const submit_button = document.getElementById("modal_comment_submit")
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
     submit_button.setAttribute("onClick", `sendComment(${article.id})`)
 
-    for (let i=0; i<article.comment.length;i++){
-        comment_list.innerHTML+=
+    for (let i = 0; i < article.comment.length; i++) {
+        comment_list.innerHTML +=
             `<div class="modal_comment_text">
                 <div class="balloon_03">
                     <div>
@@ -73,14 +73,14 @@ async function openDetailModal(id){
                     </div>
                 </div>
                 <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
-            </div>`
+            </div > `
     }
 }
 
 // 바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
     if (e.target.id == "modal_box") {
-    //   modal_close();
+        //   modal_close();
         document.getElementById("modal_box").style.display = "none";
         document.getElementById("modal_box_img").src = "";
         document.body.style.overflow = "auto";
@@ -90,11 +90,11 @@ document.body.addEventListener("click", function (e) {
 });
 
 // 댓글 전송하기
-async function sendComment(id){
+async function sendComment(id) {
     const comment = document.getElementById("modal_comment_text").value
-    await postComment(id, comment)  
+    await postComment(id, comment)
     openDetailModal(id)
-    document.getElementById("modal_comment_text").value=""
+    document.getElementById("modal_comment_text").value = ""
 }
 
 // 유저 정보 수정
@@ -137,7 +137,7 @@ async function addPetProfile() {
 // 반려동물 등록 모달 활성화
 function showAddPetProfile() {
     const add_pet_modal_box = document.getElementById("add_pet_modal_box")
-    add_pet_modal_box.style.display="flex"
+    add_pet_modal_box.style.display = "flex"
 }
 
 // 반려동물 등록 모달 비활성화(바디 클릭)
@@ -154,23 +154,23 @@ async function loadUserInfo() {
     // 반려동물 등록 버튼 활성화
     const user_button_box = document.getElementById("user_button_box")
     document.getElementById("user_button_box").style.display = "flex"
-    user_button_box.innerHTML = 
-    `<div class="menu_change_button_box">
-        <button id="menu_change_button" class="menu_change_button" type="button" onclick="showAddPetProfile()">
-            반려동물 등록
-        </button>
-    </div>`
+    user_button_box.innerHTML =
+        `< div class="menu_change_button_box" >
+            <button id="menu_change_button" class="menu_change_button" type="button" onclick="showAddPetProfile()">
+                반려동물 등록
+            </button>
+    </div > `
 
     const show_container = document.getElementById("show_container")
-    show_container.innerHTML = 
-        `<div id="show_box" class="show_box">
+    show_container.innerHTML =
+        `< div id = "show_box" class="show_box" >
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>
                 <div id="pet_profile_section" class="pet_profile_section">
                 </div>
             </div>
-        </div>`
+        </div > `
 
     let user = await getUserInfo()
 
@@ -179,7 +179,7 @@ async function loadUserInfo() {
     const introduction = document.getElementById("introduction")
 
     user_profile_section.innerHTML +=
-        `<div class="user_profile_box">
+        `< div class="user_profile_box" >
             <div class="user_profile_item">
                 <p>비밀번호</p>
                 <button type="button" onclick="">변경</button>
@@ -207,14 +207,14 @@ async function loadUserInfo() {
             <div class="user_profile_save">
                 <button type="button" onclick="saveUserInfo(${user.id})">저장</button>
             </div>
-        </div>`
+        </div > `
     const username = document.getElementById("user_id")
     const email = document.getElementById("user_profile_email")
     const phone = document.getElementById("user_profile_phone")
     const birthday = document.getElementById("user_profile_birthday")
     const gender_male = document.getElementsByName("gender_male")
     const gender_female = document.getElementById("gender_female")
-    
+
     username.innerHTML = user.username
     introduction.innerHTML = user.introduction
     user_profile_img.src = user.profile_img
@@ -224,7 +224,7 @@ async function loadUserInfo() {
 
     if (user.gender == 1) {
         gender_male.checked = true
-    } 
+    }
     if (user.gender == 2) {
         gender_female.checked = true
     }
@@ -234,19 +234,19 @@ async function loadUserInfo() {
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     let petprofiles = user.petprofile
-    
-    for(let i=0; i<petprofiles.length; i++){
+
+    for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
         // let pet_image = petprofiles[i].image
         pet_profile_section.innerHTML +=
-            `<div class="pet_profile_card">
+            `< div class="pet_profile_card" >
                 <div class="pet_img">
                     <img src="" />
                 </div>
                 <div class="pet_name">
                     <p>${pet_name}</p>
                 </div>
-            </div>`
+            </div > `
     }
 }
 
@@ -255,24 +255,24 @@ async function loadLikeArticle() {
     document.getElementById("user_button_box").style.display = "none"
 
     const show_container = document.getElementById("show_container")
-    show_container.innerHTML = 
-        `<div id="show_box" class="show_box">
+    show_container.innerHTML =
+        `< div id = "show_box" class="show_box" >
             <div id="like_article_box_wrapper">
                 <div id="like_article_box" class="like_article_box" >
                 </div>
             </div>
-        </div>`
+        </div > `
 
     let user = await getUserInfo()
 
-    for (let i=0; i<user['like_articles'].length; i++){
+    for (let i = 0; i < user['like_articles'].length; i++) {
         let like_article = user['like_articles'][i]
 
         like_article_box.innerHTML +=
-        `<div class="article_card" >
-            <img src='${like_article['imgurl'][0]}' onclick="openDetailModal(${like_article['id']})">
-            <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
-        </div>`
+            `< div class="article_card" >
+            <img src='${like_article[' imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})" >
+                <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
+        </div > `
     }
 }
 
