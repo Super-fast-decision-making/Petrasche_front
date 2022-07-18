@@ -104,12 +104,38 @@ async function saveUserInfo(user_id) {
 }
 
 // 반려동물 등록
-async function AddPetProfile() {
-    console("ok")
+async function addPetProfile() {
+    let name = document.getElementById("add_pet_profile_name").value
+    let birthday = document.getElementById("add_pet_profile_birthday").value
+
+    const chkList_type = document.querySelectorAll("input[name=pet_type]:checked");
+    let type = ''
+    chkList_type.forEach(function (ch) {
+        type = ch.value
+    });
+
+    const chkList_gender = document.querySelectorAll("input[name=pet_gender]:checked");
+    let gender = ''
+    chkList_gender.forEach(function (ch) {
+        gender = ch.value
+    });
+
+    const chkList_size = document.querySelectorAll("input[name=pet_size]:checked");
+    let size = ''
+    chkList_size.forEach(function (ch) {
+        size = ch.value
+    });
+
+    await postPetProfile(name, birthday, type, gender, size)
+
+    document.getElementById("add_pet_modal_box").style.display = "none";
+
+    await loadUserInfo()
+    alert("등록 완료")
 }
 
 // 반려동물 등록 모달 활성화
-async function showAddPetProfile() {
+function showAddPetProfile() {
     const add_pet_modal_box = document.getElementById("add_pet_modal_box")
     add_pet_modal_box.style.display="flex"
 }
@@ -148,7 +174,7 @@ async function loadUserInfo() {
 
     let user = await getUserInfo()
 
-    const like_article_box = document.getElementById("like_article_box")
+    const user_profile_section = document.getElementById("user_profile_section")
     const user_profile_img = document.getElementById("user_profile_img")
     const introduction = document.getElementById("introduction")
 
