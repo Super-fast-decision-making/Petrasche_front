@@ -2,6 +2,8 @@ const backend_base_url = "http://127.0.0.1:8000/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
 
+
+
 //회원가입
 async function handleSignup(){
     const gender_check = document.querySelectorAll("input[name=gender]:checked");
@@ -86,7 +88,7 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload)
         window.location.replace(`${frontend_base_url}`)
     } else {
-       alert("아이디 또는 비밀번호가 일치하지 않습니다.") 
+        alert("아이디 또는 비밀번호가 일치하지 않습니다.") 
     }
 }
 
