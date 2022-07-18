@@ -20,7 +20,7 @@ const daySelect = document.getElementById("day");
 
 const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
 
-//Months are always the same
+
 (function populateMonths(){
     for(let i = 0; i < months.length; i++){
         const option = document.createElement('option');
@@ -33,14 +33,13 @@ const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','
 let previousDay;
 
 function populateDays(month){
-    //Delete all of the children of the day dropdown
-    //if they do exist
+    //기존에 있는 값 지우기
     while(daySelect.firstChild){
         daySelect.removeChild(daySelect.firstChild);
     }
     //한달에 있는 날짜수를 저장하는 변수
     let dayNum;
-    //Get the current year
+
     let year = yearSelect.value.split("년")[0];
     if(month === '1월' || month === '3월' || 
     month === '5월' || month === '7월' || month === '8월' 
@@ -57,7 +56,7 @@ function populateDays(month){
             dayNum = 28;
         }
     }
-    //Insert the correct days into the day <select>
+
     for(let i = 1; i <= dayNum; i++){
         const option = document.createElement("option");
         option.textContent = i+"일";
@@ -78,7 +77,6 @@ function populateDays(month){
 }
 
 function populateYears(){
-    //Get the current year as a number
     let year = new Date().getFullYear();
     //100년을 옵션으로 지정
     for(let i = 0; i < 101; i++){
