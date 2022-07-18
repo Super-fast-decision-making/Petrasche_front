@@ -6,9 +6,9 @@ const frontend_base_url = "http://127.0.0.1:5500/"
 async function handleSignup(){
     const gender_check = document.querySelectorAll("input[name=gender]:checked");
 
-    const day= document.getElementById("day").value
+    const day= document.getElementById("day").value.split("일")[0]
     const month= document.getElementById("month").value.split("월")[0]
-    const year= document.getElementById("year").value
+    const year= document.getElementById("year").value.split("년")[0]
     console.log(year+"-"+month+"-"+day)
     
     const birthday = year+"-"+month+"-"+day
