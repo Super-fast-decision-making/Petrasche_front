@@ -1,11 +1,18 @@
 // 내 게시물 불러오기(전체)
 async function loadMyArticle() {
-    const show_box = document.getElementById("show_box")
-    show_box.innerHTML = 
-    `<div id ="article_box_wrapper">
-        <div id="article_box" class="article_box" style="display:flex" >
+    document.getElementById("user_button_box").style.display = "none"
+    
+    const show_container = document.getElementById("show_container")
+    show_container.innerHTML = 
+        `<div id="show_box" class="show_box">
+            <div id ="article_box_wrapper">
+                <div id="article_box" class="article_box" style="display:flex" >
+                </div>
+            </div>
         </div>
-    </div>`
+        <div id="pet_select_box" class="pet_select_box">
+        </div>
+        `
 
     let articles = await getMyArticle()
     
@@ -20,35 +27,26 @@ async function loadMyArticle() {
                 <img src='${image}'  id="article_card_img${id}" onclick=openDetailModal(${id})>
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
-    }  
+    }
+
+    const pet_select_box = document.getElementById("pet_select_box")
+    pet_select_box.style.display = "flex"
+    
+    let user = await getUserInfo()
+    console.log(user)
+    let petprofiles = user.petprofile
+    for(let i=0; i<petprofiles.length; i++){
+        let pet_name = petprofiles[i].name
+        pet_select_box.innerHTML += 
+            `<div class="pet_botton_box">
+                <div class="pet_button">
+                    ${pet_name}
+                </div>
+            </div>`
+    }
 }
 
-// // 탭 보이기
-// function showMyArticle() {
-//     document.getElementById("article_box_wrapper").style.display="flex"
-//     document.getElementById("user_info_box").style.display="none"
-//     document.getElementById("like_article_box_wrapper").style.display="none"
-//     document.getElementById("pet_select_box").style.display="flex"
-// }
-
-// function showUserInfo() {
-    
-//     document.getElementById("user_info_box").style.display="flex"
-//     document.getElementById("like_article_box_wrapper").style.display="none"
-//     document.getElementById("pet_select_box").style.display="none"
-//     document.getElementById("article_box_wrapper").style.display="none"
-// }
-
-// function showLike(){
-    
-//     document.getElementById("user_info_box").style.display="none"
-//     document.getElementById("like_article_box_wrapper").style.display="flex"
-//     document.getElementById("article_box_wrapper").style.display="none"
-//     document.getElementById("pet_select_box").style.display="flex"
-// }
-
-
-// 디테일 모달  열기+보여주기
+// 디테일 모달 열기+보여주기
 async function openDetailModal(id){
     document.getElementById("mypage_modal_comment_list").innerHTML=""
     const modal_box = document.getElementById("modal_box")
@@ -68,24 +66,20 @@ async function openDetailModal(id){
     submit_button.setAttribute("onClick", `sendComment(${article.id})`)
 
     for (let i=0; i<article.comment.length;i++){
-        // console.log(article.comment[i].comment)
         comment_list.innerHTML+=
-            `
-            <div class="modal_comment_text">
+            `<div class="modal_comment_text">
                 <div class="balloon_03">
                     <div>
                         ${article.comment[i].comment}
                     </div>
                 </div>
                 <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
-            </div>
-            `
+            </div>`
     }
 }
 
-//바디 클릭시 모달 창 닫기 기본 모달
+// 바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
-    console.log("여기는 일단 옴")
     if (e.target.id == "modal_box") {
     //   modal_close();
         document.getElementById("modal_box").style.display = "none";
@@ -96,7 +90,7 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
-//댓글 전송하기
+// 댓글 전송하기
 async function sendComment(id){
     console.log(document.getElementById("modal_comment_text").value)
     const comment = document.getElementById("modal_comment_text").value
@@ -114,14 +108,25 @@ async function saveUserInfo(user_id) {
 
 // 유저 정보 불러오기
 async function loadUserInfo() {
-    const show_box = document.getElementById("show_box")
-    show_box.innerHTML = 
-    `<div id="user_info_box" class="user_info_box">
-        <div id="user_profile_section" class="user_profile_section">
-        </div>
-        <div id="pet_profile_section" class="pet_profile_section">
-        </div>
+    const user_button_box = document.getElementById("user_button_box")
+    document.getElementById("user_button_box").style.display = "flex"
+    user_button_box.innerHTML = 
+    `<div class="menu_change_button_box">
+        <button id="menu_change_button" class="menu_change_button" type="button" onclick="changeButton()">
+            반려동물 등록
+        </button>
     </div>`
+
+    const show_container = document.getElementById("show_container")
+    show_container.innerHTML = 
+        `<div id="show_box" class="show_box">
+            <div id="user_info_box" class="user_info_box">
+                <div id="user_profile_section" class="user_profile_section">
+                </div>
+                <div id="pet_profile_section" class="pet_profile_section">
+                </div>
+            </div>
+        </div>`
 
     let user = await getUserInfo()
     console.log(user)
@@ -202,14 +207,18 @@ async function loadUserInfo() {
     }
 }
 
-//좋아요 페이지 아티클 보이기
+// 좋아요 페이지 아티클 보이기
 async function loadLikeArticle() {
-    const show_box = document.getElementById("show_box")
-    show_box.innerHTML = 
-    `<div id="like_article_box_wrapper">
-        <div id="like_article_box" class="like_article_box" >
-        </div>
-    </div>`
+    document.getElementById("user_button_box").style.display = "none"
+
+    const show_container = document.getElementById("show_container")
+    show_container.innerHTML = 
+        `<div id="show_box" class="show_box">
+            <div id="like_article_box_wrapper">
+                <div id="like_article_box" class="like_article_box" >
+                </div>
+            </div>
+        </div>`
 
     let user = await getUserInfo()
 
