@@ -33,7 +33,6 @@ async function loadMyArticle() {
     pet_select_box.style.display = "flex"
     
     let user = await getUserInfo()
-    console.log(user)
     let petprofiles = user.petprofile
     for(let i=0; i<petprofiles.length; i++){
         let pet_name = petprofiles[i].name
@@ -92,7 +91,6 @@ document.body.addEventListener("click", function (e) {
 
 // 댓글 전송하기
 async function sendComment(id){
-    console.log(document.getElementById("modal_comment_text").value)
     const comment = document.getElementById("modal_comment_text").value
     await postComment(id, comment)  
     openDetailModal(id)
@@ -102,7 +100,6 @@ async function sendComment(id){
 // 유저 정보 수정
 async function saveUserInfo(user_id) {
     let response = await putUserInfo(user_id)
-    console.log(response)
     alert('저장 완료')
 }
 
@@ -129,7 +126,6 @@ async function loadUserInfo() {
         </div>`
 
     let user = await getUserInfo()
-    console.log(user)
 
     const like_article_box = document.getElementById("like_article_box")
     const user_profile_img = document.getElementById("user_profile_img")
