@@ -5,7 +5,13 @@ const frontend_base_url = "http://127.0.0.1:5500/"
 // 회원가입
 async function handleSignup(){
     const gender_check = document.querySelectorAll("input[name=gender]:checked");
-    const birthday = document.getElementById("birthday").value
+
+    const day= document.getElementById("day").value
+    const month= document.getElementById("month").value.split("월")[0]
+    const year= document.getElementById("year").value
+    console.log(year+"-"+month+"-"+day)
+    
+    const birthday = year+"-"+month+"-"+day
     if (birthday == ""){
         alert("생년월일을 입력해 주세요!")
         return
@@ -23,7 +29,7 @@ async function handleSignup(){
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
         password:document.getElementById("password").value,
-        birthday_date:document.getElementById("birthday").value,
+        birthday_date:birthday,
         is_active_val:document.getElementById("is_active").value,
         gender_choice:gender,
     }

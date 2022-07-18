@@ -11,6 +11,13 @@
     <link rel="stylesheet" type="text/css" href="./static/css/login.css">
     <!------JS---------->
     <script src="./static/js/api.js"></script>
+    <!-- <style>
+        .date_wrapper{
+            display:block;
+            margin:20px 0;
+        }
+        button
+    </style> -->
 
 
 </head>
@@ -49,6 +56,34 @@
 
             </div>
             <div id="sign-in-2nd-page" style="display:none">
+<<<<<<< HEAD
+                <label for="birthday" style="justify-content: center;display: flex;" >birthday</label>
+                
+                <!-- <div style="width:100%; height: 10px"></div> -->
+                <div class="login-inner" style="display: flex;" >
+                    <form style="background-color: transparent; width: 100%;">
+                        <span class="date_wrapper" style="background-color: transparent;">
+                            <!-- <label for="year">year</label> -->
+                            <select name="year" id="year"></select>
+                        </span>
+                        <span class="date_wrapper"  style="background-color: transparent;">
+                            <!-- <label for="month">month</label> -->
+                            <select name="month" id="month"></select>
+                        </span>       
+                        <span class="date_wrapper"  style="background-color: transparent;">
+                            <!-- <label for="day">day</label> -->
+                            <select name="day" id="day"></select>
+                        </span>
+                    </form>
+                    <!-- <input type="date" placeholder="birthday" name="birthday" id='birthday'  required /> -->
+
+                </div>
+                <div style="width:100%; height: 100px;"></div>
+                <div class="login-inner" style="display: flex;" >
+                </div>
+                <label for="gender" style="justify-content: center;display: flex; margin-bottom: 5px; font-weight: bold;">성별</label>
+                
+=======
                 <label for="birthday" style="justify-content: center;display: flex;">birthday</label>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
@@ -59,6 +94,7 @@
                 <label for="gender"
                     style="justify-content: center;display: flex; margin-bottom: 5px; font-weight: bold;">성별</label>
 
+>>>>>>> main
                 <div style="width:100%; height: 20px;">
                     <input type="radio" id="man" name="gender" value="1">
                     <label for="man">남성</label>
@@ -77,6 +113,8 @@
             <div id="next-page" class="loin-inner">
                 <button class="login-button" type="button" onclick="moveToProfileInput()">다음 페이지</button>
             </div>
+            
+
             <div id="signup" class="login-inner" style="display: none">
                 <button class="login-button" type="button" onclick="handleSignup()">회원가입</button>
             </div>
@@ -87,6 +125,7 @@
         </div>
     </div>
 
+    
 
     <script>
         function moveToProfileInput() {
@@ -96,12 +135,103 @@
                 alert("비밀번호가 일치하지 않습니다.");
                 return;
             }
-
             document.getElementById('sign-in-first-page').style.display = "none"
             document.getElementById('sign-in-2nd-page').style.display = "inline"
             document.getElementById('next-page').style.display = "none"
             document.getElementById('signup').style.display = "flex"
         }
+
+
+
+        //Create references to the dropdown's
+        const yearSelect = document.getElementById("year");
+        const monthSelect = document.getElementById("month");
+        const daySelect = document.getElementById("day");
+
+        const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+
+        //Months are always the same
+        (function populateMonths(){
+            for(let i = 0; i < months.length; i++){
+                const option = document.createElement('option');
+                option.textContent = months[i];
+                monthSelect.appendChild(option);
+            }
+            monthSelect.value = "1월";
+        })();
+
+        let previousDay;
+
+        function populateDays(month){
+            //Delete all of the children of the day dropdown
+            //if they do exist
+            while(daySelect.firstChild){
+                daySelect.removeChild(daySelect.firstChild);
+            }
+            //Holds the number of days in the month
+            let dayNum;
+            //Get the current year
+            let year = yearSelect.value;
+
+            if(month === '1월' || month === '3월' || 
+            month === '5월' || month === '7월' || month === '8월' 
+            || month === '10월' || month === '12월') {
+                dayNum = 31;
+            } else if(month === '4월' || month === '6월' 
+            || month === '9월' || month === '11월') {
+                dayNum = 30;
+            }else{
+                //Check for a leap year
+                if(new Date(year, 1, 29).getMonth() === 1){
+                    dayNum = 29;
+                }else{
+                    dayNum = 28;
+                }
+            }
+            //Insert the correct days into the day <select>
+            for(let i = 1; i <= dayNum; i++){
+                const option = document.createElement("option");
+                option.textContent = i;
+                daySelect.appendChild(option);
+            }
+            if(previousDay){
+                daySelect.value = previousDay;
+                if(daySelect.value === ""){
+                    daySelect.value = previousDay - 1;
+                }
+                if(daySelect.value === ""){
+                    daySelect.value = previousDay - 2;
+                }
+                if(daySelect.value === ""){
+                    daySelect.value = previousDay - 3;
+                }
+            }
+        }
+
+        function populateYears(){
+            //Get the current year as a number
+            let year = new Date().getFullYear();
+            //Make the previous 100 years be an option
+            for(let i = 0; i < 101; i++){
+                const option = document.createElement("option");
+                option.textContent = year - i;
+                yearSelect.appendChild(option);
+            }
+        }
+
+        populateDays(monthSelect.value);
+        populateYears();
+
+        yearSelect.onchange = function() {
+            populateDays(monthSelect.value);
+        }
+        monthSelect.onchange = function() {
+            populateDays(monthSelect.value);
+        }
+        daySelect.onchange = function() {
+            previousDay = daySelect.value;
+        }
+
     </script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="./static/js/kakao.js"></script>
