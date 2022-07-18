@@ -10,7 +10,7 @@ const GetUserInfo = () => {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
     },
   })
-    .then((res) => res.json())
+    .then((res) => res.json()) 
     .then((res) => {
       if (res.username == null) {
         window.location.href = "./login.html";
@@ -22,26 +22,26 @@ const GetUserInfo = () => {
 
 const Refresh_Token = () => {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
-  if (PayLoad.exp > (Date.now() / 1000)){
+  if (PayLoad.exp > Date.now() / 1000) {
     return;
   } else {
-  fetch(USER_URL + "refresh/", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-    },
-    body: JSON.stringify({
-      refresh: localStorage.getItem("user_refresh_token"),
-    }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      localStorage.setItem("user_access_token", res.access);
-    });
+    fetch(USER_URL + "refresh/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      },
+      body: JSON.stringify({
+        refresh: localStorage.getItem("user_refresh_token"),
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        localStorage.setItem("user_access_token", res.access);
+      });
   }
-}
+};
 
 const GetImgList = () => {
   document.getElementById("main_article_list").innerHTML = "";
@@ -147,6 +147,17 @@ function modal_open(id) {
         document.getElementById("like_icon_off").style.display = "flex";
       }
 
+      document.getElementById("modal_follow").style.display = "flex";
+      document.getElementById("modal_follow").innerText = "팔로우";
+
+      if (data.user_following.indexOf(user_id) != -1) {
+        document.getElementById("modal_follow").innerText = "언팔로우";
+      }
+
+      if (data.user == user_id) {
+        document.getElementById("modal_follow").style.display = "none";
+      }
+
       if (data.user == user_id) {
         document.getElementById("article_delete").style.display = "block";
         document.getElementById("article_edit").style.display = "block";
@@ -246,6 +257,10 @@ function modal_open(id) {
         <div onclick="CommentUpload(${id})" id="modal_comment_submit" class="modal_comment_submit">전송</div>`;
 
       document.getElementById("modal_comment_input").innerHTML = comment_html;
+
+      document.getElementById("modal_follow").onclick = () => {
+        Follow(data.author, data.id);
+      };
     });
 }
 
@@ -436,6 +451,25 @@ const LikeUserList = (like_user) => {
       document.getElementById("like_user_list").style.display = "none";
     }
   };
+};
+
+const Follow = (user, article) => {
+  const data = {
+    username: user,
+  };
+  fetch(USER_URL + "follow/", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      alert(res.message)
+      modal_open(article);
+    });
 };
 
 GetUserInfo();

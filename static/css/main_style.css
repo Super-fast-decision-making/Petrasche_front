@@ -581,7 +581,7 @@ body {
     border-radius: 50%;
 }
 
-.modal_user_profile div {
+.modal_username {
     padding-left: 10px;
     font-weight: bold;
     font-size: 12px;
@@ -951,11 +951,24 @@ body {
     z-index: 99999;
 
 }
-
 .load_img img {
     width: 200px;
     height: 200px;
     animation: rotate 0.5s;
+}
+.follow{
+    cursor: pointer;
+    margin-left: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background: skyblue;
+    padding: 3px 10px;
+    border-radius: 5px;
 }
 /* top transform */
 @keyframes fadeintop {
