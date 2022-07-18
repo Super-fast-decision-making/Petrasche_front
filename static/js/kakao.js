@@ -32,26 +32,32 @@ function handleKakaoSignup(authoObj,signupData){
         method:'POST',
         body:JSON.stringify(kakaoSignupData)
     })
-    .then((res)=>res.json())
     .then((res)=>{
-        console.log(res)
-        if (res.msg=="로그인 성공"){
-            console.log(res.refresh)
-            localStorage.setItem("user_access_token", res.access);
-            localStorage.setItem("user_refresh_token", res.refresh);
-            // window.location.replace("http://127.0.0.1:5500/index.html");
-
-            const base64Url = res.access.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-    
-            localStorage.setItem("payload", jsonPayload)
-            window.location.replace("http://127.0.0.1:5500/index.html")
-        }else if(res.msg=="회원가입에 성공 했습니다."){
+        console.log(res.status)
+        console.log(res.error)
+        if (res.status===200){
+            res.json().then((res)=>{
+                localStorage.setItem("user_access_token", res.access);
+                localStorage.setItem("user_refresh_token", res.refresh);
+                // window.location.replace("http://127.0.0.1:5500/index.html");
+                const base64Url = res.access.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                localStorage.setItem("payload", jsonPayload)
+                window.location.replace("http://127.0.0.1:5500/index.html")
+            })
+        } else if(res.status===201){
             alert("회원가입에 성공하셨습니다. 로그인을 해주세요.");
-            // window.location.replace("http://127.0.0.1:5500/login.html");
+            window.location.replace("http://127.0.0.1:5500/login.html");
+        } else if(res.status===400){
+            res.json().then((res)=>{
+                console.log(res.error)
+                alert(res.error)
+                window.location.replace("http://127.0.0.1:5500/signup.html");
+            })
+            
         }
-    })
+    }) 
 }
