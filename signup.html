@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,44 +14,51 @@
 
 
 </head>
+
 <body>
     <div class="wrapper">
         <div class="login-box">
-            <img src="https://mblogthumb-phinf.pstatic.net/MjAxNzA5MTJfMiAg/MDAxNTA1MTg5MTk3NTY1.5zN24LKrBeg1cQk9mIhzNPdcEa1hhFZR1KX28Hqbj2Qg.otBVYKopH_XQRei-8PWTppxFJy9aYooOPrKfTjXBjzYg.GIF.thenail41/20160128_180048_-144289218.gif?type=w800" alt="" class="login_box_img">
+            <img src="https://mblogthumb-phinf.pstatic.net/MjAxNzA5MTJfMiAg/MDAxNTA1MTg5MTk3NTY1.5zN24LKrBeg1cQk9mIhzNPdcEa1hhFZR1KX28Hqbj2Qg.otBVYKopH_XQRei-8PWTppxFJy9aYooOPrKfTjXBjzYg.GIF.thenail41/20160128_180048_-144289218.gif?type=w800"
+                alt="" class="login_box_img">
             <div>
                 <h1 style="margin-top: 30px;">Petrasche</h1>
             </div>
             <div id="sign-in-first-page">
-                <div class="login-inner" >
-                    <input type="input" class="form-control" placeholder="email" name="email" id='email'  required />
+                <div class="login-inner">
+                    <input type="input" class="form-control" placeholder="email" name="email" id='email' required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
-                    <input type="input" class="form-control" placeholder="username" name="username" id='username'  required />
+                    <input type="input" class="form-control" placeholder="username" name="username" id='username'
+                        required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
-                    <input type="password" class="form-control" placeholder="password" name="password" id='password'  required />
+                    <input type="password" class="form-control" placeholder="password" name="password" id='password'
+                        required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
                 <div class="login-inner">
-                    <input type="password" class="form-control" placeholder="password2" name="password2" id='password2'  required />
+                    <input type="password" class="form-control" placeholder="password2" name="password2" id='password2'
+                        required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
-                <a href="javascript:kakaoLogin();"><img style="width:250px" src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"></a>
+                <a href="javascript:kakaoLogin();"><img style="width:250px"
+                        src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"></a>
                 <div style="width:100%; height: 50px">1/2</div>
 
             </div>
             <div id="sign-in-2nd-page" style="display:none">
-                <label for="birthday" style="justify-content: center;display: flex;" >birthday</label>
+                <label for="birthday" style="justify-content: center;display: flex;">birthday</label>
                 <div style="width:100%; height: 20px"></div>
-                <div class="login-inner" >
-                    
-                    <input type="date" placeholder="birthday" name="birthday" id='birthday'  required />
+                <div class="login-inner">
+
+                    <input type="date" placeholder="birthday" name="birthday" id='birthday' required />
                 </div>
                 <div style="width:100%; height: 20px"></div>
-                <label for="gender" style="justify-content: center;display: flex; margin-bottom: 5px; font-weight: bold;">성별</label>
-                
+                <label for="gender"
+                    style="justify-content: center;display: flex; margin-bottom: 5px; font-weight: bold;">성별</label>
+
                 <div style="width:100%; height: 20px;">
                     <input type="radio" id="man" name="gender" value="1">
                     <label for="man">남성</label>
@@ -61,7 +69,7 @@
                 <div style="justify-content: center;display: flex;">
                     <label for="공개 여부">공개 여부</label>
                     <input id="is_active" type="checkbox" name="공개여부" checked="true" value="true">
-                    <input id="is_active_hidden" type="hidden" name="공개여부" value="false"> 
+                    <input id="is_active_hidden" type="hidden" name="공개여부" value="false">
                 </div>
                 <div style="width:100%; height: 50px">2/2</div>
             </div>
@@ -70,21 +78,21 @@
                 <button class="login-button" type="button" onclick="moveToProfileInput()">다음 페이지</button>
             </div>
             <div id="signup" class="login-inner" style="display: none">
-                <button  class="login-button" type="button" onclick="handleSignup()">회원가입</button>
+                <button class="login-button" type="button" onclick="handleSignup()">회원가입</button>
             </div>
-            
+
             <div>
                 <a href="/login.html">계정이 있으신가요? 로그인</a>
             </div>
         </div>
     </div>
-    
+
 
     <script>
-        function moveToProfileInput(){
+        function moveToProfileInput() {
             let pass = document.getElementById('password').value;
             let pass2 = document.getElementById('password2').value;
-            if(pass != pass2){
+            if (pass != pass2) {
                 alert("비밀번호가 일치하지 않습니다.");
                 return;
             }
@@ -95,7 +103,8 @@
             document.getElementById('signup').style.display = "flex"
         }
     </script>
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="./static/js/kakao.js"></script>
 </body>
+
 </html>
