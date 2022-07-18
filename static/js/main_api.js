@@ -147,6 +147,7 @@ function modal_open(id) {
         document.getElementById("like_icon_off").style.display = "flex";
       }
 
+      document.getElementById("modal_follow").style.display = "flex";
       document.getElementById("modal_follow").innerText = "팔로우";
 
       if (data.user_following.indexOf(user_id) != -1) {
