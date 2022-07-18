@@ -157,6 +157,42 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
+// 반려동물 정보 불러오기
+function showPetProfileInfo(petprofile) {
+    console.log(petprofile)
+    const user_profile_section = document.getElementById("user_profile_section")
+    user_profile_section.innerHTML =
+        `<div class="user_profile_box">
+            <div class="user_profile_item">
+                <p>비밀번호</p>
+                <button type="button" onclick="">변경</button>
+            </div>
+            <div class="user_profile_item">
+                <p>이메일</p>
+                <span id="user_profile_email"></span>
+            </div>
+            <div class="user_profile_item">
+                <p>연락처</p>
+                <input id="user_profile_phone" type="text" value=""/>
+                <button type="button" onclick="">변경</button>
+            </div>
+            <div class="user_profile_item">
+                <p>생년월일</p>
+                <input id="user_profile_birthday" type="date"  value=""/>
+            </div>
+            <div class="user_profile_item">
+                <p>성별</p>
+                <input type="radio" id="gender_male" name="gender" value=1>
+                <label for="남성">남성</label>
+                <input type="radio" id="gender_female" name="gender" value=2>
+                <label for="여성">여성</label>
+            </div>
+            <div class="user_profile_save">
+                <button type="button" onclick="saveUserInfo()">저장</button>
+            </div>
+        </div > `
+}
+
 // 회원 정보 불러오기(메뉴)
 async function loadUserInfo() {
     // 반려동물 등록 버튼 활성화
@@ -183,7 +219,7 @@ async function loadUserInfo() {
     let user = await getUserInfo()
 
     const user_profile_section = document.getElementById("user_profile_section")
-    user_profile_section.innerHTML +=
+    user_profile_section.innerHTML =
         `<div class="user_profile_box">
             <div class="user_profile_item">
                 <p>비밀번호</p>
@@ -235,12 +271,25 @@ async function loadUserInfo() {
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     let petprofiles = user.petprofile
-    console.log(petprofiles)
     for (let i = 0; i < petprofiles.length; i++) {
+        // let petprofile = {
+        //     pet_id: petprofiles[i].id,
+        //     pet_name: petprofiles[i].name,
+        //     pet_birthday: petprofiles[i].birthday,
+        //     pet_type: petprofiles[i].type,
+        //     pet_gender: petprofiles[i].gender,
+        //     pet_size: petprofiles[i].size,
+        //     pet_profile_img: petprofiles[i].pet_profile_img
+        // }
+        let pet_id = petprofiles[i].id
         let pet_name = petprofiles[i].name
+        // let pet_birthday = petprofiles[i].birthday
+        // let pet_type = petprofiles[i].type
+        // let pet_gender = petprofiles[i].gender
+        // let pet_size = petprofiles[i].size
         let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
-            `<div class="pet_profile_card">
+            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetProfileInfo(${pet_id})">
                 <div class="pet_img">
                     <img src="${pet_profile_img}" />
                 </div>
