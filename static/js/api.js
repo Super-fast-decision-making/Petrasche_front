@@ -209,3 +209,62 @@ async function postPetProfile(name, birthday, type, gender, size) {
     response_json = await response.json()
     return response_json
 }
+
+
+//코멘트 삭제
+function CommentDelete(id, article_id) {
+    let confirm_delete = confirm("삭제하시겠습니까?"); 
+    if (confirm_delete) {
+        fetch(`${backend_base_url}article/comment/${id}/`, {
+            method: "DELETE",
+            headers: {
+                Accept: 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("user_access_token"),
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                alert("삭제 완료");
+                modal_open(article_id);
+            });
+    } else {
+        return;
+    }
+};
+//코멘트 수정
+function CommentEdit(id,article_id) {
+    console.log(id)
+    console.log(article_id)
+    document.getElementById("modal_edit_box").style.display = "flex";
+    // let node = event.target.parentNode;
+    // let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
+    // document.getElementById("modal_edit_text").value = comment_value.replace(
+    //     /<br>/g,
+    //     "\n"
+    // );
+    console.log("일단 이거 다 실행되고 있긴함...")
+}
+
+
+//팔로우 +언팔로우
+
+function Follow(author, article){
+
+    const data = {
+        username: author,
+    };
+    fetch(`${backend_base_url}user/follow/`, {
+        method: "POST",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+        .then((res) => res.json())
+        .then((res) => {
+            alert(res.message)
+            // modal_open(article);
+        });
+};

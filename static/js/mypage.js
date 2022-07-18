@@ -56,44 +56,70 @@ async function loadMyArticle() {
 // 디테일 모달 열기+보여주기
 async function openDetailModal(id) {
     document.getElementById("mypage_modal_comment_list").innerHTML = ""
+    const PayLoad = JSON.parse(localStorage.getItem("payload"));
     const modal_box = document.getElementById("modal_box")
 
     modal_box.style.display = "flex"
     const article = await getDetailArticle(id)
+    console.log(article)
 
     const modal_box_img = document.getElementById("modal_box_img")
     const author = document.getElementById("author")
     const content = document.getElementById("content")
     const comment_list = document.getElementById("mypage_modal_comment_list")
     const submit_button = document.getElementById("modal_comment_submit")
+    const modal_follow = document.getElementById("modal_follow")
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
     submit_button.setAttribute("onClick", `sendComment(${article.id})`)
+    modal_follow.setAttribute("onClick", `Follow('${article.author}',${article.id})`)
+    
 
     for (let i = 0; i < article.comment.length; i++) {
-        comment_list.innerHTML +=
+        if(article.comment[i].user==PayLoad.user_id){
+            comment_list.innerHTML +=
             `<div class="modal_comment_text">
                 <div class="balloon_03">
                     <div>
                         ${article.comment[i].comment}
                     </div>
                 </div>
-                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span></div>
+                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
+                <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
+                <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
+                </div>
             </div > `
+        }else if(article.comment[i].user!=PayLoad.user_id){
+            comment_list.innerHTML +=
+            `<div class="modal_comment_text">
+                <div class="balloon_03">
+                    <div>
+                        ${article.comment[i].comment}
+                    </div>
+                </div>
+                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
+                </div>
+            </div > `
+        }
+    }
+    // 수정 삭제 버튼+팔로우 버튼 보이기
+    if (article.user== PayLoad.user_id){
+        document.getElementById("article_delete").style.display="flex"
+        document.getElementById("article_edit").style.display="flex"
+    }else if (article.user!= PayLoad.user_id){
+        document.getElementById("modal_follow").style.display="flex"
     }
 }
 
 // 바디 클릭시 모달 창 닫기 기본 모달
 document.body.addEventListener("click", function (e) {
     if (e.target.id == "modal_box") {
-        //   modal_close();
         document.getElementById("modal_box").style.display = "none";
         document.getElementById("modal_box_img").src = "";
         document.body.style.overflow = "auto";
         document.body.style.touchAction = "auto";
-        // document.getElementById("mypage_modal_comment_list").innerHTML=""
     }
 });
 

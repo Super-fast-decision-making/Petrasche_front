@@ -56,7 +56,6 @@ function modal_close() {
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
   // GetImgList();
-
   // document.getElementById("modal_comment_submit").removeEventListener("click", myHandler);
 }
 

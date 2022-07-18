@@ -355,6 +355,20 @@ body {
 
 
 /*디테일 모달*/
+.follow{
+    cursor: pointer;
+    margin-left: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background: skyblue;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
 
 
 .modal_box {
@@ -367,7 +381,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 1000;
     display: none;
 }
 .like_user_list{
@@ -462,7 +476,7 @@ body {
 .modal_content {
     position: relative;
     width: 1000px;
-    height: 800px;
+    height: 95%;
     background-color: white;
     border-radius: 8px;
     display: flex;
@@ -493,16 +507,18 @@ body {
     color: yellowgreen;
 }
 .modal_edit_box{
-    position: fixed;
-    display: flex;
+    position: absolute;
+    display: none;
     width: 100%;
     height: 100%;
-    flex-direction: column;
-    z-index: 999999;
-    display: flex;
+    top:20%;
+
+    /* top:-500px; */
+    /* flex-direction: column; */
+    z-index: 99999;
     justify-content: center;
     align-items: center;
-    display: none;
+
 }
 .modal_edit_button{
     cursor: pointer;
@@ -514,6 +530,7 @@ body {
     padding: 5px;
     background: #000;
     color: white;
+    z-index:99999
 }
 .modal_edit_cancel{
     cursor: pointer;
@@ -525,6 +542,7 @@ body {
     padding: 5px;
     background: #000;
     color: white;
+    z-index:99999
 }
 .modal_edit_box_input{
     position: absolute;
@@ -533,6 +551,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index:99999
 }
 .modal_edit_box textarea{
     width: 100%;
@@ -545,9 +564,11 @@ body {
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index:99999
 }
 .modal_edit_box textarea:focus{
     outline: none;
+    z-index:99999
 }
 
 .modal_content img {
@@ -843,9 +864,9 @@ body {
     overflow: hidden;
     /* flex-direction: column; */
     /* justify-content: center; */
-    align-items: center;
+    /* align-items: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
+} */
 
 .modal_content img {
     width: 70%;
