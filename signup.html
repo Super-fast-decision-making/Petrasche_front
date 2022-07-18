@@ -94,7 +94,7 @@
             window.Kakao.Auth.login({
                 scope:'profile_nickname, account_email, gender',
                 success: function(authoObj){
-                    console.log(authoObj);
+                    // console.log(authoObj);
                     window.Kakao.API.request({
                         url:'/v2/user/me',
                         success: res => {
@@ -106,22 +106,30 @@
                                 email: kakao_account.email,
                                 username: kakao_account.profile.nickname
                             }
-                            // const response = await fetch('http://127.0.0.1:8000/user/',{
-                            //     headers:{
-                            //         Accept:'application/json',
-                            //         'Content-type':'application/json'
-                            //     },
-                            //     method:'POST',
-                            //     body:JSON.stringify(signupData)
-                            // })
-                            // response_json=await response.json()
-                            // console.log(reseponse_json)
+                            console.log(signupData)
+                            console.log(authoObj)
+                            handleKakaoSignup(authoObj,signupData)
                         }
                     });
+                },
+                fail:function(error){
+                    console.log(error);
                 }
-
             });
         }
+        async function handleKakaoSignup(authoObj,signupData){
+            const kakaoSignupData = Object.assign({}, authoObj, signupData);
+            // console.log(kakaoSignupData)
+            const response = await fetch('http://127.0.0.1:8000/user/kakao/',{
+                headers:{
+                    Accept:'application/json',
+                    'Content-type':'application/json'
+                },
+                method:'POST',
+                body:JSON.stringify(kakaoSignupData)
+            })
+        }
+        
     </script>
 </body>
 </html>
