@@ -24,7 +24,7 @@ function kakaoLogin(){
         }
     });
 }
-
+//카카오 로그인&회원가입
 function handleKakaoSignup(authoObj,signupData){
     const kakaoSignupData = Object.assign({}, authoObj, signupData);
     const response = fetch(`${backend_base_url}user/kakao/`,{

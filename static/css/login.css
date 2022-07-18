@@ -88,5 +88,10 @@ body{
     border-radius: 8px;
     height:40px;
     width: 250px;
-    color:whitesmoke
+    color:whitesmoke;
+}
+.date_wrapper{
+    display:block;
+    margin:20px 0;
+    background-color: transparent;
 }
