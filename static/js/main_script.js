@@ -112,8 +112,3 @@ function upload_modal_cancel() {
 function modal_edit_cancel() {
   document.getElementById("modal_edit_box").style.display = "none";
 }
-
-function pet_profile(id) {
-  console.log(id.children[1])
-  id.children[1].style.display = "flex";
-}

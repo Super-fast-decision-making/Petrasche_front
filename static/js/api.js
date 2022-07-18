@@ -2,12 +2,16 @@ const backend_base_url = "http://127.0.0.1:8000/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
 
-
-
-//회원가입
+// 회원가입
 async function handleSignup(){
     const gender_check = document.querySelectorAll("input[name=gender]:checked");
-    const birthday = document.getElementById("birthday").value
+
+    const day= document.getElementById("day").value.split("일")[0]
+    const month= document.getElementById("month").value.split("월")[0]
+    const year= document.getElementById("year").value.split("년")[0]
+    console.log(year+"-"+month+"-"+day)
+    
+    const birthday = year+"-"+month+"-"+day
     if (birthday == ""){
         alert("생년월일을 입력해 주세요!")
         return
@@ -25,7 +29,7 @@ async function handleSignup(){
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
         password:document.getElementById("password").value,
-        birthday_date:document.getElementById("birthday").value,
+        birthday_date:birthday,
         is_active_val:document.getElementById("is_active").value,
         gender_choice:gender,
     }
@@ -58,7 +62,7 @@ async function handleSignup(){
     }
 }
 
-//로그인
+// 로그인
 async function handleLogin() {
     const loginData={
         email:document.getElementById("email").value,
@@ -121,7 +125,7 @@ async function getUserInfo() {
 }
 
 
-//특정 id값에 해당하는 게시물 불러오기 (디테일 모달)
+// 특정 id값에 해당하는 게시물 불러오기 (디테일 모달)
 async function getDetailArticle(id){
     const response = await fetch(`${backend_base_url}article/${id}/`, {
         method: 'GET',
@@ -136,7 +140,7 @@ async function getDetailArticle(id){
 }
 
 
-//댓글 달기
+// 댓글 달기
 async function postComment(id, comment){
     const commentData={
         comment: comment
@@ -184,3 +188,26 @@ async function putUserInfo(user_id) {
     return response_json
 }
 
+// 반려동물 등록
+async function postPetProfile(name, birthday, type, gender, size) {
+    const petProfileData={
+        name: name,
+        birthday: birthday,
+        type: type,
+        gender: gender,
+        size: size
+        // pet_profile_img: pet_profile_img
+    }
+    // console.log(petProfileData)
+    const response = await fetch(`${backend_base_url}user/mypet/`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(petProfileData)
+    })
+    response_json = await response.json()
+    return response_json
+}
