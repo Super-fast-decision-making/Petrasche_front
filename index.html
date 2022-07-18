@@ -12,70 +12,49 @@
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div id="now_loading" class="load_img">
-        <img src="static\load_img\icon-1s-351px.gif" alt="" srcset="">
+        <img src="https://i.pinimg.com/originals/b5/9e/c4/b59ec4cdd3e542541ec5c5234b92a9b6.gif" alt="" srcset="">
     </div>
+    <div id="modal_edit_box" class="modal_edit_box">
+        <div class="modal_edit_box_input"><textarea id="modal_edit_text" rows="5" cols="50"
+                placeholder="내용....."></textarea>
+            <button id="modal_edit_button" class="modal_edit_button">수정</button>
+            <button onclick="modal_edit_cancel()" id="modal_edit_cancel" class="modal_edit_cancel">취소</button>
+        </div>
+    </div>
+
     <!-- 상세 모달 -->
     <div id="modal_box" class="modal_box">
         <div class="modal_content">
-            <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
-                alt="">
+            <div class="modal_img_box">
+                <img id="modal_box_img"
+                    src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt="">
+                <div id="slide_left" class="slide_left"><i class="fa-solid fa-caret-left"></i></div>
+                <div id="slide_right" class="slide_right"><i class="fa-solid fa-caret-right"></i></div>
+                <div id="like_user_list" class="like_user_list">
+                    <h4>좋아요 없음</h4>
+                </div>
+            </div>
+
+            <div id="like_icon_on" class="like_icon_on"><i class="fa-solid fa-heart"></i><span> 45</span></div>
+            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span> 45</span></div>
+            <div id="heart_ani" class="heart_ani"><i class="fa-solid fa-heart"></i></div>
             <div id="modal_desc" class="modal_desc">
+                <div id="article_delete" class="article_delete"><i class="fa-solid fa-trash"></i></div>
+                <div id="article_edit" class="article_edit"><i class="fa-solid fa-pen-to-square"></i></div>
                 <div class="modal_user_profile">
                     <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
                         srcset="">
-                    <div>강아지 사육사</div>
+                    <div id="modal_username" class="modal_username">강아지 사육사</div>
+                    <div id="modal_follow" class="follow">팔로우</div>
                 </div>
                 <div id="modal_content_list" class="modal_content_list">
                     <div id="modal_content_text">
 
                     </div>
+
                 </div>
                 <div class="modal_comment_list" id="modal_comment_list">
 
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                강아지 정말 이쁩니다.
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
-
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                강아지 너무 맛있게 생겼......아닙니다......
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
-
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                저도 동네 친구라서 같이 애견 카페 가보고 싶네요. 시간 되시면 DM주세요.
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
-
-                    <div class="modal_comment_text">
-                        <div class="balloon_03">
-                            <div>
-                                나비야, 나비야 이리 날아오너라<br>
-                                노랑나비, 흰 나비 춤을 추며 오너라<br>
-                                봄바람에 꽃잎도 방긋방긋 웃으며<br>
-                                참새도 짹짹짹 노래하며 춤춘다<br>
-                                봄바람에 꽃잎도 방긋방긋 웃으며<br>
-                                참새도 짹짹짹 노래하며 춤춘다<br>
-                                나비야, 나비야 이리 날아오너라<br>
-                                노랑나비, 흰 나비 춤을 추며 오너라<br>
-                                나비야, 나비야 이리 날아오너라<br>
-                                노랑나비, 흰 나비 춤을 추며 오너라
-                            </div>
-                        </div>
-                        <div class="modal_comment_user">강아지 사육사 <span>1일전</span></div>
-                    </div>
                 </div>
                 <div id="modal_comment_input" class="modal_comment_input">
                     <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
@@ -90,6 +69,7 @@
     <div id="upload_modal" class="upload_modal">
         <div class="upload_modal_box">
             <input type="file" multiple accept="image/*" id="upload_file" hidden>
+            <input type="file" multiple accept="image/*" id="add_file" hidden>
             <div id="upload_submit_button" class="upload_submit_button">
                 <i onclick="upload_modal_submit()" class="fa-solid fa-circle-check"></i>
                 <i onclick="upload_modal_cancel()" class="fa-solid fa-circle-xmark"></i>
@@ -120,13 +100,14 @@
                 <button class="serch_button">검색</button>
             </div>
             <div class="user_info">
-                <div class="user_profile">
+                <div id="user_profile" class="user_profile">
                     <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
                         alt="">
                 </div>
-                <!-- <div class="user">
-                    유저님 반갑습니다
-                </div> -->
+                <div class="user">
+                    <span style="font-size:12px; font-weight: bold;" id="user">유저님</span>님 환영합니다.
+                </div>
+                <div onclick="Logout()" class="logout">로그아웃</div>
             </div>
         </nav>
 
@@ -157,100 +138,6 @@
             <div class="right_section">
                 <h1 class="top_title">Best 게시물</h1>
                 <div id="top_article" class="top_article">
-                    <div class="top_article_list">
-                        <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
-                            alt="">
-                        <div class="top_article_info">
-                            <div>좋아요 100개</div>
-                            <div>
-                                <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
-                                <div class="top_article_user_name">강아지 사육사</div>
-                            </div>
-                            <div>
-                                안녕하세용~~~워니워니 입니다~~!!^^
-                                점심식사는 맛있게 하셨나요?? 전 오늘 바빠서 아직 못먹었네요..ㅜ.ㅜ
-                                우리 이웃님들 강아지 많이 좋아하시죠???
-                                저도 강아지 어~~~~~~~~~~~~~~~~~~~~엄청 좋아하거든용~!!!
-                                오늘은 우리 이웃님들께 재미있는 강아지 사진을 보여드릴려고 해요~
-                                귀여우면서 웃기기도 한 우리 친구들을 만나러 가볼까요??^^
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top_article_list">
-                        <img src="https://cdn.pixabay.com/photo/2019/11/07/08/40/puppy-4608266__340.jpg" alt="">
-                        <div class="top_article_info">
-                            <div>좋아요 100개</div>
-                            <div>
-                                <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
-                                <div class="top_article_user_name">강아지 사육사</div>
-                            </div>
-                            <div>
-                                안녕하세용~~~워니워니 입니다~~!!^^
-                                점심식사는 맛있게 하셨나요?? 전 오늘 바빠서 아직 못먹었네요..ㅜ.ㅜ
-                                우리 이웃님들 강아지 많이 좋아하시죠???
-                                저도 강아지 어~~~~~~~~~~~~~~~~~~~~엄청 좋아하거든용~!!!
-                                오늘은 우리 이웃님들께 재미있는 강아지 사진을 보여드릴려고 해요~
-                                귀여우면서 웃기기도 한 우리 친구들을 만나러 가볼까요??^^
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top_article_list">
-                        <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
-                        <div class="top_article_info">
-                            <div>좋아요 100개</div>
-                            <div>
-                                <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
-                                <div class="top_article_user_name">강아지 사육사</div>
-                            </div>
-                            <div>
-                                안녕하세용~~~워니워니 입니다~~!!^^
-                                점심식사는 맛있게 하셨나요?? 전 오늘 바빠서 아직 못먹었네요..ㅜ.ㅜ
-                                우리 이웃님들 강아지 많이 좋아하시죠???
-                                저도 강아지 어~~~~~~~~~~~~~~~~~~~~엄청 좋아하거든용~!!!
-                                오늘은 우리 이웃님들께 재미있는 강아지 사진을 보여드릴려고 해요~
-                                귀여우면서 웃기기도 한 우리 친구들을 만나러 가볼까요??^^
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top_article_list">
-                        <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262__340.jpg" alt="">
-                        <div class="top_article_info">
-                            <div>좋아요 100개</div>
-                            <div>
-                                <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
-                                <div class="top_article_user_name">강아지 사육사</div>
-                            </div>
-                            <div>
-                                안녕하세용~~~워니워니 입니다~~!!^^
-                                점심식사는 맛있게 하셨나요?? 전 오늘 바빠서 아직 못먹었네요..ㅜ.ㅜ
-                                우리 이웃님들 강아지 많이 좋아하시죠???
-                                저도 강아지 어~~~~~~~~~~~~~~~~~~~~엄청 좋아하거든용~!!!
-                                오늘은 우리 이웃님들께 재미있는 강아지 사진을 보여드릴려고 해요~
-                                귀여우면서 웃기기도 한 우리 친구들을 만나러 가볼까요??^^
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="top_article_list">
-                        <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
-                            alt="">
-                        <div class="top_article_info">
-                            <div>좋아요 100개</div>
-                            <div>
-                                <img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg" alt="">
-                                <div class="top_article_user_name">강아지 사육사</div>
-                            </div>
-                            <div>
-                                안녕하세용~~~워니워니 입니다~~!!^^
-                                점심식사는 맛있게 하셨나요?? 전 오늘 바빠서 아직 못먹었네요..ㅜ.ㅜ
-                                우리 이웃님들 강아지 많이 좋아하시죠???
-                                저도 강아지 어~~~~~~~~~~~~~~~~~~~~엄청 좋아하거든용~!!!
-                                오늘은 우리 이웃님들께 재미있는 강아지 사진을 보여드릴려고 해요~
-                                귀여우면서 웃기기도 한 우리 친구들을 만나러 가볼까요??^^
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
                 <div class="scroll_button">

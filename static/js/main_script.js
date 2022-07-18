@@ -44,9 +44,8 @@ function article_box_hover(target) {
   target.children[1].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
   target.addEventListener("mouseleave", function (e) {
     target.children[1].style.display = "none";
-    target.children[1].style.backgroundColor = null
-  }
-  );
+    target.children[1].style.backgroundColor = null;
+  });
 }
 
 function modal_desc_info(id) {
@@ -59,8 +58,10 @@ function modal_close() {
   document.getElementById("modal_box").style.display = "none";
   document.getElementById("modal_box_img").src = "";
   document.getElementById("modal_comment_text").value = "";
+  document.getElementById("like_user_list").style.display = "none";
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
+  // GetImgList();
 
   // document.getElementById("modal_comment_submit").removeEventListener("click", myHandler);
 }
@@ -94,7 +95,6 @@ function upload_file() {
         document.getElementById("preview_img").style.display = "flex";
         document.getElementById("upload_submit_button").style.display = "flex";
       }
-      // console.log(files);
     });
 }
 function upload_modal_open() {
@@ -111,5 +111,10 @@ function upload_modal_cancel() {
   document.getElementById("upload_submit_button").style.display = "none";
   document.getElementById("upload_model_content").style.display = "none";
   document.getElementById("upload_modal_btn").style.display = "flex";
+  document.body.style.overflow = "auto";
+  document.body.style.touchAction = "auto";
 }
 
+function modal_edit_cancel() {
+  document.getElementById("modal_edit_box").style.display = "none";
+}

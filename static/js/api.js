@@ -2,15 +2,32 @@ const backend_base_url = "http://127.0.0.1:8000/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
 
+
+
 //회원가입
 async function handleSignup(){
+    const gender_check = document.querySelectorAll("input[name=gender]:checked");
+    const birthday = document.getElementById("birthday").value
+    if (birthday == ""){
+        alert("생년월일을 입력해 주세요!")
+        return
+    }
+    if (gender_check.length <= 0){
+        alert("성별을 선택해 주세요!")
+        return
+    }
+
+    gender_check.forEach((ch) => {
+        gender = ch.value
+    })
+
     const signupData = {
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
         password:document.getElementById("password").value,
         birthday_date:document.getElementById("birthday").value,
         is_active_val:document.getElementById("is_active").value,
-        gender_choice:document.getElementById("gender").value,
+        gender_choice:gender,
     }
 
     const response = await fetch(`${backend_base_url}user/`,{
@@ -22,12 +39,22 @@ async function handleSignup(){
         body:JSON.stringify(signupData)
     })
     response_json=await response.json()
-    print(response_json)
 
     if (response.status==200) {
         window.location.replace(`${frontend_base_url}login.html`);
     }else{
-        alert(response_json['username'],response_json['email'],response_json['password'], response_json['error'])
+        if (response_json.email){
+            alert("중복된 이메일 입니다.")
+            window.location.replace(`${frontend_base_url}signup.html`);
+        }
+        else if (response_json.username){
+            alert("중복된 닉네임 입니다.")
+            window.location.replace(`${frontend_base_url}signup.html`);
+        }
+        else{
+            alert("오류가 발생했습니다.")
+            window.location.replace(`${frontend_base_url}signup.html`);
+        }
     }
 }
 
@@ -61,7 +88,7 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload)
         window.location.replace(`${frontend_base_url}`)
     } else {
-        alert(response_json)
+        alert("아이디 또는 비밀번호가 일치하지 않습니다.") 
     }
 }
 
@@ -128,7 +155,32 @@ async function postComment(id, comment){
             // ResponseloadComments(data)
 
         })
-
 }
 
+async function putUserInfo(user_id) {
+    const chkList = document.querySelectorAll("input[name=gender]:checked");
+    gender = ''
+    chkList.forEach(function (ch) {
+        console.log(ch.value);
+        gender = ch.value
+    });
+
+    const userData={
+        phone: document.getElementById("user_profile_phone").value,
+        birthday: document.getElementById("user_profile_birthday").value,
+        gender: gender      
+    }
+    console.log(userData)
+    const response = await fetch(`${backend_base_url}user/authonly/${user_id}/`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body:JSON.stringify(userData)
+    })
+    response_json = await response.json()
+    return response_json
+}
 
