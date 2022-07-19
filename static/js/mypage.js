@@ -70,14 +70,78 @@ async function openDetailModal(id) {
     const comment_list = document.getElementById("mypage_modal_comment_list")
     const submit_button = document.getElementById("modal_comment_submit")
     const modal_follow = document.getElementById("modal_follow")
+    const article_delete = document.getElementById("article_delete")
+    const article_edit = document.getElementById("article_edit")
+    
 
     author.innerText = article.author
     content.innerText = article.content
     modal_box_img.src = article.images[0]
+    article_delete.setAttribute("onClick", `articleDelete(${article.id})`)
+    article_edit.setAttribute("onClick", `articleEdit(${article.id})`)
+
     submit_button.setAttribute("onClick", `sendComment(${article.id})`)
     modal_follow.setAttribute("onClick", `Follow('${article.author}',${article.id})`)
     
+    //이미지
+    let images = article.images;
+    document.getElementById("slide_left").onclick = () => {
+        let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+        );
+        if (index == 0) {
+            index = images.length - 1;
+        } else {
+            index--;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+                duration: 1000,
+                fill: "forwards",
+            });
+    };
+    document.getElementById("slide_right").onclick = () => {
+        let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+        );
+        if (index == images.length - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+                duration: 1000,
+                fill: "forwards",
+            });
+    };
 
+    //좋아요 기능
+    document.getElementById("modal_box_img").ondblclick = () => {
+        LikeOn(article.id);
+    };
+    document.getElementById("like_icon_off").onclick = () => {
+        LikeUserList(article.likes);
+    };
+    document.getElementById("like_icon_on").onclick = () => {
+        LikeUserList(article.likes);
+    };
+
+
+    //캐로셀 좌우 버튼 보이기
+    if (article.images.length <= 1) {
+        document.getElementById("slide_left").style.display = "none";
+        document.getElementById("slide_right").style.display = "none";
+    }else{
+        document.getElementById("slide_left").style.display = "block";
+        document.getElementById("slide_right").style.display = "block";
+    }
+
+    //코멘트 달기
     for (let i = 0; i < article.comment.length; i++) {
         if(article.comment[i].user==PayLoad.user_id){
             comment_list.innerHTML +=
@@ -109,7 +173,10 @@ async function openDetailModal(id) {
     if (article.user== PayLoad.user_id){
         document.getElementById("article_delete").style.display="flex"
         document.getElementById("article_edit").style.display="flex"
+        document.getElementById("modal_follow").style.display="none"
     }else if (article.user!= PayLoad.user_id){
+        document.getElementById("article_delete").style.display="none"
+        document.getElementById("article_edit").style.display="none"
         document.getElementById("modal_follow").style.display="flex"
     }
 }
@@ -510,5 +577,25 @@ async function loadLikeArticle() {
             </div > `
     }
 }
+
+
+// function listLikeUser(likes){
+//     if (likes.length == 0) {
+//         document.getElementById("like_user_list").style.display = "flex";
+//     } else {
+//         document.getElementById("like_user_list").innerHTML = "";
+//         likes.forEach((user) => {
+//             document.getElementById(
+//                 "like_user_list"
+//             ).innerHTML += `<div>${user}</div>`;
+//         });
+//         document.getElementById("like_user_list").style.display = "flex";
+//     }
+//     document.getElementById("like_user_list").onclick = () => {
+//         if (document.getElementById("like_user_list").style.display == "flex") {
+//             document.getElementById("like_user_list").style.display = "none";
+//         }
+//     };
+// }
 
 loadMyArticle()
