@@ -284,7 +284,6 @@ async function showPetInfo(pet_id) {
     let user = await getUserInfo()
     let petprofiles = user.petprofile
     const petprofile = petprofiles.filter( value => value.id == pet_id)[0]
-    console.log(petprofile)
     let pet_name = petprofile.name
     let pet_birthday = petprofile.birthday
     let pet_type = petprofile.type
@@ -374,9 +373,85 @@ async function showPetInfo(pet_id) {
     if (pet_size == 3) {
         update_size_large.checked = true
     }
+
+    const pet_profile_section = document.getElementById("pet_profile_section")
+    pet_profile_section.innerHTML =
+        `<div id="pet_profile_card" class="pet_profile_card" onclick="loadUserInfo()">
+            <div class="pet_img">
+                <img src="${user.profile_img}" />
+            </div>
+            <div class="pet_name">
+                <p>${user.username}</p>
+            </div>
+        </div > `
+    for (let i = 0; i < petprofiles.length; i++) {
+        let pet_id = petprofiles[i].id
+        let pet_name = petprofiles[i].name
+        let pet_profile_img = petprofiles[i].pet_profile_img
+        pet_profile_section.innerHTML +=
+            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
+                <div class="pet_img">
+                    <img src="${pet_profile_img}" />
+                </div>
+                <div class="pet_name">
+                    <p>${pet_name}</p>
+                </div>
+            </div > `
+    }
+    let pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
+    pet_profile_card.remove()
+
+}
+
+// 회원 비밀번호 인증 모달 활성화
+function showAuthPassword() {
+    const update_pw_modal_box = document.getElementById("update_pw_modal_box")
+    update_pw_modal_box.style.display = "flex"
+}
+
+// 회원 비밀번호 변경 모달 활성화
+function showUpdatePassword(user_id) {
+    const update_pw_modal_box = document.getElementById("update_pw_modal_box")
+    update_pw_modal_box.innerHTML =
+        `<div class="update_pw_modal_content">
+            <div class="update_pw_msg_box">
+                <p>새로운 비밀번호를 입력해주세요</p>
+            </div>
+            <div class="update_pw_input_box">
+                <input id="update_npw_input" type="password" />
+            </div>
+            <div class="update_pw_input_box">
+                <input id="update_cpw_input" type="password" />
+            </div>
+            <div class="update_pw_button_box">
+                <button type="button" onclick="checkPassword(${user_id})">
+                    변경
+                </button>
+            </div>
+        </div>`
 }
 
 
+// 회원 비밀번호 인증
+// async function AuthPassword() {
+//     const update_pw_input = document.getElementById("update_pw_input").value
+
+//     let response = await postAuthPassword(update_pw_input)
+
+// }
+
+//  변경 비밀번호 일치 확인
+async function checkPassword(user_id) {
+    const new_password = document.getElementById("update_npw_input").value
+    const check_password = document.getElementById("update_cpw_input").value
+
+    if (new_password == check_password) {
+        await putPassword(user_id, new_password)
+    } else {
+        alert('비밀번호를 다시 확인해주세요.')
+    }
+
+}
 
 // 회원 정보 불러오기(메뉴)
 async function loadUserInfo() {
@@ -412,7 +487,7 @@ async function loadUserInfo() {
         `<div class="user_profile_box">
             <div class="user_profile_item">
                 <p>비밀번호</p>
-                <button type="button" onclick="">변경</button>
+                <button type="button" onclick="showAuthPassword()">변경</button>
             </div>
             <div class="user_profile_item">
                 <p>이메일</p>
@@ -460,10 +535,6 @@ async function loadUserInfo() {
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_id = petprofiles[i].id
         let pet_name = petprofiles[i].name
-        // let pet_birthday = petprofiles[i].birthday
-        // let pet_type = petprofiles[i].type
-        // let pet_gender = petprofiles[i].gender
-        // let pet_size = petprofiles[i].size
         let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
             `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
