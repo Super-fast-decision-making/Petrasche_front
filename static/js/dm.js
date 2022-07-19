@@ -22,7 +22,7 @@ let url = 'ws://127.0.0.1:8000/ws/socket-server/'
 
 const chatSocket = new WebSocket(url)
 chatSocket.onopen = async function (e) {
-    // console.log('open', e)
+    console.log('open', e)
 
 
 }
@@ -36,7 +36,6 @@ chatSocket.onmessage = async function (e) {
     let data = JSON.parse(e.data)
     // console.log(data)
     // console.log('message', e)
-    // con
 
     if (data.type === 'chat') {
         let messages = document.getElementById('messages')
