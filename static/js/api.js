@@ -277,8 +277,7 @@ function CommentEdit(id,article_id) {
 
 //팔로우 +언팔로우
 
-function Follow(author, article){
-
+function Follow(author, article_id){
     const data = {
         username: author,
     };
@@ -296,3 +295,29 @@ function Follow(author, article){
             openDetailModal(article_id);
         });
 };
+
+
+function articleDelete(id){
+    let confirm_delete = confirm("삭제하시겠습니까?");
+    if (confirm_delete) {
+        fetch(`${backend_base_url}article/myarticle/${id}/`, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                alert("삭제 완료");
+            window.location.reload();
+            });
+    } else {
+        return;
+    }
+}
+
+// function articleEdit(id){
+    // console.log("여기도 잘옴")
+
+// }

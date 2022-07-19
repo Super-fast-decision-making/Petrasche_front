@@ -69,10 +69,15 @@ async function openDetailModal(id) {
     const comment_list = document.getElementById("mypage_modal_comment_list")
     const submit_button = document.getElementById("modal_comment_submit")
     const modal_follow = document.getElementById("modal_follow")
+    const article_delete = document.getElementById("article_delete")
+    const article_edit = document.getElementById("article_edit")
 
     author.innerHTML = article.author
     content.innerHTML = article.content
     modal_box_img.src = article.images[0]
+    article_delete.setAttribute("onClick", `articleDelete(${article.id})`)
+    article_edit.setAttribute("onClick", `articleEdit(${article.id})`)
+
     submit_button.setAttribute("onClick", `sendComment(${article.id})`)
     modal_follow.setAttribute("onClick", `Follow('${article.author}',${article.id})`)
     
