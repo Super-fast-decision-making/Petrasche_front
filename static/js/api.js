@@ -296,7 +296,7 @@ function Follow(author, article_id){
         });
 };
 
-
+//아티클 삭제
 function articleDelete(id){
     let confirm_delete = confirm("삭제하시겠습니까?");
     if (confirm_delete) {
@@ -316,7 +316,7 @@ function articleDelete(id){
         return;
     }
 }
-
+//아티클 수정
 function articleEdit(id){
     console.log("여기도 잘옴")
     document.getElementById("modal_edit_box").style.display = "flex";

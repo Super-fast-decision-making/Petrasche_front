@@ -422,6 +422,12 @@ body {
     display: none;
     text-align: center;
 }
+.modal_img_box{
+    width:220%;
+}
+.modal_img_box img{
+    width: 100%;
+}
 
 .like_icon_off {
     cursor: pointer;

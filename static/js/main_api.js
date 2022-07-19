@@ -217,13 +217,13 @@ function modal_open(id) {
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
-      if (data.images.length <= 1) {
-        document.getElementById("slide_left").style.display = "none";
-        document.getElementById("slide_right").style.display = "none";
-      }else{
-        document.getElementById("slide_left").style.display = "block";
-        document.getElementById("slide_right").style.display = "block";
-      }
+      // if (data.images.length <= 1) {
+      //   document.getElementById("slide_left").style.display = "none";
+      //   document.getElementById("slide_right").style.display = "none";
+      // }else{
+      //   document.getElementById("slide_left").style.display = "block";
+      //   document.getElementById("slide_right").style.display = "block";
+      // }
 
       document.getElementById("slide_left").onclick = () => {
         let index = images.indexOf(
