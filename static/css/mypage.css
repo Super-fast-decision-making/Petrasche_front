@@ -4,6 +4,14 @@ body {
     background-color: #C4D7E0;
 }
 ::-webkit-scrollbar { display: none; }
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    }
+
 .main_container{
     display: flex;
     justify-content: center;
@@ -1065,7 +1073,7 @@ body {
     color: red;
     font-size: 20px;
     font-weight: bold;
-} */
+}
 
 
 /* 반려동물 등록 모달 */
