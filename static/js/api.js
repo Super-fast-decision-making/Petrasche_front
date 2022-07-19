@@ -155,7 +155,6 @@ async function postComment(id, comment) {
     }).then(response => response.json())
         .then(data => {
             // ResponseloadComments(data)
-
         })
 }
 
@@ -294,6 +293,6 @@ function Follow(author, article){
         .then((res) => res.json())
         .then((res) => {
             alert(res.message)
-            // modal_open(article);
+            openDetailModal(article_id);
         });
 };
