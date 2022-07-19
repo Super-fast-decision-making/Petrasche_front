@@ -226,7 +226,7 @@ function CommentDelete(id, article_id) {
             .then((res) => res.json())
             .then((res) => {
                 alert("삭제 완료");
-                modal_open(article_id);
+                openDetailModal(article_id);
             });
     } else {
         return;
@@ -237,13 +237,42 @@ function CommentEdit(id,article_id) {
     console.log(id)
     console.log(article_id)
     document.getElementById("modal_edit_box").style.display = "flex";
-    // let node = event.target.parentNode;
-    // let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
-    // document.getElementById("modal_edit_text").value = comment_value.replace(
-    //     /<br>/g,
-    //     "\n"
-    // );
-    console.log("일단 이거 다 실행되고 있긴함...")
+    let node = event.target.parentNode;
+    let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
+    document.getElementById("modal_edit_text").value = comment_value.replace(
+        /<br>/g,
+        "\n"
+    );
+    document.getElementById("modal_edit_button").onclick = () => {
+        let comment = document.getElementById("modal_edit_text").value;
+        comment = comment.replace(/\n/g, "<br>");
+        if (comment == "") {
+            alert("내용을 입력해주세요");
+            return;
+        }
+        let confirm_edit = confirm("수정하시겠습니까?");
+        if (confirm_edit) {
+            const data = {
+                comment: comment,
+            };
+            fetch(`${backend_base_url}article/comment/${id}/`, {
+                method: "PUT",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    alert("수정 완료");
+                    document.getElementById("modal_edit_box").style.display = "none";
+                    openDetailModal(article_id);
+                });
+        } else {
+            return;
+        }
+    };
 }
 
 
