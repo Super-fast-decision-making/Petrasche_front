@@ -217,7 +217,6 @@ async function showPetInfo(pet_id) {
     let user = await getUserInfo()
     let petprofiles = user.petprofile
     const petprofile = petprofiles.filter( value => value.id == pet_id)[0]
-    console.log(petprofile)
     let pet_name = petprofile.name
     let pet_birthday = petprofile.birthday
     let pet_type = petprofile.type
@@ -307,9 +306,35 @@ async function showPetInfo(pet_id) {
     if (pet_size == 3) {
         update_size_large.checked = true
     }
+
+    const pet_profile_section = document.getElementById("pet_profile_section")
+    pet_profile_section.innerHTML =
+        `<div id="pet_profile_card" class="pet_profile_card" onclick="loadUserInfo()">
+            <div class="pet_img">
+                <img src="${user.profile_img}" />
+            </div>
+            <div class="pet_name">
+                <p>${user.username}</p>
+            </div>
+        </div > `
+    for (let i = 0; i < petprofiles.length; i++) {
+        let pet_id = petprofiles[i].id
+        let pet_name = petprofiles[i].name
+        let pet_profile_img = petprofiles[i].pet_profile_img
+        pet_profile_section.innerHTML +=
+            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
+                <div class="pet_img">
+                    <img src="${pet_profile_img}" />
+                </div>
+                <div class="pet_name">
+                    <p>${pet_name}</p>
+                </div>
+            </div > `
+    }
+    let pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
+    pet_profile_card.remove()
+
 }
-
-
 
 // 회원 정보 불러오기(메뉴)
 async function loadUserInfo() {
@@ -393,10 +418,6 @@ async function loadUserInfo() {
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_id = petprofiles[i].id
         let pet_name = petprofiles[i].name
-        // let pet_birthday = petprofiles[i].birthday
-        // let pet_type = petprofiles[i].type
-        // let pet_gender = petprofiles[i].gender
-        // let pet_size = petprofiles[i].size
         let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
             `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
