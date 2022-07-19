@@ -541,6 +541,7 @@ body {
     position: relative;
     width: 1000px;
     height: 95%;
+    max-height: 800px;
     background-color: white;
     border-radius: 8px;
     display: flex;
