@@ -2,6 +2,9 @@
 async function loadMyArticle() {
     document.getElementById("user_button_box").style.display = "none"
 
+
+    //
+
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id="show_box" class="show_box">
@@ -41,17 +44,27 @@ async function loadMyArticle() {
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
+    pet_select_box.innerHTML +=
+            `<div class="pet_botton_box" id='my_pet_botton_box' onclick="loadMyArticle()">
+                <div class="pet_button">
+                    나의 글
+                </div>
+            </div>`
 
     let petprofiles = user.petprofile
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
         pet_select_box.innerHTML +=
-            `<div class="pet_botton_box">
+            `<div class="pet_botton_box" id="pet_botton_box${petprofiles[i].id}" onclick="loadPetprofile(${petprofiles[i].id})">
                 <div class="pet_button">
                     ${pet_name}
                 </div>
             </div>`
     }
+    // document.getElementsByClassName("pet_botton_box").style.backgroundColor = "white"
+    // document.getElementsByClassName("pet_botton_box").style.color = "#6e85b7"
+    document.getElementById("my_pet_botton_box").style.backgroundColor = "#6e85b7"
+    document.getElementById("my_pet_botton_box").style.color = "white"
 }
 
 // 디테일 모달 열기+보여주기
@@ -577,6 +590,59 @@ async function loadLikeArticle() {
             </div > `
     }
 }
+async function loadPetprofile(id) {
+    document.getElementById("user_button_box").style.display = "none"
+
+    const show_box = document.getElementById("show_box")
+    show_box.innerHTML =
+        `<div id="pet_article_box_wrapper">              
+            <div id="pet_article_box" class="article_box">
+            </div>
+        </div>`
+    const pet_article_box = document.getElementById("pet_article_box")
+    let pet = await getPetArticle(id)
+
+    for (let i=0; i<pet.article.length; i++) {
+        let article= pet.article[i]
+        pet_article_box.innerHTML +=
+            `<div class="article_card">
+                <img src='${article.images[0]}' onclick="openDetailModal(${article.id})" >
+                <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>${article.like_num} </div>
+            </div > `
+    }
+    // document.querySelectorAll(".pet_botton_box").style.backgroundColor = "white"
+    // document.querySelectorAll('.pet_botton_box').color = "#6e85b7"
+    // document.querySelectorAll('.pet_botton_box').backgroundColor = "white"
+    document.getElementById("pet_botton_box"+id).style.backgroundColor = "#6e85b7"
+    document.getElementById("pet_botton_box"+id).style.color = "white"//id는 pet id
+}
+
+// const nonClick = document.querySelectorAll(".pet_botton_box");
+
+// function handleClick(event) {
+//   // div에서 모든 "click" 클래스 제거
+//     nonClick.forEach((e) => {
+//         e.classList.remove("click");
+//     });
+//   // 클릭한 div만 "click"클래스 추가
+//     event.target.classList.add("click");
+// }
+
+// nonClick.forEach((e) => {
+//     e.addEventListener("click", handleClick);
+// });
+
+// let petprofiles = user.petprofile
+// for (let i = 0; i < petprofiles.length; i++) {
+//     let pet_name = petprofiles[i].name
+//     pet_select_box.innerHTML +=
+//         `<div class="pet_botton_box" onclick="loadPetprofile(${petprofiles[i].id})">
+//             <div class="pet_button">
+//                 ${pet_name}
+//             </div>
+//         </div>`
+// }
+
 
 
 // function listLikeUser(likes){

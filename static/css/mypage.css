@@ -206,6 +206,13 @@ body {
     padding: 23px;
     border-radius: 8px;
 }
+#pet_article_box_wrapper {
+    width: 855px;
+    display: flex;
+    background-color: white;
+    padding: 23px;
+    border-radius: 8px;
+}
 
 .article_box {
     display: flex;
@@ -534,6 +541,7 @@ body {
     position: relative;
     width: 1000px;
     height: 95%;
+    max-height: 800px;
     background-color: white;
     border-radius: 8px;
     display: flex;
