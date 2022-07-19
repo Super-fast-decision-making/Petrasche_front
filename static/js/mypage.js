@@ -46,7 +46,7 @@ async function loadMyArticle() {
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
         pet_select_box.innerHTML +=
-            `<div class="pet_botton_box">
+            `<div class="pet_botton_box" onclick="loadPetprofile(${petprofiles[i].id})">
                 <div class="pet_button">
                     ${pet_name}
                 </div>
@@ -505,6 +505,19 @@ async function loadLikeArticle() {
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
             </div > `
     }
+}
+async function loadPetprofile(id) {
+    document.getElementById("user_button_box").style.display = "none"
+    const show_container = document.getElementById("show_container")
+    show_container.innerHTML =
+        `<div id = "show_box" class="show_box">
+            <div id="pet_article_box_wrapper">              
+                <div id="pet_article_box" class="article_box">
+                </div>
+            </div>
+        </div >`
+    
+    // let pet = await 
 }
 
 
