@@ -44,6 +44,7 @@
                         srcset="">
                     <div id="modal_username" class="modal_username">강아지 사육사</div>
                     <div id="modal_follow" class="follow">팔로우</div>
+                    <div id="modal_follow_count" class="follow" style="background-color: blue;">12</div>
                 </div>
                 <div id="modal_content_list" class="modal_content_list">
                     <div id="modal_content_text">
@@ -94,6 +95,8 @@
         </div>
     </div>
     <div class="main_screen">
+
+        <!-- 상단 메뉴바 -->
         <nav class="navbar">
             <div class="logo">
                 Petrasche
@@ -103,16 +106,23 @@
                 <button class="serch_button">검색</button>
             </div>
             <div class="user_info">
-                <div id="user_profile" class="user_profile">
+                <div onclick="UserPage()" id="user_profile" class="user_profile">
                     <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
                         alt="">
                 </div>
+                <div onclick="alarm(this)" id="alarm" class="alarm">
+                    <i class="fa-solid fa-bell"></i>
+                    <div class="history">
+                        
+                    </div>
+                </div>
                 <div class="user">
-                    <span style="font-size:12px; font-weight: bold;" id="user">유저님</span>님 환영합니다.
+                    <span class="user_name" id="user">유저님</span>
                 </div>
                 <div onclick="Logout()" class="logout">로그아웃</div>
             </div>
         </nav>
+        <!--  -->
 
         <div class="top_section">
             <div class="left_menu">

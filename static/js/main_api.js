@@ -174,6 +174,7 @@ function modal_open(id) {
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
+      console.log(data.user_following.length);
       if (data.likes.indexOf(user_id) != -1) {
         document.getElementById("like_icon_off").style.display = "none";
         document.getElementById(
@@ -190,9 +191,11 @@ function modal_open(id) {
 
       document.getElementById("modal_follow").style.display = "flex";
       document.getElementById("modal_follow").innerText = "팔로우";
+      document.getElementById("modal_follow_count").innerText = data.user_following.length;
 
       if (data.user_following.indexOf(user_id) != -1) {
         document.getElementById("modal_follow").innerText = "언팔로우";
+        document.getElementById("modal_follow_count").innerText = data.user_following.length;
       }
 
       if (data.user == user_id) {
@@ -519,6 +522,42 @@ const Follow = (user, article) => {
       modal_open(article);
     });
 };
+
+function alarm(id){
+  id.childNodes[3].innerHTML = ""
+  fetch(USER_URL + "history/", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res)
+      res.forEach((history) => {
+        console.log(history.type)
+        if (history.type == "like") {
+          id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다.</div>`
+        }
+        if (history.type == "follow") {
+          id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다.</div>`
+        }
+      });
+    });
+
+  id.childNodes[3].style.display = "block";
+  let alarm = true;
+  id.onclick = () => {
+    if(alarm){
+      id.childNodes[3].style.display = "none";
+      alarm = false;
+    }else{
+      id.childNodes[3].style.display = "block";
+      alarm = true;
+    }
+  }
+}
 
 GetUserInfo();
 GetImgList();
