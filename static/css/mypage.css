@@ -3,16 +3,19 @@ body {
     padding: 0;
     background-color: #C4D7E0;
 }
-::-webkit-scrollbar { display: none; }
+
+::-webkit-scrollbar {
+    display: none;
+}
 
 .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    }
+}
 
-.main_container{
+.main_container {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -90,15 +93,16 @@ body {
     height: 30px;
 }
 
-.menu_change_button{
-    border:none;
+.menu_change_button {
+    border: none;
     background-color: #6e85b7;
     color: white;
     font-weight: bold;
-    height:30px;
+    height: 30px;
     border-radius: 3px;
 }
-.menu_change_button:hover{
+
+.menu_change_button:hover {
     background-color: #f8f9d7;
     color: rgb(70, 69, 74);
 }
@@ -122,6 +126,7 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
 .user_box {
     display: flex;
     justify-content: center;
@@ -130,10 +135,12 @@ body {
     height: 150px;
     padding: 20px;
 }
+
 .user_profile {
     display: flex;
 }
-.user_img_box{
+
+.user_img_box {
     width: 50px;
     height: 50px;
     margin: 10px;
@@ -144,94 +151,110 @@ body {
 
     background-color: black;
 }
+
 .user_img_box img {
-    
-    width:100%;
-    height:100%;
-    object-fit:cover
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover
 }
+
 .username_box {
     display: flex;
     align-items: center;
     margin: 10px;
 }
+
 .username {
     font-size: 20px;
 }
+
 .user_introduction {
     padding-left: 10px;
 }
+
 .introduction {
     font-size: 15px;
 }
+
 .user_button_box {
     padding: 10px;
     margin-right: 20px;
 }
+
 .menu_change_button_box {
     padding: 10px;
 }
+
 .menu_change_button_box button {
     font-size: 15px;
 }
+
 .show_container {
     display: flex;
 }
+
 .show_box {
     width: 900px;
     border-radius: 3px;
 }
-#article_box_wrapper{
-    width:855px;
-    display:flex;
-    background-color:white;
-    padding:23px;
+
+#article_box_wrapper {
+    width: 855px;
+    display: flex;
+    background-color: white;
+    padding: 23px;
     border-radius: 8px;
 }
 
 .article_box {
     display: flex;
-    width:850px;
+    width: 850px;
     flex-wrap: wrap;
     justify-content: space-around;
-    border-radius:8px;
+    border-radius: 8px;
     background-color: #ffffff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    min-height:500px;
+    min-height: 500px;
     justify-content: flex-start;
 }
+
 .article_card {
     width: 190px;
     height: 190px;
     margin: 10px;
-    border-radius:8px;
+    border-radius: 8px;
     background-color: #D9D9D9;
-    
+
 }
+
 .article_card img {
-    object-fit: cover; 
-    width:100%; 
-    height:100%; 
-    border-radius:8px
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px
 }
-.article_card img:hover{
+
+.article_card img:hover {
     transform: scale(1.01);
     transition: transform 0.5s;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
-#like_article_box_wrapper{
-    display:flex;
-    background-color:white;
-    padding:23px;
-    border-radius:8px;
-}
-.like_article_box{
+
+#like_article_box_wrapper {
     display: flex;
-    background-color:#c4d7e0; 
-    width:100%; 
-    height:100%;
-    width:850px;    
-    min-height: 500px; 
+    background-color: white;
+    padding: 23px;
+    border-radius: 8px;
+}
+
+.like_article_box {
+    display: flex;
+    background-color: #c4d7e0;
+    width: 100%;
+    height: 100%;
+    width: 850px;
+    min-height: 500px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
@@ -241,9 +264,11 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 .user_profile_section {
     margin: 5px;
 }
+
 .user_profile_box {
     width: 230px;
     padding: 20px;
@@ -251,6 +276,7 @@ body {
     border-radius: 8px;
     background-color: #ffffff;
 }
+
 .user_profile_item {
     margin: 20px 5px 60px 5px;
 }
@@ -258,29 +284,35 @@ body {
 .user_profile_item p {
     margin: 10px 0 10px 0;
 }
+
 .user_profile_item button {
     margin-left: 10px;
     padding: 0;
-    
+
 }
+
 .user_profile_item input {
     height: 30px;
     font-size: 15px;
     padding: 0 5px 0 5px;
 }
+
 .user_profile_item select {
     height: 30px;
     font-size: 15px;
 }
+
 .user_profile_save {
     display: flex;
     justify-content: center;
     margin: 20px auto 20px auto;
 }
+
 .user_profile_save button {
     font-size: 17px;
 }
-.pet_profile_section{
+
+.pet_profile_section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -288,6 +320,7 @@ body {
     max-width: 400px;
     margin: 5px;
 }
+
 .pet_profile_card {
     display: flex;
     justify-content: center;
@@ -302,6 +335,7 @@ body {
     border: 1px solid #9a9a9a;
     background-color: #ffffff;
 }
+
 .pet_img {
     width: 160px;
 
@@ -310,15 +344,18 @@ body {
 
     background-color: #9c9b9b;
 }
+
 .pet_img img {
     height: 160px;
 }
+
 .pet_name {
     display: flex;
     align-items: center;
 
     margin: 10px auto 15px auto;
 }
+
 .pet_name p {
     text-align: center;
     height: 31px;
@@ -326,11 +363,13 @@ body {
     font-size: 25px;
     font-weight: 600;
 }
+
 .pet_select_box {
     display: flex;
     flex-direction: column;
     margin-top: 5px;
 }
+
 .pet_botton_box {
     /* margin: 0 0 2px 1px; */
     padding: 7px;
@@ -345,6 +384,7 @@ body {
     /* border-radius: 5px; */
     margin-bottom: 2px;
 }
+
 .pet_button {
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -355,6 +395,7 @@ body {
 
     /* width: 25px; */
 }
+
 .pet_botton_box:hover {
     background-color: #eeecec;
 
@@ -363,7 +404,7 @@ body {
 
 
 /*디테일 모달*/
-.follow{
+.follow {
     cursor: pointer;
     margin-left: 5px;
     text-align: center;
@@ -392,7 +433,8 @@ body {
     z-index: 1000;
     display: none;
 }
-.like_user_list{
+
+.like_user_list {
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
@@ -412,7 +454,8 @@ body {
     animation: fadeintop 0.5s;
     display: none;
 }
-.like_user_list div{
+
+.like_user_list div {
     margin-bottom: 2px;
 }
 
@@ -505,7 +548,8 @@ body {
     display: none;
     color: yellowgreen;
 }
-.article_edit{
+
+.article_edit {
     cursor: pointer;
     position: absolute;
     right: 30px;
@@ -514,12 +558,13 @@ body {
     display: none;
     color: yellowgreen;
 }
-.modal_edit_box{
+
+.modal_edit_box {
     position: absolute;
     display: none;
     width: 100%;
     height: 100%;
-    top:20%;
+    top: 20%;
 
     /* top:-500px; */
     /* flex-direction: column; */
@@ -528,7 +573,8 @@ body {
     align-items: center;
 
 }
-.modal_edit_button{
+
+.modal_edit_button {
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -538,9 +584,10 @@ body {
     padding: 5px;
     background: #000;
     color: white;
-    z-index:99999
+    z-index: 99999
 }
-.modal_edit_cancel{
+
+.modal_edit_cancel {
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -550,18 +597,20 @@ body {
     padding: 5px;
     background: #000;
     color: white;
-    z-index:99999
+    z-index: 99999
 }
-.modal_edit_box_input{
+
+.modal_edit_box_input {
     position: absolute;
     width: 15%;
     height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index:99999
+    z-index: 99999
 }
-.modal_edit_box textarea{
+
+.modal_edit_box textarea {
     width: 100%;
     height: 100%;
     border: none;
@@ -572,11 +621,12 @@ body {
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    z-index:99999
+    z-index: 99999
 }
-.modal_edit_box textarea:focus{
+
+.modal_edit_box textarea:focus {
     outline: none;
-    z-index:99999
+    z-index: 99999
 }
 
 .modal_content img {
@@ -637,6 +687,7 @@ body {
     display: flex;
     /* justify-content: center; */
 }
+
 .modal_comment_user {
     display: flex;
     width: fit-content + 10px;
@@ -647,16 +698,19 @@ body {
     color: green;
     font-weight: bold;
     cursor: pointer;
-    font-size:8px;
+    font-size: 8px;
 }
-.modal_comment_user div{
+
+.modal_comment_user div {
     margin: 0px 2px;
 }
-.modal_comment_user div:nth-child(1){
+
+.modal_comment_user div:nth-child(1) {
     font-weight: bold;
     color: #000;
 }
-.modal_comment_user div:nth-child(2){
+
+.modal_comment_user div:nth-child(2) {
     font-weight: bold;
     color: red;
 }
@@ -699,7 +753,8 @@ body {
     top: 10px;
     left: -15px;
 }
-.slide_right{
+
+.slide_right {
     position: absolute;
     top: calc(50% - 30px);
     right: calc(30% + 10px);
@@ -714,7 +769,8 @@ body {
     /* display: none; */
     /* z-index: 999999999; */
 }
-.slide_left{
+
+.slide_left {
     position: absolute;
     top: calc(50% - 30px);
     left: 10px;
@@ -729,7 +785,8 @@ body {
     /* display: none; */
     /* z-index: 999999999; */
 }
-.modal_img_box{
+
+.modal_img_box {
     width: 70%;
     height: 100%;
 }
@@ -871,8 +928,8 @@ body {
     border-radius: 8px;
     overflow: hidden;
     /* flex-direction: column; */
-    /* justify-content: center; */
-    /* align-items: center;
+/* justify-content: center; */
+/* align-items: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 } */
 
@@ -1083,21 +1140,17 @@ body {
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0; 
+    left: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
-
+    z-index: 9999;
 }
 
 .add_pet_modal_content {
-    top:0;
-    background-color: white;
     position: relative;
-    width: 900px;
-    z-index:999;
-    height: 90%;
+    background-color: white;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -1120,7 +1173,7 @@ body {
     flex-direction: column;
     width: 230px;
     margin-right: 30px;
-    
+
 }
 
 .add_pet_profile_box_r {
@@ -1155,22 +1208,26 @@ body {
 .add_pet_profile_item button {
     margin-left: 10px;
     padding: 0;
-    
+
 }
+
 .add_pet_profile_item input {
     height: 30px;
     font-size: 15px;
     padding: 0 5px 0 5px;
 }
+
 .add_pet_profile_item select {
     height: 30px;
     font-size: 15px;
 }
+
 .add_pet_profile_save {
     display: flex;
     justify-content: center;
     margin: 10px auto 20px auto;
 }
+
 .add_pet_profile_save button {
     font-size: 17px;
 }
