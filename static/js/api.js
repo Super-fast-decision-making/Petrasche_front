@@ -362,6 +362,7 @@ async function putPassword(user_id, new_password) {
     } else {
         alert(response_json.massege)
     }
+}
 
 //아티클 삭제
 function articleDelete(id){
