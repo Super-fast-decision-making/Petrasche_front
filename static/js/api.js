@@ -317,3 +317,52 @@ function Follow(author, article){
             openDetailModal(article_id);
         });
 };
+
+
+async function postAuthPassword() {
+    const input_password = document.getElementById("update_pw_input").value
+    const passwordData = {
+        password: input_password,
+    }
+    const response = await fetch(`${backend_base_url}user/auth/`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(passwordData)
+    })
+    response_json = await response.json()
+
+    if (response.status == 200) {
+        alert(response_json.massege)
+        showUpdatePassword(response_json.response)
+    } else {
+        alert(response_json.massege)
+    }
+}
+
+
+async function putPassword(user_id, new_password) {
+    const passwordData = {
+        password: new_password,
+    }
+    const response = await fetch(`${backend_base_url}user/authonly/${user_id}/`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(passwordData)
+    })
+    response_json = await response.json()
+
+    if (response.status == 200) {
+        alert(response_json.massege)
+        window.location.reload()
+    } else {
+        alert(response_json.massege)
+    }
+}

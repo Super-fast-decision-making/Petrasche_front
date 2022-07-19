@@ -336,6 +336,56 @@ async function showPetInfo(pet_id) {
 
 }
 
+// 회원 비밀번호 인증 모달 활성화
+function showAuthPassword() {
+    const update_pw_modal_box = document.getElementById("update_pw_modal_box")
+    update_pw_modal_box.style.display = "flex"
+}
+
+// 회원 비밀번호 변경 모달 활성화
+function showUpdatePassword(user_id) {
+    const update_pw_modal_box = document.getElementById("update_pw_modal_box")
+    update_pw_modal_box.innerHTML =
+        `<div class="update_pw_modal_content">
+            <div class="update_pw_msg_box">
+                <p>새로운 비밀번호를 입력해주세요</p>
+            </div>
+            <div class="update_pw_input_box">
+                <input id="update_npw_input" type="password" />
+            </div>
+            <div class="update_pw_input_box">
+                <input id="update_cpw_input" type="password" />
+            </div>
+            <div class="update_pw_button_box">
+                <button type="button" onclick="checkPassword(${user_id})">
+                    변경
+                </button>
+            </div>
+        </div>`
+}
+
+
+// 회원 비밀번호 인증
+// async function AuthPassword() {
+//     const update_pw_input = document.getElementById("update_pw_input").value
+
+//     let response = await postAuthPassword(update_pw_input)
+
+// }
+
+//  변경 비밀번호 일치 확인
+async function checkPassword(user_id) {
+    const new_password = document.getElementById("update_npw_input").value
+    const check_password = document.getElementById("update_cpw_input").value
+
+    if (new_password == check_password) {
+        await putPassword(user_id, new_password)
+    } else {
+        alert('비밀번호를 다시 확인해주세요.')
+    }
+
+}
+
 // 회원 정보 불러오기(메뉴)
 async function loadUserInfo() {
     // 반려동물 등록 버튼 활성화
@@ -370,7 +420,7 @@ async function loadUserInfo() {
         `<div class="user_profile_box">
             <div class="user_profile_item">
                 <p>비밀번호</p>
-                <button type="button" onclick="">변경</button>
+                <button type="button" onclick="showAuthPassword()">변경</button>
             </div>
             <div class="user_profile_item">
                 <p>이메일</p>
