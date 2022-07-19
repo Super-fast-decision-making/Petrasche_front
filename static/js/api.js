@@ -317,7 +317,42 @@ function articleDelete(id){
     }
 }
 
-// function articleEdit(id){
-    // console.log("여기도 잘옴")
+function articleEdit(id){
+    console.log("여기도 잘옴")
+    document.getElementById("modal_edit_box").style.display = "flex";
+    document.getElementById("modal_edit_text").value = document
+        .getElementById("content")
+        .innerHTML.replace(/<br>/g, "\n");
+    document.getElementById("modal_edit_button").onclick = () => {
+        let content = document.getElementById("modal_edit_text").value;
+        content = content.replace(/\n/g, "<br>");
+        if (content == "") {
+            alert("내용을 입력해주세요");
+            return;
+        }
+        let confirm_edit = confirm("수정하시겠습니까?");
+        if (confirm_edit) {
+            const data = {
+                content: content,
+            };
+            console.log(content)
+            fetch(`${backend_base_url}article/myarticle/${id}/`, {
+            method: "PUT",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                alert("수정 완료");
+                document.getElementById("modal_edit_box").style.display = "none";
+                openDetailModal(id);
+            });
+        } else {
+            return;
+        }
+    };
 
-// }
+}
