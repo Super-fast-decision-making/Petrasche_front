@@ -4,6 +4,14 @@ body {
     background-color: #C4D7E0;
 }
 ::-webkit-scrollbar { display: none; }
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    }
+
 .main_container{
     display: flex;
     justify-content: center;

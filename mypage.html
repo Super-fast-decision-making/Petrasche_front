@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,7 @@
     <title>mypage | Petrasche</title>
 
     <!------CSS---------->
-    <link rel="stylesheet" type="text/css" href="./static/css/login.css">
     <link rel="stylesheet" type="text/css" href="./static/css/mypage.css">
-
 
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
@@ -18,6 +17,7 @@
 
     </style>
 </head>
+
 <body>
     <div class="wrapper">
         <div class="left_menu">
@@ -46,10 +46,11 @@
                 <div class="user_box">
                     <div class="user_profile">
                         <div class="user_img_box">
-                            <img id="user_profile_img" src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                            <img id="user_profile_img"
+                                src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
                         </div>
                         <div class="username_box">
-                            <span class="username" id="username">   
+                            <span class="username" id="username">
                             </span>
                         </div>
                     </div>
@@ -65,24 +66,24 @@
             <div id="show_container" class="show_container">
                 <div id="show_box" class="show_box">
                     <!-- 내 전체 게시물 메뉴 -->
-                    <div id ="article_box_wrapper">
-                        <div id="article_box" class="article_box" style="display:flex" >
+                    <div id="article_box_wrapper">
+                        <div id="article_box" class="article_box" style="display:flex">
                         </div>
                     </div>
-                    
+
                     <!-- 좋아요 메뉴 -->
                     <div id="like_article_box_wrapper">
-                        <div id="like_article_box" class="like_article_box" >
+                        <div id="like_article_box" class="like_article_box">
                         </div>
                     </div>
-                    
+
                     <!-- 프로필 변경 메뉴 -->
                     <div id="user_info_box" class="user_info_box">
                         <div id="user_profile_section" class="user_profile_section">
                         </div>
                     </div>
                 </div>
-                <div id="pet_select_box" class="pet_select_box">  
+                <div id="pet_select_box" class="pet_select_box">
                 </div>
             </div>
         </div>
@@ -98,11 +99,11 @@
                     </div>
                     <div class="add_pet_profile_item">
                         <p>이름</p>
-                        <input id="add_pet_profile_name" type="text" value=""/>
+                        <input id="add_pet_profile_name" type="text" value="" />
                     </div>
                     <div class="add_pet_profile_item">
                         <p>생년월일</p>
-                        <input id="add_pet_profile_birthday" type="date"  value=""/>
+                        <input id="add_pet_profile_birthday" type="date" value="" />
                     </div>
                 </div>
                 <div class="add_pet_profile_box_r">
@@ -119,9 +120,9 @@
                         <p>크기</p>
                         <input type="radio" id="size_small" name="pet_size" value=1>
                         <label for="소형">소형</label>
-                        <input type="radio" id="pet_medium" name="pet_size" value=2>
+                        <input type="radio" id="size_medium" name="pet_size" value=2>
                         <label for="중형">중형</label>
-                        <input type="radio" id="pet_large" name="pet_size" value=3>
+                        <input type="radio" id="size_large" name="pet_size" value=3>
                         <label for="대형">대형</label>
                     </div>
                     <div class="add_pet_profile_item">
@@ -132,7 +133,7 @@
                         <label for="여성">여성</label>
                         <input type="radio" id="pet_gender_unknown" name="pet_gender" value=3>
                         <label for="모름">모름</label>
-                    </div>  
+                    </div>
                 </div>
             </div>
             <div class="add_pet_profile_save">
@@ -140,7 +141,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <!-- 상세 모달 -->
     <div id="modal_box" class="modal_box">
@@ -188,4 +189,5 @@
     <script src="./static/js/api.js"></script>
     <script src="./static/js/mypage.js"></script>
 </body>
+
 </html>
