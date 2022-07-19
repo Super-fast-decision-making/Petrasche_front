@@ -195,7 +195,6 @@ async function postPetProfile(name, birthday, type, gender, size) {
         size: size
         // pet_profile_img: pet_profile_img
     }
-    // console.log(petProfileData)
     const response = await fetch(`${backend_base_url}user/mypet/`, {
         method: 'POST',
         headers: {
@@ -209,6 +208,28 @@ async function postPetProfile(name, birthday, type, gender, size) {
     return response_json
 }
 
+// 반려동물 정보 수정
+async function putPetInfo(pet_id, name, birthday, type, gender, size) {
+    const petProfileData = {
+        name: name,
+        birthday: birthday,
+        type: type,
+        gender: gender,
+        size: size
+        // pet_profile_img: pet_profile_img
+    }
+    const response = await fetch(`${backend_base_url}user/mypet/${pet_id}/`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(petProfileData)
+    })
+    response_json = await response.json()
+    return response_json
+}
 
 //코멘트 삭제
 function CommentDelete(id, article_id) {

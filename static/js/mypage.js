@@ -29,17 +29,18 @@ async function loadMyArticle() {
             </div>`
     }
 
-    const username = document.getElementById("username")
-    const introduction = document.getElementById("introduction")
-    const user_profile_img = document.getElementById("user_profile_img")
-    const pet_select_box = document.getElementById("pet_select_box")
-    pet_select_box.style.display = "flex"
-
     let user = await getUserInfo()
+
+    document.getElementById("username").innerText = user.username
+    document.getElementById("user_profile_img").src = user.profile_img
+    // document.getElementById("introduction").innerHTML = user.introduction
 
     username.innerHTML = user.username
     introduction.innerHTML = user.introduction
     user_profile_img.src = user.profile_img
+
+    const pet_select_box = document.getElementById("pet_select_box")
+    pet_select_box.style.display = "flex"
 
     let petprofiles = user.petprofile
     for (let i = 0; i < petprofiles.length; i++) {
@@ -73,8 +74,8 @@ async function openDetailModal(id) {
     const article_edit = document.getElementById("article_edit")
     
 
-    author.innerHTML = article.author
-    content.innerHTML = article.content
+    author.innerText = article.author
+    content.innerText = article.content
     modal_box_img.src = article.images[0]
     article_delete.setAttribute("onClick", `articleDelete(${article.id})`)
     article_edit.setAttribute("onClick", `articleEdit(${article.id})`)
@@ -250,41 +251,132 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
-// 반려동물 정보 불러오기
-function showPetProfileInfo(petprofile) {
-    console.log(petprofile)
+// 반려동물 정보 수정
+async function savePetInfo(pet_id) {
+    let name = document.getElementById("update_pet_profile_phone").value
+    let birthday = document.getElementById("update_pet_profile_birthday").value
+
+    const chkList_type = document.querySelectorAll("input[name=update_pet_type]:checked");
+    let type = ''
+    chkList_type.forEach(function (ch) {
+        type = ch.value
+    });
+
+    const chkList_gender = document.querySelectorAll("input[name=update_pet_gender]:checked");
+    let gender = ''
+    chkList_gender.forEach(function (ch) {
+        gender = ch.value
+    });
+
+    const chkList_size = document.querySelectorAll("input[name=update_pet_size]:checked");
+    let size = ''
+    chkList_size.forEach(function (ch) {
+        size = ch.value
+    });
+    let pet = await putPetInfo(pet_id, name, birthday, type, gender, size)
+    alert('수정 완료')
+}
+
+// 반려동물 정보 불러오기 [리팩토링 필수(radio 함수화)]
+async function showPetInfo(pet_id) {
     const user_profile_section = document.getElementById("user_profile_section")
+    
+    let user = await getUserInfo()
+    let petprofiles = user.petprofile
+    const petprofile = petprofiles.filter( value => value.id == pet_id)[0]
+    console.log(petprofile)
+    let pet_name = petprofile.name
+    let pet_birthday = petprofile.birthday
+    let pet_type = petprofile.type
+    let pet_gender = petprofile.gender
+    let pet_size = petprofile.size
+
+    document.getElementById("username").innerText = petprofile.name
+    document.getElementById("user_profile_img").src = petprofile.pet_profile_img
+    // document.getElementById("introduction").innerHTML = user.introduction
+
     user_profile_section.innerHTML =
         `<div class="user_profile_box">
             <div class="user_profile_item">
-                <p>비밀번호</p>
-                <button type="button" onclick="">변경</button>
-            </div>
-            <div class="user_profile_item">
-                <p>이메일</p>
-                <span id="user_profile_email"></span>
-            </div>
-            <div class="user_profile_item">
-                <p>연락처</p>
-                <input id="user_profile_phone" type="text" value=""/>
-                <button type="button" onclick="">변경</button>
+                <p>이름</p>
+                <input id="update_pet_profile_phone" type="text" value="${pet_name}"/>
             </div>
             <div class="user_profile_item">
                 <p>생년월일</p>
-                <input id="user_profile_birthday" type="date"  value=""/>
+                <input id="update_pet_profile_birthday" type="date"  value="${pet_birthday}"/>
+            </div>
+            <div class="user_profile_item">
+                <p>종류</p>
+                <input type="radio" id="update_pet_dog" name="update_pet_type" value=1>
+                <label for="강아지">강아지</label>
+                <input type="radio" id="update_pet_cat" name="update_pet_type" value=2>
+                <label for="고양이">고양이</label>
+                <input type="radio" id="update_pet_etc" name="update_pet_type" value=3>
+                <label for="그외">그외</label>
+            </div>
+            <div class="user_profile_item">
+                <p>크기</p>
+                <input type="radio" id="update_size_small" name="update_pet_size" value=1>
+                <label for="소형">소형</label>
+                <input type="radio" id="update_size_medium" name="update_pet_size" value=2>
+                <label for="중형">중형</label>
+                <input type="radio" id="update_size_large" name="update_pet_size" value=3>
+                <label for="대형">대형</label>
             </div>
             <div class="user_profile_item">
                 <p>성별</p>
-                <input type="radio" id="gender_male" name="gender" value=1>
+                <input type="radio" id="update_pet_gender_male" name="update_pet_gender" value=1>
                 <label for="남성">남성</label>
-                <input type="radio" id="gender_female" name="gender" value=2>
+                <input type="radio" id="update_pet_gender_female" name="update_pet_gender" value=2>
                 <label for="여성">여성</label>
-            </div>
+                <input type="radio" id="update_pet_gender_unknown" name="update_pet_gender" value=3>
+                <label for="모름">모름</label>
+            </div>  
             <div class="user_profile_save">
-                <button type="button" onclick="saveUserInfo()">저장</button>
+                <button type="button" onclick="savePetInfo(${pet_id})">저장</button>
             </div>
         </div > `
+
+    const update_pet_dog = document.getElementById("update_pet_dog")
+    const update_pet_cat = document.getElementById("update_pet_cat")
+    const update_pet_etc = document.getElementById("update_pet_etc")
+    const update_size_small = document.getElementById("update_size_small")
+    const update_size_medium = document.getElementById("update_size_medium")
+    const update_size_large = document.getElementById("update_size_large")
+    const update_pet_gender_male = document.getElementById("update_pet_gender_male")
+    const update_pet_gender_female = document.getElementById("update_pet_gender_female")
+    const update_pet_gender_unknown = document.getElementById("update_pet_gender_unknown")
+    
+    if (pet_type == 1) {
+        update_pet_dog.checked = true
+    }
+    if (pet_type == 2) {
+        update_pet_cat.checked = true
+    }
+    if (pet_type == 3) {
+        update_pet_etc.checked = true
+    }
+    if (pet_gender == 1) {
+        update_pet_gender_male.checked = true
+    }
+    if (pet_gender == 2) {
+        update_pet_gender_female.checked = true
+    }
+    if (pet_gender == 3) {
+        update_pet_gender_unknown.checked = true
+    }
+    if (pet_size == 1) {
+        update_size_small.checked = true
+    }
+    if (pet_size == 2) {
+        update_size_medium.checked = true
+    }
+    if (pet_size == 3) {
+        update_size_large.checked = true
+    }
 }
+
+
 
 // 회원 정보 불러오기(메뉴)
 async function loadUserInfo() {
@@ -310,6 +402,10 @@ async function loadUserInfo() {
         </div > `
 
     let user = await getUserInfo()
+
+    document.getElementById("username").innerText = user.username
+    document.getElementById("user_profile_img").src = user.profile_img
+    // document.getElementById("introduction").innerHTML = user.introduction
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
@@ -358,22 +454,10 @@ async function loadUserInfo() {
     if (user.gender == 2) {
         gender_female.checked = true
     }
-    // if (user.gender == 3) {
-    //     gender_unknown.checked = true
-    // }
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     let petprofiles = user.petprofile
     for (let i = 0; i < petprofiles.length; i++) {
-        // let petprofile = {
-        //     pet_id: petprofiles[i].id,
-        //     pet_name: petprofiles[i].name,
-        //     pet_birthday: petprofiles[i].birthday,
-        //     pet_type: petprofiles[i].type,
-        //     pet_gender: petprofiles[i].gender,
-        //     pet_size: petprofiles[i].size,
-        //     pet_profile_img: petprofiles[i].pet_profile_img
-        // }
         let pet_id = petprofiles[i].id
         let pet_name = petprofiles[i].name
         // let pet_birthday = petprofiles[i].birthday
@@ -382,7 +466,7 @@ async function loadUserInfo() {
         // let pet_size = petprofiles[i].size
         let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
-            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetProfileInfo(${pet_id})">
+            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
                 <div class="pet_img">
                     <img src="${pet_profile_img}" />
                 </div>
@@ -407,6 +491,10 @@ async function loadLikeArticle() {
         </div > `
 
     let user = await getUserInfo()
+
+    document.getElementById("username").innerText = user.username
+    document.getElementById("user_profile_img").src = user.profile_img
+    // document.getElementById("introduction").innerHTML = user.introduction
 
     for (let i = 0; i < user['like_articles'].length; i++) {
         let like_article = user['like_articles'][i]
