@@ -167,24 +167,3 @@ chatSocket.onmessage = async function (e) {
 // chatSocket.onclose = async function (e) {
 //     console.log('close', e)
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
