@@ -1,5 +1,9 @@
+PAGE_LIMIT = 4
+
+
 // 내 게시물 전체 불러오기(메뉴)
-async function loadMyArticle() {
+async function loadMyArticle(page) {
+
     document.getElementById("user_button_box").style.display = "none"
 
 
@@ -9,15 +13,77 @@ async function loadMyArticle() {
     show_container.innerHTML =
         `<div id="show_box" class="show_box">
             <div id ="article_box_wrapper">
-                <div id="article_box" class="article_box" style="display:flex" >
+                <div id="article_box" class="article_box" style="display:flex">
                 </div>
+            </div>
+            <div class="pagination">
+                <button class="btn" id="prev">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="btn--icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 19l-7-7 7-7"
+                    />
+                    </svg>
+                </button>
+                <div id="pages"class="pages">
+
+                </div>
+                <button class="btn" id="next">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="btn--icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 5l7 7-7 7"
+                    />
+                    </svg>
+                </button>
             </div>
         </div>
         <div id="pet_select_box" class="pet_select_box">
         </div>
         `
 
-    let articles = await getMyArticle()
+    const response = await getMyArticle(page)
+    const articles = response.results
+    const total_pages = parseInt(response_json.count / PAGE_LIMIT) + 1;
+    const next = response.next
+    const prev = response.previous
+
+    //페이지네이션 값 만들기
+    for (let i = 0; i < total_pages; i++) {
+        document.getElementById("pages").innerHTML += `<a class="page" id=page${i + 1} onclick="loadMyArticle(${i + 1})">${i + 1}</a>`
+    }
+    const onclick_page = document.getElementById("page" + page)
+    onclick_page.className = "page active";
+
+    //페이지 오른쪽 왼쪽 버튼
+    if (page >= total_pages) {
+        document.getElementById("next").setAttribute("onclick", `loadMyArticle(${total_pages})`)
+    } else if (1 <= page < total_pages) {
+        document.getElementById("next").setAttribute("onclick", `loadMyArticle(${page + 1})`)
+    }
+
+    if (page <= 1) {
+        document.getElementById("prev").setAttribute("onclick", `loadMyArticle(${1})`)
+    } else if (page > 1) {
+        document.getElementById("prev").setAttribute("onclick", `loadMyArticle(${page - 1})`)
+    }
+
 
     for (let i = 0; i < articles.length; i++) {
         let image = articles[i].images[0]
@@ -26,7 +92,7 @@ async function loadMyArticle() {
 
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
-            `<div class="article_card" >
+            `<div class="article_card">
                 <img src='${image}'  id="article_card_img${id}" onclick=openDetailModal(${id})>
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
@@ -45,7 +111,7 @@ async function loadMyArticle() {
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
     pet_select_box.innerHTML +=
-            `<div class="pet_botton_box" id='my_pet_botton_box' onclick="loadMyArticle()">
+        `<div class="pet_botton_box" id='my_pet_botton_box' onclick="loadMyArticle(1)">
                 <div class="pet_button">
                     나의 글
                 </div>
@@ -61,8 +127,6 @@ async function loadMyArticle() {
                 </div>
             </div>`
     }
-    // document.getElementsByClassName("pet_botton_box").style.backgroundColor = "white"
-    // document.getElementsByClassName("pet_botton_box").style.color = "#6e85b7"
     document.getElementById("my_pet_botton_box").style.backgroundColor = "#6e85b7"
     document.getElementById("my_pet_botton_box").style.color = "white"
 }
@@ -85,7 +149,7 @@ async function openDetailModal(id) {
     const modal_follow = document.getElementById("modal_follow")
     const article_delete = document.getElementById("article_delete")
     const article_edit = document.getElementById("article_edit")
-    
+
 
     author.innerText = article.author
     content.innerText = article.content
@@ -94,8 +158,8 @@ async function openDetailModal(id) {
     article_edit.setAttribute("onClick", `articleEdit(${article.id})`)
 
     submit_button.setAttribute("onClick", `sendComment(${article.id})`)
-    modal_follow.setAttribute("onClick", `Follow('${article.author}',${article.id})`)
-    
+    modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`)
+
     //이미지
     let images = article.images;
     document.getElementById("slide_left").onclick = () => {
@@ -149,14 +213,14 @@ async function openDetailModal(id) {
     if (article.images.length <= 1) {
         document.getElementById("slide_left").style.display = "none";
         document.getElementById("slide_right").style.display = "none";
-    }else{
+    } else {
         document.getElementById("slide_left").style.display = "block";
         document.getElementById("slide_right").style.display = "block";
     }
 
     //코멘트 달기
     for (let i = 0; i < article.comment.length; i++) {
-        if(article.comment[i].user==PayLoad.user_id){
+        if (article.comment[i].user == PayLoad.user_id) {
             comment_list.innerHTML +=
             `<div class="modal_comment_text">
                 <div class="balloon_03">
@@ -168,8 +232,8 @@ async function openDetailModal(id) {
                 <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
                 <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
                 </div>
-            </div > `
-        }else if(article.comment[i].user!=PayLoad.user_id){
+            </div> `
+        } else if (article.comment[i].user != PayLoad.user_id) {
             comment_list.innerHTML +=
             `<div class="modal_comment_text">
                 <div class="balloon_03">
@@ -179,18 +243,18 @@ async function openDetailModal(id) {
                 </div>
                 <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
                 </div>
-            </div > `
+            </div> `
         }
     }
     // 수정 삭제 버튼+팔로우 버튼 보이기
-    if (article.user== PayLoad.user_id){
-        document.getElementById("article_delete").style.display="flex"
-        document.getElementById("article_edit").style.display="flex"
-        document.getElementById("modal_follow").style.display="none"
-    }else if (article.user!= PayLoad.user_id){
-        document.getElementById("article_delete").style.display="none"
-        document.getElementById("article_edit").style.display="none"
-        document.getElementById("modal_follow").style.display="flex"
+    if (article.user == PayLoad.user_id) {
+        document.getElementById("article_delete").style.display = "flex"
+        document.getElementById("article_edit").style.display = "flex"
+        document.getElementById("modal_follow").style.display = "none"
+    } else if (article.user != PayLoad.user_id) {
+        document.getElementById("article_delete").style.display = "none"
+        document.getElementById("article_edit").style.display = "none"
+        document.getElementById("modal_follow").style.display = "flex"
     }
 }
 
@@ -264,6 +328,27 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
+// 반려동물 프로필 삭제 모달 활성화
+function showRemovePetProfile(pet_id, pet_name) {
+    const remove_pet_modal_box = document.getElementById("remove_pet_modal_box")
+    remove_pet_modal_box.style.display = "flex"
+
+    const remove_target = document.getElementById("remove_target")
+    remove_target.innerText = pet_name
+
+    const remove_button = document.getElementById("remove_button")
+    remove_button.setAttribute("onclick", `deletePetProfile(${pet_id})`)
+}
+
+// 반려동물 프로필 삭제 모달 비활성화(바디 클릭)
+document.body.addEventListener("click", function (e) {
+    if (e.target.id == "remove_pet_modal_box") {
+        document.getElementById("remove_pet_modal_box").style.display = "none";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+    }
+});
+
 // 반려동물 정보 수정
 async function savePetInfo(pet_id) {
     let name = document.getElementById("update_pet_profile_phone").value
@@ -292,11 +377,10 @@ async function savePetInfo(pet_id) {
 
 // 반려동물 정보 불러오기 [리팩토링 필수(radio 함수화)]
 async function showPetInfo(pet_id) {
-    const user_profile_section = document.getElementById("user_profile_section")
-    
     let user = await getUserInfo()
     let petprofiles = user.petprofile
-    const petprofile = petprofiles.filter( value => value.id == pet_id)[0]
+    const petprofile = petprofiles.filter(value => value.id == pet_id)[0]
+
     let pet_name = petprofile.name
     let pet_birthday = petprofile.birthday
     let pet_type = petprofile.type
@@ -307,6 +391,20 @@ async function showPetInfo(pet_id) {
     document.getElementById("user_profile_img").src = petprofile.pet_profile_img
     // document.getElementById("introduction").innerHTML = user.introduction
 
+    const user_button_box = document.getElementById("user_button_box")
+    user_button_box.innerHTML =
+        `<div class="menu_change_button_box">
+            <button id="add_pet_button" type="button" onclick="showAddPetProfile()">
+                반려동물 등록
+            </button>
+        </div>
+        <div class="menu_change_button_box">
+            <button id="remove_pet_button" type="button" onclick="showRemovePetProfile(${pet_id}, '${pet_name}')">
+                프로필 삭제
+            </button>
+        </div> `
+
+    const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
         `<div class="user_profile_box">
             <div class="user_profile_item">
@@ -347,7 +445,7 @@ async function showPetInfo(pet_id) {
             <div class="user_profile_save">
                 <button type="button" onclick="savePetInfo(${pet_id})">저장</button>
             </div>
-        </div > `
+        </div> `
 
     const update_pet_dog = document.getElementById("update_pet_dog")
     const update_pet_cat = document.getElementById("update_pet_cat")
@@ -358,7 +456,7 @@ async function showPetInfo(pet_id) {
     const update_pet_gender_male = document.getElementById("update_pet_gender_male")
     const update_pet_gender_female = document.getElementById("update_pet_gender_female")
     const update_pet_gender_unknown = document.getElementById("update_pet_gender_unknown")
-    
+
     if (pet_type == 1) {
         update_pet_dog.checked = true
     }
@@ -389,30 +487,30 @@ async function showPetInfo(pet_id) {
 
     const pet_profile_section = document.getElementById("pet_profile_section")
     pet_profile_section.innerHTML =
-        `<div id="pet_profile_card" class="pet_profile_card" onclick="loadUserInfo()">
+        `<div id = "pet_profile_card" class="pet_profile_card" onclick = "loadUserInfo()">
             <div class="pet_img">
                 <img src="${user.profile_img}" />
             </div>
             <div class="pet_name">
                 <p>${user.username}</p>
             </div>
-        </div > `
+        </div> `
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_id = petprofiles[i].id
         let pet_name = petprofiles[i].name
         let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
-            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
+            `<div id = "pet_profile_card${pet_id}" class="pet_profile_card" onclick = "showPetInfo(${pet_id})">
                 <div class="pet_img">
                     <img src="${pet_profile_img}" />
                 </div>
                 <div class="pet_name">
                     <p>${pet_name}</p>
                 </div>
-            </div > `
+            </div>`
     }
-    let pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
-    pet_profile_card.remove()
+    let target_pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
+    target_pet_profile_card.remove()
 
 }
 
@@ -421,6 +519,15 @@ function showAuthPassword() {
     const update_pw_modal_box = document.getElementById("update_pw_modal_box")
     update_pw_modal_box.style.display = "flex"
 }
+
+// 회원 비밀번호 인증 모달 비활성화(바디 클릭)
+document.body.addEventListener("click", function (e) {
+    if (e.target.id == "update_pw_modal_box") {
+        document.getElementById("update_pw_modal_box").style.display = "none";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+    }
+});
 
 // 회원 비밀번호 변경 모달 활성화
 function showUpdatePassword(user_id) {
@@ -473,21 +580,21 @@ async function loadUserInfo() {
     document.getElementById("user_button_box").style.display = "flex"
     user_button_box.innerHTML =
         `<div class="menu_change_button_box">
-            <button id="menu_change_button" class="menu_change_button" type="button" onclick="showAddPetProfile()">
                 반려동물 등록
             </button>
-        </div > `
+        </div> `
 
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id = "show_box" class="show_box">
+
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>
                 <div id="pet_profile_section" class="pet_profile_section">
                 </div>
             </div>
-        </div > `
+        </div> `
 
     let user = await getUserInfo()
 
@@ -525,7 +632,7 @@ async function loadUserInfo() {
             <div class="user_profile_save">
                 <button type="button" onclick="saveUserInfo(${user.id})">저장</button>
             </div>
-        </div > `
+        </div> `
     const email = document.getElementById("user_profile_email")
     const phone = document.getElementById("user_profile_phone")
     const birthday = document.getElementById("user_profile_birthday")
@@ -550,14 +657,14 @@ async function loadUserInfo() {
         let pet_name = petprofiles[i].name
         let pet_profile_img = petprofiles[i].pet_profile_img
         pet_profile_section.innerHTML +=
-            `<div id="pet_profile_card${pet_id}" class="pet_profile_card" onclick="showPetInfo(${pet_id})">
+            `<div id = "pet_profile_card${pet_id}" class="pet_profile_card" onclick = "showPetInfo(${pet_id})">
                 <div class="pet_img">
                     <img src="${pet_profile_img}" />
                 </div>
                 <div class="pet_name">
                     <p>${pet_name}</p>
                 </div>
-            </div > `
+            </div> `
     }
 }
 
@@ -569,10 +676,10 @@ async function loadLikeArticle() {
     show_container.innerHTML =
         `<div id = "show_box" class="show_box">
             <div id="like_article_box_wrapper">
-                <div id="like_article_box" class="like_article_box" >
+                <div id="like_article_box" class="like_article_box">
                 </div>
             </div>
-        </div > `
+        </div> `
 
     let user = await getUserInfo()
 
@@ -585,39 +692,39 @@ async function loadLikeArticle() {
 
         like_article_box.innerHTML +=
             `<div class="article_card">
-                <img src='${like_article['imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})" >
+            <img src='${like_article['imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
-            </div > `
+            </div> `
     }
 }
 async function loadPetprofile(id, div) {
     //버튼 색상 변경
     const parent = div.parentNode
-    for (let i=1; i<parent.childNodes.length; i++){
-        parent.childNodes[i].style.backgroundColor="white"
-        parent.childNodes[i].style.color="black"
+    for (let i = 1; i < parent.childNodes.length; i++) {
+        parent.childNodes[i].style.backgroundColor = "white"
+        parent.childNodes[i].style.color = "black"
     }
-    div.style.backgroundColor="#6e85b7"
-    div.style.color="white"
+    div.style.backgroundColor = "#6e85b7"
+    div.style.color = "white"
 
     document.getElementById("user_button_box").style.display = "none"
 
     const show_box = document.getElementById("show_box")
     show_box.innerHTML =
-        `<div id="pet_article_box_wrapper">              
+        `<div id = "pet_article_box_wrapper">
             <div id="pet_article_box" class="article_box">
             </div>
-        </div>`
+        </div> `
     const pet_article_box = document.getElementById("pet_article_box")
     let pet = await getPetArticle(id)
 
-    for (let i=0; i<pet.article.length; i++) {
-        let article= pet.article[i]
+    for (let i = 0; i < pet.article.length; i++) {
+        let article = pet.article[i]
         pet_article_box.innerHTML +=
             `<div class="article_card">
-                <img src='${article.images[0]}' onclick="openDetailModal(${article.id})" >
+            <img src='${article.images[0]}' onclick="openDetailModal(${article.id})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>${article.like_num} </div>
-            </div > `
+            </div> `
     }
 }
 
@@ -632,7 +739,7 @@ async function loadPetprofile(id, div) {
 //         likes.forEach((user) => {
 //             document.getElementById(
 //                 "like_user_list"
-//             ).innerHTML += `<div>${user}</div>`;
+//             ).innerHTML += `<div> ${ user }</div> `;
 //         });
 //         document.getElementById("like_user_list").style.display = "flex";
 //     }
@@ -643,4 +750,4 @@ async function loadPetprofile(id, div) {
 //     };
 // }
 
-loadMyArticle()
+loadMyArticle(1)

@@ -22,7 +22,7 @@
 <body>
     <div class="wrapper">
         <div class="left_menu">
-            <div class="menu_dog" id="menu_like" onclick="loadMyArticle()">
+            <div class="menu_dog" id="menu_like" onclick="loadMyArticle(1)">
                 <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                 나의 글
             </div>
@@ -167,6 +167,23 @@
         </div>
     </div>
 
+    <!-- 반려동물 프로필 삭제 모달 -->
+    <div id="remove_pet_modal_box" class="remove_pet_modal_box">
+        <div class="remove_pet_modal_content">
+            <div class="remove_pet_msg_box">
+                <p>해당 반려동물 프로필을 정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="remove_pet_msg_box">
+                <p>삭제할 프로필 :</p>
+                <span id="remove_target"></span>
+            </div>
+            <div class="remove_pet_button_box">
+                <button id="remove_button" type="button" onclick="">
+                    삭제
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- 디테일 모달 -->
     <div id="modal_box" class="modal_box">

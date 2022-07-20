@@ -134,3 +134,7 @@ body {
     min-height: 500px;
     justify-content: flex-start;
 }
+
+.chat_input_box {
+    border: none;
+}
