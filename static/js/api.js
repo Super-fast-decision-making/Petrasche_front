@@ -458,3 +458,21 @@ async function deletePetProfile(pet_id) {
         alert(response_json.massege)
     }
 }
+
+const LikeOn = (id) => {
+    fetch(`${backend_base_url}article/like/${id}/`, {
+        method: "POST",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+            "Content-Type": "application/json",
+        },
+    })
+        .then((res) => res.json())
+        .then((res) => {
+            document.getElementById("heart_ani").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("heart_ani").style.display = "none";
+            }, 500);
+            openDetailModa(id);
+        });
+};
