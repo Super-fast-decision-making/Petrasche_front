@@ -99,11 +99,13 @@
                         </div>
                     </div>
                     <div class="chat_input_box" id="input-message">
-                        <form id="form" onsubmit="sendMessage(this)">
-                            <!-- <input type="text" name="message" id="message"
-                                onkeydown="if(window.event.keyCode==13){ await sendMessage(this)}" /> -->
+                        <!-- <form id="form" onsubmit="sendMessage(this)">
                             <input type="text" name="message" id="message" />
+                        </form> -->
+                        <form id="form">
+                            <input type="text" name="message" />
                         </form>
+                        <div id="messages"></div>
                     </div>
                 </div>
             </div>
