@@ -3,6 +3,79 @@ const USER_URL = "http://127.0.0.1:8000/user/";
 const backend_base_url = "http://127.0.0.1:8000/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
+page_num = 1;
+// 윈도우 스크롤 함수
+window.onscroll = function () {
+  let timer;
+  let page = true;
+  let scroll_top = document.documentElement.scrollTop;
+  let scroll_height = document.documentElement.scrollHeight;
+  let window_height = document.documentElement.clientHeight;
+  let scroll_percent = (scroll_top / (scroll_height - window_height)) * 100;
+  if (scroll_percent > 99.96 && page == true) {
+    page = false;
+    document.getElementById("now_loading_page").style.display = "flex";
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      GetImgListPage(page_num);
+      document.getElementById("now_loading_page").style.display = "none";
+      document.body.style.overflow = "auto";
+      document.body.style.touchAction = "auto";
+      page = true;
+      page_num++;
+    }, 1000);
+  }
+}
+
+function Scroll_page_nation() {
+  let page_num = 1;
+  const scroll_top = document.documentElement.scrollTop;
+  const scroll_height = document.documentElement.scrollHeight;
+  const client_height = document.documentElement.clientHeight;
+  const scroll_percent = (scroll_top / (scroll_height - client_height)) * 100;
+  console.log(scroll_percent);
+  if (scroll_percent > 90) {
+    setTimeout(() => {
+      GetImgListPage(page_num);
+    }, 1000);
+    page_num++;
+  }
+}
+
+const GetImgListPage = (page) => {
+  console.log(page);
+  fetch(BACK_END_URL + "page/" + page + "/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("user_access_token"),
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((item) => {
+        // 기울기 0
+        // 기울기 -5 ~ 5
+        let random = Math.floor(Math.random() * 10) - 5;
+        let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
+          <img src="${item.images[0]}" alt="">
+          <div id="article_list_like" class="article_list_like">
+          <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
+          <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
+          </div>
+          </div>`;
+        document.getElementById("main_article_list").innerHTML += html;
+      }
+      );
+    }
+    );
+}
+
 
 const GetUserInfo = () => {
   fetch(USER_URL, {
@@ -47,7 +120,7 @@ const Refresh_Token = () => {
 };
 
 const GetImgList = () => {
-  document.getElementById("main_article_list").innerHTML = "";
+  // document.getElementById("main_article_list").innerHTML = "";
   fetch(BACK_END_URL)
     .then((res) => res.json())
     .then((data) => {
@@ -583,18 +656,18 @@ async function search() {
 
   var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
   const search_results = await fetch(url)
-      .then(response => {
-          var status_code = response.status;
-          return Promise.resolve(response.json())
-              .then(data => ({ data, status_code }))
-      })
+    .then(response => {
+      var status_code = response.status;
+      return Promise.resolve(response.json())
+        .then(data => ({ data, status_code }))
+    })
 
   localStorage.setItem('search_results', JSON.stringify(search_results.data));
 
   if (search_results.status_code == 200) {
-      window.location.replace(`${frontend_base_url}search_result.html`);
+    window.location.replace(`${frontend_base_url}search_result.html`);
   } else {
-      alert(search_results.data.message)
+    alert(search_results.data.message)
   }
 }
 
