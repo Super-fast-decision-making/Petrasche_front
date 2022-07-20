@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,21 @@
     <title>mypage | Petrasche</title>
 
     <!------CSS---------->
-    <link rel="stylesheet" type="text/css" href="./static/css/login.css">
     <link rel="stylesheet" type="text/css" href="./static/css/mypage.css">
 
-
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
     <script src="https://use.fortawesome.com/99966411.js"></script>
+    <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <style>
 
     </style>
 </head>
+
 <body>
     <div class="wrapper">
         <div class="left_menu">
-            <div class="menu_dog" id="menu_like" onclick="loadMyArticle()">
+            <div class="menu_dog" id="menu_like" onclick="loadMyArticle(1)">
                 <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                 나의 글
             </div>
@@ -46,11 +47,11 @@
                 <div class="user_box">
                     <div class="user_profile">
                         <div class="user_img_box">
-                            <img id="user_profile_img" src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                            <img id="user_profile_img"
+                                src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
                         </div>
-                        <div class="user_id_box">
-                            <span class="user_id" id="user_id">
-                                
+                        <div class="username_box">
+                            <span class="username" id="username">
                             </span>
                         </div>
                     </div>
@@ -60,25 +61,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="user_button_box">
-                    <div class="menu_change_button_box">
-                        <button id="menu_change_button" class="menu_change_button" type="button" onclick="changeButton()">
-                            프로필 변경
-                        </button>
-                    </div>
+                <div id="user_button_box" class="user_button_box">
                 </div>
             </div>
-            <div class="show_container">
+            <div id="show_container" class="show_container">
                 <div id="show_box" class="show_box">
                     <!-- 내 전체 게시물 메뉴 -->
-                    <div id ="article_box_wrapper">
-                        <div id="article_box" class="article_box" style="display:flex" >
+                    <div id="article_box_wrapper">
+                        <div id="article_box" class="article_box" style="display:flex">
                         </div>
                     </div>
-                    
+
                     <!-- 좋아요 메뉴 -->
                     <div id="like_article_box_wrapper">
-                        <div id="like_article_box" class="like_article_box" >
+                        <div id="like_article_box" class="like_article_box">
                         </div>
                     </div>
 
@@ -87,53 +83,144 @@
                         <div id="user_profile_section" class="user_profile_section">
                         </div>
                     </div>
+
+                    <!-- 펫프로필 별 게시물 메뉴 -->
+                    <div id="pet_article_box_wrapper">
+                        <div id="pet_article_box" class="article_box">
+                        </div>
+                    </div>
+
                 </div>
                 <div id="pet_select_box" class="pet_select_box">
-                    <div class="pet_botton_box">
-                        <div class="pet_button">
-                            김덕구
-                        </div>
-                    </div>
-                    <div class="pet_botton_box">
-                        <div class="pet_button">
-                            박영희
-                        </div>
-                    </div>
-                    <div class="pet_botton_box">
-                        <div class="pet_button">
-                            이창수
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-   <!-- 상세 모달 -->
-   <div id="modal_box" class="modal_box">
-    <div class="modal_content">
-        <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
-            alt="">
-        <div id="modal_desc" class="modal_desc">
-            <div class="modal_user_profile">
-                <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
-                    srcset="">
-                <div id="author">강아지 사육사</div>
+    
+    <!-- 비밀번호 변경 모달 -->
+    <div id="update_pw_modal_box" class="update_pw_modal_box">
+        <div class="update_pw_modal_content">
+            <div class="update_pw_msg_box">
+                <p>현재 비밀번호를 입력해주세요</p>
             </div>
-            <div id="modal_content_list" class="modal_content_list">
-                <div id="content">
-                </div>
+            <div class="update_pw_input_box">
+                <input id="update_pw_input" type="password" />
             </div>
-            <div id="mypage_modal_comment_list" class="modal_comment_list">
-            </div>
-            <div class="modal_comment_input">
-                <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
-                <div id="modal_comment_submit" class="modal_comment_submit" onclick="sendComment()">전송</div>
+            <div class="update_pw_button_box">
+                <button type="button" onclick="postAuthPassword()">
+                    인증
+                </button>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- 반려동물 등록 모달 -->
+    <div id="add_pet_modal_box" class="add_pet_modal_box">
+        <div class="add_pet_modal_content">
+            <div class="add_pet_profile_box">
+                <div class="add_pet_profile_box_l">
+                    <div class="add_pet_profile_img">
+                        <img src="" />
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>이름</p>
+                        <input id="add_pet_profile_name" type="text" value="" />
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>생년월일</p>
+                        <input id="add_pet_profile_birthday" type="date" value="" />
+                    </div>
+                </div>
+                <div class="add_pet_profile_box_r">
+                    <div class="add_pet_profile_item">
+                        <p>종류</p>
+                        <input type="radio" id="pet_dog" name="pet_type" value=1>
+                        <label for="강아지">강아지</label>
+                        <input type="radio" id="pet_cat" name="pet_type" value=2>
+                        <label for="고양이">고양이</label>
+                        <input type="radio" id="pet_etc" name="pet_type" value=3>
+                        <label for="그외">그외</label>
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>크기</p>
+                        <input type="radio" id="size_small" name="pet_size" value=1>
+                        <label for="소형">소형</label>
+                        <input type="radio" id="size_medium" name="pet_size" value=2>
+                        <label for="중형">중형</label>
+                        <input type="radio" id="size_large" name="pet_size" value=3>
+                        <label for="대형">대형</label>
+                    </div>
+                    <div class="add_pet_profile_item">
+                        <p>성별</p>
+                        <input type="radio" id="pet_gender_male" name="pet_gender" value=1>
+                        <label for="남성">남성</label>
+                        <input type="radio" id="pet_gender_female" name="pet_gender" value=2>
+                        <label for="여성">여성</label>
+                        <input type="radio" id="pet_gender_unknown" name="pet_gender" value=3>
+                        <label for="모름">모름</label>
+                    </div>
+                </div>
+            </div>
+            <div class="add_pet_profile_save">
+                <button type="button" onclick="addPetProfile()">등록</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 디테일 모달 -->
+    <div id="modal_box" class="modal_box">
+        <div class="modal_content">
+            <div class="modal_img_box" style="width:220%">
+                <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
+                alt="" style="width: 100%;">
+                <div id="slide_left" class="slide_left"><i class="fa-solid fa-caret-left"></i></div>
+                <div id="slide_right" class="slide_right"><i class="fa-solid fa-caret-right"></i></div>
+                <div id="like_user_list" class="like_user_list">
+                    <h4>좋아요 없음</h4>
+                </div>
+            </div>
+            <div id="like_icon_on" class="like_icon_on"><i class="fa-solid fa-heart"></i><span> 45</span></div>
+            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span> 45</span></div>
+            <div id="heart_ani" class="heart_ani"><i class="fa-solid fa-heart"></i></div>
+
+            <div id="modal_desc" class="modal_desc">
+                <div id="article_delete" class="article_delete" onclick="articleDelete()"><i class="fa-solid fa-trash"></i></div>
+                <div id="article_edit" class="article_edit" onclick="articleEdit()"><i class="fa-solid fa-pen-to-square"></i></div>
+                <div class="modal_user_profile">
+                    <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
+                        srcset="">
+                    <div id="author">강아지 사육사</div>
+                    <div id="modal_follow" class="follow" onclick="Follow(user,article)">팔로우</div>
+                </div>
+                <div id="modal_content_list" class="modal_content_list">
+                    <div id="content">
+                    </div>
+                </div>
+                <div id="mypage_modal_comment_list" class="modal_comment_list">
+                </div>
+                <div class="modal_comment_input">
+                    <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
+                    <div id="modal_comment_submit" class="modal_comment_submit" onclick="sendComment()">전송</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--------edit------------>
+    <div id="modal_edit_box" class="modal_edit_box">
+        왜 이거 안보임??
+        <div class="modal_edit_box_input"><textarea id="modal_edit_text" rows="5" cols="50"
+                placeholder="내용....."></textarea>
+            <button id="modal_edit_button" class="modal_edit_button">수정</button>
+            <button onclick="modal_edit_cancel()" id="modal_edit_cancel" class="modal_edit_cancel">취소</button>
+        </div>
+    </div>
+
+
     <!------JS---------->
     <script src="./static/js/api.js"></script>
     <script src="./static/js/mypage.js"></script>
 </body>
+
 </html>

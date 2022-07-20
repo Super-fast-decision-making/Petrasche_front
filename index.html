@@ -21,7 +21,6 @@
             <button onclick="modal_edit_cancel()" id="modal_edit_cancel" class="modal_edit_cancel">취소</button>
         </div>
     </div>
-
     <!-- 상세 모달 -->
     <div id="modal_box" class="modal_box">
         <div class="modal_content">
@@ -34,9 +33,8 @@
                     <h4>좋아요 없음</h4>
                 </div>
             </div>
-
-            <div id="like_icon_on" class="like_icon_on"><i class="fa-solid fa-heart"></i><span> 45</span></div>
-            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span> 45</span></div>
+            <div id="like_icon_on" class="like_icon_on"><i class="fa-solid fa-heart"></i><span>45</span></div>
+            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span>45</span></div>
             <div id="heart_ani" class="heart_ani"><i class="fa-solid fa-heart"></i></div>
             <div id="modal_desc" class="modal_desc">
                 <div id="article_delete" class="article_delete"><i class="fa-solid fa-trash"></i></div>
@@ -46,15 +44,13 @@
                         srcset="">
                     <div id="modal_username" class="modal_username">강아지 사육사</div>
                     <div id="modal_follow" class="follow">팔로우</div>
+                    <div id="modal_follow_count" class="follow" style="background-color: blue;">12</div>
                 </div>
                 <div id="modal_content_list" class="modal_content_list">
                     <div id="modal_content_text">
-
                     </div>
-
                 </div>
                 <div class="modal_comment_list" id="modal_comment_list">
-
                 </div>
                 <div id="modal_comment_input" class="modal_comment_input">
                     <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
@@ -86,11 +82,21 @@
         </div>
         <div id="upload_model_content" class="upload_model_content">
             <textarea id="upload_content" cols="30" rows="10" placeholder="내용작성"></textarea>
+            <h4 id="pet_profile_title" style="color: black; background:yellow; padding: 5px; border-radius: 5px;">펫 프로필
+                선택</h4>
+            <div id="pet_profile_select" class="pet_profile_select">
+                <!-- <input type="radio" name="pet_profile" id="pet_profile1" value="강아지1">
+                    <label for="pet_profile1">
+                        <div><i class="fa-solid fa-circle-check"></i></div>
+                        <p class="pet_name">강아지1<p>
+                        <img src="http://cdn.ksilbo.co.kr/news/photo/202206/938335_532280_3749.jpg" alt="" srcset="">
+                    </label> -->
+            </div>
         </div>
     </div>
-
-
     <div class="main_screen">
+
+        <!-- 상단 메뉴바 -->
         <nav class="navbar">
             <div class="logo">
                 Petrasche
@@ -100,16 +106,23 @@
                 <button class="serch_button">검색</button>
             </div>
             <div class="user_info">
-                <div id="user_profile" class="user_profile">
+                <div onclick="UserPage()" id="user_profile" class="user_profile">
                     <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
                         alt="">
                 </div>
+                <div onclick="alarm(this)" id="alarm" class="alarm">
+                    <i class="fa-solid fa-bell"></i>
+                    <div class="history">
+                        
+                    </div>
+                </div>
                 <div class="user">
-                    <span style="font-size:12px; font-weight: bold;" id="user">유저님</span>님 환영합니다.
+                    <span class="user_name" id="user">유저님</span>
                 </div>
                 <div onclick="Logout()" class="logout">로그아웃</div>
             </div>
         </nav>
+        <!--  -->
 
         <div class="top_section">
             <div class="left_menu">
@@ -132,32 +145,17 @@
                     업로드
                 </div>
             </div>
-
-
-
             <div class="right_section">
                 <h1 class="top_title">Best 게시물</h1>
                 <div id="top_article" class="top_article">
-
                 </div>
                 <div class="scroll_button">
                     <div onclick="top_left_scroll()"><i class="fa-solid fa-angle-left"></i></div>
                     <div onclick="top_right_scroll()"><i class="fa-solid fa-angle-right"></i></div>
                 </div>
-
-
-
-
                 <div id="main_article_list" class="main_article_list">
-
                 </div>
-
-
             </div>
-
-
-
-
         </div>
         <script src="/static/js/main_api.js"></script>
         <script src="/static/js/main_script.js"></script>

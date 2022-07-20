@@ -10,7 +10,7 @@ const GetUserInfo = () => {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
     },
   })
-    .then((res) => res.json()) 
+    .then((res) => res.json())
     .then((res) => {
       if (res.username == null) {
         window.location.href = "./login.html";
@@ -96,14 +96,57 @@ function upload_modal_submit() {
   let upload_content = document.getElementById("upload_content").value;
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
+  // radio check get
+  let pet_check = document.getElementsByName("pet_profile");
+  let pet_profile_check = "";
+  for (let i = 0; i < pet_check.length; i++) {
+    if (pet_check[i].checked) {
+      pet_profile_check = pet_check[i].value;
+    }
+  }
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
+    fetch(USER_URL, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        let pet_profile = res.petprofile;
+        if (pet_profile.length == 0) {
+          document.getElementById("pet_profile_title").innerText =
+            "펫 프로필 없음";
+          document.getElementById("pet_profile_title").style.background = "red";
+          document.getElementById("pet_profile_title").style.color = "white";
+        } else {
+          document.getElementById("pet_profile_title").innerText =
+            "펫 프로필 선택";
+          document.getElementById("pet_profile_title").style.background =
+            "rgb(48, 48, 48)";
+          document.getElementById("pet_profile_title").style.color = "white";
+        }
+        pet_profile.forEach((item) => {
+          let html = `<input type="radio" name="pet_profile" id="pet-${item.id}" value="${item.id}">
+        <label for="pet-${item.id}">
+            <div><i class="fa-solid fa-circle-check"></i></div>
+            <p class="pet_name">${item.name}</p>
+            <img src="${item.pet_profile_img}" alt="" srcset="">
+        </label>`;
+
+          document.getElementById("pet_profile_select").innerHTML += html;
+        });
+      });
   } else {
     let upload_content = document
       .getElementById("upload_content")
       .value.replace(/\n/g, "<br>");
     let formData = new FormData();
     formData.append("content", upload_content);
+    formData.append("user_pet", pet_profile_check);
     for (let i = 0; i < upload_file.length; i++) {
       formData.append("image_lists", upload_file[i]);
     }
@@ -133,7 +176,7 @@ function modal_open(id) {
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
-      if (data.likes.indexOf(user_name) != -1) {
+      if (data.likes.indexOf(user_id) != -1) {
         document.getElementById("like_icon_off").style.display = "none";
         document.getElementById(
           "like_icon_on"
@@ -149,9 +192,13 @@ function modal_open(id) {
 
       document.getElementById("modal_follow").style.display = "flex";
       document.getElementById("modal_follow").innerText = "팔로우";
+      document.getElementById("modal_follow_count").innerText =
+        data.user_following.length;
 
       if (data.user_following.indexOf(user_id) != -1) {
         document.getElementById("modal_follow").innerText = "언팔로우";
+        document.getElementById("modal_follow_count").innerText =
+          data.user_following.length;
       }
 
       if (data.user == user_id) {
@@ -175,6 +222,16 @@ function modal_open(id) {
       let content = data.content;
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
+
+
+      if (data.images.length <= 1) {
+        document.getElementById("slide_left").style.display = "none";
+        document.getElementById("slide_right").style.display = "none";
+      } else {
+        document.getElementById("slide_left").style.display = "block";
+        document.getElementById("slide_right").style.display = "block";
+      }
+
       document.getElementById("slide_left").onclick = () => {
         let index = images.indexOf(
           document.getElementById("modal_box_img").src
@@ -212,11 +269,17 @@ function modal_open(id) {
       document.getElementById("modal_box_img").ondblclick = () => {
         LikeOn(id);
       };
-      document.getElementById("like_icon_off").onclick = () => {
-        LikeUserList(data.likes);
-      };
       document.getElementById("like_icon_on").onclick = () => {
-        LikeUserList(data.likes);
+        LikeOn(id);
+      };
+      document.getElementById("like_icon_off").onclick = () => {
+        LikeOn(id);
+      };
+      document.getElementById("like_icon_off").onmouseover = () => {
+        LikeUserList(data.like_users);
+      };
+      document.getElementById("like_icon_on").onmouseover = () => {
+        LikeUserList(data.like_users);
       };
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
@@ -362,7 +425,6 @@ const ArticleEdit = (id) => {
         .then((res) => res.json())
         .then((res) => {
           alert("수정 완료");
-          console.log(res);
           document.getElementById("modal_edit_box").style.display = "none";
           modal_open(id);
         });
@@ -404,7 +466,6 @@ const CommentEdit = (id, article_id, text) => {
         .then((res) => res.json())
         .then((res) => {
           alert("수정 완료");
-          console.log(res);
           document.getElementById("modal_edit_box").style.display = "none";
           modal_open(article_id);
         });
@@ -467,10 +528,51 @@ const Follow = (user, article) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      alert(res.message)
+      alert(res.message);
       modal_open(article);
     });
 };
+
+function alarm(id) {
+  id.childNodes[3].innerHTML = "";
+  fetch(USER_URL + "history/", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.length == 0) {
+        id.childNodes[3].innerHTML = "알림이 없습니다.";
+      } else {
+        res.forEach((history) => {
+          if (history.type == "like") {
+            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다.</div>`;
+          }
+          if (history.type == "follow") {
+            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다.</div>`;
+          }
+          if (history.type == "comment") {
+            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다.</div>`;
+          }
+        });
+      }
+    });
+
+  id.childNodes[3].style.display = "block";
+  let alarm = true;
+  id.onclick = () => {
+    if (alarm) {
+      id.childNodes[3].style.display = "none";
+      alarm = false;
+    } else {
+      id.childNodes[3].style.display = "block";
+      alarm = true;
+    }
+  };
+}
 
 GetUserInfo();
 GetImgList();

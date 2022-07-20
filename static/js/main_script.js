@@ -12,6 +12,10 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+const UserPage = () => {
+  window.location.href = "/mypage.html";  
+}
+
 function top_left_scroll() {
   let scroll_left = document.getElementById("top_article").scrollLeft;
   if (scroll_left > 0) {
@@ -48,12 +52,6 @@ function article_box_hover(target) {
   });
 }
 
-function modal_desc_info(id) {
-  document.getElementById("modal_info_btn").style.display = "none";
-  document.getElementById("modal_desc").style.display = "flex";
-  document.getElementById("modal_info_colse_btn").style.display = "flex";
-}
-
 function modal_close() {
   document.getElementById("modal_box").style.display = "none";
   document.getElementById("modal_box_img").src = "";
@@ -62,7 +60,6 @@ function modal_close() {
   document.body.style.overflow = "auto";
   document.body.style.touchAction = "auto";
   // GetImgList();
-
   // document.getElementById("modal_comment_submit").removeEventListener("click", myHandler);
 }
 
