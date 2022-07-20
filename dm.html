@@ -100,9 +100,11 @@
                         <div id="chat_box" class="chat_box" style="display:flex">
                         </div>
                     </div>
-                    <div class="chat_input_box">
-                        <form id="form">
-                            <input type="text" name="message" />
+                    <div class="chat_input_box" id="input-message">
+                        <form id="form" onsubmit="sendMessage(this)">
+                            <!-- <input type="text" name="message" id="message"
+                                onkeydown="if(window.event.keyCode==13){ await sendMessage(this)}" /> -->
+                            <input type="text" name="message" id="message" />
                         </form>
                     </div>
                 </div>
