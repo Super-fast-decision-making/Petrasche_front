@@ -12,25 +12,19 @@ async function getHeader() {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
+    // console.log(response_json)
     return response_json
 }
 getHeader()
 
 
-let url = 'ws://127.0.0.1:8000/ws/socket-server/'
-
+// let url = 'ws://127.0.0.1:8000/ws/socket-server/'
+let url = 'ws://127.0.0.1:8000/chat/'
 const chatSocket = new WebSocket(url)
 chatSocket.onopen = async function (e) {
     console.log('open', e)
-
-
 }
-// chatSocket.onopen = () => chatSocket.send(JSON.stringify({
-//     'event_pk': event_pk,
-//     'participant_pk': 1,
-//     'isConnected': 'true',
-// }));
+
 
 chatSocket.onmessage = async function (e) {
     let data = JSON.parse(e.data)
