@@ -95,8 +95,8 @@ async function handleLogin() {
 }
 
 // 내 게시물 불러오기(전체)
-async function getMyArticle() {
-    const response = await fetch(`${backend_base_url}article/myarticle/?page=1`, {
+async function getMyArticle(page_num) {
+    const response = await fetch(`${backend_base_url}article/myarticle/?p=${page_num}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -105,8 +105,7 @@ async function getMyArticle() {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
-    return response_json.results
+    return response_json
 }
 
 

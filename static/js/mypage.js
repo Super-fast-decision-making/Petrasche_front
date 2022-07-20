@@ -1,5 +1,9 @@
+PAGE_LIMIT=4
+
+
 // 내 게시물 전체 불러오기(메뉴)
-async function loadMyArticle() {
+async function loadMyArticle(page) {
+    
     document.getElementById("user_button_box").style.display = "none"
 
 
@@ -12,12 +16,74 @@ async function loadMyArticle() {
                 <div id="article_box" class="article_box" style="display:flex" >
                 </div>
             </div>
+            <div class="pagination">
+                <button class="btn" id="prev">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="btn--icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 19l-7-7 7-7"
+                    />
+                    </svg>
+                </button>
+                <div id="pages"class="pages">
+
+                </div>
+                <button class="btn" id="next">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="btn--icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 5l7 7-7 7"
+                    />
+                    </svg>
+                </button>
+            </div>
         </div>
         <div id="pet_select_box" class="pet_select_box">
         </div>
         `
 
-    let articles = await getMyArticle()
+    const response = await getMyArticle(page)
+    const articles =response.results
+    const total_pages = parseInt(response_json.count/PAGE_LIMIT)+1;
+    const next = response.next
+    const prev = response.previous
+
+    //페이지네이션 값 만들기
+    for (let i = 0; i < total_pages; i++) {
+        document.getElementById("pages").innerHTML +=`<a class="page" id=page${i+1} onclick="loadMyArticle(${i+1})">${i+1}</a>`
+    }
+    const onclick_page = document.getElementById("page"+page)
+    onclick_page.className= "page active";
+
+    //페이지 오른쪽 왼쪽 버튼
+    if (page>=total_pages){
+        document.getElementById("next").setAttribute("onclick",`loadMyArticle(${total_pages})`)
+    } else if (1<=page<total_pages){
+        document.getElementById("next").setAttribute("onclick",`loadMyArticle(${page+1})`)
+    }
+
+    if (page<=1){
+        document.getElementById("prev").setAttribute("onclick",`loadMyArticle(${1})`)
+    } else if (page>1) {
+        document.getElementById("prev").setAttribute("onclick",`loadMyArticle(${page-1})`)
+    }
+
 
     for (let i = 0; i < articles.length; i++) {
         let image = articles[i].images[0]
@@ -45,7 +111,7 @@ async function loadMyArticle() {
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
     pet_select_box.innerHTML +=
-            `<div class="pet_botton_box" id='my_pet_botton_box' onclick="loadMyArticle()">
+            `<div class="pet_botton_box" id='my_pet_botton_box' onclick="loadMyArticle(1)">
                 <div class="pet_button">
                     나의 글
                 </div>
@@ -61,8 +127,6 @@ async function loadMyArticle() {
                 </div>
             </div>`
     }
-    // document.getElementsByClassName("pet_botton_box").style.backgroundColor = "white"
-    // document.getElementsByClassName("pet_botton_box").style.color = "#6e85b7"
     document.getElementById("my_pet_botton_box").style.backgroundColor = "#6e85b7"
     document.getElementById("my_pet_botton_box").style.color = "white"
 }
@@ -481,6 +545,7 @@ async function loadUserInfo() {
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id = "show_box" class="show_box">
+
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>
@@ -643,4 +708,4 @@ async function loadPetprofile(id, div) {
 //     };
 // }
 
-loadMyArticle()
+loadMyArticle(1)
