@@ -12,6 +12,50 @@ async function loadMyArticle() {
                 <div id="article_box" class="article_box" style="display:flex" >
                 </div>
             </div>
+            <div class="pagination">
+                <button class="btn">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="btn--icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 19l-7-7 7-7"
+                    />
+                    </svg>
+                </button>
+                <div class="pages">
+                    <a class="page">1</a>
+                    <a class="page">2</a>
+                    <a class="page active">3</a>
+                    <a class="page">4</a>
+                    <a class="page">5</a>
+                    <a class="page">6</a>
+                    <a class="page">...</a>
+                    <a class="page">23</a>
+                </div>
+                <button class="btn">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="btn--icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 5l7 7-7 7"
+                    />
+                    </svg>
+                </button>
+            </div>
         </div>
         <div id="pet_select_box" class="pet_select_box">
         </div>
@@ -481,6 +525,7 @@ async function loadUserInfo() {
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id = "show_box" class="show_box">
+
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>

@@ -1317,3 +1317,64 @@ body {
 
     font-size: 15px;
 }
+
+
+
+
+/* 페이지네이션*/
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 200px;
+}
+.pages {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.page {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.page:hover {
+    background-color: #6e85b7;
+    color: #fff;
+}
+
+.active {
+    background-color: #6e85b7;
+    color: #fff;
+}
+
+.btn {
+    background-color: #fff;
+    border: 1px solid #6e85b7;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn:hover {
+    background-color: #6e85b7;
+}
+.btn--icon {
+    height: 24px;
+    width: 24px;
+    stroke: #6e85b7;
+}
+.btn--icon:hover {
+    stroke: #fff;
+}
