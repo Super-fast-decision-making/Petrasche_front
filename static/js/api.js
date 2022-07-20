@@ -440,3 +440,21 @@ async function getPetArticle(id) {
     return response_json
 }
 
+// 반려동물 프로필 삭제
+async function deletePetProfile(pet_id) {
+    const response = await fetch(`${backend_base_url}user/mypet/${pet_id}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        }
+    })
+    response_json = await response.json()
+    if (response.status == 200) {
+        alert(response_json.massege)
+        window.location.reload()
+    } else {
+        alert(response_json.massege)
+    }
+}
