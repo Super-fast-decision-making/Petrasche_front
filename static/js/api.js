@@ -384,7 +384,7 @@ function articleDelete(id){
         return;
     }
 }
-  
+
 //아티클 수정
 function articleEdit(id){
     console.log("여기도 잘옴")
@@ -439,4 +439,4 @@ async function getPetArticle(id) {
     response_json = await response.json()
     return response_json
 }
-}
+

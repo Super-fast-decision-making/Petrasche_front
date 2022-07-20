@@ -55,7 +55,7 @@ async function loadMyArticle() {
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_name = petprofiles[i].name
         pet_select_box.innerHTML +=
-            `<div class="pet_botton_box" id="pet_botton_box${petprofiles[i].id}" onclick="loadPetprofile(${petprofiles[i].id})">
+            `<div class="pet_botton_box" id="pet_botton_box${petprofiles[i].id}" onclick="loadPetprofile(${petprofiles[i].id}, this)">
                 <div class="pet_button">
                     ${pet_name}
                 </div>
@@ -590,7 +590,16 @@ async function loadLikeArticle() {
             </div > `
     }
 }
-async function loadPetprofile(id) {
+async function loadPetprofile(id, div) {
+    //버튼 색상 변경
+    const parent = div.parentNode
+    for (let i=1; i<parent.childNodes.length; i++){
+        parent.childNodes[i].style.backgroundColor="white"
+        parent.childNodes[i].style.color="black"
+    }
+    div.style.backgroundColor="#6e85b7"
+    div.style.color="white"
+
     document.getElementById("user_button_box").style.display = "none"
 
     const show_box = document.getElementById("show_box")
@@ -610,38 +619,8 @@ async function loadPetprofile(id) {
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>${article.like_num} </div>
             </div > `
     }
-    // document.querySelectorAll(".pet_botton_box").style.backgroundColor = "white"
-    // document.querySelectorAll('.pet_botton_box').color = "#6e85b7"
-    // document.querySelectorAll('.pet_botton_box').backgroundColor = "white"
-    document.getElementById("pet_botton_box"+id).style.backgroundColor = "#6e85b7"
-    document.getElementById("pet_botton_box"+id).style.color = "white"//id는 pet id
 }
 
-// const nonClick = document.querySelectorAll(".pet_botton_box");
-
-// function handleClick(event) {
-//   // div에서 모든 "click" 클래스 제거
-//     nonClick.forEach((e) => {
-//         e.classList.remove("click");
-//     });
-//   // 클릭한 div만 "click"클래스 추가
-//     event.target.classList.add("click");
-// }
-
-// nonClick.forEach((e) => {
-//     e.addEventListener("click", handleClick);
-// });
-
-// let petprofiles = user.petprofile
-// for (let i = 0; i < petprofiles.length; i++) {
-//     let pet_name = petprofiles[i].name
-//     pet_select_box.innerHTML +=
-//         `<div class="pet_botton_box" onclick="loadPetprofile(${petprofiles[i].id})">
-//             <div class="pet_button">
-//                 ${pet_name}
-//             </div>
-//         </div>`
-// }
 
 
 
