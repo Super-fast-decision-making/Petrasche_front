@@ -1,5 +1,5 @@
-// const backend_base_url = "http://127.0.0.1:8000/"
-// const frontend_base_url = "http://127.0.0.1:5500/"
+const backend_base_url = "http://127.0.0.1:8000/"
+const frontend_base_url = "http://127.0.0.1:5500/"
 
 
 Kakao.init("b1ae05cf3f44682ccf7ffba8606235b3")
