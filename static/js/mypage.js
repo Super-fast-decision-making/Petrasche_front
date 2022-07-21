@@ -1,4 +1,4 @@
-PAGE_LIMIT = 4
+PAGE_LIMIT = 8
 
 
 // 내 게시물 전체 불러오기(메뉴)
@@ -148,10 +148,14 @@ async function openDetailModal(id) {
     const modal_follow = document.getElementById("modal_follow")
     const article_delete = document.getElementById("article_delete")
     const article_edit = document.getElementById("article_edit")
+    const modal_like_num1 = document.getElementById("modal_like_num1")
+    const modal_like_num2 = document.getElementById("modal_like_num2")
 
 
     author.innerText = article.author
     content.innerText = article.content
+    modal_like_num1.innerText = article.like_num
+    modal_like_num2.innerText = article.like_num
     modal_box_img.src = article.images[0]
     article_delete.setAttribute("onClick", `articleDelete(${article.id})`)
     article_edit.setAttribute("onClick", `articleEdit(${article.id})`)

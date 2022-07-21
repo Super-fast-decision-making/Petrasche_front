@@ -387,7 +387,6 @@ function articleDelete(id){
 
 //아티클 수정
 function articleEdit(id){
-    console.log("여기도 잘옴")
     document.getElementById("modal_edit_box").style.display = "flex";
     document.getElementById("modal_edit_text").value = document
         .getElementById("content")
@@ -458,7 +457,7 @@ async function deletePetProfile(pet_id) {
         alert(response_json.massege)
     }
 }
-
+//좋아요
 const LikeOn = (id) => {
     fetch(`${backend_base_url}article/like/${id}/`, {
         method: "POST",
@@ -473,6 +472,6 @@ const LikeOn = (id) => {
             setTimeout(() => {
                 document.getElementById("heart_ani").style.display = "none";
             }, 500);
-            openDetailModa(id);
+            openDetailModal(id);
         });
 };
