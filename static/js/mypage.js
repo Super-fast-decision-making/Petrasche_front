@@ -232,7 +232,7 @@ async function openDetailModal(id) {
                 <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
                 <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
                 </div>
-            </div> `
+            </div>`
         } else if (article.comment[i].user != PayLoad.user_id) {
             comment_list.innerHTML +=
             `<div class="modal_comment_text">
@@ -243,7 +243,7 @@ async function openDetailModal(id) {
                 </div>
                 <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
                 </div>
-            </div> `
+            </div>`
         }
     }
     // 수정 삭제 버튼+팔로우 버튼 보이기
@@ -402,7 +402,7 @@ async function showPetInfo(pet_id) {
             <button id="remove_pet_button" type="button" onclick="showRemovePetProfile(${pet_id}, '${pet_name}')">
                 프로필 삭제
             </button>
-        </div> `
+        </div>`
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
@@ -445,7 +445,7 @@ async function showPetInfo(pet_id) {
             <div class="user_profile_save">
                 <button type="button" onclick="savePetInfo(${pet_id})">저장</button>
             </div>
-        </div> `
+        </div>`
 
     const update_pet_dog = document.getElementById("update_pet_dog")
     const update_pet_cat = document.getElementById("update_pet_cat")
@@ -494,7 +494,7 @@ async function showPetInfo(pet_id) {
             <div class="pet_name">
                 <p>${user.username}</p>
             </div>
-        </div> `
+        </div>`
     for (let i = 0; i < petprofiles.length; i++) {
         let pet_id = petprofiles[i].id
         let pet_name = petprofiles[i].name
@@ -580,9 +580,10 @@ async function loadUserInfo() {
     document.getElementById("user_button_box").style.display = "flex"
     user_button_box.innerHTML =
         `<div class="menu_change_button_box">
+            <button id="add_pet_button" type="button" onclick="showAddPetProfile()">
                 반려동물 등록
             </button>
-        </div> `
+        </div>`
 
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
@@ -594,7 +595,7 @@ async function loadUserInfo() {
                 <div id="pet_profile_section" class="pet_profile_section">
                 </div>
             </div>
-        </div> `
+        </div>`
 
     let user = await getUserInfo()
 
@@ -632,7 +633,7 @@ async function loadUserInfo() {
             <div class="user_profile_save">
                 <button type="button" onclick="saveUserInfo(${user.id})">저장</button>
             </div>
-        </div> `
+        </div>`
     const email = document.getElementById("user_profile_email")
     const phone = document.getElementById("user_profile_phone")
     const birthday = document.getElementById("user_profile_birthday")
@@ -664,7 +665,7 @@ async function loadUserInfo() {
                 <div class="pet_name">
                     <p>${pet_name}</p>
                 </div>
-            </div> `
+            </div>`
     }
 }
 
@@ -679,7 +680,7 @@ async function loadLikeArticle() {
                 <div id="like_article_box" class="like_article_box">
                 </div>
             </div>
-        </div> `
+        </div>`
 
     let user = await getUserInfo()
 
@@ -694,7 +695,7 @@ async function loadLikeArticle() {
             `<div class="article_card">
             <img src='${like_article['imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
-            </div> `
+            </div>`
     }
 }
 async function loadPetprofile(id, div) {
@@ -714,7 +715,7 @@ async function loadPetprofile(id, div) {
         `<div id = "pet_article_box_wrapper">
             <div id="pet_article_box" class="article_box">
             </div>
-        </div> `
+        </div>`
     const pet_article_box = document.getElementById("pet_article_box")
     let pet = await getPetArticle(id)
 
@@ -724,7 +725,7 @@ async function loadPetprofile(id, div) {
             `<div class="article_card">
             <img src='${article.images[0]}' onclick="openDetailModal(${article.id})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>${article.like_num} </div>
-            </div> `
+            </div>`
     }
 }
 
@@ -739,7 +740,7 @@ async function loadPetprofile(id, div) {
 //         likes.forEach((user) => {
 //             document.getElementById(
 //                 "like_user_list"
-//             ).innerHTML += `<div> ${ user }</div> `;
+//             ).innerHTML += `<div> ${ user }</div>`;
 //         });
 //         document.getElementById("like_user_list").style.display = "flex";
 //     }
