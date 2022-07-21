@@ -48,7 +48,7 @@ chatSocket.onopen = () => chatSocket.send(JSON.stringify({
 
 chatSocket.onmessage = function (e) {
     let data = JSON.parse(e.data)
-    console.log('Data:', data)
+    // console.log('Data:', data)
 
     if (data.type === 'chat') {
         let messages = document.getElementById('messages')
