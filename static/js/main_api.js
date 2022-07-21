@@ -26,10 +26,38 @@ window.onscroll = function () {
   }
 }
 
+async function handleLogin() {
+  const loginData = {
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
+  }
+  const response = await fetch(`${backend_base_url}user/login/`, {
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(loginData)
+  })
+  response_json = await response.json()
+  if (response.status == 200) {
+      localStorage.setItem("user_access_token", response_json.access)
+      localStorage.setItem("user_refresh_token", response_json.refresh)
+
+      const base64Url = response_json.access.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      localStorage.setItem("payload", jsonPayload)
+      window.location.reload()
+  } else {
+      alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+  }
+}
+
 const GetImgListPage = (page) => {
-  document.getElementById("now_loading_page").style.display = "flex";
-  document.body.style.overflow = "hidden";
-  document.body.style.touchAction = "none";
   fetch(BACK_END_URL + "page/" + page + "/", {
     method: "GET",
     headers: {
@@ -37,27 +65,33 @@ const GetImgListPage = (page) => {
       "Authorization": "Bearer " + localStorage.getItem("user_access_token"),
     },
   })
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((item) => {
-        // 기울기 0
-        // 기울기 -5 ~ 5
-        let random = Math.floor(Math.random() * 10) - 5;
-        let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
-          <img src="${item.images[0]}" alt="">
-          <div id="article_list_like" class="article_list_like">
-          <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
-          <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
-          </div>
-          </div>`;
-        document.getElementById("main_article_list").innerHTML += html;
+    .then((res) => {
+      if (res.status == 401) {
+        document.getElementById("login_modal_box").style.display = "flex";
+        return;
       }
-      );
-      document.getElementById("now_loading_page").style.display = "none";
-      document.body.style.overflow = "auto";
-      document.body.style.touchAction = "auto";
-    }
-    );
+      res.json()
+        .then((data) => {
+          if (data.length == 0) {
+            return;
+          } else {
+            data.forEach((item) => {
+              // 기울기 0
+              // 기울기 -5 ~ 5
+              let random = Math.floor(Math.random() * 10) - 5;
+              let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
+            <img src="${item.images[0]}" alt="">
+            <div id="article_list_like" class="article_list_like">
+            <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
+            <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
+            </div>
+            </div>`;
+              document.getElementById("main_article_list").innerHTML += html;
+            });
+          }
+        }
+        );
+    });
 }
 
 
@@ -73,7 +107,7 @@ const GetUserInfo = () => {
     .then((res) => res.json())
     .then((res) => {
       if (res.username == null) {
-        window.location.href = "./login.html";
+        // window.location.href = "./login.html";
       } else {
         document.getElementById("user").innerHTML = res.username;
       }
@@ -244,7 +278,7 @@ function modal_open(id) {
     });
     modal_box.style.display = "flex";
     document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";  
+    document.body.style.touchAction = "none";
   }
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
