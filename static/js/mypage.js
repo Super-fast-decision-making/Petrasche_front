@@ -1,4 +1,4 @@
-PAGE_LIMIT = 4
+PAGE_LIMIT = 8
 
 
 // 내 게시물 전체 불러오기(메뉴)
@@ -77,7 +77,6 @@ async function loadMyArticle(page) {
     } else if (1 <= page < total_pages) {
         document.getElementById("next").setAttribute("onclick", `loadMyArticle(${page + 1})`)
     }
-
     if (page <= 1) {
         document.getElementById("prev").setAttribute("onclick", `loadMyArticle(${1})`)
     } else if (page > 1) {
@@ -94,7 +93,7 @@ async function loadMyArticle(page) {
         article_box.innerHTML +=
             `<div class="article_card">
                 <img src='${image}'  id="article_card_img${id}" onclick=openDetailModal(${id})>
-                <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>  ${like_num}</div>
+                <div style="position:relative; background-color:transparent; width:100%; height:20px; top:-30px;color:#FF3399;padding-left:10px;font-size:15px;"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
     }
 
@@ -149,10 +148,14 @@ async function openDetailModal(id) {
     const modal_follow = document.getElementById("modal_follow")
     const article_delete = document.getElementById("article_delete")
     const article_edit = document.getElementById("article_edit")
+    const modal_like_num1 = document.getElementById("modal_like_num1")
+    const modal_like_num2 = document.getElementById("modal_like_num2")
 
 
     author.innerText = article.author
     content.innerText = article.content
+    modal_like_num1.innerText = article.like_num
+    modal_like_num2.innerText = article.like_num
     modal_box_img.src = article.images[0]
     article_delete.setAttribute("onClick", `articleDelete(${article.id})`)
     article_edit.setAttribute("onClick", `articleEdit(${article.id})`)
@@ -198,10 +201,10 @@ async function openDetailModal(id) {
     };
 
     //좋아요 기능
-    document.getElementById("modal_box_img").ondblclick = () => {
+    document.getElementById("modal_box_img").ondblclick = () => { //더블클릭시 article.id값 좋아요되는 함수 실행
         LikeOn(article.id);
     };
-    document.getElementById("like_icon_off").onclick = () => {
+    document.getElementById("like_icon_off").onclick = () => {//라익 아이콘? 클릭시 라이크 유저 리스트되는 함수 실행
         LikeUserList(article.likes);
     };
     document.getElementById("like_icon_on").onclick = () => {
@@ -256,6 +259,22 @@ async function openDetailModal(id) {
         document.getElementById("article_edit").style.display = "none"
         document.getElementById("modal_follow").style.display = "flex"
     }
+
+    document.getElementById("modal_box_img").ondblclick = () => {
+        LikeOn(id);
+    };
+    document.getElementById("like_icon_on").onclick = () => {
+        LikeOn(id);
+    };
+    document.getElementById("like_icon_off").onclick = () => {
+        LikeOn(id);
+    };
+    document.getElementById("like_icon_off").onmouseover = () => {
+        LikeUserList(article.like_users);
+    };
+    document.getElementById("like_icon_on").onmouseover = () => {
+        LikeUserList(article.like_users);
+    };
 }
 
 // 바디 클릭시 모달 창 닫기 기본 모달
@@ -729,6 +748,22 @@ async function loadPetprofile(id, div) {
     }
 }
 
+const LikeUserList = (like_user) => {
+    if (like_user.length == 0) {
+        document.getElementById("like_user_list").style.display = "flex";
+    } else {
+        document.getElementById("like_user_list").innerHTML = "";
+        like_user.forEach((user) => {
+            document.getElementById("like_user_list").innerHTML += `<div>${user}</div>`;
+        });
+        document.getElementById("like_user_list").style.display = "flex";
+    }
+    document.getElementById("like_user_list").onclick = () => {
+        if (document.getElementById("like_user_list").style.display == "flex") {
+            document.getElementById("like_user_list").style.display = "none";
+        }
+    };
+};
 
 
 
