@@ -44,9 +44,11 @@ function image_slider(img) {
 }
 
 function article_box_hover(target) {
+  target.style.animation = "article_box_hover 0.7s infinite";
   target.children[1].style.display = "flex";
   target.children[1].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
   target.addEventListener("mouseleave", function (e) {
+    target.style.animation = null;
     target.children[1].style.display = "none";
     target.children[1].style.backgroundColor = null;
   });

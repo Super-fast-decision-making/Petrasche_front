@@ -3,51 +3,33 @@ const USER_URL = "http://127.0.0.1:8000/user/";
 const backend_base_url = "http://127.0.0.1:8000/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
+// page 전역변수
 page_num = 1;
-// 윈도우 스크롤 함수
+page = true;
+
 window.onscroll = function () {
   let timer;
-  let page = true;
   let scroll_top = document.documentElement.scrollTop;
   let scroll_height = document.documentElement.scrollHeight;
   let window_height = document.documentElement.clientHeight;
   let scroll_percent = (scroll_top / (scroll_height - window_height)) * 100;
-  if (scroll_percent > 99.96 && page == true) {
+  if (scroll_percent > 99 && page == true) {
     page = false;
-    document.getElementById("now_loading_page").style.display = "flex";
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
     if (timer) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
       GetImgListPage(page_num);
-      document.getElementById("now_loading_page").style.display = "none";
-      document.body.style.overflow = "auto";
-      document.body.style.touchAction = "auto";
-      page = true;
       page_num++;
+      page = true;
     }, 1000);
-  }
-}
-
-function Scroll_page_nation() {
-  let page_num = 1;
-  const scroll_top = document.documentElement.scrollTop;
-  const scroll_height = document.documentElement.scrollHeight;
-  const client_height = document.documentElement.clientHeight;
-  const scroll_percent = (scroll_top / (scroll_height - client_height)) * 100;
-  console.log(scroll_percent);
-  if (scroll_percent > 90) {
-    setTimeout(() => {
-      GetImgListPage(page_num);
-    }, 1000);
-    page_num++;
   }
 }
 
 const GetImgListPage = (page) => {
-  console.log(page);
+  document.getElementById("now_loading_page").style.display = "flex";
+  document.body.style.overflow = "hidden";
+  document.body.style.touchAction = "none";
   fetch(BACK_END_URL + "page/" + page + "/", {
     method: "GET",
     headers: {
@@ -57,7 +39,6 @@ const GetImgListPage = (page) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       data.forEach((item) => {
         // 기울기 0
         // 기울기 -5 ~ 5
@@ -72,6 +53,9 @@ const GetImgListPage = (page) => {
         document.getElementById("main_article_list").innerHTML += html;
       }
       );
+      document.getElementById("now_loading_page").style.display = "none";
+      document.body.style.overflow = "auto";
+      document.body.style.touchAction = "auto";
     }
     );
 }
@@ -243,12 +227,25 @@ function upload_modal_submit() {
 }
 
 function modal_open(id) {
+  Refresh_Token();
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
-  document.body.style.overflow = "hidden";
-  document.body.style.touchAction = "none";
-  document.getElementById("modal_box").style.display = "flex";
+  let modal_box = document.getElementById("modal_box")
+  if (modal_box.style.display == "" || modal_box.style.display == "none") {
+    modal_box.childNodes[1].animate([
+      // { transform: "scale(0.8)" },
+      // { transform: "scale(1.0)" },
+      { transform: "translateX(0px)" },
+      { transform: "translateX(50px)" },
+    ], {
+      duration: 300,
+      fill: "forwards",
+    });
+    modal_box.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";  
+  }
   fetch(`http://127.0.0.1:8000/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
@@ -573,6 +570,7 @@ const CommentDelete = (id, article_id) => {
 
 const LikeUserList = (like_user) => {
   if (like_user.length == 0) {
+    document.getElementById("like_user_list").innerHTML = "좋아요 없음";
     document.getElementById("like_user_list").style.display = "flex";
   } else {
     document.getElementById("like_user_list").innerHTML = "";
@@ -625,13 +623,13 @@ function alarm(id) {
       } else {
         res.forEach((history) => {
           if (history.type == "like") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다.</div>`;
+            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다. ${history.time}</div>`;
           }
           if (history.type == "follow") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다.</div>`;
+            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다. ${history.time}</div>`;
           }
           if (history.type == "comment") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다.</div>`;
+            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다. ${history.time}</div>`;
           }
         });
       }
