@@ -21,77 +21,104 @@
 
 <body>
     <div class="wrapper">
-        <div class="left_menu">
-            <div class="menu_dog" id="menu_like" onclick="loadMyArticle(1)">
-                <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
-                나의 글
-            </div>
+            <nav class="navbar">
+                <div class="logo">
+                    Petrasche
+                </div>
+                <div class="serch">
+                    <input name="search" id="words_for_search" type="text" placeholder="Petrasche">
+                    <button class="serch_button" type="button" onclick="search()">검색</button>
+                </div>
+                <div class="user_info">
+                    <div onclick="UserPage()" id="user_profile" class="user_profile">
+                        <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
+                            alt="">
+                    </div>
+                    <div onclick="alarm(this)" id="alarm" class="alarm">
+                        <i class="fa-solid fa-bell"></i>
+                        <div class="history">
 
-            <div class="menu_cat" id="menu_" onclick="loadUserInfo()">
-                <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
-                프로필
-            </div>
-
-            <div class="menu_like" id="menu_like" onclick="loadLikeArticle()">
-                <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
-                좋아요
-            </div>
-            <div onclick="upload_modal_open()" class="menu_upload">
-                <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
-                펫샵
-            </div>
-        </div>
-
-        <div class="main_container">
-            <div class="user_container">
-                <div class="user_box">
-                    <div class="user_profile">
-                        <div class="user_img_box">
-                            <img id="user_profile_img"
-                                src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
-                        </div>
-                        <div class="username_box">
-                            <span class="username" id="username">
-                            </span>
                         </div>
                     </div>
-                    <div class="user_introduction">
-                        <div id="introduction" class="introduction">
-                            안녕하세요 김고은입니다.
+                    <div class="user">
+                        <span class="user_name" id="user">유저님</span>
+                    </div>
+                    <div onclick="Logout()" class="logout">로그아웃</div>
+                </div>
+            </nav>
+            <div class="top_section">
+            <div class="left_menu">
+                <div class="menu_dog" id="menu_like" onclick="loadMyArticle(1)">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
+                    나의 글
+                </div>
+
+                <div class="menu_cat" id="menu_" onclick="loadUserInfo()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
+                    프로필
+                </div>
+
+                <div class="menu_like" id="menu_like" onclick="loadLikeArticle()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
+                    좋아요
+                </div>
+                <div onclick="upload_modal_open()" class="menu_upload">
+                    <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                    펫샵
+                </div>
+            </div>
+
+            <div class="main_container">
+                <div class="user_container">
+                    <div class="user_box">
+                        <div class="main_user_profile">
+                            <div class="user_img_box">
+                                <img id="user_profile_img"
+                                    src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                            </div>
+                            <div class="username_box">
+                                <span class="username" id="username">
+                                </span>
+                            </div>
                         </div>
+                        <div class="user_introduction">
+                            <div id="introduction" class="introduction">
+                                안녕하세요 김고은입니다.
+                            </div>
+                        </div>
+                    </div>
+                    <div id="user_button_box" class="user_button_box">
                     </div>
                 </div>
-                <div id="user_button_box" class="user_button_box">
-                </div>
-            </div>
-            <div id="show_container" class="show_container">
-                <div id="show_box" class="show_box">
-                    <!-- 내 전체 게시물 메뉴 -->
-                    <div id="article_box_wrapper" class="article_box_wrapper">
-                        <div id="article_box" class="article_box" style="display:flex">
+                <div id="show_container" class="show_container">
+                    <div id="show_box" class="show_box">
+                        <!-- 내 전체 게시물 메뉴 -->
+                        <div id="article_box_wrapper" class="article_box_wrapper">
+                            <div id="article_box" class="article_box" style="display:flex">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- 좋아요 메뉴 -->
-                    <div id="like_article_box_wrapper" class="article_box_wrapper">
-                        <div id="article_box" class="like_article_box">
+                        <!-- 좋아요 메뉴 -->
+                        <div id="like_article_box_wrapper" class="article_box_wrapper">
+                            <div id="article_box" class="like_article_box">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- 프로필 변경 메뉴 -->
-                    <div id="user_info_box" class="user_info_box">
-                        <div id="user_profile_section" class="user_profile_section">
+                        <!-- 프로필 변경 메뉴 -->
+                        <div id="user_info_box" class="user_info_box">
+                            <div id="user_profile_section" class="user_profile_section">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- 펫프로필 별 게시물 메뉴 -->
-                    <div id="pet_article_box_wrapper" class="article_box_wrapper">
-                        <div id="pet_article_box" class="article_box">
+                        <!-- 펫프로필 별 게시물 메뉴 -->
+                        <div id="pet_article_box_wrapper" class="article_box_wrapper">
+                            <div id="pet_article_box" class="article_box">
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-                <div id="pet_select_box" class="pet_select_box">
+                    </div>
+                    <div id="pet_select_box" class="pet_select_box">
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,9 +232,8 @@
                 <div id="article_delete" class="article_delete" onclick="articleDelete()"><i class="fa-solid fa-trash"></i></div>
                 <div id="article_edit" class="article_edit" onclick="articleEdit()"><i class="fa-solid fa-pen-to-square"></i></div>
                 <div class="modal_user_profile">
-                    <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
-                        srcset="">
-                    <div id="author">강아지 사육사</div>
+                    <img id="author_profile_img" src="" alt="" srcset="">
+                    <div id="author">유저</div>
                     <div id="modal_follow" class="follow" onclick="Follow(user,article)">팔로우</div>
                 </div>
                 <div id="modal_content_list" class="modal_content_list">
