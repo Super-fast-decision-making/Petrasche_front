@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main_style.css">
+    <link rel="stylesheet" href="/static/css/neighbor.css">
+    <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
+    <title>Main Page</title>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div id="now_loading" class="load_img">
+        <img src="https://i.pinimg.com/originals/b5/9e/c4/b59ec4cdd3e542541ec5c5234b92a9b6.gif" alt="" srcset="">
+    </div>
+    <div id="now_loading_page" class="load_img">
+        <img src="https://media4.giphy.com/media/nMoMxQG2uJsGTBsjsO/giphy.gif?cid=6c09b9522kmc1si0rh34bk2aps7wu7lwtgy3ie6iwe7pyxxt&rid=giphy.gif&ct=s"
+            alt="" srcset="">
+    </div>
+    <div id="login_modal_box" class="login_modal_box">
+            <div class="login_box">
+            <h1>Petrasche</h1>
+            <input id="email" type="text" placeholder="이메일">
+            <input id="password" type="password" placeholder="패스워드">
+            <div onclick="handleLogin()" class="login_btn"><button>로그인</button></div>
+            <div onclick="kakaoLogin()" class="kakao_login">카카오 로그인</div>
+            <a href="/signup.html">계정이 없으신가요? 회원가입</a>
+        </div>
+    </div>
+    <div id="modal_edit_box" class="modal_edit_box">
+        <div class="modal_edit_box_input"><textarea id="modal_edit_text" rows="5" cols="50"
+                placeholder="내용....."></textarea>
+            <button id="modal_edit_button" class="modal_edit_button">수정</button>
+            <button onclick="modal_edit_cancel()" id="modal_edit_cancel" class="modal_edit_cancel">취소</button>
+        </div>
+    </div>
+
+
+            <!-- 상단 메뉴바 -->
+            <nav class="navbar">
+                <div class="logo">
+                    Petrasche
+                </div>
+                <div class="serch">
+                    <input name="search" id="words_for_search" type="text" placeholder="Petrasche">
+                    <button class="serch_button" type="button" onclick="search()">검색</button>
+                </div>
+                <div class="user_info">
+                    <div onclick="UserPage()" id="user_profile" class="user_profile">
+                        <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
+                            alt="">
+                    </div>
+                    <div onclick="alarm(this)" id="alarm" class="alarm">
+                        <i class="fa-solid fa-bell"></i>
+                        <div class="history">
+    
+                        </div>
+                    </div>
+                    <div class="user">
+                        <span class="user_name" id="user">유저님</span>
+                    </div>
+                    <div onclick="Logout()" class="logout">로그아웃</div>
+                </div>
+            </nav>
+            <!--  -->
+
+
+            
+        <div class="top_section">
+            <div class="left_menu">
+                <div class="menu_dog">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
+                    댕댕이
+                </div>
+
+                <div class="menu_cat">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
+                    냥냥이
+                </div>
+
+                <div class="menu_petshop">
+                    <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
+                    펫샵
+                </div>
+                <div onclick="upload_modal_open()" class="menu_upload">
+                    <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                    업로드
+                </div>
+            </div>
+
+
+
+            <!--  본문 -->
+            <div class="right_section" style="width:65%;margin-left: 50px;padding:20px">
+                <div style="height:50px;margin-top: 100px;"><p>소셜 산책</p></div>
+                <div class="time_bar" style="background-color: white; width:100%; height:15vh;border-radius: 8px;"></div>
+                
+                <div class="neighbor_list" style="background-color: white; width:100%; min-height:100px; margin-top:50px;border-radius:8px; display:table;">
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:10%; ">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:60%">
+                            <div> 서울시 송파구 장지동 가든파이브 1층 1004동 1801호 </div>
+                            <div style="font-size: 0.7rem;"> 남녀모두, 모든견종 </div>
+                        </div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:15%">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:55%">서울시 송파구 장지동 가든파이브 1층 1004동 1801호</div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:15%">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:55%">서울시 송파구 장지동 가든파이브 1층 1004동 1801호</div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:15%">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:55%">서울시 송파구 장지동 가든파이브 1층 1004동 1801호</div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:15%">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:55%">서울시 송파구 장지동 가든파이브 1층 1004동 1801호</div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:15%">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:55%">서울시 송파구 장지동 가든파이브 1층 1004동 1801호</div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+                    <!- 셀 하나---->
+                    <div class="n_list_row"style="height:50px; width:100%; overflow:auto; display:table-row; vertical-align: middle; justify-content:space-between;">
+                        <div class="n_list time" style="float:left;width:15%">11:00~12:00</div>
+                        <div class="n_list place" style="float:left; width:55%">서울시 송파구 장지동 가든파이브 1층 1004동 1801호</div>
+                        <div class="n_list count" style="float:left;width:15%">1-4명</div>
+                        <div class="n_list button" style="float:left;width:15%;   text-align: center;">
+                            <p style="border-radius: 8px;background-color: #6e85b7; color:white; width:100px; height:23px">산책 가기</p>
+                        </div>
+                    </div>
+                    <hr style="width:90%">
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <script src="/static/js/main_api.js"></script>
+        <script src="/static/js/main_script.js"></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
+        <script src="./static/js/kakao.js"></script>
+        <script>
+
+
+        </script>
+</body>
+
+

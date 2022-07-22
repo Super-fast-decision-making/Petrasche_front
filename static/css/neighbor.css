@@ -1,0 +1,5 @@
+.n_list {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
