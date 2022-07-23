@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="/static/css/main_style.css">
     <link rel="stylesheet" href="/static/css/neighbor.css">
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <!-----텍스트에디터 ckeditor------>
+    <script src="//cdn.ckeditor.com/4.19.1/basic/ckeditor.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
     <title>Main Page</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
@@ -68,7 +72,7 @@
 
             
         <div class="top_section">
-            <div class="left_menu">
+            <div class="left_menu" style="height:400px">
                 <div class="menu_dog">
                     <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                     댕댕이
@@ -86,6 +90,10 @@
                 <div onclick="upload_modal_open()" class="menu_upload">
                     <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
                     업로드
+                </div>
+                <div onclick="walkModalOpen()" class="menu_dog">
+                    <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                    산책
                 </div>
             </div>
 
@@ -157,6 +165,7 @@
                 </div>
 
 
+
                 
                 <div class="neighbor_list" style="background-color: #ffffff; width:100%; min-height:100px; margin-top:50px;border-radius:8px; padding:15px ">
                     
@@ -208,9 +217,121 @@
                             <td>1~4명</td>
                             <td class="walk_button">산책가기</td>
                         </tr>
-
                     </table>
                 </div>
+
+
+
+                <!----- 업로드 모달------->
+                <!-- Trigger/Open The Modal -->
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                
+                    <!-- Modal content -->
+                    <div class="modal-content" style="max-width: 1000px;">
+                        <!-- <span class="close">&times;</span> -->
+                        <div class="modal-head" style="display: flex; justify-content: space-between;">
+                            <div>
+                                <h3>산책가기</h3>
+                            </div>
+                            <div style=" margin-bottom: 10px; background-color: skyblue;">등록</div>
+                
+                        </div>
+                        <hr>
+                
+                
+
+                        <div>
+                            <div style="width:100%; height:50px; background-color:pink"></div>
+                            <input style="width:100%; height:30px" placeholder="만날 장소 (상세하게 적어주세요)"></input>
+                            <div class="dropdown-row">
+                                <div style="width:100%; height:30px; background-color: skyblue;">
+                                    <div class="dropdown">
+                                        <button style="height:28px; width: 120px;">지역</button>
+                                        <div class="dropdown-content">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                        </div>
+                                    </div>
+                    
+                    
+                                    <div class="dropdown">
+                                        <button style="height:28px; width: 120px;">날짜</button>
+                                        <div class="dropdown-content">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="dropdown">
+                                        <button style="height:28px; width: 120px;">시간</button>
+                                        <div class="dropdown-content">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button style="height:28px; width: 120px;">성별</button>
+                                        <div class="dropdown-content">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="dropdown">
+                                        <button style="height:28px; width: 120px;">인원수</button>
+                                        <div class="dropdown-content">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="dropdown">
+                                        <button style="height:28px; width: 120px;">강아지크기</button>
+                                        <div class="dropdown-content">
+                                            <a href="#">Link 1</a>
+                                            <a href="#">Link 2</a>
+                                            <a href="#">Link 3</a>
+                                        </div>
+                                    </div>
+                    
+                    
+                    
+                                    <div>
+                    
+                                    </div>
+                    
+                    
+                                </div>
+                                
+                            </div>
+                            <div style="width:100%; height:40px; background-color:pink"></div>
+                        </div>
+                        <!---try-->
+                        <textarea class="form-control" id="p_content"></textarea>
+                        <script type="text/javascript"> CKEDITOR.replace('p_content',{height:500});</script>
+
+
+                        <!---try-->
+                        <div class="text-editor-wrapper" style="width:100%; min-height: 600px; background-color: aliceblue; display:none">
+                            <!--text menu-->
+
+    
+                        </div>
+                    </div>
+
+                
+                
+                
+                
+                </div>
+
+                
 
 
 
@@ -249,6 +370,36 @@
                 const slideWidth = slide.clientWidth;
                 slidesContainer.scrollLeft -= slideWidth;
             });
+
+
+
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal
+            function walkModalOpen() {
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+
+
+
 
 
 
