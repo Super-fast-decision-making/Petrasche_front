@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <!-----텍스트에디터 ckeditor------>
-    <script src="//cdn.ckeditor.com/4.19.1/basic/ckeditor.js"></script>
+    
 
     <title>Main Page</title>
     <style>
@@ -133,31 +133,28 @@
                 
                 <div>
                     <div class="dropdown">
-                        <button class="dropbtn">gender</button>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                        <button class="dropbtn" id="dropbtn_g" >gender</button>
+                        <div class="dropdown-content" id="dropdown_gender">
                         </div>
                     </div>
     
     
                     <div class="dropdown">
-                        <button class="dropbtn">size</button>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                        <button class="dropbtn" id="dropbtn_s">size</button>
+                        <div class="dropdown-content" id="dropdown_size">
                         </div>
                     </div>
 
     
-                    <div class="dropdown">
+                    <div class="dropdown" id="dropbtn_r">
                         <button class="dropbtn">region</button>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                        <div class="dropdown-content"  id="dropdown_region">
+                        </div>
+                    </div>
+
+                    <div class="dropdown" id="dropbtn_n">
+                        <button class="dropbtn">number</button>
+                        <div class="dropdown-content" id="dropdown_number">
                         </div>
                     </div>
     
@@ -249,58 +246,37 @@
                                     <div class="dropdown">
                                         <button >지역</button>
                                         <div class="dropdown-content" id="m_dropdown_region">
-                                            <a href="#">Link 1</a>
-                                            <a href="#">Link 2</a>
-                                            <a href="#">Link 3</a>
                                         </div>
                                     </div>
-                    
                     
                                     <div class="dropdown">
                                         <button >날짜</button>
                                         <div class="dropdown-content" id="m_dropdown_date">
-                                            <a href="#">Link 1</a>
-                                            <a href="#">Link 2</a>
-                                            <a href="#">Link 3</a>
                                         </div>
                                     </div>
                     
                                     <div class="dropdown">
                                         <button >시간</button>
                                         <div class="dropdown-content" id="m_dropdown_time">
-                                            <a href="#">Link 1</a>
-                                            <a href="#">Link 2</a>
-                                            <a href="#">Link 3</a>
                                         </div>
                                     </div>
                                     <div class="dropdown">
                                         <button >성별</button>
                                         <div class="dropdown-content" id="m_dropdown_gender">
-                                            <a href="#">Link 1</a>
-                                            <a href="#">Link 2</a>
-                                            <a href="#">Link 3</a>
                                         </div>
                                     </div>
                     
                                     <div class="dropdown">
                                         <button >인원수</button>
                                         <div class="dropdown-content" id="m_dropdown_hc">
-                                            <a href="#">Link 1</a>
-                                            <a href="#">Link 2</a>
-                                            <a href="#">Link 3</a>
                                         </div>
                                     </div>
                     
                                     <div class="dropdown">
                                         <button >강아지크기</button>
                                         <div class="dropdown-content" id="m_dropdown_size">
-                                            <a href="#">Link 1</a>
-                                            <a href="#">Link 2</a>
-                                            <a href="#">Link 3</a>
                                         </div>
                                     </div>
-                    
-                    
                     
                                     <div>
                                         <div id="editor" style="height: 400px;"></div>
@@ -322,30 +298,13 @@
                         </div>
                         <!---try-->
                         <textarea class="form-control" id="p_content"></textarea>
-                        <script type="text/javascript"> CKEDITOR.replace('p_content',{height:500});</script>
-
-
+                        
                         <!---try-->
                         <div class="text-editor-wrapper" style="width:100%; min-height: 600px; background-color: aliceblue; display:none">
                             <!--text menu-->
-
-    
                         </div>
-                    </div>
-
-                
-                
-                
-                
+                    </div>                
                 </div>
-
-                
-
-
-
-
-
-
             </div>
             
             <div>
@@ -359,55 +318,13 @@
                 </div>
             </div>
         </div>
-        <script src="/static/js/main_api.js"></script>
+        <!-- <script src="/static/js/main_api.js"></script> -->
         <script src="/static/js/main_script.js"></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
         <script src="./static/js/kakao.js"></script>
+        <script src="./static/js/neighbor.js"></script>
+
         <script>
-            const slidesContainer = document.getElementById("slides-container");
-            const slide = document.querySelector(".slide");
-            const prevButton = document.getElementById("slide-arrow-prev");
-            const nextButton = document.getElementById("slide-arrow-next");
-
-            nextButton.addEventListener("click", () => {
-                const slideWidth = slide.clientWidth;
-                slidesContainer.scrollLeft += slideWidth;
-            });
-
-            prevButton.addEventListener("click", () => {
-                const slideWidth = slide.clientWidth;
-                slidesContainer.scrollLeft -= slideWidth;
-            });
-
-
-
-            // Get the modal
-            var modal = document.getElementById("myModal");
-
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks on the button, open the modal
-            function walkModalOpen() {
-                modal.style.display = "block";
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                    const editor = document.getElementById("editor")
-
-                }
-            }
-
-
-
-
-
-
-
         </script>
 </body>
 
