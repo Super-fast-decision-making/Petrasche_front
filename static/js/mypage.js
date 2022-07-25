@@ -225,7 +225,7 @@ async function openDetailModal(id) {
     for (let i = 0; i < article.comment.length; i++) {
         if (article.comment[i].user == PayLoad.user_id) {
             comment_list.innerHTML +=
-            `<div class="modal_comment_text">
+                `<div class="modal_comment_text">
                 <div class="balloon_03">
                     <div>
                         ${article.comment[i].comment}
@@ -238,7 +238,7 @@ async function openDetailModal(id) {
             </div>`
         } else if (article.comment[i].user != PayLoad.user_id) {
             comment_list.innerHTML +=
-            `<div class="modal_comment_text">
+                `<div class="modal_comment_text">
                 <div class="balloon_03">
                     <div>
                         ${article.comment[i].comment}
