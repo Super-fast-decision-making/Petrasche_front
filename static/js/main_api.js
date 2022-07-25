@@ -177,7 +177,7 @@ const GetTopList = () => {
               <img src="${item.images[0]}" alt="">
               <div class="top_article_user_name">${item.author}</div>
           </div>
-          <div>
+          <div id="review_div" v-html="tagToLink('${item.content}')">
               ${item.content}
           </div>
       </div>`;
@@ -684,8 +684,10 @@ function alarm(id) {
 
 // 검색
 async function search() {
-  const words_for_search = document.getElementById("words_for_search").value;
-
+  let words_for_search = document.getElementById("words_for_search").value;
+  if (words_for_search.startsWith("#")) {
+    words_for_search = words_for_search.replace("#", "%23");
+  }
   var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
   const search_results = await fetch(url)
     .then(response => {

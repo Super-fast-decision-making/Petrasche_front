@@ -583,9 +583,11 @@ function alarm(id) {
 
 // 검색
 async function search() {
-    const words_for_search = document.getElementById("words_for_search").value;
-
-    var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
+    let words_for_search = document.getElementById("words_for_search").value;
+    if (words_for_search.startsWith("#")) {
+      words_for_search = words_for_search.replace("#", "%23");
+    }
+      var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
     const search_results = await fetch(url)
         .then(response => {
             var status_code = response.status;
