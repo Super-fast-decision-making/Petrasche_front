@@ -225,7 +225,9 @@ function modal_open(id) {
         document.getElementById("article_edit").style.display = "none";
       }
       let images = data.images;
-      let content = data.content;
+      let content_raw = data.content;
+      let content = tagToLink(content_raw)
+      
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
@@ -290,6 +292,7 @@ function modal_open(id) {
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
+      document.getElementById("modal_edit_text").value = content_raw;
       comments.forEach((item) => {
         if (item.user == user_id) {
           let html = `<div class="modal_comment_text">
@@ -404,9 +407,6 @@ const ArticleDelete = (id) => {
 
 const ArticleEdit = (id) => {
   document.getElementById("modal_edit_box").style.display = "flex";
-  document.getElementById("modal_edit_text").value = document
-    .getElementById("modal_content_text")
-    .innerHTML.replace(/<br>/g, "\n");
 
   document.getElementById("modal_edit_button").onclick = () => {
     let content = document.getElementById("modal_edit_text").value;

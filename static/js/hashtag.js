@@ -8,7 +8,7 @@ function tagToLink(str){
 
     var newText = str.replace(/<br>/g, "\r\n");
     var txt = newText.replace(/#[^#\s,;]+/gm, function(tag) {
-        return `<a href="#" onclick="hashtag_search('${tag}')" id="hashtag_search" class="hashtag">` + tag + '</a>'
+        return `<a href="#" onclick="hashtag_search('${tag}')" class="hashtag">` + tag + '</a>'
     });
     txt = txt.replace(/\n/g, "<br>")
     return txt;
@@ -17,10 +17,7 @@ function tagToLink(str){
   
 
 async function hashtag_search(words_for_search) {
-    // let words_for_search = document.getElementById("hashtag_search").innerText;
-    console.log(words_for_search)
     words_for_search = words_for_search.replace("#", "%23");
-    console.log(words_for_search)
 
     var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
     const search_results = await fetch(url)
