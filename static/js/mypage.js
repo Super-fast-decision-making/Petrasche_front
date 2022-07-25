@@ -6,9 +6,6 @@ async function loadMyArticle(page) {
 
     document.getElementById("user_button_box").style.display = "none"
 
-
-    //
-
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id="show_box" class="show_box">
@@ -34,7 +31,6 @@ async function loadMyArticle(page) {
                     </svg>
                 </button>
                 <div id="pages"class="pages">
-
                 </div>
                 <button class="btn" id="next">
                     <svg
@@ -82,7 +78,6 @@ async function loadMyArticle(page) {
     } else if (page > 1) {
         document.getElementById("prev").setAttribute("onclick", `loadMyArticle(${page - 1})`)
     }
-
 
     for (let i = 0; i < articles.length; i++) {
         let image = articles[i].images[0]
@@ -137,11 +132,14 @@ async function openDetailModal(id) {
     const modal_box = document.getElementById("modal_box")
 
     modal_box.style.display = "flex"
+
+
     const article = await getDetailArticle(id)
     console.log(article)
 
     const modal_box_img = document.getElementById("modal_box_img")
     const author = document.getElementById("author")
+    const author_profile_img = document.getElementById("author_profile_img")
     const content = document.getElementById("content")
     const comment_list = document.getElementById("mypage_modal_comment_list")
     const submit_button = document.getElementById("modal_comment_submit")
@@ -153,6 +151,7 @@ async function openDetailModal(id) {
 
 
     author.innerText = article.author
+    author_profile_img.src = article.profile_img[0]
     content.innerText = article.content
     modal_like_num1.innerText = article.like_num
     modal_like_num2.innerText = article.like_num
@@ -226,27 +225,27 @@ async function openDetailModal(id) {
         if (article.comment[i].user == PayLoad.user_id) {
             comment_list.innerHTML +=
                 `<div class="modal_comment_text">
-                <div class="balloon_03">
+                    <div class="balloon_03">
                     <div>
-                        ${article.comment[i].comment}
+                    ${article.comment[i].comment}
                     </div>
-                </div>
-                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
-                <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
-                <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
-                </div>
-            </div>`
+                    </div>
+                    <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
+                    <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
+                    <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
+                    </div>
+                    </div>`
         } else if (article.comment[i].user != PayLoad.user_id) {
             comment_list.innerHTML +=
                 `<div class="modal_comment_text">
-                <div class="balloon_03">
+                    <div class="balloon_03">
                     <div>
-                        ${article.comment[i].comment}
+                    ${article.comment[i].comment}
                     </div>
-                </div>
-                <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
-                </div>
-            </div>`
+                    </div>
+                    <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
+                    </div>
+                    </div>`
         }
     }
     // 수정 삭제 버튼+팔로우 버튼 보이기
@@ -607,7 +606,6 @@ async function loadUserInfo() {
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id = "show_box" class="show_box">
-
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>
