@@ -177,7 +177,7 @@ const GetTopList = () => {
               <img src="${item.images[0]}" alt="">
               <div class="top_article_user_name">${item.author}</div>
           </div>
-          <div id="review_div" v-html="tagToLink('${item.content}')">
+          <div>
               ${item.content}
           </div>
       </div>`;
@@ -327,6 +327,8 @@ function modal_open(id) {
       }
       let images = data.images;
       let content = data.content;
+      content = tagToLink(content)
+
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
@@ -704,6 +706,8 @@ async function search() {
     alert(search_results.data.message)
   }
 }
+
+
 
 GetUserInfo();
 GetImgList();
