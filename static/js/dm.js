@@ -25,7 +25,6 @@ const USER_NAME = sessionStorage.getItem('username')
 // 내 채팅방 불러오기 
 async function getHeader() {
     const header_list = document.getElementById("header_list")
-
     const response = await fetch(`${backend_base_url}/dm`, {
         method: 'GET',
         headers: {
