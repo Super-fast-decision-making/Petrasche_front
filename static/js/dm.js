@@ -1,5 +1,6 @@
 const backend_base_url = "http://127.0.0.1:8000"
 
+
 // 로그인 유저 불러오기
 async function getUserInfo() {
     const response = await fetch(`${backend_base_url}/user`, {
@@ -34,6 +35,7 @@ async function getHeader() {
         }
     })
     response_json = await response.json()
+    console.log(response_json)
 
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
@@ -87,15 +89,11 @@ async function chatopen(id) {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
     sessionStorage.setItem('header_id', response_json[0].id)
-    console.log(response_json)
     let chat_box = document.getElementById('chat_box')
     chat_box.innerHTML = ''
     for (let i = 0; i < response_json[0].messages.length; i++) {
         let sender = response_json[0].messages[i].sender
-        console.log(response_json[0].messages[i].message)
-        console.log(sender, USER_NAME)
         if (USER_NAME == sender) {
             chat_box.innerHTML += ` 
                                 <div style="padding: 10px;">
@@ -103,7 +101,6 @@ async function chatopen(id) {
                                     ${response_json[0].messages[i].message}
                                     </div>
                                 </div>`
-
         } else {
             chat_box.innerHTML += `                            
                                 <div style="padding: 10px;">
@@ -112,9 +109,9 @@ async function chatopen(id) {
                                     </div>
                                 </div>`
         }
+        chat_box.scrollTop = chat_box.scrollHeight;
     }
 }
-
 
 // 웹소켓 커넥트
 let url = 'ws://127.0.0.1:8000/chat/'
@@ -132,9 +129,9 @@ chatSocket.onopen = async function (e) {
         chatSocket.send(JSON.stringify({
             'message': message,
             'sent_by': USER_ID,
+            // 'send_to': reciever,
             'header_id': header
         }))
-        console.log(USER_ID)
         form.reset()
     })
 }
@@ -143,7 +140,7 @@ chatSocket.onopen = async function (e) {
 chatSocket.onmessage = async function (e) {
     console.log('receive Message!', e)
     let data = JSON.parse(e.data)
-    console.log(data)
+    console.log(data, "147qjs")
     let message = data['message']
     let sent_by_id = data['sent_by']
     let header_id = data['header_id']
@@ -176,4 +173,6 @@ function newMessage(message, sent_by_id, header_id) {
                                     </div>
                                 </div>`
     }
+    messages.scrollTop = messages.scrollHeight;
+
 }

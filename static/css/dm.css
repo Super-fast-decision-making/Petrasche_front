@@ -126,7 +126,7 @@ body {
 .chat_box {
     display: flex;
     width: 99%;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: space-around;
     border-radius: 8px;
     background-color: #ffffff;
@@ -135,6 +135,8 @@ body {
     height: 600px;
     justify-content: flex-start;
     flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .chat_input_box {
