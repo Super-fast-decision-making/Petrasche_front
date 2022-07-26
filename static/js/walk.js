@@ -1,4 +1,5 @@
 const backend_base_url = "http://127.0.0.1:8000/"
+const frontend_base_url = "http://127.0.0.1:5500/"
 
 const slidesContainer = document.getElementById("slides-container");
 const slide = document.querySelector(".slide");
@@ -154,7 +155,7 @@ async function loadWalkArticle(){
     res.forEach(post => {
         console.log(res)
         customers.innerHTML+=
-            `<tr>
+            `<tr onclick='openWalkDetailArticle(${post.id})'>
                 <td>${post.start_time.split(' ')[1]}~${post.end_time.split(' ')[1]}</td>
                 <td>${post.place}</td>
                 <td>${post.people_num}</td>
@@ -185,9 +186,66 @@ function searchNumber(number_name){
     dropbtn_n.innerText=number_name
 }
 
+console.log(editor.value)
+async function submitWalkArticle(){
+    const walkData = {
+        place: document.getElementById('m_input_p').value,
+        region: document.getElementById('m_dropbtn_r').innerText,
+        date: document.getElementById('m_dropbtn_d').innerText,
+        // start_time: document.getElementById('m_dropbtn_t').innerText.split('~')[0],
+        time: document.getElementById('m_dropbtn_t').innerText,
+        gender: document.getElementById('m_dropbtn_g').innerText,
+        people_num: document.getElementById('m_dropbtn_n').innerText,
+        size: document.getElementById('m_dropbtn_s').innerText,
+        contents: theEditor.getData(),
+    }
+    if (document.getElementById('m_dropbtn_d').innerText=="날짜"){
+        alert("날짜를 정해주세요")
+    }else if (document.getElementById('m_dropbtn_r').innerText=="지역"){
+        alert("지역을 정해주세요")
+    }else if (document.getElementById('m_dropbtn_t').innerText=="시간"){
+        alert("시간을 정해주세요")
+    }else if (document.getElementById('m_dropbtn_g').innerText=="성별"){
+        alert("성별을 정해주세요")
+    }else if (document.getElementById('m_dropbtn_n').innerText=="인원수"){
+        alert("인원수를 정해주세요")
+    }else if (document.getElementById('m_dropbtn_s').innerText=="강아지크기"){
+        alert("강아지 크기를 정해주세요")
+    }
+    console.log(walkData)
+    const response = await fetch(`${backend_base_url}walk/`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(walkData)
+    })
+    response_json = await response.json()
+    if (response.status == 200) {
+        alert("게시글이 업로드 되었습니다")
+        window.location.reload()
+    } else {
+        alert("잘못된 게시글입니다")
+    }
+}
 
 
-
-
-
+//디테일 페이지 들어가는 함수
+async function openWalkDetailArticle(id){
+    window.location.replace(`${frontend_base_url}walk-detail.html`);
+    await loadWalkDetailArticle(id)
+    // const response = await fetch(`${backend_base_url}walk/${id}/`, {
+    //     method: 'GET',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         'Content-type': 'application/json',
+    //         'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+    //     }
+    // })
+    // response_json = await response.json()
+    // console.log(response_json)
+    // return response_json
+}
 
