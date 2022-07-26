@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main_style.css">
+    <link rel="stylesheet" href="/static/css/hashtag.css">
+    <link rel="stylesheet" href="/static/css/tournament.css">
+
+    <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
+    <title>tournament</title>
+</head>
+
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="main_screen">
+        <!-- 상단 메뉴바 -->
+        <nav class="navbar">
+            <div class="logo">
+                Petrasche
+            </div>
+            <div class="serch">
+                <input name="search" id="words_for_search" type="text" placeholder="Petrasche">
+                <button class="serch_button" type="button" onclick="search()">검색</button>
+            </div>
+            <div class="user_info">
+                <div onclick="UserPage()" id="user_profile" class="user_profile">
+                    <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
+                        alt="">
+                </div>
+                <div onclick="alarm(this)" id="alarm" class="alarm">
+                    <i class="fa-solid fa-bell"></i>
+                    <div class="history">
+
+                    </div>
+                </div>
+                <div class="user">
+                    <span class="user_name" id="user">유저님</span>
+                </div>
+                <div onclick="Logout()" class="logout">로그아웃</div>
+            </div>
+        </nav>
+        <!--  -->
+
+        <!-- 왼쪽메뉴 -->
+        <div class="top_section">
+            <div class="left_menu">
+                <div class="menu_dog">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
+                    댕댕이
+                </div>
+
+                <div class="menu_cat">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
+                    냥냥이
+                </div>
+
+                <div class="menu_petshop">
+                    <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
+                    펫샵
+                </div>
+                <div onclick="upload_modal_open()" class="menu_upload">
+                    <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                    업로드
+                </div>
+            </div>
+            <!--  -->
+            <div class="tournament">
+                <div class="event">
+                    <div class="event_list">
+                        <div class="event_title">댕댕이 웃긴짤 콘테스트!</div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div style="background-color:red;" class="event_active">참여하기</div>
+                    </div>
+                    <div class="event_list">
+                        <div class="event_title">슬푸구나 댕댕아 콘테스트!</div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+                    </div>
+                    <div class="event_list">
+                        <div class="event_title">이쁘니 댕댕이! 콘테스트!</div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+
+                    </div>
+                    <div class="event_list">
+                        <div class="event_title">없서용 댕댕이 콘테스트!</div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+
+                    </div>
+                    <div class="event_list">
+                        <div class="event_title">잘먹는 먹방 댕댕이 콘테스트!</div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./static/js/urls.js"></script>
+        <script src="/static/js/hashtag.js"></script>
+        <script src="/static/js/main_api.js"></script>
+        <script src="/static/js/main_script.js"></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script src="./static/js/kakao.js"></script>
+
+</body>
+
+</html>
