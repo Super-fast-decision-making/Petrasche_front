@@ -148,23 +148,20 @@ body {
 
 .sendbox_inner {
     border-radius: 10px;
-    /* border-color: rgb(19, 142, 203); */
     border: none;
     width: 692px;
     height: 50px;
     font-size: 20px;
 }
 
-.my_messages {
+.messages {
     display: flex;
     flex-direction: column;
     position: relative;
-    /* align-items: flex-end; */
 }
 
 .my {
     display: flex;
-    /* justify-content: flex-end; */
     margin-left: auto;
     margin-top: 20px;
     width: 200px;
@@ -178,21 +175,19 @@ body {
 
 }
 
-.my_messages {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    /* align-items: flex-end; */
-}
-
 .others {
     justify-content: flex-start;
     border: 1px solid rgb(98, 170, 215);
     border-radius: 20px;
     font-size: 15px;
-    /* margin: 10px; */
-    /* margin-left: 20px; */
     max-width: 200px;
     padding: 10px;
     width: fit-content;
+}
+
+.others_messages {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: flex-end;
 }
