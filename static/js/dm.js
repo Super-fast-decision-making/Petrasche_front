@@ -18,10 +18,15 @@ async function getUserInfo() {
 }
 getUserInfo()
 
+const USER_ID = sessionStorage.getItem('id')
+const USER_NAME = sessionStorage.getItem('username')
 
 // 내 채팅방 불러오기 
 async function getHeader(header_id) {
+    console.log(header_id)
     const header_list = document.getElementById("header_list")
+    const chat_box = document.getElementById("my_message")
+    const chat_box1 = document.getElementById("other_message")
     const response = await fetch(`${backend_base_url2}/dm`, {
         method: 'GET',
         headers: {
@@ -31,10 +36,6 @@ async function getHeader(header_id) {
         }
     })
     response_json = await response.json()
-    // console.log(response_json['header_id'].messages)
-    // console.log(response_json[0].messages.length)
-
-    let username = sessionStorage.getItem('username')
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
         let header_id = response_json[i].id
@@ -42,7 +43,7 @@ async function getHeader(header_id) {
         let sender = response_json[i].sender
         let last_message = response_json[i].last_message.message
         let date = response_json[i].last_message.date
-        if (username === sender) {
+        if (USER_NAME === sender) {
             let chatuser = receiver
             header_list.innerHTML +=
                 `<div class="header" id="">
@@ -71,7 +72,28 @@ async function getHeader(header_id) {
         }
     }
 
-    // for (leti = 0; i < response_json.messages[i].length;)
+    for (let i = 0; i < response_json.length; i++) {
+        let receiver = response_json[i].receiver
+        let sender = response_json[i].sender
+        console.log(sender, "--->", receiver)
+        for (let k = 0; k < response_json[i].messages.length; k++) {
+            console.log(response_json[i].messages[k].message)
+            let message = response_json[i].messages[k].message
+            if (USER_NAME === sender) {
+                chat_box.innerHTML += `<div style="padding: 10px;">
+                                    <div class="my" id="my">
+                                    ${message}
+                                    </div>
+                                </div>`
+            } else {
+                chat_box1.innerHTML += `<div style="padding: 10px;">
+                                    <div class="others" id="others">
+                                        ${message}
+                                    </div>
+                                </div>`
+            }
+        }
+    }
 
     return response_json
 }
@@ -88,14 +110,12 @@ chatSocket.onopen = async function (e) {
     let form = document.getElementById('form')
     form.addEventListener('submit', async function (e) {
         e.preventDefault()
-
         let message = e.target.message.value
-        let sent_by = sessionStorage.getItem('id')
         let header = await getHeader()
 
         chatSocket.send(JSON.stringify({
             'message': message,
-            'sent_by': sent_by,
+            'sent_by': USER_ID,
             'header_id': header[0].id
         }))
         form.reset()
@@ -127,6 +147,8 @@ chatSocket.onclose = async function (e) {
 function newMessage(message, sent_by_id, header_id) {
     document.getElementById('introduction').innerHTML = sent_by_id
     document.getElementById('my').innerHTML = message
+    // document.getElementById('others').innerHTML = message
+
 
     // if (sent_by_id == )
 }

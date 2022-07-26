@@ -178,6 +178,13 @@ body {
 
 }
 
+.my_messages {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* align-items: flex-end; */
+}
+
 .others {
     justify-content: flex-start;
     border: 1px solid rgb(98, 170, 215);
