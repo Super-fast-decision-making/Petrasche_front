@@ -1,7 +1,3 @@
-const BACK_END_URL = "http://127.0.0.1:8000/article/";
-const USER_URL = "http://127.0.0.1:8000/user/";
-const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/"
 
 // page 전역변수
 page_num = 1;
@@ -326,7 +322,9 @@ function modal_open(id) {
         document.getElementById("article_edit").style.display = "none";
       }
       let images = data.images;
-      let content = data.content;
+      let content_raw = data.content;
+      let content = tagToLink(content_raw)
+
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
@@ -391,6 +389,8 @@ function modal_open(id) {
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
+      document.getElementById("modal_edit_text").value = content_raw;
+
       comments.forEach((item) => {
         if (item.user == user_id) {
           let html = `<div class="modal_comment_text">
@@ -505,9 +505,9 @@ const ArticleDelete = (id) => {
 
 const ArticleEdit = (id) => {
   document.getElementById("modal_edit_box").style.display = "flex";
-  document.getElementById("modal_edit_text").value = document
-    .getElementById("modal_content_text")
-    .innerHTML.replace(/<br>/g, "\n");
+  // document.getElementById("modal_edit_text").value = document
+  //   .getElementById("modal_content_text")
+  //   .innerHTML.replace( /\<[^\>]+/g, "").replace(/\>/g, "").replace(/<br>/g, "\n");
 
   document.getElementById("modal_edit_button").onclick = () => {
     let content = document.getElementById("modal_edit_text").value;
@@ -684,8 +684,10 @@ function alarm(id) {
 
 // 검색
 async function search() {
-  const words_for_search = document.getElementById("words_for_search").value;
-
+  let words_for_search = document.getElementById("words_for_search").value;
+  if (words_for_search.startsWith("#")) {
+    words_for_search = words_for_search.replace("#", "%23");
+  }
   var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
   const search_results = await fetch(url)
     .then(response => {
@@ -702,6 +704,8 @@ async function search() {
     alert(search_results.data.message)
   }
 }
+
+
 
 GetUserInfo();
 GetImgList();

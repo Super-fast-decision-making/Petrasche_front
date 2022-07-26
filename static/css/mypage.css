@@ -67,6 +67,7 @@ body {
     border: 1px solid #e7e7e7;
     color: #000;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .user_info {

@@ -1,5 +1,3 @@
-const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/"
 
 
 // 회원가입
@@ -388,10 +386,7 @@ function articleDelete(id){
 //아티클 수정
 function articleEdit(id){
     document.getElementById("modal_edit_box").style.display = "flex";
-    document.getElementById("modal_edit_text").value = document
-        .getElementById("content")
-        .innerHTML.replace(/<br>/g, "\n");
-    document.getElementById("modal_edit_button").onclick = () => {
+        document.getElementById("modal_edit_button").onclick = () => {
         let content = document.getElementById("modal_edit_text").value;
         content = content.replace(/\n/g, "<br>");
         if (content == "") {
