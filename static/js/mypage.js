@@ -31,7 +31,6 @@ async function loadMyArticle(page) {
                     </svg>
                 </button>
                 <div id="pages"class="pages">
-
                 </div>
                 <button class="btn" id="next">
                     <svg
@@ -134,9 +133,10 @@ async function openDetailModal(id) {
 
     modal_box.style.display = "flex"
 
-    
+
     const article = await getDetailArticle(id)
     console.log(article)
+
     
     const modal_box_img = document.getElementById("modal_box_img");
     const author = document.getElementById("author");
@@ -169,64 +169,64 @@ async function openDetailModal(id) {
     document.getElementById("slide_left").onclick = () => {
         let index = images.indexOf(
             document.getElementById("modal_box_img").src
-            );
-            if (index == 0) {
-                index = images.length - 1;
-            } else {
-                index--;
-            }
-            document.getElementById("modal_box_img").src = images[index];
-            document
+        );
+        if (index == 0) {
+            index = images.length - 1;
+        } else {
+            index--;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
             .getElementById("modal_box_img")
             .animate([{ opacity: 0 }, { opacity: 1 }], {
                 duration: 1000,
                 fill: "forwards",
             });
-        };
-        document.getElementById("slide_right").onclick = () => {
-            let index = images.indexOf(
-                document.getElementById("modal_box_img").src
-                );
-                if (index == images.length - 1) {
-                    index = 0;
-                } else {
-                    index++;
-                }
-                document.getElementById("modal_box_img").src = images[index];
-                document
-                .getElementById("modal_box_img")
-                .animate([{ opacity: 0 }, { opacity: 1 }], {
-                    duration: 1000,
-                    fill: "forwards",
-                });
-            };
-            
-            //좋아요 기능
-            document.getElementById("modal_box_img").ondblclick = () => { //더블클릭시 article.id값 좋아요되는 함수 실행
-                LikeOn(article.id);
-            };
-            document.getElementById("like_icon_off").onclick = () => {//라익 아이콘? 클릭시 라이크 유저 리스트되는 함수 실행
-                LikeUserList(article.likes);
-            };
-            document.getElementById("like_icon_on").onclick = () => {
-                LikeUserList(article.likes);
-            };
-            
-            
-            //캐로셀 좌우 버튼 보이기
-            if (article.images.length <= 1) {
-                document.getElementById("slide_left").style.display = "none";
-                document.getElementById("slide_right").style.display = "none";
-            } else {
-                document.getElementById("slide_left").style.display = "block";
-                document.getElementById("slide_right").style.display = "block";
-            }
-            
-            //코멘트 달기
-            for (let i = 0; i < article.comment.length; i++) {
-                if (article.comment[i].user == PayLoad.user_id) {
-                    comment_list.innerHTML +=
-                    `<div class="modal_comment_text">
+    };
+    document.getElementById("slide_right").onclick = () => {
+        let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+        );
+        if (index == images.length - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+                duration: 1000,
+                fill: "forwards",
+            });
+    };
+
+    //좋아요 기능
+    document.getElementById("modal_box_img").ondblclick = () => { //더블클릭시 article.id값 좋아요되는 함수 실행
+        LikeOn(article.id);
+    };
+    document.getElementById("like_icon_off").onclick = () => {//라익 아이콘? 클릭시 라이크 유저 리스트되는 함수 실행
+        LikeUserList(article.likes);
+    };
+    document.getElementById("like_icon_on").onclick = () => {
+        LikeUserList(article.likes);
+    };
+
+
+    //캐로셀 좌우 버튼 보이기
+    if (article.images.length <= 1) {
+        document.getElementById("slide_left").style.display = "none";
+        document.getElementById("slide_right").style.display = "none";
+    } else {
+        document.getElementById("slide_left").style.display = "block";
+        document.getElementById("slide_right").style.display = "block";
+    }
+
+    //코멘트 달기
+    for (let i = 0; i < article.comment.length; i++) {
+        if (article.comment[i].user == PayLoad.user_id) {
+            comment_list.innerHTML +=
+                `<div class="modal_comment_text">
                     <div class="balloon_03">
                     <div>
                     ${article.comment[i].comment}
@@ -237,9 +237,9 @@ async function openDetailModal(id) {
                     <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
                     </div>
                     </div>`
-                } else if (article.comment[i].user != PayLoad.user_id) {
-                    comment_list.innerHTML +=
-                    `<div class="modal_comment_text">
+        } else if (article.comment[i].user != PayLoad.user_id) {
+            comment_list.innerHTML +=
+                `<div class="modal_comment_text">
                     <div class="balloon_03">
                     <div>
                     ${article.comment[i].comment}
@@ -248,21 +248,21 @@ async function openDetailModal(id) {
                     <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
                     </div>
                     </div>`
-                }
-            }
-            // 수정 삭제 버튼+팔로우 버튼 보이기
-            if (article.user == PayLoad.user_id) {
-                document.getElementById("article_delete").style.display = "flex"
-                document.getElementById("article_edit").style.display = "flex"
-                document.getElementById("modal_follow").style.display = "none"
-            } else if (article.user != PayLoad.user_id) {
-                document.getElementById("article_delete").style.display = "none"
-                document.getElementById("article_edit").style.display = "none"
-                document.getElementById("modal_follow").style.display = "flex"
-            }
-            
-            document.getElementById("modal_box_img").ondblclick = () => {
-                LikeOn(id);
+        }
+    }
+    // 수정 삭제 버튼+팔로우 버튼 보이기
+    if (article.user == PayLoad.user_id) {
+        document.getElementById("article_delete").style.display = "flex"
+        document.getElementById("article_edit").style.display = "flex"
+        document.getElementById("modal_follow").style.display = "none"
+    } else if (article.user != PayLoad.user_id) {
+        document.getElementById("article_delete").style.display = "none"
+        document.getElementById("article_edit").style.display = "none"
+        document.getElementById("modal_follow").style.display = "flex"
+    }
+
+    document.getElementById("modal_box_img").ondblclick = () => {
+        LikeOn(id);
     };
     document.getElementById("like_icon_on").onclick = () => {
         LikeOn(id);
@@ -608,7 +608,6 @@ async function loadUserInfo() {
     const show_container = document.getElementById("show_container")
     show_container.innerHTML =
         `<div id = "show_box" class="show_box">
-
             <div id="user_info_box" class="user_info_box">
                 <div id="user_profile_section" class="user_profile_section">
                 </div>

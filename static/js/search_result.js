@@ -64,15 +64,15 @@ const GetImgList = () => {
 };
 
 const GetSearchResultList = () => {
-    var search_results = JSON.parse(localStorage.getItem('search_results'));
+  var search_results = JSON.parse(localStorage.getItem('search_results'));
 
-//   fetch(`${BACK_END_URL}top/`)
-//     .then((res) => res.json())
-//     .then((data) => {
-      document.getElementById("top_article").innerHTML = "";
+  //   fetch(`${BACK_END_URL}top/`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  document.getElementById("top_article").innerHTML = "";
 
-      search_results.forEach((item) => {
-        let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
+  search_results.forEach((item) => {
+    let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
       <img src="${item.images[0]}" alt="">
       <div class="top_article_info">
           <div class="article_like_info">
@@ -87,9 +87,9 @@ const GetSearchResultList = () => {
               ${item.content}
           </div>
       </div>`;
-        document.getElementById("top_article").innerHTML += html;
-      });
-      localStorage.removeItem('search_results');
+    document.getElementById("top_article").innerHTML += html;
+  });
+  localStorage.removeItem('search_results');
 
 };
 
@@ -578,6 +578,7 @@ function alarm(id) {
 
 // 검색
 async function search() {
+
     let words_for_search = document.getElementById("words_for_search").value;
     if (words_for_search.startsWith("#")) {
       words_for_search = words_for_search.replace("#", "%23");
@@ -590,13 +591,13 @@ async function search() {
                 .then(data => ({ data, status_code }))
         })
 
-    localStorage.setItem('search_results', JSON.stringify(search_results.data));
+  localStorage.setItem('search_results', JSON.stringify(search_results.data));
 
-    if (search_results.status_code == 200) {
-        window.location.replace(`${frontend_base_url}search_result.html`);
-    } else {
-        alert(search_results.data.message)
-    }
+  if (search_results.status_code == 200) {
+    window.location.replace(`${frontend_base_url}search_result.html`);
+  } else {
+    alert(search_results.data.message)
+  }
 }
 
 
