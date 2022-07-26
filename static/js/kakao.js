@@ -25,7 +25,8 @@ function kakaoLogin() {
     });
 }
 
-function handleKakaoSignup(authoObj, signupData) {
+
+function handleKakaoSignup(authoObj, signupData) {//signup
     const kakaoSignupData = Object.assign({}, authoObj, signupData);
     const response = fetch(`${backend_base_url}user/kakao/`, {
         headers: {
