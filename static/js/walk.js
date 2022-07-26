@@ -153,7 +153,7 @@ async function loadWalkArticle(){
     const res = await getWalkArticle()
     customers = document.getElementById('customers')
     res.forEach(post => {
-        console.log(res)
+        // console.log(res)
         customers.innerHTML+=
             `<tr onclick='openWalkDetailArticle(${post.id})'>
                 <td>${post.start_time.split(' ')[1]}~${post.end_time.split(' ')[1]}</td>
@@ -234,18 +234,35 @@ async function submitWalkArticle(){
 
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id){
-    window.location.replace(`${frontend_base_url}walk-detail.html`);
-    await loadWalkDetailArticle(id)
-    // const response = await fetch(`${backend_base_url}walk/${id}/`, {
-    //     method: 'GET',
-    //     headers: {
-    //         Accept: 'application/json',
-    //         'Content-type': 'application/json',
-    //         'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-    //     }
-    // })
-    // response_json = await response.json()
-    // console.log(response_json)
-    // return response_json
+    // window.location.replace(`${frontend_base_url}walk-detail.html`);
+    const detail_r_sec=document.getElementById("detail_r_sec")
+    const r_sec=document.getElementById("r_sec")
+    detail_r_sec.style.display="inline"
+    r_sec.style.display="none"
+
+    console.log(id)
+    const response = await fetch(`${backend_base_url}walk/${id}/`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        }
+    })
+    response_json = await response.json()
+    console.log(response_json)
+    const host_name = document.getElementById("host_name")
+    const detail_contents = document.getElementById("detail_contents")
+    const detail_date = document.getElementById("detail_date")
+    const detail_gender = document.getElementById("detail_gender")
+    const detail_place = document.getElementById("detail_place")
+    const detail_number = document.getElementById("detail_number")
+    host_name.innerText=response_json.host_name
+    detail_contents.innerHTML=response_json.contents
+    detail_date.innerText=response_json.date
+    detail_gender.innerText=response_json.gender
+    detail_place.innerText=response_json.place
+    detail_number.innerText=response_json.people_num
+
 }
 
