@@ -1,9 +1,7 @@
-const backend_base_url2 = "http://127.0.0.1:8000"
-const frontend_base_url2 = "http://127.0.0.1:5500"
 
 // 로그인 유저 불러오기
 async function getUserInfo() {
-    const response = await fetch(`${backend_base_url2}/user`, {
+    const response = await fetch(`${backend_base_url}/user`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -22,7 +20,7 @@ getUserInfo()
 // 내 채팅방 불러오기 
 async function getHeader(header_id) {
     const header_list = document.getElementById("header_list")
-    const response = await fetch(`${backend_base_url2}/dm`, {
+    const response = await fetch(`${backend_base_url}/dm`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
