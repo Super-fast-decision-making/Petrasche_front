@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/main_style.css">
+    <link rel="stylesheet" href="/static/css/hashtag.css">
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
-    <title>Main Page</title>
+    <title>검색 결과|Petrasche</title>
 </head>
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
@@ -85,12 +86,6 @@
             <h4 id="pet_profile_title" style="color: black; background:yellow; padding: 5px; border-radius: 5px;">펫 프로필
                 선택</h4>
             <div id="pet_profile_select" class="pet_profile_select">
-                <!-- <input type="radio" name="pet_profile" id="pet_profile1" value="강아지1">
-                    <label for="pet_profile1">
-                        <div><i class="fa-solid fa-circle-check"></i></div>
-                        <p class="pet_name">강아지1<p>
-                        <img src="http://cdn.ksilbo.co.kr/news/photo/202206/938335_532280_3749.jpg" alt="" srcset="">
-                    </label> -->
             </div>
         </div>
     </div>
@@ -146,19 +141,20 @@
                 </div>
             </div>
             <div class="right_section">
-                <h1 class="top_title">Best 게시물</h1>
+                <h1 class="top_title">검색 결과</h1>
                 <div id="top_article" class="top_article">
                 </div>
                 <div class="scroll_button">
                     <div onclick="top_left_scroll()"><i class="fa-solid fa-angle-left"></i></div>
                     <div onclick="top_right_scroll()"><i class="fa-solid fa-angle-right"></i></div>
                 </div>
-                <div id="main_article_list" class="main_article_list">
-                </div>
             </div>
         </div>
+        <script src="./static/js/urls.js"></script>
+        <script src="/static/js/hashtag.js"></script>
         <script src="/static/js/search_result.js"></script>
         <script src="/static/js/main_script.js"></script>
-</body>
+        <script src="./static/js/search.js"></script>
+    </body>
 
 </html>

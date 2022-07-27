@@ -23,45 +23,72 @@ body {
     justify-content: center;
     border-radius: 8px;
     margin: 30px;
-    width: 460px;
+    width: 450px;
     height: auto;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 20px;
-    left: 0;
+    position: fixed;
+    top: 125px;
+    left: 80px;
+    margin-top: 60px;
 }
 
-.header_list div {
+/* .header_list div {
     cursor: pointer;
     padding: 10px 30px;
     font-size: 20px;
     font-weight: bold;
     color: #000;
-}
+} */
+
 
 .header {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.header.clicked {
+    background-color: hotpink;
 }
 
 .header img {
     width: 65px;
     height: 65px;
     border-radius: 50px;
-    margin-left: -30px;
+    margin-left: 20px;
 }
 
 .header_user_profile {
-    margin-left: -70px;
-    margin-top: -10px;
+    margin-left: 30px;
+    margin-top: 0px;
+    height: 100px;
+}
+
+/* .header_user_profile.clicked {
+    background-color: aqua;
+} */
+
+.content {
+    display: flex;
 }
 
 .last_message {
     font-size: 15px;
-    margin-top: -15px;
+    margin-top: 10px;
+    width: 270px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
+.time-before {
+    margin-right: -20px;
+    margin-top: 13px;
+    font-size: 12px;
+}
 
 .user_container {
     display: flex;
@@ -107,6 +134,8 @@ body {
 
 .username {
     font-size: 20px;
+    margin-top: 20px;
+    width: 100px;
 }
 
 .user_introduction {
@@ -125,16 +154,17 @@ body {
 
 .chat_box {
     display: flex;
+    position: relative;
     width: 99%;
-    flex-wrap: wrap;
     justify-content: space-around;
     border-radius: 8px;
     background-color: #ffffff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    /* min-height: 500px; */
     height: 600px;
     justify-content: flex-start;
     flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .chat_input_box {
@@ -148,23 +178,20 @@ body {
 
 .sendbox_inner {
     border-radius: 10px;
-    /* border-color: rgb(19, 142, 203); */
     border: none;
     width: 692px;
     height: 50px;
     font-size: 20px;
 }
 
-.my_messages {
+.messages {
     display: flex;
     flex-direction: column;
     position: relative;
-    /* align-items: flex-end; */
 }
 
 .my {
     display: flex;
-    /* justify-content: flex-end; */
     margin-left: auto;
     margin-top: 20px;
     width: 200px;
@@ -183,9 +210,14 @@ body {
     border: 1px solid rgb(98, 170, 215);
     border-radius: 20px;
     font-size: 15px;
-    /* margin: 10px; */
-    /* margin-left: 20px; */
     max-width: 200px;
     padding: 10px;
     width: fit-content;
+}
+
+.others_messages {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: flex-end;
 }
