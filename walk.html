@@ -119,10 +119,14 @@
                             &#8250;
                         </button>
                         <ul class="slides-container" id="slides-container">
-                            <li class="slide">7/22(금)</li>
+                            <!-- <li class="slide">7/22(금)</li>
                             <li class="slide">7/23(토)</li>
                             <li class="slide">7/24(일)</li>
                             <li class="slide">7/25(월)</li>
+                            <li class="slide">7/26(월)</li>
+                            <li class="slide">7/27(월)</li>
+                            <li class="slide">7/28(월)</li>
+                            <li class="slide">7/29(월)</li> -->
                         </ul>
                     </section>
 
@@ -177,17 +181,19 @@
             <!--  detail 페이지 본문 -->
             <div id="detail_r_sec" class="right_section" style="width:70%;margin-left: 50px;padding:20px;display:none">
                 
-                <div style="width:100%; background-color: antiquewhite; min-height: 500px;">
+                <div style="width:100%; min-height: 500px;">
                     
-                    <div class="main_column"style="display:flex; float:left;width:65%; height:100%; background-color:white;">
+                    <div class="main_column"style="display:flex; float:left;width:65%; height:100%;border-radius: 8px; background-color:white;padding:10px">
                         
-                        <div style="background-color:skyblue;width:100%; margin:20px; height:100%; border-radius: 8px;">
-                            <h1 id="host_name">00 산책장</h1>
+                        <div style="width:100%; margin:20px; height:100%; ">
+                            <div style="display:flex;justify-content: space-between;"><h2 id="host_name">00 산책장</h2><button id="go_back" onclick=goBack() style="background-color:black; color:white; border:none; padding: 0 10px;border-radius:10px">뒤로가기</button></div>
                             <div style="width:400px; height:100px; background-color:white; margin:30px auto;display: flex; justify-content: space-between;">
                                 <span></span>
-                                <h1 style="margin:auto 0;">05:30:33</h1>
+                                <h1 id="timer" style="margin:auto 0;">05:30:33</h1>
                                 <span></span>
+                                
                             </div>
+                            <hr>
                             <div style="width:90%; height:500px; background-color:white; margin:0 auto;">
                                 
                                 <div style="width:300px; height:300px; background-color: grey;border-radius: 5px;margin: 20px auto;">
@@ -196,17 +202,18 @@
                             </div>
                         </div>                        
                     </div>
-                    <div class="right_column"style="display:flex; float:right; width:30%; height:400px; background-color:skyblue;margin:20px;display:flex; border-radius:8px;position:relative">
-                        <div style="width:100%;margin:auto">
-                            <div style="width:100%; height:300px; background-color: white;margin-bottom:20px; margin-left: 20px;">
-                                <p style="display: block;">날짜: <span id="detail_date">7/23</span></p>
-                                <p>위치: <span id="detail_place">장지동</span></p>
-                                <p>성별: <span id="detail_gender">남,여</span></p>
-                                <p>인원: <span id="detail_number">4명</span></p>
-                                <p>사이즈: 대형견만</p>
-                            </div>
-                            <div style="width:100%; height:100px; background-color:pink; border-radius: 8px;text-align: center; position:absolute; bottom: 20px;"> 산책가기 <br> 2자리 남았습니다</div>
+                    <div class="right_column"style="display:flex; float:right; width:30%; height:400px; background-color:white;margin:20px;display:flex; border-radius:8px;position:relative;padding:20px">
+                        
+                        <div style="width:100%; height:300px; margin-bottom:20px; margin-left: 20px;font-weight:600">
+                            <br>
+                            <p style="display: block;">날짜: <span id="detail_date">7/23</span></p><br>
+                            <p>위치: <span id="detail_place">장지동</span></p><br>
+                            <p>성별: <span id="detail_gender">남,여</span></p><br>
+                            <p>인원: <span id="detail_number">4명</span></p><br>
+                            <p>사이즈: 대형견만</p>
                         </div>
+                        <button class="attend_walk" id="attend_walk" style="width:85%; height:100px; background-color:pink; border-radius: 8px;text-align: center; position:absolute; bottom: 20px;"> 산책가기 <br> <span id="left_seat"></span>자리 남았습니다</button>
+                    
                     </div>
                     
                 </div>
@@ -307,16 +314,7 @@
                 </div>
 
             
-            <div>
-                <div class="wrap">
-                    <div class="search">
-                        <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <!-- <script src="/static/js/main_api.js"></script> -->
         <script src="/static/js/main_script.js"></script>
