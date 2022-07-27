@@ -12,6 +12,8 @@
 
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <title>Main Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
@@ -113,38 +115,9 @@
         </div>
     </div>
     <div class="main_screen">
-
-        <!-- 상단 메뉴바 -->
-        <nav class="navbar">
-            <div class="logo">
-                Petrasche
-            </div>
-            <div class="serch">
-                <input name="search" id="words_for_search" type="text" placeholder="Petrasche">
-                <button class="serch_button" type="button" onclick="search()">검색</button>
-            </div>
-            <div class="user_info">
-                <div onclick="DM()" id="dm" class="dm">
-                    <img src="https://image.shutterstock.com/z/stock-vector-animal-dog-paw-print-isolated-silhouette-vector-illustration-1499728328.jpg"
-                        alt="">
-                </div>
-                <div onclick="UserPage()" id="user_profile" class="user_profile">
-                    <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
-                        alt="">
-                </div>
-                <div onclick="alarm(this)" id="alarm" class="alarm">
-                    <i class="fa-solid fa-bell"></i>
-                    <div class="history">
-
-                    </div>
-                </div>
-                <div class="user">
-                    <span class="user_name" id="user">유저님</span>
-                </div>
-                <div onclick="Logout()" class="logout">로그아웃</div>
-            </div>
+        <nav id="bar-nav">
+            <script>$("#bar-nav").load("nav.html");</script>
         </nav>
-        <!--  -->
 
         <div class="top_section">
             <div class="left_menu">
@@ -186,10 +159,6 @@
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script src="./static/js/kakao.js"></script>
         <script src="./static/js/search.js"></script>
-        <script src="./static/js/dm.js"></script>
-
-
-
 </body>
 
 </html>

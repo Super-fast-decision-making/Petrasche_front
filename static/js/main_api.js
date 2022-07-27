@@ -24,32 +24,32 @@ window.onscroll = function () {
 
 async function handleLogin() {
   const loginData = {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value
   }
   const response = await fetch(`${backend_base_url}user/login/`, {
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(loginData)
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(loginData)
   })
   response_json = await response.json()
   if (response.status == 200) {
-      localStorage.setItem("user_access_token", response_json.access)
-      localStorage.setItem("user_refresh_token", response_json.refresh)
+    localStorage.setItem("user_access_token", response_json.access)
+    localStorage.setItem("user_refresh_token", response_json.refresh)
 
-      const base64Url = response_json.access.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-      localStorage.setItem("payload", jsonPayload)
-      window.location.reload()
+    localStorage.setItem("payload", jsonPayload)
+    window.location.reload()
   } else {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.")
   }
 }
 
@@ -458,13 +458,6 @@ const CommentUpload = (id) => {
     });
 };
 
-const Logout = () => {
-  localStorage.removeItem("user_access_token");
-  localStorage.removeItem("user_refresh_token");
-  localStorage.removeItem("payload");
-  window.location.href = "./login.html";
-};
-
 const LikeOn = (id) => {
   fetch(`${BACK_END_URL}like/${id}/`, {
     method: "POST",
@@ -640,49 +633,6 @@ const Follow = (user, article) => {
       modal_open(article);
     });
 };
-
-function alarm(id) {
-  id.childNodes[3].innerHTML = "";
-  fetch(USER_URL + "history/", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.length == 0) {
-        id.childNodes[3].innerHTML = "알림이 없습니다.";
-      } else {
-        res.forEach((history) => {
-          if (history.type == "like") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다. ${history.time}</div>`;
-          }
-          if (history.type == "follow") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다. ${history.time}</div>`;
-          }
-          if (history.type == "comment") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다. ${history.time}</div>`;
-          }
-        });
-      }
-    });
-
-  id.childNodes[3].style.display = "block";
-  let alarm = true;
-  id.onclick = () => {
-    if (alarm) {
-      id.childNodes[3].style.display = "none";
-      alarm = false;
-    } else {
-      id.childNodes[3].style.display = "block";
-      alarm = true;
-    }
-  };
-}
-
-
 
 GetUserInfo();
 GetImgList();
