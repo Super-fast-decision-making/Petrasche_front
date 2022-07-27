@@ -12,10 +12,6 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
-const UserPage = () => {
-  window.location.href = "/mypage.html";
-}
-
 function top_left_scroll() {
   let scroll_left = document.getElementById("top_article").scrollLeft;
   if (scroll_left > 0) {
