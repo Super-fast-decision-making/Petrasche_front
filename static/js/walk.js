@@ -3,6 +3,7 @@ const frontend_base_url = "http://127.0.0.1:5500/"
 
 
 
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -177,7 +178,7 @@ async function getWalkArticle(page, gender, size, region, number) {
     if (number!='number'){
         url = url+`number=${number}&`
     }
-    if(page!=null){
+    if(page!=null & page!='page'){
         url = url+`p=${page}`
     }
     console.log(url)
@@ -192,13 +193,22 @@ async function getWalkArticle(page, gender, size, region, number) {
     response_json = await response.json()
     console.log(response_json)
     sessionStorage.removeItem('start_date');
-    return response_json.results
+    // let response_r = response_json.results
+    // response_r['next']=response_json.next
+    // response_r['previous']=response_json.previous
+    // console.log(response_r)
+    return response_json
 }
 
 //모든 아티클 뿌려주기
 async function loadWalkArticle(page, gender, size, region, number){
+    console.log('page',page)
     console.log(gender,size, region, number)
-    const res = await getWalkArticle(page, gender,size, region, number)
+    const response = await getWalkArticle(page, gender, size, region, number)
+    const count = response.count
+    const res = response.results
+    console.log(res)
+    console.log(count)
     customers = document.getElementById('customers')
     customers.innerHTML=''
     res.forEach(post => {
@@ -211,16 +221,15 @@ async function loadWalkArticle(page, gender, size, region, number){
             </tr>`
 
         let masTime = post.start_time
-        // console.log(masTime)
+        
         let masTimeMonth= masTime.split('.')[1];
         let masTimeDate=masTime.split('.')[2].split(' ')[0];
         let masTimeTime =masTime.split(' ')[1].split(':')[0];
-        // console.log(masTimeMonth, masTimeDate, masTimeTime)
+
         let today = new Date()
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
         let day = ('0' + today.getDate()).slice(-2);
         var hours = ('0' + today.getHours()).slice(-2); 
-        // console.log(month, day, hours);
 
         if (masTimeDate<day & masTimeTime<hours){
             document.getElementById('gowalkbutton'+post.id).innerText= '마감'
@@ -228,18 +237,36 @@ async function loadWalkArticle(page, gender, size, region, number){
             document.getElementById('post_row'+post.id).setAttribute('onclick', '')
         }
     });
-    const total_pages = parseInt(res.length/12)+1
+    const total_pages = parseInt(count/12)+1
+
+
 
     document.getElementById("pages").innerHTML=''
     for (let i = 1; i < total_pages+1; i++) {
         document.getElementById("pages").innerHTML += `<a class="page" id=page onclick="loadWalkArticle(${i},'gender', 'size', 'region', 'number')">${i}</a>`
     }
+    document.getElementById("right_page")
+    console.log(page)
 
 
+    if (page=='page'| page==1){
+        let page_num=1
+        console.log(1)
+        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
+    }else if (page==total_pages){
+        console.log(2)
+        let page_num=page
+        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
+    }else{    
+        console.log(3)
+        let page_num=page
+        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
+        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
+    }
 
 
 }
-loadWalkArticle('gender', 'size', 'region', 'number')
+loadWalkArticle('page','gender', 'size', 'region', 'number')
 
 function searchStart(filter_num, click_name){
 
@@ -271,7 +298,7 @@ function searchStart(filter_num, click_name){
     const number=dropbtn_n.innerText
 
     customers.innerHTML=""
-    loadWalkArticle(gender, size, region, number)
+    loadWalkArticle('page', gender, size, region, number)
 }
 
 async function goWalk(id, attending_user){
@@ -373,8 +400,6 @@ function diffDay() {
     const diffMin = Math.floor((diff / (1000*60)) % 60);
     const diffSec = Math.floor(diff / 1000 % 60);
     timer.innerHTML = `<span style="font-size=0.5rem">모임까지 남은 시간</span><br>${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초`;
-
-
 }
 
 
@@ -429,11 +454,10 @@ async function openWalkDetailArticle(id){
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
     }
     
+    document.getElementById('w_d_img_box').setAttribute('src',`${response_json.host_pic}`)
+    document.getElementById('detail_profile').setAttribute('src',`${response_json.host_pic}`)
+    
 }
-
-
-
-
 
 
 diffDay()
