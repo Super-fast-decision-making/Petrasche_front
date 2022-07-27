@@ -1,7 +1,3 @@
-const DM = () => {
-    window.location.href = "/dm.html";
-}
-
 var header_div = document.getElementsByClassName("header");
 function handleClick(event) {
     // console.log(event.target);

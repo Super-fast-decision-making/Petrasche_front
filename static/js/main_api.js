@@ -24,32 +24,32 @@ window.onscroll = function () {
 
 async function handleLogin() {
   const loginData = {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value
   }
   const response = await fetch(`${backend_base_url}user/login/`, {
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(loginData)
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(loginData)
   })
   response_json = await response.json()
   if (response.status == 200) {
-      localStorage.setItem("user_access_token", response_json.access)
-      localStorage.setItem("user_refresh_token", response_json.refresh)
+    localStorage.setItem("user_access_token", response_json.access)
+    localStorage.setItem("user_refresh_token", response_json.refresh)
 
-      const base64Url = response_json.access.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-      localStorage.setItem("payload", jsonPayload)
-      window.location.reload()
+    localStorage.setItem("payload", jsonPayload)
+    window.location.reload()
   } else {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.")
   }
 }
 

@@ -13,7 +13,7 @@ document.body.addEventListener("click", function (e) {
 });
 
 const UserPage = () => {
-  window.location.href = "/mypage.html";  
+  window.location.href = "/mypage.html";
 }
 
 function top_left_scroll() {
