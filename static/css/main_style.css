@@ -4,9 +4,13 @@ h1 {
     margin: 0;
     /* overflow-x: hidden; */
 }
-h2,h3,h4{
+
+h2,
+h3,
+h4 {
     margin: 0;
 }
+
 body {
     background-color: #C4D7E0;
 }
@@ -78,7 +82,7 @@ body {
     /* margin-right: 20px; */
 }
 
-.alarm{
+.alarm {
     position: relative;
     margin-right: 10px;
     width: 30px;
@@ -92,7 +96,8 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
-.user_name{
+
+.user_name {
     font-size: 12px;
     font-weight: bold;
     color: #000;
@@ -101,7 +106,8 @@ body {
     padding: 2px 5px;
     background-color: #e7e7e7;
 }
-.history{
+
+.history {
     width: 250px;
     height: fit-content;
     max-height: 600px;
@@ -117,6 +123,7 @@ body {
     animation: reveal 0.5s ease-in-out;
     display: none;
 }
+
 .user_profile {
     cursor: pointer;
     display: flex;
@@ -126,6 +133,20 @@ body {
 }
 
 .user_profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.dm {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.dm img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -284,7 +305,8 @@ body {
     display: flex;
     margin: 0px 0px 12px 0px;
 }
-.article_like_info div:nth-child(1){
+
+.article_like_info div:nth-child(1) {
     margin: 0px 3px 0px 0px;
     font-size: 12px;
     border-radius: 9px;
@@ -292,7 +314,8 @@ body {
     color: white;
     padding: 3px 10px;
 }
-.article_like_info div:nth-child(2){
+
+.article_like_info div:nth-child(2) {
     margin: 0px 3px 0px 0px;
     font-size: 12px;
     border-radius: 9px;
@@ -425,7 +448,8 @@ body {
     z-index: 9999;
     display: none;
 }
-.like_user_list{
+
+.like_user_list {
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
@@ -445,7 +469,8 @@ body {
     animation: fadeintop 0.5s;
     display: none;
 }
-.like_user_list div{
+
+.like_user_list div {
     margin-bottom: 2px;
 }
 
@@ -538,7 +563,8 @@ body {
     display: none;
     color: yellowgreen;
 }
-.article_edit{
+
+.article_edit {
     cursor: pointer;
     position: absolute;
     right: 30px;
@@ -547,7 +573,8 @@ body {
     display: none;
     color: yellowgreen;
 }
-.modal_edit_box{
+
+.modal_edit_box {
     position: fixed;
     display: flex;
     width: 100%;
@@ -559,7 +586,8 @@ body {
     align-items: center;
     display: none;
 }
-.modal_edit_button{
+
+.modal_edit_button {
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -570,7 +598,8 @@ body {
     background: #000;
     color: white;
 }
-.modal_edit_cancel{
+
+.modal_edit_cancel {
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -581,7 +610,8 @@ body {
     background: #000;
     color: white;
 }
-.modal_edit_box_input{
+
+.modal_edit_box_input {
     position: absolute;
     width: 15%;
     height: 20%;
@@ -589,7 +619,8 @@ body {
     justify-content: center;
     align-items: center;
 }
-.modal_edit_box textarea{
+
+.modal_edit_box textarea {
     width: 100%;
     height: 100%;
     border: none;
@@ -601,7 +632,8 @@ body {
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-.modal_edit_box textarea:focus{
+
+.modal_edit_box textarea:focus {
     outline: none;
 }
 
@@ -663,6 +695,7 @@ body {
     display: flex;
     /* justify-content: center; */
 }
+
 .modal_comment_user {
     display: flex;
     width: fit-content + 10px;
@@ -673,16 +706,19 @@ body {
     color: green;
     font-weight: bold;
     cursor: pointer;
-    font-size:8px;
+    font-size: 8px;
 }
-.modal_comment_user div{
+
+.modal_comment_user div {
     margin: 0px 2px;
 }
-.modal_comment_user div:nth-child(1){
+
+.modal_comment_user div:nth-child(1) {
     font-weight: bold;
     color: #000;
 }
-.modal_comment_user div:nth-child(2){
+
+.modal_comment_user div:nth-child(2) {
     font-weight: bold;
     color: red;
 }
@@ -725,7 +761,8 @@ body {
     top: 10px;
     left: -15px;
 }
-.slide_right{
+
+.slide_right {
     position: absolute;
     top: calc(50% - 30px);
     right: calc(30% + 10px);
@@ -740,7 +777,8 @@ body {
     /* display: none; */
     /* z-index: 999999999; */
 }
-.slide_left{
+
+.slide_left {
     position: absolute;
     top: calc(50% - 30px);
     left: 10px;
@@ -755,7 +793,8 @@ body {
     /* display: none; */
     /* z-index: 999999999; */
 }
-.modal_img_box{
+
+.modal_img_box {
     width: 70%;
     height: 100%;
 }
@@ -873,6 +912,7 @@ body {
     z-index: 9999;
     display: none;
 }
+
 .upload_modal_box {
     position: relative;
     width: 800px;
@@ -885,7 +925,8 @@ body {
     align-items: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-.pet_profile_select{
+
+.pet_profile_select {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -895,7 +936,8 @@ body {
 input[type=radio] {
     display: none;
 }
-input[type=radio] + label {
+
+input[type=radio]+label {
     position: relative;
     margin: 5px auto;
     display: flex;
@@ -908,33 +950,38 @@ input[type=radio] + label {
     border-radius: 20px;
     background-color: #fff;
     cursor: pointer;
-    color : rgba(0, 0, 0, 0.0)
+    color: rgba(0, 0, 0, 0.0)
 }
-input[type=radio] + label img{
+
+input[type=radio]+label img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-input[type=radio] + label div{
-   position: absolute;
-   font-weight: bold;
-   font-size: 50px;
+
+input[type=radio]+label div {
+    position: absolute;
+    font-weight: bold;
+    font-size: 50px;
 }
-input[type=radio]:checked + label {
+
+input[type=radio]:checked+label {
     color: #FF0063;
     border: 4px solid #FF0063;
-    
+
 }
-input[type=radio]:checked + label img {
+
+input[type=radio]:checked+label img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.pet_name{
+
+.pet_name {
     position: absolute;
     bottom: 0;
     right: 0;
-    color:white;
+    color: white;
     background: #000;
     font-size: 13px;
     font-weight: 500;
@@ -1055,12 +1102,14 @@ input[type=radio]:checked + label img {
     z-index: 99999;
 
 }
+
 .load_img img {
     width: 200px;
     height: 200px;
     animation: rotate 0.5s;
 }
-.follow{
+
+.follow {
     cursor: pointer;
     margin-left: 5px;
     text-align: center;
@@ -1074,7 +1123,8 @@ input[type=radio]:checked + label img {
     padding: 3px 10px;
     border-radius: 5px;
 }
-.login_modal_box{
+
+.login_modal_box {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -1088,7 +1138,7 @@ input[type=radio]:checked + label img {
     z-index: 9999;
 }
 
-.login_box{
+.login_box {
     width: 400px;
     height: 500px;
     background-color: white;
@@ -1099,12 +1149,14 @@ input[type=radio]:checked + label img {
     justify-content: center;
     align-items: center;
 }
-.login_box h1{
+
+.login_box h1 {
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 10px;
 }
-.login_box input{
+
+.login_box input {
     width: 60%;
     height: 40px;
     border: 1px solid #000000;
@@ -1114,6 +1166,7 @@ input[type=radio]:checked + label img {
     font-size: 14px;
     font-weight: bold;
 }
+
 .login_btn {
     cursor: pointer;
     width: 60%;
@@ -1126,7 +1179,8 @@ input[type=radio]:checked + label img {
     background: skyblue;
     color: white;
 }
-.login_btn button{
+
+.login_btn button {
     cursor: pointer;
     width: 100%;
     height: 100%;
@@ -1135,7 +1189,8 @@ input[type=radio]:checked + label img {
     background: none;
     outline: none;
 }
-.kakao_login{
+
+.kakao_login {
     cursor: pointer;
     width: 60%;
     height: 40px;
@@ -1150,6 +1205,7 @@ input[type=radio]:checked + label img {
     justify-content: center;
     align-items: center;
 }
+
 /* top transform */
 @keyframes fadeintop {
     from {
@@ -1163,11 +1219,12 @@ input[type=radio]:checked + label img {
     }
 }
 
-@keyframes article_box_hover{
-    from{
+@keyframes article_box_hover {
+    from {
         transform: scale(1);
     }
-    to{
+
+    to {
         transform: scale(1.05);
     }
 }
@@ -1204,7 +1261,7 @@ input[type=radio]:checked + label img {
     }
 }
 
-@keyframes fadeinbottom{
+@keyframes fadeinbottom {
     0% {
         opacity: 0;
         transform: translateY(-100%);
@@ -1217,6 +1274,13 @@ input[type=radio]:checked + label img {
 }
 
 @keyframes reveal {
-    from { opacity:0; transform:translate3d(0, -5px, 0); }
-    to { opacity:1; transform:translate3d(0, 0, 0); }
+    from {
+        opacity: 0;
+        transform: translate3d(0, -5px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }

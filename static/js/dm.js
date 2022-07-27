@@ -1,9 +1,33 @@
-const backend_base_url = "http://127.0.0.1:8000"
+const DM = () => {
+    window.location.href = "/dm.html";
+}
 
+var header_div = document.getElementsByClassName("header");
+function handleClick(event) {
+    // console.log(event.target);
+    // console.log(this);
+
+    if (event.target.classList[1] === "clicked") {
+        event.target.classList.remove("clicked");
+    } else {
+        for (var i = 0; i < header_div.length; i++) {
+            header_div[i].classList.remove("clicked");
+        }
+        event.target.classList.add("clicked");
+        console.log(event.target.classList)
+    }
+}
+function init() {
+    for (var i = 0; i < header_div.length; i++) {
+        header_div[i].addEventListener("click", handleClick);
+        // header_div[i].childNodes[1].addEventListener("click", handleClick);
+    }
+}
+init();
 
 // 로그인 유저 불러오기
 async function getUserInfo() {
-    const response = await fetch(`${backend_base_url}/user`, {
+    const response = await fetch(`${backend_base_url}user`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -24,8 +48,7 @@ const USER_NAME = sessionStorage.getItem('username')
 
 // 내 채팅방 불러오기 
 async function getHeader() {
-    const header_list = document.getElementById("header_list")
-    const response = await fetch(`${backend_base_url}/dm`, {
+    const response = await fetch(`${backend_base_url}dm`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -34,8 +57,7 @@ async function getHeader() {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
-
+    const header_list = document.getElementById("header_list")
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
         let header_id = response_json[i].id
@@ -46,27 +68,37 @@ async function getHeader() {
         if (USER_NAME === sender) {
             let chatuser = receiver
             header_list.innerHTML +=
-                `<div class="header" id="">
+                `<div class="header" id="header" onclick=chatopen(${header_id})>
                 <div class="header_user_profile_img">
                     <img id="user_profile_img"
                         src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
                 </div>
-                <div class="header_user_profile" onclick=chatopen(${header_id})>
+                <div class="header_user_profile" >
                     <div class="username" id="username">${chatuser}</div>
-                    <div class="last_message" id="last_message">${last_message} ${date}</div>
+                    <div class="content">
+                        <div class="last_message" id="last_message">${last_message}</div>
+                        <div calss="time-before" style="margin-right: -20px; margin-top: 13px; font-size: 12px;">
+                            ${date}
+                        </div>
+                    </div>
                 </div>
             </div>`
         } else {
             let chatuser = sender
             header_list.innerHTML +=
-                `<div class="header" id="">
+                `<div class="header" id="header" onclick=chatopen(${header_id})>
                 <div class="header_user_profile_img">
                     <img id="user_profile_img"
                         src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
                 </div>
-                <div class="header_user_profile" onclick=chatopen(${header_id})>
+                <div class="header_user_profile" >
                     <div class="username" id="username">${chatuser}</div>
-                    <div class="last_message" id="last_message">${last_message} ${date}</div>
+                    <div class="content">
+                        <div class="last_message" id="last_message">${last_message}</div>
+                        <div calss="time-before" style="margin-right: -20px; margin-top: 13px; font-size: 12px;">
+                            ${date}
+                        </div>
+                    </div>
                 </div>
             </div>`
         }
@@ -79,7 +111,7 @@ getHeader()
 
 
 async function chatopen(id) {
-    const response = await fetch(`${backend_base_url}/dm/${id}`, {
+    const response = await fetch(`${backend_base_url}dm/${id}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -93,18 +125,19 @@ async function chatopen(id) {
     chat_box.innerHTML = ''
     for (let i = 0; i < response_json[0].messages.length; i++) {
         let sender = response_json[0].messages[i].sender
+        let message = response_json[0].messages[i].message
         if (USER_NAME == sender) {
             chat_box.innerHTML += ` 
                                 <div style="padding: 10px;">
                                     <div class="my" id="my">
-                                    ${response_json[0].messages[i].message}
+                                    ${message}
                                     </div>
                                 </div>`
         } else {
             chat_box.innerHTML += `                            
                                 <div style="padding: 10px;">
                                     <div class="others" id="others">
-                                    ${response_json[0].messages[i].message}
+                                    ${message}
                                     </div>
                                 </div>`
         }
@@ -128,7 +161,6 @@ chatSocket.onopen = async function (e) {
         chatSocket.send(JSON.stringify({
             'message': message,
             'sent_by': USER_ID,
-            // 'send_to': reciever,
             'header_id': header
         }))
         form.reset()
@@ -139,7 +171,6 @@ chatSocket.onopen = async function (e) {
 chatSocket.onmessage = async function (e) {
     console.log('receive Message!', e)
     let data = JSON.parse(e.data)
-    console.log(data, "147qjs")
     let message = data['message']
     let sent_by_id = data['sent_by']
     let header_id = data['header_id']
@@ -173,5 +204,5 @@ function newMessage(message, sent_by_id, header_id) {
                                 </div>`
     }
     messages.scrollTop = messages.scrollHeight;
-
 }
+
