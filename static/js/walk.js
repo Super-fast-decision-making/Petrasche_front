@@ -49,7 +49,7 @@ const slidesContainer = document.getElementById("slides-container");
 for (let i=0;i<14;i++){
     let date = m_dropdown_region_date[i].split('2. ')[1].replace(/ /g, '')
     let search_date = '2022.'+date
-    slidesContainer.innerHTML+=`<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}</li>`
+    slidesContainer.innerHTML+=`<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'>클릭해주세요</span></li>`
 }
 
 
@@ -154,9 +154,17 @@ m_dropdown_hc_list.forEach(number => {
 
 //////////////////////////////////////api
 // 산책 페이지 전체 아티클 불러오기
-async function getWalkArticle(gender, size, region, number) {
+async function getWalkArticle(page, gender, size, region, number) {
+
+
 
     let url= `${backend_base_url}walk/?`
+    if (sessionStorage.getItem('start_date')!=null){
+        let s_date = sessionStorage.getItem('start_date').replace('.','-').replace('.','-').replace('.','')
+        console.log('s_date',s_date)
+        url = url + `start_date=${s_date}&`
+    }
+
     if (gender!='gender'){
         url = url+`gender=${gender}&`
     }
@@ -169,6 +177,10 @@ async function getWalkArticle(gender, size, region, number) {
     if (number!='number'){
         url = url+`number=${number}&`
     }
+    if(page!=null){
+        url = url+`p=${page}`
+    }
+    console.log(url)
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -179,15 +191,25 @@ async function getWalkArticle(gender, size, region, number) {
     })
     response_json = await response.json()
     console.log(response_json)
-    return response_json
+    sessionStorage.removeItem('start_date');
+    return response_json.results
 }
 
-
-async function loadWalkArticle(gender,size, region, number){
+//모든 아티클 뿌려주기
+async function loadWalkArticle(page, gender, size, region, number){
     console.log(gender,size, region, number)
-    const res = await getWalkArticle(gender,size, region, number)
+    const res = await getWalkArticle(page, gender,size, region, number)
     customers = document.getElementById('customers')
+    customers.innerHTML=''
     res.forEach(post => {
+        customers.innerHTML+=
+            `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
+                <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
+                <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
+                <td>${post.people_num}</td>
+                <td id='gowalkbutton${post.id}'>산책가기</td>
+            </tr>`
+
         let masTime = post.start_time
         // console.log(masTime)
         let masTimeMonth= masTime.split('.')[1];
@@ -200,22 +222,22 @@ async function loadWalkArticle(gender,size, region, number){
         var hours = ('0' + today.getHours()).slice(-2); 
         // console.log(month, day, hours);
 
-        // 결과 : 2021-05-30
-        customers.innerHTML+=
-            `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
-                <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
-                <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
-                <td>${post.people_num}</td>
-                <td id='gowalkbutton${post.id}'>산책가기</td>
-            </tr>`
-
         if (masTimeDate<day & masTimeTime<hours){
             document.getElementById('gowalkbutton'+post.id).innerText= '마감'
             document.getElementById('post_row'+post.id).style.backgroundColor = 'gray'
             document.getElementById('post_row'+post.id).setAttribute('onclick', '')
-
         }
-    }); 
+    });
+    const total_pages = parseInt(res.length/12)+1
+
+    document.getElementById("pages").innerHTML=''
+    for (let i = 1; i < total_pages+1; i++) {
+        document.getElementById("pages").innerHTML += `<a class="page" id=page onclick="loadWalkArticle(${i},'gender', 'size', 'region', 'number')">${i}</a>`
+    }
+
+
+
+
 }
 loadWalkArticle('gender', 'size', 'region', 'number')
 
@@ -226,10 +248,9 @@ function searchStart(filter_num, click_name){
     let dropbtn_r= document.getElementById("dropbtn_r")
     let dropbtn_n= document.getElementById("dropbtn_n")
     
-    // if (filter_num ==0){
-    //     console.log(click_name)
-    //     const start_date=click_name
-    // }
+    if (filter_num ==0){
+        sessionStorage.setItem('start_date', click_name)
+    }
     if (filter_num==1){        
         dropbtn_g.innerText=click_name        
     }
@@ -243,6 +264,7 @@ function searchStart(filter_num, click_name){
         dropbtn_n.innerText=click_name
     }
     // console.log(start_date)
+    
     const gender= dropbtn_g.innerText
     const size=dropbtn_s.innerText
     const region=dropbtn_r.innerText
