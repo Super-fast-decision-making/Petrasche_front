@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/main_style.css">
     <link rel="stylesheet" href="/static/css/hashtag.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <title>Main Page</title>
@@ -21,7 +23,7 @@
             alt="" srcset="">
     </div>
     <div id="login_modal_box" class="login_modal_box">
-            <div class="login_box">
+        <div class="login_box">
             <h1>Petrasche</h1>
             <input id="email" type="text" placeholder="이메일">
             <input id="password" type="password" placeholder="패스워드">
@@ -122,6 +124,10 @@
                 <button class="serch_button" type="button" onclick="search()">검색</button>
             </div>
             <div class="user_info">
+                <div onclick="DM()" id="dm" class="dm">
+                    <img src="https://image.shutterstock.com/z/stock-vector-animal-dog-paw-print-isolated-silhouette-vector-illustration-1499728328.jpg"
+                        alt="">
+                </div>
                 <div onclick="UserPage()" id="user_profile" class="user_profile">
                     <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
                         alt="">
@@ -177,8 +183,10 @@
         <script src="/static/js/hashtag.js"></script>
         <script src="/static/js/main_api.js"></script>
         <script src="/static/js/main_script.js"></script>
-        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script src="./static/js/kakao.js"></script>
+        <script src="./static/js/dm.js"></script>
+
 
 </body>
 
