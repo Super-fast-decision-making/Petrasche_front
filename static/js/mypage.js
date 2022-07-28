@@ -57,8 +57,7 @@ async function loadMyArticle(page) {
     const response = await getMyArticle(page)
     const articles = response.results
     const total_pages = parseInt(response_json.count / PAGE_LIMIT) + 1;
-    const next = response.next
-    const prev = response.previous
+
 
     //페이지네이션 값 만들기
     for (let i = 0; i < total_pages; i++) {
