@@ -1,7 +1,3 @@
-const DM = () => {
-    window.location.href = "/dm.html";
-}
-
 var header_div = document.getElementsByClassName("header");
 function handleClick(event) {
     // console.log(event.target);
@@ -57,21 +53,29 @@ async function getHeader() {
         }
     })
     response_json = await response.json()
+    console.log(response_json)
     const header_list = document.getElementById("header_list")
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
+        let sender_img = response_json[i].sender_img
+        let receiver_img = response_json[i].receiver_img
         let header_id = response_json[i].id
         let receiver = response_json[i].receiver
         let sender = response_json[i].sender
         let last_message = response_json[i].last_message.message
         let date = response_json[i].last_message.date
+        console.log(receiver_img)
+        console.log(sender_img)
+
         if (USER_NAME === sender) {
             let chatuser = receiver
+            let chatuser_img = receiver_img
             header_list.innerHTML +=
                 `<div class="header" id="header" onclick=chatopen(${header_id})>
                 <div class="header_user_profile_img">
                     <img id="user_profile_img"
-                        src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                                src="${chatuser_img}">
+
                 </div>
                 <div class="header_user_profile" >
                     <div class="username" id="username">${chatuser}</div>
@@ -85,11 +89,13 @@ async function getHeader() {
             </div>`
         } else {
             let chatuser = sender
+            let chatuser_img = sender_img
             header_list.innerHTML +=
                 `<div class="header" id="header" onclick=chatopen(${header_id})>
                 <div class="header_user_profile_img">
                     <img id="user_profile_img"
-                        src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                                src="${chatuser_img}">
+
                 </div>
                 <div class="header_user_profile" >
                     <div class="username" id="username">${chatuser}</div>

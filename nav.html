@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="/static/js/urls.js"></script>
+    <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrap-nav">
+        <nav class="navbar">
+            <div class="logo" onclick="home()">
+                Petrasche
+            </div>
+            <div class="serch">
+                <input name="search" id="words_for_search" type="text" placeholder="Petrasche">
+                <button class="serch_button" type="button" onclick="search()">검색</button>
+            </div>
+            <div class="user_info">
+                <div onclick="DM()" id="dm" class="dm">
+                    <img src="https://image.shutterstock.com/z/stock-vector-animal-dog-paw-print-isolated-silhouette-vector-illustration-1499728328.jpg"
+                        alt="">
+                </div>
+                <div onclick="UserPage()" id="user_profile" class="user_profile">
+                    <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
+                        alt="">
+                </div>
+                <div onclick="alarm(this)" id="alarm" class="alarm">
+                    <i class="fa-solid fa-bell"></i>
+                    <div class="history">
+                    </div>
+                </div>
+                <div class="user">
+                    <span class="user_name" id="user">유저님</span>
+                </div>
+                <div onclick="Logout()" class="logout">로그아웃</div>
+            </div>
+        </nav>
+    </div>
+
+</body>
+
+<!-- <script>
+
+    const DM = () => {
+        window.location.href = "/dm.html";
+    }
+    const home = () => {
+        window.location.href = "/index.html";
+    }
+    const UserPage = () => {
+        window.location.href = "/mypage.html";
+    }
+    const Logout = () => {
+        localStorage.removeItem("user_access_token");
+        localStorage.removeItem("user_refresh_token");
+        localStorage.removeItem("payload");
+        window.location.href = "./login.html";
+    };
+    function alarm(id) {
+        id.childNodes[3].innerHTML = "";
+        fetch(USER_URL + "history/", {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.length == 0) {
+                    id.childNodes[3].innerHTML = "알림이 없습니다.";
+                } else {
+                    res.forEach((history) => {
+                        if (history.type == "like") {
+                            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다. ${history.time}</div>`;
+                        }
+                        if (history.type == "follow") {
+                            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다. ${history.time}</div>`;
+                        }
+                        if (history.type == "comment") {
+                            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다. ${history.time}</div>`;
+                        }
+                    });
+                }
+            });
+
+        id.childNodes[3].style.display = "block";
+        let alarm = true;
+        id.onclick = () => {
+            if (alarm) {
+                id.childNodes[3].style.display = "none";
+                alarm = false;
+            } else {
+                id.childNodes[3].style.display = "block";
+                alarm = true;
+            }
+        };
+    }
+</script> -->
+
+</html>
