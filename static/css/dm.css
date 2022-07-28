@@ -149,7 +149,10 @@ body {
 }
 
 .show_box {
+    position: fixed;
+    top: 400px;
     width: 700px;
+
 }
 
 .chat_box {
