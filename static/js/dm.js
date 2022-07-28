@@ -118,6 +118,7 @@ async function chatroomSelect(id) {
                 'message': message,
                 'sent_by': USER_ID,
                 'header_id': header
+
             }))
             form.reset()
         })
@@ -130,8 +131,9 @@ async function chatroomSelect(id) {
         let message = data['message']
         let sent_by_id = data['sender']
         let header_id = data['header_id']
+        let time = data['time']
         console.log(data)
-        newMessage(message, sent_by_id, header_id)
+        newMessage(message, sent_by_id, time)
     }
 
 
@@ -147,21 +149,20 @@ async function chatroomSelect(id) {
     }
 
     // 발신한 메세지 HTML에 붙이기
-    function newMessage(message, sent_by_id, header_id) {
-
+    function newMessage(message, sent_by_id, time) {
         let messages = document.getElementById("chat_box")
         message.innerHTML = ""
         console.log(sent_by_id + '====>' + USER_ID)
         if (sent_by_id == USER_ID) {
             messages.innerHTML += `<div style="padding: 10px;">
                                     <div class="my" id="my">
-                                    ${message}
+                                    ${message} - ${time}
                                     </div>
                                 </div>`
         } else {
             messages.innerHTML += `<div style="padding: 10px;">
                                     <div class="others" id="others">
-                                    ${message}
+                                    ${message} - ${time} 
                                     </div>
                                 </div>`
         }
@@ -177,24 +178,26 @@ async function chatroomSelect(id) {
         }
     })
     response_json = await response.json()
+    console.log(response_json)
     sessionStorage.setItem('header_id', response_json[0].id)
     let chat_box = document.getElementById('chat_box')
     chat_box.innerHTML = ''
     for (let i = 0; i < response_json[0].messages.length; i++) {
         let sender = response_json[0].messages[i].sender
         let message = response_json[0].messages[i].message
+        let time = response_json[0].messages[i].at_time
         if (USER_NAME == sender) {
             chat_box.innerHTML += ` 
                                 <div style="padding: 10px;">
                                     <div class="my" id="my">
-                                    ${message}
+                                    ${message} - ${time}
                                     </div>
                                 </div>`
         } else {
             chat_box.innerHTML += `                            
                                 <div style="padding: 10px;">
                                     <div class="others" id="others">
-                                    ${message}
+                                     ${time} - ${message}
                                     </div>
                                 </div>`
         }
@@ -206,9 +209,6 @@ async function chatroomSelect(id) {
 
 var header_div = document.getElementsByClassName("header");
 function handleClick(event) {
-    // console.log(event.target);
-    // console.log(this);
-
     if (event.target.classList[1] === "clicked") {
         event.target.classList.remove("clicked");
     } else {
