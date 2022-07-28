@@ -9,7 +9,7 @@
     left: 0;
     margin-bottom: 30px;
     z-index: 1;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .logo {
