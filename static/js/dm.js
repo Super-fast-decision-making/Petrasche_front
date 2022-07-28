@@ -23,7 +23,7 @@ init();
 
 // 로그인 유저 불러오기
 async function getUserInfo() {
-    const response = await fetch(`${backend_base_url}user`, {
+    const response = await fetch(`${backend_base_url}user/`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -44,7 +44,7 @@ const USER_NAME = sessionStorage.getItem('username')
 
 // 내 채팅방 불러오기 
 async function getHeader() {
-    const response = await fetch(`${backend_base_url}dm`, {
+    const response = await fetch(`${backend_base_url}dm/`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -53,7 +53,6 @@ async function getHeader() {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
     const header_list = document.getElementById("header_list")
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
@@ -64,8 +63,6 @@ async function getHeader() {
         let sender = response_json[i].sender
         let last_message = response_json[i].last_message.message
         let date = response_json[i].last_message.date
-        console.log(receiver_img)
-        console.log(sender_img)
 
         if (USER_NAME === sender) {
             let chatuser = receiver
@@ -109,12 +106,26 @@ async function getHeader() {
             </div>`
         }
     }
-    const my_chat = document.getElementById("my_message")
-    const other_chat = document.getElementById("other_message")
+    // const my_chat = document.getElementById("my_message")
+    // const other_chat = document.getElementById("other_message")
     return response_json
 }
 getHeader()
 
+// async function createHeader(id) {
+//     const response = await fetch(`${backend_base_url}dm/${id}/`, {
+//         method: 'POST',
+//         headers: {
+//             Accept: 'application/json',
+//             'Content-type': 'application/json',
+//             'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+//         },
+//         body: JSON.stringify(commentData)
+//     }).then(response => response.json())
+//         .then(data => {
+//             // ResponseloadComments(data)
+//         })
+// }
 
 async function chatopen(id) {
     const response = await fetch(`${backend_base_url}dm/${id}`, {
@@ -150,6 +161,9 @@ async function chatopen(id) {
         chat_box.scrollTop = chat_box.scrollHeight;
     }
 }
+
+
+
 
 // 웹소켓 커넥트
 let url = 'ws://127.0.0.1:8000/chat/'
