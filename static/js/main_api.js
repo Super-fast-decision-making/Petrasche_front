@@ -240,7 +240,7 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
-    fetch(`${backend_base_url}article`, {
+    fetch(`${backend_base_url}article/`, {
       method: "POST",
       body: formData,
       headers: {
@@ -554,7 +554,7 @@ const CommentEdit = (id, article_id, text) => {
       const data = {
         comment: comment,
       };
-      fetch(BACK_END_URL + `comment/${id}/`, {
+      fetch(`${backend_base_url}article/comment/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -577,7 +577,7 @@ const CommentEdit = (id, article_id, text) => {
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "comment/" + id + "/", {
+    fetch(`${backend_base_url}article/comment/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
