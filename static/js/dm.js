@@ -88,7 +88,6 @@ getHeader()
 
 
 // 웹소켓 커넥트
-
 let connectedChatSocket = ''
 async function chatroomSelect(id) {
     if (connectedChatSocket != '') {
@@ -202,23 +201,24 @@ async function chatroomSelect(id) {
         }
         return response_json
     }
-
-
-    var header_div = document.getElementsByClassName("header");
-    function handleClick(event) {
-        if (event.target.classList[1] === "clicked") {
-            event.target.classList.remove("clicked");
-        } else {
-            for (var i = 0; i < header_div.length; i++) {
-                header_div[i].classList.remove("clicked");
-            }
-            event.target.classList.add("clicked");
-        }
-    }
-    function init() {
-        for (var i = 0; i < header_div.length; i++) {
-            header_div[i].addEventListener("click", handleClick);
-        }
-    }
-    init();
 }
+
+
+// 헤더div 클릭시 색 변경
+var header_div = document.getElementsByClassName("header");
+function handleClick(event) {
+    if (event.target.classList[1] === "clicked") {
+        event.target.classList.remove("clicked");
+    } else {
+        for (var i = 0; i < header_div.length; i++) {
+            header_div[i].classList.remove("clicked");
+        }
+        event.target.classList.add("clicked");
+    }
+}
+function init() {
+    for (var i = 0; i < header_div.length; i++) {
+        header_div[i].addEventListener("click", handleClick);
+    }
+}
+init();
