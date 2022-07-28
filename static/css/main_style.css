@@ -28,7 +28,7 @@ body {
     width: 100vw;
 }
 
-.navbar {
+/* .navbar {
     background: #C4D7E0;
     height: 50px;
     width: 100%;
@@ -39,7 +39,7 @@ body {
     left: 0;
     margin-bottom: 30px;
     z-index: 1;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .logo {
@@ -79,7 +79,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* margin-right: 20px; */
+    margin-right: 20px;
 }
 
 .alarm {
@@ -167,7 +167,7 @@ body {
     border-radius: 5px;
     padding: 2px 5px;
     background-color: #ff0000;
-}
+} */
 
 .left_menu {
     flex-shrink: 0;
