@@ -134,97 +134,91 @@ async function chatroomSelect(id) {
         newMessage(message, sent_by_id, time)
 
 
-    chatSocket.onerror = async function (e) {
-        console.log('error', e)
-        setTimeout(function () {
-            connect();
-        }, 1000);
-    }
+        chatSocket.onerror = async function (e) {
+            console.log('error', e)
+            setTimeout(function () {
+                connect();
+            }, 1000);
+        }
 
-    chatSocket.onclose = async function (e) {
-        console.log('close', e)
-    }
+        chatSocket.onclose = async function (e) {
+            console.log('close', e)
+        }
 
-    // 발신한 메세지 HTML에 붙이기
-    function newMessage(message, sent_by_id, time) {
-        let messages = document.getElementById("chat_box")
-        message.innerHTML = ""
-        console.log(sent_by_id + '====>' + USER_ID)
-        if (sent_by_id == USER_ID) {
-            messages.innerHTML += `<div style="padding: 10px;">
+        // 발신한 메세지 HTML에 붙이기
+        function newMessage(message, sent_by_id, time) {
+            let messages = document.getElementById("chat_box")
+            message.innerHTML = ""
+            console.log(sent_by_id + '====>' + USER_ID)
+            if (sent_by_id == USER_ID) {
+                messages.innerHTML += `<div style="padding: 10px;">
                                     <div class="my" id="my">
                                     ${message} - ${time}
                                     </div>
                                 </div>`
-        } else {
-            messages.innerHTML += `<div style="padding: 10px;">
+            } else {
+                messages.innerHTML += `<div style="padding: 10px;">
                                     <div class="others" id="others">
                                     ${message} - ${time} 
                                     </div>
                                 </div>`
+            }
+            messages.scrollTop = messages.scrollHeight;
         }
-        messages.scrollTop = messages.scrollHeight;
-    }
 
-    const response = await fetch(`${backend_base_url}dm/${id}/`, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        }
-    })
-    response_json = await response.json()
-    console.log(response_json)
-    sessionStorage.setItem('header_id', response_json[0].id)
-    let chat_box = document.getElementById('chat_box')
-    chat_box.innerHTML = ''
-    for (let i = 0; i < response_json[0].messages.length; i++) {
-        let sender = response_json[0].messages[i].sender
-        let message = response_json[0].messages[i].message
-        let time = response_json[0].messages[i].at_time
-        if (USER_NAME == sender) {
-            chat_box.innerHTML += ` 
+        const response = await fetch(`${backend_base_url}dm/${id}/`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            }
+        })
+        response_json = await response.json()
+        console.log(response_json)
+        sessionStorage.setItem('header_id', response_json[0].id)
+        let chat_box = document.getElementById('chat_box')
+        chat_box.innerHTML = ''
+        for (let i = 0; i < response_json[0].messages.length; i++) {
+            let sender = response_json[0].messages[i].sender
+            let message = response_json[0].messages[i].message
+            let time = response_json[0].messages[i].at_time
+            if (USER_NAME == sender) {
+                chat_box.innerHTML += ` 
                                 <div style="padding: 10px;">
                                     <div class="my" id="my">
                                     ${message} - ${time}
                                     </div>
                                 </div>`
-        } else {
-            chat_box.innerHTML += `                            
+            } else {
+                chat_box.innerHTML += `                            
                                 <div style="padding: 10px;">
                                     <div class="others" id="others">
                                      ${time} - ${message}
                                     </div>
                                 </div>`
+            }
+            chat_box.scrollTop = chat_box.scrollHeight;
         }
-        chat_box.scrollTop = chat_box.scrollHeight;
+        return response_json
     }
-    return response_json
-}
 
 
-var header_div = document.getElementsByClassName("header");
-function handleClick(event) {
-    if (event.target.classList[1] === "clicked") {
-        event.target.classList.remove("clicked");
-    } else {
+    var header_div = document.getElementsByClassName("header");
+    function handleClick(event) {
+        if (event.target.classList[1] === "clicked") {
+            event.target.classList.remove("clicked");
+        } else {
+            for (var i = 0; i < header_div.length; i++) {
+                header_div[i].classList.remove("clicked");
+            }
+            event.target.classList.add("clicked");
+        }
+    }
+    function init() {
         for (var i = 0; i < header_div.length; i++) {
-            header_div[i].classList.remove("clicked");
+            header_div[i].addEventListener("click", handleClick);
         }
-        event.target.classList.add("clicked");
     }
+    init();
 }
-function init() {
-    for (var i = 0; i < header_div.length; i++) {
-        header_div[i].addEventListener("click", handleClick);
-    }
-}
-init();
-
-
-
-
-
-
-
