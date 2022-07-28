@@ -117,8 +117,7 @@ async function chatroomSelect(id) {
             chatSocket.send(JSON.stringify({
                 'message': message,
                 'sent_by': USER_ID,
-                'header_id': header
-
+                'header_id': header,
             }))
             form.reset()
         })
@@ -132,9 +131,7 @@ async function chatroomSelect(id) {
         let sent_by_id = data['sender']
         let header_id = data['header_id']
         let time = data['time']
-        console.log(data)
         newMessage(message, sent_by_id, time)
-    }
 
 
     chatSocket.onerror = async function (e) {
@@ -224,7 +221,6 @@ function init() {
     }
 }
 init();
-
 
 
 
