@@ -618,7 +618,7 @@ const Follow = (user, article) => {
   const data = {
     username: user,
   };
-  fetch(USER_URL + "follow/", {
+  fetch(`${backend_base_url}user/follow/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),

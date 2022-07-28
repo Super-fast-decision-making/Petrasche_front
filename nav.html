@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/static/css/nav.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <script src="/static/js/urls.js"></script>
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
@@ -29,8 +28,7 @@
                         alt="">
                 </div>
                 <div onclick="UserPage()" id="user_profile" class="user_profile">
-                    <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
-                        alt="">
+                    <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt="">
                 </div>
                 <div onclick="alarm(this)" id="alarm" class="alarm">
                     <i class="fa-solid fa-bell"></i>
@@ -46,64 +44,5 @@
     </div>
 
 </body>
-
-<!-- <script>
-
-    const DM = () => {
-        window.location.href = "/dm.html";
-    }
-    const home = () => {
-        window.location.href = "/index.html";
-    }
-    const UserPage = () => {
-        window.location.href = "/mypage.html";
-    }
-    const Logout = () => {
-        localStorage.removeItem("user_access_token");
-        localStorage.removeItem("user_refresh_token");
-        localStorage.removeItem("payload");
-        window.location.href = "./login.html";
-    };
-    function alarm(id) {
-        id.childNodes[3].innerHTML = "";
-        fetch(USER_URL + "history/", {
-            method: "GET",
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-                "Content-Type": "application/json",
-            },
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.length == 0) {
-                    id.childNodes[3].innerHTML = "알림이 없습니다.";
-                } else {
-                    res.forEach((history) => {
-                        if (history.type == "like") {
-                            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다. ${history.time}</div>`;
-                        }
-                        if (history.type == "follow") {
-                            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다. ${history.time}</div>`;
-                        }
-                        if (history.type == "comment") {
-                            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다. ${history.time}</div>`;
-                        }
-                    });
-                }
-            });
-
-        id.childNodes[3].style.display = "block";
-        let alarm = true;
-        id.onclick = () => {
-            if (alarm) {
-                id.childNodes[3].style.display = "none";
-                alarm = false;
-            } else {
-                id.childNodes[3].style.display = "block";
-                alarm = true;
-            }
-        };
-    }
-</script> -->
 
 </html>

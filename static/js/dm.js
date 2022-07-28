@@ -115,6 +115,21 @@ async function getHeader() {
 }
 getHeader()
 
+async function createHeader(id) {
+
+    const response = await fetch(`${backend_base_url}dm/${id}/`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(commentData)
+    }).then(response => response.json())
+        .then(data => {
+            // ResponseloadComments(data)
+        })
+}
 
 async function chatopen(id) {
     const response = await fetch(`${backend_base_url}dm/${id}`, {
@@ -150,6 +165,9 @@ async function chatopen(id) {
         chat_box.scrollTop = chat_box.scrollHeight;
     }
 }
+
+
+
 
 // 웹소켓 커넥트
 let url = 'ws://127.0.0.1:8000/chat/'
