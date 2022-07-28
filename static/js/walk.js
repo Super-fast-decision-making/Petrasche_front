@@ -214,12 +214,8 @@ async function loadWalkArticle(page, gender, size, region, number){
     res.forEach(post => {
         customers.innerHTML +=
             `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
-<<<<<<< HEAD
                 <!--<td>${post.start_date.substring(5,10)}</td>--->
                 <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
-=======
-                <td>${post.start_time.split(' ')[1].substring(0, 5)}~${post.end_time.split(' ')[1].substring(0, 5)}</td>
->>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
                 <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
                 <td>${post.people_num}</td>
                 <td id='gowalkbutton${post.id}'>산책가기</td>
