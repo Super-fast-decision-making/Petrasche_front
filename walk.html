@@ -74,6 +74,9 @@
                 </div>
             </nav>
             <!--  -->
+            <div id="map_modal" style="display: none;padding:20px;left:30%;background-color:skyblue;width:500px;height:500px;z-index:10000;position:absolute;">
+                <div id="map" style="height:460px; width: 460px;"></div>
+            </div>
 
 
             
@@ -257,12 +260,9 @@
                 
                         </div>
                         <hr>
-                
-                
-
                         <div>
                             <div style="width:100%; height:50px;"></div>
-                            <input id='m_input_p' style="width:100%; height:30px" placeholder="만날 장소 (상세하게 적어주세요)"></input>
+                            <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p' style="width:90%; height:30px" placeholder="만날 장소 (상세하게 적어주세요)"></input><button onclick='startMap("서현역")'style="width:10%">지도 검색</button></div>
                             <div class="dropdown-row">
                                 <div style="width:100%; height:30px;">
                                     <div class="dropdown">
@@ -332,23 +332,102 @@
                         </div>
                     </div>                
                 </div>
+                <!-------------------------------->
                 
+            
+        </div>
+        <!-- <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=p78mob3dig"></script>
+        <script>
+            
+            //지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
+            var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
+
+            //옵션 없이 지도 객체를 생성하면 서울 시청을 중심으로 하는 16 레벨의 지도가 생성됩니다.
+            var map = new naver.maps.Map(mapDiv); -->
+        <!-- </script> -->
+        <script type="text/javascript" src='//dapi.kakao.com/v2/maps/sdk.js?appkey=b1ae05cf3f44682ccf7ffba8606235b3&libraries=services'></script>
+
+        <script>
+
 
             
 
-        </div>
+            function mapOn(search){
+                            // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+                var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+                
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                    mapOption = {
+                        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };  
+                
+                // 지도를 생성합니다    
+                var map = new kakao.maps.Map(mapContainer, mapOption); 
+                
+                // 장소 검색 객체를 생성합니다
+                var ps = new kakao.maps.services.Places(); 
+                
+                // 키워드로 장소를 검색합니다
+                console.log(search)
+                ps.keywordSearch(search, placesSearchCB); 
+                var bounds = new kakao.maps.LatLngBounds();
+                function placesSearchCB (data, status, pagination) {
+                    if (status === kakao.maps.services.Status.OK) {
+
+                        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                        // LatLngBounds 객체에 좌표를 추가합니다
+                        var bounds = new kakao.maps.LatLngBounds();
+                
+                        for (var i=0; i<data.length; i++) {
+                            displayMarker(data[i]);    
+                            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                        }       
+                
+                        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                        map.setBounds(bounds);
+                    }
+
+                }
+                            // 지도에 마커를 표시하는 함수입니다
+                function displayMarker(place) {
+                    
+                    // 마커를 생성하고 지도에 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: new kakao.maps.LatLng(place.y, place.x) 
+                    });
+                
+                    // 마커에 클릭이벤트를 등록합니다
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                        infowindow.open(map, marker);
+                        alert(place.place_name)
+                        document.getElementById('m_input_p').value = place.place_name
+                        document.getElementById('map_modal').style.display='none'
+                    });
+                }
+            }       
+            </script>
         
         <script src="./static/js/api.js"></script>
-        <!-- <script src="./static/js/search.js"></script> -->
-        <!-- <script src="/static/js/hashtag.js"></script> -->
-        <!-- <script src="./static/js/urls.js"></script> -->
+        <script src="./static/js/search.js"></script>
+        <script src="/static/js/hashtag.js"></script>
+        <script src="./static/js/urls.js"></script>
         <script src="/static/js/walk.js"></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
         <script src="./static/js/kakao.js"></script>
-
-
         <script>
+            function startMap(){
+                document.getElementById('map_modal').style.display='inline'
+                const search = m_input_p.value;
+
+                mapOn(search)
+            }
         </script>
+
+
 </body>
 
 

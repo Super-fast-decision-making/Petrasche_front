@@ -1,8 +1,3 @@
-const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/"
-
-
-
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -20,8 +15,10 @@ function walkModalOpen() {
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
-        const editor = document.getElementById("editor")
+        document.getElementById('map_modal').style.display='none'
+
     }
+    
 }
 
 function goBack() {
@@ -214,6 +211,7 @@ async function loadWalkArticle(page, gender, size, region, number){
     res.forEach(post => {
         customers.innerHTML+=
             `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
+                <!--<td>${post.start_date.substring(5,10)}</td>--->
                 <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
                 <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
                 <td>${post.people_num}</td>

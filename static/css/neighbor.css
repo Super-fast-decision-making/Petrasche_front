@@ -178,7 +178,7 @@
     width: 80%;
     max-width: 1000px;
     margin-top: 100px;
-    height:522px /* Could be more or less, depending on screen size */
+    height:602px /* Could be more or less, depending on screen size */
 }
 
 .modal-head{
@@ -188,7 +188,16 @@
 
 .m_submit_button{
     margin-bottom: 10px; 
-    background-color: skyblue;
+    background-color: black;
+    color:white;
+    padding:8px;
+    border-radius:5px;
+}
+
+.m_submit_button:hover{
+    transform: scale(1.01);
+    transition: transform 0.5s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
   /* The Close Button */
@@ -230,7 +239,11 @@
 
 
 
-
+.right_column{
+    position: sticky;
+    top: 10px;
+    left: 0;
+}
 
 
 

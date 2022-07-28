@@ -18,11 +18,9 @@ async function handleSignup() {
         alert("성별을 선택해 주세요!")
         return
     }
-
     gender_check.forEach((ch) => {
         gender = ch.value
     })
-
     const signupData = {
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
@@ -31,7 +29,6 @@ async function handleSignup() {
         is_active_val: document.getElementById("is_active").value,
         gender_choice: gender,
     }
-
     const response = await fetch(`${backend_base_url}user/`, {
         headers: {
             Accept: 'application/json',
@@ -41,7 +38,6 @@ async function handleSignup() {
         body: JSON.stringify(signupData)
     })
     response_json = await response.json()
-
     if (response.status == 200) {
         window.location.replace(`${frontend_base_url}login.html`);
     } else {

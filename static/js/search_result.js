@@ -1,6 +1,6 @@
 
 const GetUserInfo = () => {
-  fetch(USER_URL, {
+  fetch(`${backend_base_url}user/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -23,7 +23,7 @@ const Refresh_Token = () => {
   if (PayLoad.exp > Date.now() / 1000) {
     return;
   } else {
-    fetch(USER_URL + "refresh/", {
+    fetch(`${backend_base_url}user/refresh/`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -43,7 +43,7 @@ const Refresh_Token = () => {
 
 const GetImgList = () => {
   document.getElementById("main_article_list").innerHTML = "";
-  fetch(BACK_END_URL)
+  fetch(`${backend_base_url}article/`)
     .then((res) => res.json())
     .then((data) => {
       data.forEach((item) => {
@@ -107,7 +107,7 @@ function upload_modal_submit() {
   }
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
-    fetch(USER_URL, {
+    fetch(`${backend_base_url}user/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -383,7 +383,7 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "myarticle/" + id + "/", {
+    fetch(`${backend_base_url}article/myarticle/` + id + "/", {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -415,7 +415,7 @@ const ArticleEdit = (id) => {
       const data = {
         content: content,
       };
-      fetch(BACK_END_URL + `myarticle/${id}/`, {
+      fetch(`${backend_base_url}article/myarticle/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -456,7 +456,7 @@ const CommentEdit = (id, article_id, text) => {
       const data = {
         comment: comment,
       };
-      fetch(BACK_END_URL + `comment/${id}/`, {
+      fetch(`${backend_base_url}article/comment/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -479,7 +479,7 @@ const CommentEdit = (id, article_id, text) => {
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "comment/" + id + "/", {
+    fetch(`${backend_base_url}article/comment/` + id + "/", {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -519,7 +519,7 @@ const Follow = (user, article) => {
   const data = {
     username: user,
   };
-  fetch(USER_URL + "follow/", {
+  fetch(`${backend_base_url}user/follow/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -536,7 +536,7 @@ const Follow = (user, article) => {
 
 function alarm(id) {
   id.childNodes[3].innerHTML = "";
-  fetch(USER_URL + "history/", {
+  fetch(`${backend_base_url}user/history/`, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
