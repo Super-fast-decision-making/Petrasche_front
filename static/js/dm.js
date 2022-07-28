@@ -115,21 +115,21 @@ async function getHeader() {
 }
 getHeader()
 
-async function createHeader(id) {
+// async function createHeader(id) {
 
-    const response = await fetch(`${backend_base_url}dm/${id}/`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        },
-        body: JSON.stringify(commentData)
-    }).then(response => response.json())
-        .then(data => {
-            // ResponseloadComments(data)
-        })
-}
+//     const response = await fetch(`${backend_base_url}dm/${id}/`, {
+//         method: 'POST',
+//         headers: {
+//             Accept: 'application/json',
+//             'Content-type': 'application/json',
+//             'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+//         },
+//         body: JSON.stringify(commentData)
+//     }).then(response => response.json())
+//         .then(data => {
+//             // ResponseloadComments(data)
+//         })
+// }
 
 async function chatopen(id) {
     const response = await fetch(`${backend_base_url}dm/${id}`, {
