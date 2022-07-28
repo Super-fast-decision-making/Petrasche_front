@@ -1,6 +1,10 @@
 
 const GetUserInfo = () => {
+<<<<<<< HEAD
   fetch(`${backend_base_url}user/`, {
+=======
+  fetch(`${backend_base_url}user`, {
+>>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -65,10 +69,6 @@ const GetImgList = () => {
 
 const GetSearchResultList = () => {
   var search_results = JSON.parse(localStorage.getItem('search_results'));
-
-  //   fetch(`${BACK_END_URL}top/`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
   document.getElementById("top_article").innerHTML = "";
 
   search_results.forEach((item) => {
@@ -97,7 +97,6 @@ function upload_modal_submit() {
   let upload_content = document.getElementById("upload_content").value;
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
-  // radio check get
   let pet_check = document.getElementsByName("pet_profile");
   let pet_profile_check = "";
   for (let i = 0; i < pet_check.length; i++) {
@@ -152,7 +151,7 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
-    fetch(BACK_END_URL, {
+    fetch(`${backend_base_url}article`, {
       method: "POST",
       body: formData,
       headers: {
@@ -174,7 +173,7 @@ function modal_open(id) {
   document.body.style.overflow = "hidden";
   document.body.style.touchAction = "none";
   document.getElementById("modal_box").style.display = "flex";
-  fetch(`http://127.0.0.1:8000/article/${id}/`)
+  fetch(`${backend_base_url}article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
       if (data.likes.indexOf(user_id) != -1) {
@@ -222,7 +221,7 @@ function modal_open(id) {
       let images = data.images;
       let content_raw = data.content;
       let content = tagToLink(content_raw)
-      
+
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
@@ -341,7 +340,7 @@ const CommentUpload = (id) => {
   const data = {
     comment: comment_content,
   };
-  fetch(`${BACK_END_URL}comment/${id}/`, {
+  fetch(`${backend_base_url}article/comment/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -363,7 +362,7 @@ const Logout = () => {
 };
 
 const LikeOn = (id) => {
-  fetch(`${BACK_END_URL}like/${id}/`, {
+  fetch(`${backend_base_url}article/like/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -383,7 +382,11 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
+<<<<<<< HEAD
     fetch(`${backend_base_url}article/myarticle/` + id + "/", {
+=======
+    fetch(`${backend_base_url}article/myarticle/${id}/`, {
+>>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -479,7 +482,11 @@ const CommentEdit = (id, article_id, text) => {
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
+<<<<<<< HEAD
     fetch(`${backend_base_url}article/comment/` + id + "/", {
+=======
+    fetch(`${backend_base_url}article/comment/${id}/`, {
+>>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -534,6 +541,7 @@ const Follow = (user, article) => {
     });
 };
 
+<<<<<<< HEAD
 function alarm(id) {
   id.childNodes[3].innerHTML = "";
   fetch(`${backend_base_url}user/history/`, {
@@ -577,6 +585,8 @@ function alarm(id) {
 
 
 
+=======
+>>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
 GetUserInfo();
 // GetImgList();
 GetSearchResultList();
