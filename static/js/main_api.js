@@ -1,4 +1,3 @@
-
 // page 전역변수
 page_num = 1;
 page = true;
@@ -54,7 +53,7 @@ async function handleLogin() {
 }
 
 const GetImgListPage = (page) => {
-  fetch(BACK_END_URL + "page/" + page + "/", {
+  fetch(`${backend_base_url}article/page/${page}/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -92,7 +91,7 @@ const GetImgListPage = (page) => {
 
 
 const GetUserInfo = () => {
-  fetch(USER_URL, {
+  fetch(`${backend_base_url}user/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -115,7 +114,7 @@ const Refresh_Token = () => {
   if (PayLoad.exp > Date.now() / 1000) {
     return;
   } else {
-    fetch(USER_URL + "refresh/", {
+    fetch(`${backend_base_url}user/refresh`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -135,7 +134,7 @@ const Refresh_Token = () => {
 
 const GetImgList = () => {
   // document.getElementById("main_article_list").innerHTML = "";
-  fetch(BACK_END_URL)
+  fetch(`${backend_base_url}article/`)
     .then((res) => res.json())
     .then((data) => {
       data.forEach((item) => {
@@ -156,7 +155,7 @@ const GetImgList = () => {
 };
 
 const GetTopList = () => {
-  fetch(`${BACK_END_URL}top/`)
+  fetch(`${backend_base_url}article/top/`)
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("top_article").innerHTML = "";
@@ -196,7 +195,7 @@ function upload_modal_submit() {
   }
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
-    fetch(USER_URL, {
+    fetch(`${backend_base_url}user`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -241,7 +240,7 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
-    fetch(BACK_END_URL, {
+    fetch(`${backend_base_url}article`, {
       method: "POST",
       body: formData,
       headers: {
@@ -276,7 +275,7 @@ function modal_open(id) {
     document.body.style.overflow = "hidden";
     document.body.style.touchAction = "none";
   }
-  fetch(`http://127.0.0.1:8000/article/${id}/`)
+  fetch(`${backend_base_url}article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
       if (data.likes.indexOf(user_id) != -1) {
@@ -444,7 +443,7 @@ const CommentUpload = (id) => {
   const data = {
     comment: comment_content,
   };
-  fetch(`${BACK_END_URL}comment/${id}/`, {
+  fetch(`${backend_base_url}article/comment/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -459,7 +458,7 @@ const CommentUpload = (id) => {
 };
 
 const LikeOn = (id) => {
-  fetch(`${BACK_END_URL}like/${id}/`, {
+  fetch(`${backend_base_url}article/like/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -479,7 +478,7 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "myarticle/" + id + "/", {
+    fetch(`${backend_base_url}article/myarticle/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -514,7 +513,7 @@ const ArticleEdit = (id) => {
       const data = {
         content: content,
       };
-      fetch(BACK_END_URL + `myarticle/${id}/`, {
+      fetch(`${backend_base_url}article/myarticle/${id}`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -633,6 +632,7 @@ const Follow = (user, article) => {
       modal_open(article);
     });
 };
+
 
 GetUserInfo();
 GetImgList();

@@ -142,7 +142,7 @@ async function postComment(id, comment) {
         comment: comment
     }
     console.log(commentData)
-    const response = await fetch(`http://127.0.0.1:8000/article/comment/${id}/`, {
+    const response = await fetch(`${backend_base_url}article/comment/${id}/`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
