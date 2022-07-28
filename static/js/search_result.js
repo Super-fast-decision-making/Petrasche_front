@@ -1,6 +1,6 @@
 
 const GetUserInfo = () => {
-  fetch(USER_URL, {
+  fetch(`${backend_base_url}/user`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -23,7 +23,7 @@ const Refresh_Token = () => {
   if (PayLoad.exp > Date.now() / 1000) {
     return;
   } else {
-    fetch(USER_URL + "refresh/", {
+    fetch(`${backend_base_url}/user/refresh/`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -43,7 +43,7 @@ const Refresh_Token = () => {
 
 const GetImgList = () => {
   document.getElementById("main_article_list").innerHTML = "";
-  fetch(BACK_END_URL)
+  fetch(`${backend_base_url}/article/`)
     .then((res) => res.json())
     .then((data) => {
       data.forEach((item) => {
@@ -65,10 +65,6 @@ const GetImgList = () => {
 
 const GetSearchResultList = () => {
   var search_results = JSON.parse(localStorage.getItem('search_results'));
-
-  //   fetch(`${BACK_END_URL}top/`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
   document.getElementById("top_article").innerHTML = "";
 
   search_results.forEach((item) => {
@@ -97,7 +93,6 @@ function upload_modal_submit() {
   let upload_content = document.getElementById("upload_content").value;
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
-  // radio check get
   let pet_check = document.getElementsByName("pet_profile");
   let pet_profile_check = "";
   for (let i = 0; i < pet_check.length; i++) {
@@ -107,7 +102,7 @@ function upload_modal_submit() {
   }
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
-    fetch(USER_URL, {
+    fetch(`${backend_base_url}/user/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -152,7 +147,7 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
-    fetch(BACK_END_URL, {
+    fetch(`${backend_base_url}/article`, {
       method: "POST",
       body: formData,
       headers: {
@@ -174,7 +169,7 @@ function modal_open(id) {
   document.body.style.overflow = "hidden";
   document.body.style.touchAction = "none";
   document.getElementById("modal_box").style.display = "flex";
-  fetch(`http://127.0.0.1:8000/article/${id}/`)
+  fetch(`${backend_base_url}/article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
       if (data.likes.indexOf(user_id) != -1) {
@@ -222,7 +217,7 @@ function modal_open(id) {
       let images = data.images;
       let content_raw = data.content;
       let content = tagToLink(content_raw)
-      
+
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
@@ -341,7 +336,7 @@ const CommentUpload = (id) => {
   const data = {
     comment: comment_content,
   };
-  fetch(`${BACK_END_URL}comment/${id}/`, {
+  fetch(`${backend_base_url}/article/comment/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -363,7 +358,7 @@ const Logout = () => {
 };
 
 const LikeOn = (id) => {
-  fetch(`${BACK_END_URL}like/${id}/`, {
+  fetch(`${backend_base_url}/article/like/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -383,7 +378,7 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "myarticle/" + id + "/", {
+    fetch(`${backend_base_url}/article/myarticle/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -415,7 +410,7 @@ const ArticleEdit = (id) => {
       const data = {
         content: content,
       };
-      fetch(BACK_END_URL + `myarticle/${id}/`, {
+      fetch(`${backend_base_url}/article/myarticle/${id}`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -456,7 +451,7 @@ const CommentEdit = (id, article_id, text) => {
       const data = {
         comment: comment,
       };
-      fetch(BACK_END_URL + `comment/${id}/`, {
+      fetch(`${backend_base_url}/article/comment/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -479,7 +474,7 @@ const CommentEdit = (id, article_id, text) => {
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "comment/" + id + "/", {
+    fetch(`${backend_base_url}/article/comment/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -519,7 +514,7 @@ const Follow = (user, article) => {
   const data = {
     username: user,
   };
-  fetch(USER_URL + "follow/", {
+  fetch(`${backend_base_url}/user/follow/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -534,46 +529,46 @@ const Follow = (user, article) => {
     });
 };
 
-function alarm(id) {
-  id.childNodes[3].innerHTML = "";
-  fetch(USER_URL + "history/", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.length == 0) {
-        id.childNodes[3].innerHTML = "알림이 없습니다.";
-      } else {
-        res.forEach((history) => {
-          if (history.type == "like") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다.</div>`;
-          }
-          if (history.type == "follow") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다.</div>`;
-          }
-          if (history.type == "comment") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다.</div>`;
-          }
-        });
-      }
-    });
+// function alarm(id) {
+//   id.childNodes[3].innerHTML = "";
+//   fetch(USER_URL + "history/", {
+//     method: "GET",
+//     headers: {
+//       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((res) => res.json())
+//     .then((res) => {
+//       if (res.length == 0) {
+//         id.childNodes[3].innerHTML = "알림이 없습니다.";
+//       } else {
+//         res.forEach((history) => {
+//           if (history.type == "like") {
+//             id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다.</div>`;
+//           }
+//           if (history.type == "follow") {
+//             id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다.</div>`;
+//           }
+//           if (history.type == "comment") {
+//             id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다.</div>`;
+//           }
+//         });
+//       }
+//     });
 
-  id.childNodes[3].style.display = "block";
-  let alarm = true;
-  id.onclick = () => {
-    if (alarm) {
-      id.childNodes[3].style.display = "none";
-      alarm = false;
-    } else {
-      id.childNodes[3].style.display = "block";
-      alarm = true;
-    }
-  };
-}
+//   id.childNodes[3].style.display = "block";
+//   let alarm = true;
+//   id.onclick = () => {
+//     if (alarm) {
+//       id.childNodes[3].style.display = "none";
+//       alarm = false;
+//     } else {
+//       id.childNodes[3].style.display = "block";
+//       alarm = true;
+//     }
+//   };
+// }
 
 
 
