@@ -1,10 +1,6 @@
 
 const GetUserInfo = () => {
-<<<<<<< HEAD
-  fetch(`${backend_base_url}user/`, {
-=======
   fetch(`${backend_base_url}user`, {
->>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -382,11 +378,7 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-<<<<<<< HEAD
-    fetch(`${backend_base_url}article/myarticle/` + id + "/", {
-=======
     fetch(`${backend_base_url}article/myarticle/${id}/`, {
->>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -482,11 +474,7 @@ const CommentEdit = (id, article_id, text) => {
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-<<<<<<< HEAD
-    fetch(`${backend_base_url}article/comment/` + id + "/", {
-=======
     fetch(`${backend_base_url}article/comment/${id}/`, {
->>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -541,52 +529,6 @@ const Follow = (user, article) => {
     });
 };
 
-<<<<<<< HEAD
-function alarm(id) {
-  id.childNodes[3].innerHTML = "";
-  fetch(`${backend_base_url}user/history/`, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.length == 0) {
-        id.childNodes[3].innerHTML = "알림이 없습니다.";
-      } else {
-        res.forEach((history) => {
-          if (history.type == "like") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다.</div>`;
-          }
-          if (history.type == "follow") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다.</div>`;
-          }
-          if (history.type == "comment") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다.</div>`;
-          }
-        });
-      }
-    });
-
-  id.childNodes[3].style.display = "block";
-  let alarm = true;
-  id.onclick = () => {
-    if (alarm) {
-      id.childNodes[3].style.display = "none";
-      alarm = false;
-    } else {
-      id.childNodes[3].style.display = "block";
-      alarm = true;
-    }
-  };
-}
-
-
-
-=======
->>>>>>> 30fbb82c2230a65ce294e5565c664e0dcdb4eab7
 GetUserInfo();
 // GetImgList();
 GetSearchResultList();

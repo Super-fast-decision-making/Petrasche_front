@@ -108,6 +108,8 @@ const GetUserInfo = () => {
       }
     });
 };
+//EXP는 1659096952
+console.log(Date.now()) //경과된 밀리초를 반환 1659093401862
 
 const Refresh_Token = () => {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
