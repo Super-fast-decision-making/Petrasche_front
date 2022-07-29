@@ -1,34 +1,46 @@
-// 로그인 유저 불러오기
-async function getUserInfo() {
-    const response = await fetch(`${backend_base_url}user/`, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        }
-    })
-    response_json = await response.json()
+async function loadUserinfo(id) {
+    const response_json = await getUserInfo(id)
     sessionStorage.setItem('id', response_json.id)
     sessionStorage.setItem('username', response_json.username)
-    return response_json
 }
-getUserInfo()
 const USER_ID = sessionStorage.getItem('id')
 const USER_NAME = sessionStorage.getItem('username')
 
 
-// 내 채팅방 불러오기 
-async function getHeader() {
-    const response = await fetch(`${backend_base_url}dm/`, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+// 메세지 기록 불러오기
+async function loadMessage(id) {
+    const response_json = await getMessage(id)
+    sessionStorage.setItem('header_id', response_json[0].id)
+    let chat_box = document.getElementById('chat_box')
+    chat_box.innerHTML = ''
+    for (let i = 0; i < response_json[0].messages.length; i++) {
+        let sender = response_json[0].messages[i].sender
+        let message = response_json[0].messages[i].message
+        let time = response_json[0].messages[i].at_time
+        if (USER_NAME == sender) {
+            chat_box.innerHTML += ` 
+                                <div style="padding: 10px;">
+                                    <div class="my" id="my">
+                                    ${message} - ${time}
+                                    </div>
+                                </div>`
+        } else {
+            chat_box.innerHTML += `                            
+                                <div style="padding: 10px;">
+                                    <div class="others" id="others">
+                                     ${time} - ${message}
+                                    </div>
+                                </div>`
         }
-    })
-    response_json = await response.json()
+        chat_box.scrollTop = chat_box.scrollHeight;
+    }
+
+}
+
+
+// 헤더 리스트 불러오기
+async function loadHeader(id) {
+    const response_json = await getHeader(id)
     const header_list = document.getElementById("header_list")
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
@@ -39,7 +51,6 @@ async function getHeader() {
         let sender = response_json[i].sender
         let last_message = response_json[i].last_message.message
         let date = response_json[i].last_message.date
-
         if (USER_NAME === sender) {
             let chatuser = receiver
             let chatuser_img = receiver_img
@@ -82,128 +93,78 @@ async function getHeader() {
             </div>`
         }
     }
-    return response_json
 }
-getHeader()
+loadHeader()
+
 
 
 // 웹소켓 커넥트
-
 let connectedChatSocket = ''
 async function chatroomSelect(id) {
     if (connectedChatSocket != '') {
         connectedChatSocket.close()
     }
-    const data = await getHeader(id)
+    await loadMessage(id)
+
+    //챗 소켓 서버를 오픈하는 부분 
     var url = `ws://127.0.0.1:8000/chat/${id}`
     const chatSocket = new ReconnectingWebSocket(url)
     connectedChatSocket = chatSocket
 
-    // 메시지 발신
     chatSocket.onopen = async function (e) {
-        var t = setInterval(function () {
-            if (chatSocket.readyState != 1) {
-                clearInterval(t);
-                return;
-            }
-            chatSocket.send('{type:"ping"}');
-        }, 55000);
         console.log('socket Connect!', e)
-        let form = document.getElementById('form')
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault()
-            let message = e.target.message.value
-            let header = sessionStorage.getItem('header_id')
-            chatSocket.send(JSON.stringify({
-                'message': message,
-                'sent_by': USER_ID,
-                'header_id': header,
-            }))
-            form.reset()
-        })
     }
-
-    // 메시지 수신
+    chatSocket.onerror = async function (e) {
+        console.log('error', e)
+    }
+    chatSocket.onclose = async function (e) {
+        console.log('close', e)
+    }
     chatSocket.onmessage = async function (e) {
         console.log('receive Message!', e)
         let data = JSON.parse(e.data)
         let message = data['message']
         let sent_by_id = data['sender']
-        let header_id = data['header_id']
         let time = data['time']
         newMessage(message, sent_by_id, time)
-
-
-    chatSocket.onerror = async function (e) {
-        console.log('error', e)
-        setTimeout(function () {
-            connect();
-        }, 1000);
     }
 
-    chatSocket.onclose = async function (e) {
-        console.log('close', e)
-    }
-
-    // 발신한 메세지 HTML에 붙이기
-    function newMessage(message, sent_by_id, time) {
-        let messages = document.getElementById("chat_box")
-        message.innerHTML = ""
-        console.log(sent_by_id + '====>' + USER_ID)
-        if (sent_by_id == USER_ID) {
-            messages.innerHTML += `<div style="padding: 10px;">
-                                    <div class="my" id="my">
-                                    ${message} - ${time}
-                                    </div>
-                                </div>`
-        } else {
-            messages.innerHTML += `<div style="padding: 10px;">
-                                    <div class="others" id="others">
-                                    ${message} - ${time} 
-                                    </div>
-                                </div>`
-        }
-        messages.scrollTop = messages.scrollHeight;
-    }
-
-    const response = await fetch(`${backend_base_url}dm/${id}/`, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        }
+    let form = document.getElementById('form')
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault()
+        let message = e.target.message.value
+        let header = sessionStorage.getItem('header_id')
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'sent_by': USER_ID,
+            'header_id': header,
+        }))
+        form.reset()
     })
-    response_json = await response.json()
-    console.log(response_json)
-    sessionStorage.setItem('header_id', response_json[0].id)
-    let chat_box = document.getElementById('chat_box')
-    chat_box.innerHTML = ''
-    for (let i = 0; i < response_json[0].messages.length; i++) {
-        let sender = response_json[0].messages[i].sender
-        let message = response_json[0].messages[i].message
-        let time = response_json[0].messages[i].at_time
-        if (USER_NAME == sender) {
-            chat_box.innerHTML += ` 
-                                <div style="padding: 10px;">
-                                    <div class="my" id="my">
-                                    ${message} - ${time}
-                                    </div>
-                                </div>`
-        } else {
-            chat_box.innerHTML += `                            
-                                <div style="padding: 10px;">
-                                    <div class="others" id="others">
-                                     ${time} - ${message}
-                                    </div>
-                                </div>`
-        }
-        chat_box.scrollTop = chat_box.scrollHeight;
+
+}
+
+function newMessage(message, sent_by_id, time) {
+    let messages = document.getElementById("chat_box")
+    message.innerHTML = ""
+    if (sent_by_id == USER_ID) {
+        messages.innerHTML += `<div style="padding: 10px;">
+                            <div class="my" id="my">
+                            ${message} - ${time}
+                            </div>
+                        </div>`
+    } else {
+        messages.innerHTML += `<div style="padding: 10px;">
+                            <div class="others" id="others">
+                            ${time} - ${message} 
+                            </div>
+                        </div>`
     }
-    return response_json
+    messages.scrollTop = messages.scrollHeight;
 }
 
 
+// 헤더div 클릭시 색 변경
 var header_div = document.getElementsByClassName("header");
 function handleClick(event) {
     if (event.target.classList[1] === "clicked") {
@@ -221,10 +182,3 @@ function init() {
     }
 }
 init();
-
-
-
-
-
-
-
