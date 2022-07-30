@@ -114,7 +114,7 @@ const Refresh_Token = () => {
   if (PayLoad.exp > Date.now() / 1000) {
     return;
   } else {
-    fetch(`${backend_base_url}user/refresh`, {
+    fetch(`${backend_base_url}user/refresh/`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -513,7 +513,7 @@ const ArticleEdit = (id) => {
       const data = {
         content: content,
       };
-      fetch(`${backend_base_url}article/myarticle/${id}`, {
+      fetch(`${backend_base_url}article/myarticle/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),

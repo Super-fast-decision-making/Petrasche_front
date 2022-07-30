@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Poor+Story:400');
+
+* {
+    font-family: 'Poor Story', cursive;
+    font-size: 15px;
+}
+
 body,
 p,
 h1 {
@@ -36,7 +43,7 @@ body {
     border-radius: 8px;
     margin: 30px;
     width: 150px;
-    height: 350px;
+    height: 400px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
