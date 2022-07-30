@@ -29,7 +29,6 @@ function goBack() {
 }
 //오늘부터 이주일 날짜구하기
 let today = new Date();
-console.log(today.getDate())
 const m_dropdown_region_date = []
 for (let i = 0; i < 14; i++) {
     m_dropdown_region_date.push(new Date(today.setDate(today.getDate() + 1)).toLocaleDateString());
@@ -159,7 +158,7 @@ async function getWalkArticle(page, gender, size, region, number) {
     let url = `${backend_base_url}walk/?`
     if (sessionStorage.getItem('start_date') != null) {
         let s_date = sessionStorage.getItem('start_date').replace('.', '-').replace('.', '-').replace('.', '')
-        console.log('s_date', s_date)
+    
         url = url + `start_date=${s_date}&`
     }
 
@@ -179,7 +178,6 @@ async function getWalkArticle(page, gender, size, region, number) {
         url = url+`p=${page}`
 
     }
-    console.log(url)
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -189,7 +187,6 @@ async function getWalkArticle(page, gender, size, region, number) {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
     sessionStorage.removeItem('start_date');
     return response_json
 }
@@ -197,13 +194,11 @@ async function getWalkArticle(page, gender, size, region, number) {
 //모든 아티클 뿌려주기
 
 async function loadWalkArticle(page, gender, size, region, number){
-    console.log('page',page)
-    console.log(gender,size, region, number)
+    
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
     const res = response.results
-    console.log(res)
-    console.log(count)
+    
 
     customers = document.getElementById('customers')
     customers.innerHTML = ''
@@ -248,19 +243,19 @@ async function loadWalkArticle(page, gender, size, region, number){
         document.getElementById("pages").innerHTML += `<a class="page" id=page onclick="loadWalkArticle(${i},'gender', 'size', 'region', 'number')">${i}</a>`
     }
     document.getElementById("right_page")
-    console.log(page)
+    
 
 
     if (page=='page'| page==1){
         let page_num=1
-        console.log(1)
+        
         document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
     }else if (page==total_pages){
-        console.log(2)
+        
         let page_num=page
         document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
     }else{    
-        console.log(3)
+        
         let page_num=page
         document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
         document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
@@ -292,7 +287,7 @@ function searchStart(filter_num, click_name) {
     if (filter_num == 4) {
         dropbtn_n.innerText = click_name
     }
-    // console.log(start_date)
+    
 
 
     const gender = dropbtn_g.innerText
@@ -306,7 +301,7 @@ function searchStart(filter_num, click_name) {
 }
 
 async function goWalk(id, attending_user) {
-    console.log(id, attending_user)
+    
     const updateWalkData = {
         attending_user: attending_user
     }
@@ -349,6 +344,7 @@ async function goHome(id, attending_user) {
     }
 }
 async function submitWalkArticle() {
+
     s_date = document.getElementById('m_dropbtn_d').innerText
     s_list = s_date.replace(/ /g, '').split(".")
     const walkData = {
@@ -371,7 +367,6 @@ async function submitWalkArticle() {
     // walkData.append("people_num", document.getElementById('m_dropbtn_n').innerText)
     // walkData.append("size", document.getElementById('m_dropbtn_s').innerText)
     // walkData.append("contents", theEditor.getData())
-    console.log(walkData)
 
 
     if (document.getElementById('m_dropbtn_d').innerText == "날짜") {
@@ -428,7 +423,7 @@ async function openWalkDetailArticle(id) {
     detail_r_sec.style.display = "inline"
     r_sec.style.display = "none"
 
-    console.log(id)
+
     const response = await fetch(`${backend_base_url}walk/${id}/`, {
         method: 'GET',
         headers: {
@@ -438,7 +433,6 @@ async function openWalkDetailArticle(id) {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
     const host_name = document.getElementById("host_name")
     const detail_contents = document.getElementById("detail_contents")
     const detail_date = document.getElementById("detail_date")
@@ -450,7 +444,6 @@ async function openWalkDetailArticle(id) {
 
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
-    console.log(response_json.contents)
     detail_detail.innerHTML = response_json.contents
     // detail_contents.innerHTML = response_json.contents
     detail_date.innerText = response_json.start_date
@@ -460,7 +453,6 @@ async function openWalkDetailArticle(id) {
     left_seat.innerText = response_json.left_seat
     sessionStorage.setItem('meeting_date', response_json.start_date)
     const PayLoad = JSON.parse(localStorage.getItem("payload"))
-    console.log(PayLoad.user_id)
 
     if (response_json.attending == true) {
         attend_walk.innerText = '모임에 참여 신청 하셨습니다'
@@ -479,7 +471,6 @@ async function openWalkDetailArticle(id) {
     document.getElementById('detail_profile').setAttribute('src',`${response_json.host_pic}`)
     //임베드 동영상 띄워주기
     document.querySelectorAll( 'oembed[url]' ).forEach( element => {
-    console.log(element)
     iframely.load( element, element.attributes.url.value );
     } );
     document.getElementById('showmap').setAttribute('onclick',`startMap2("${response_json.place}")`)
