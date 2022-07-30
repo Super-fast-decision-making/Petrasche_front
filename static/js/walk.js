@@ -191,10 +191,6 @@ async function getWalkArticle(page, gender, size, region, number) {
     response_json = await response.json()
     console.log(response_json)
     sessionStorage.removeItem('start_date');
-    // let response_r = response_json.results
-    // response_r['next']=response_json.next
-    // response_r['previous']=response_json.previous
-    // console.log(response_r)
     return response_json
 }
 
@@ -214,27 +210,27 @@ async function loadWalkArticle(page, gender, size, region, number){
     res.forEach(post => {
         customers.innerHTML +=
             `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
-                <!--<td>${post.start_date.substring(5,10)}</td>--->
+                <td>${post.start_date.substring(5,10)}</td>
                 <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
                 <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
                 <td>${post.people_num}</td>
                 <td id='gowalkbutton${post.id}'>산책가기</td>
             </tr>`
 
-        let masTime = post.start_time
+        let mas = post.start_time
 
         
-        let masTimeMonth= masTime.split('.')[1];
-        let masTimeDate=masTime.split('.')[2].split(' ')[0];
-        let masTimeTime =masTime.split(' ')[1].split(':')[0];
+        let masMonth= mas.split('.')[1];
+        let masDate=mas.split('.')[2].split(' ')[0];
+        let masTime =mas.split(' ')[1].split(':')[0];
 
         let today = new Date()
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
         let day = ('0' + today.getDate()).slice(-2);
-        var hours = ('0' + today.getHours()).slice(-2); 
+        let time = ('0' + today.getHours()).slice(-2); 
 
+        if ( (masMonth<month) | (masMonth==month & masDate<day) | (masMonth==month & masDate==day & masTime<time)){ 
 
-        if (masTimeDate < day & masTimeTime < hours) {
             document.getElementById('gowalkbutton' + post.id).innerText = '마감'
             document.getElementById('post_row' + post.id).style.backgroundColor = 'gray'
             document.getElementById('post_row' + post.id).setAttribute('onclick', '')
@@ -310,7 +306,7 @@ function searchStart(filter_num, click_name) {
 
 async function goWalk(id, attending_user) {
     console.log(id, attending_user)
-    const updataWalkData = {
+    const updateWalkData = {
         attending_user: attending_user
     }
     const response = await fetch(`${backend_base_url}walk/attend/${id}/`, {
@@ -320,7 +316,7 @@ async function goWalk(id, attending_user) {
             'Content-type': 'application/json',
             'Authorization': "Bearer " + localStorage.getItem("user_access_token")
         },
-        body: JSON.stringify(updataWalkData)
+        body: JSON.stringify(updateWalkData)
     })
     response_json = await response.json()
     if (response.status == 200) {
@@ -364,6 +360,19 @@ async function submitWalkArticle() {
         size: document.getElementById('m_dropbtn_s').innerText,
         contents: theEditor.getData(),
     }
+    //form data버젼
+    // const walkData = new FormData();
+    // walkData.append("place", document.getElementById('m_input_p').value)
+    // walkData.append("region", document.getElementById('m_dropbtn_r').value)
+    // walkData.append("start_date", s_list[0] + '-' + s_list[1] + '-' + s_list[2])
+    // walkData.append("time", document.getElementById('m_dropbtn_t').innerText)
+    // walkData.append("gender", document.getElementById('m_dropbtn_g').innerText)
+    // walkData.append("people_num", document.getElementById('m_dropbtn_n').innerText)
+    // walkData.append("size", document.getElementById('m_dropbtn_s').innerText)
+    // walkData.append("contents", theEditor.getData())
+    console.log(walkData)
+
+
     if (document.getElementById('m_dropbtn_d').innerText == "날짜") {
         alert("날짜를 정해주세요")
     } else if (document.getElementById('m_dropbtn_r').innerText == "지역") {
@@ -440,7 +449,9 @@ async function openWalkDetailArticle(id) {
 
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
-    detail_contents.innerHTML = response_json.contents
+    console.log(response_json.contents)
+    detail_detail.innerHTML = response_json.contents
+    // detail_contents.innerHTML = response_json.contents
     detail_date.innerText = response_json.start_date
     detail_gender.innerText = response_json.gender
     detail_place.innerText = response_json.place
@@ -462,11 +473,18 @@ async function openWalkDetailArticle(id) {
     }
 
     
-    document.getElementById('w_d_img_box').setAttribute('src',`${response_json.host_pic}`)
+    // document.getElementById('w_d_img_box').setAttribute('src',`${response_json.host_pic}`)
     document.getElementById('detail_profile').setAttribute('src',`${response_json.host_pic}`)
-    
-
+    //임베드 동영상 띄워주기
+    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+    console.log(element)
+    iframely.load( element, element.attributes.url.value );
+    } );
+    document.getElementById('showmap').setAttribute('onclick',`startMap2("${response_json.place}")`)
 }
+
+
+
 
 
 diffDay()

@@ -28,13 +28,12 @@ async function loadMessage(id) {
             chat_box.innerHTML += `                            
                                 <div style="padding: 10px;">
                                     <div class="others" id="others">
-                                     ${time} - ${message}
+                                        ${time} - ${message}
                                     </div>
                                 </div>`
         }
         chat_box.scrollTop = chat_box.scrollHeight;
     }
-
 }
 
 
@@ -110,7 +109,6 @@ async function chatroomSelect(id) {
     var url = `ws://127.0.0.1:8000/chat/${id}`
     const chatSocket = new ReconnectingWebSocket(url)
     connectedChatSocket = chatSocket
-
     chatSocket.onopen = async function (e) {
         console.log('socket Connect!', e)
     }
@@ -141,7 +139,6 @@ async function chatroomSelect(id) {
         }))
         form.reset()
     })
-
 }
 
 function newMessage(message, sent_by_id, time) {
@@ -150,13 +147,13 @@ function newMessage(message, sent_by_id, time) {
     if (sent_by_id == USER_ID) {
         messages.innerHTML += `<div style="padding: 10px;">
                             <div class="my" id="my">
-                            ${message} - ${time}
+                                ${message} - ${time}
                             </div>
                         </div>`
     } else {
         messages.innerHTML += `<div style="padding: 10px;">
                             <div class="others" id="others">
-                            ${time} - ${message} 
+                                ${time} - ${message} 
                             </div>
                         </div>`
     }
