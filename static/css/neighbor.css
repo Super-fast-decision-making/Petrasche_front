@@ -252,7 +252,7 @@
     /* display: table-cell;
     vertical-align: middle;
     text-align: center; */
-    background-color: #cad4e9;
+    background-color: whitesmoke;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -300,7 +300,7 @@
 
 /* Style The Dropdown Button */
 .dropbtn {
-    background-color: #374c7a;
+    background-color: rgb(17, 17, 17);
     color: white;
     font-size: 16px;
     border-radius: 5px;

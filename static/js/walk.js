@@ -232,7 +232,8 @@ async function loadWalkArticle(page, gender, size, region, number){
         if ( (masMonth<month) | (masMonth==month & masDate<day) | (masMonth==month & masDate==day & masTime<time)){ 
 
             document.getElementById('gowalkbutton' + post.id).innerText = '마감'
-            document.getElementById('post_row' + post.id).style.backgroundColor = 'gray'
+            document.getElementById('post_row' + post.id).style.backgroundColor = 'black'
+            document.getElementById('post_row' + post.id).style.color = 'white'
             document.getElementById('post_row' + post.id).setAttribute('onclick', '')
         }
     });
@@ -466,8 +467,9 @@ async function openWalkDetailArticle(id) {
         attend_walk.style.backgroundColor = '#ADD8E6'
         attend_walk.setAttribute('onclick', `goHome(${response_json.id}, ${response_json.attending_user})`)
     } else if (response_json.host == PayLoad.user_id) {
-        attend_walk.innerText = '모임 주최자입니다'
-        attend_walk.style.backgroundColor = '#98FB98'
+        attend_walk.innerText = '모임 주최자는 신청하실 수 없습니다'
+        attend_walk.style.backgroundColor = 'rgb(17, 17, 17)'
+        attend_walk.style.color = 'white'
     } else {
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
     }
