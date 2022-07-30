@@ -1,39 +1,84 @@
-    <!-- 상세 모달 -->
-    <div id="modal_box" class="modal_box">
-        <div class="modal_content">
-            <div class="modal_img_box">
-                <img id="modal_box_img"
-                    src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt="">
-                <div id="slide_left" class="slide_left"><i class="fa-solid fa-caret-left"></i></div>
-                <div id="slide_right" class="slide_right"><i class="fa-solid fa-caret-right"></i></div>
-                <div id="like_user_list" class="like_user_list">
-                    <h4>좋아요 없음</h4>
-                </div>
-            </div>
-            <div id="like_icon_on" class="like_icon_on"><i class="fa-solid fa-heart"></i><span>45</span></div>
-            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span>45</span></div>
-            <div id="heart_ani" class="heart_ani"><i class="fa-solid fa-heart"></i></div>
-            <div id="modal_desc" class="modal_desc">
-                <div id="article_delete" class="article_delete"><i class="fa-solid fa-trash"></i></div>
-                <div id="article_edit" class="article_edit"><i class="fa-solid fa-pen-to-square"></i></div>
-                <div class="modal_user_profile">
-                    <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
-                        srcset="">
-                    <div id="modal_username" class="modal_username">강아지 사육사</div>
-                    <div id="modal_follow" class="follow">팔로우</div>
-                    <div id="modal_follow_count" class="follow" style="background-color: blue;">12</div>
-                </div>
-                <div id="modal_content_list" class="modal_content_list">
-                    <div id="modal_content_text">
-                    </div>
-                </div>
-                <div class="modal_comment_list" id="modal_comment_list">
-                </div>
-                <div id="modal_comment_input" class="modal_comment_input">
-                    <textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
-                    <div id="modal_comment_submit" class="modal_comment_submit">전송</div>
-                </div>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>주소로 장소 표시하기</title>
+    <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=b80ccdef3e18b5806449ef"></script>
+    
+</head>
+<body>
+<p style="margin-top:-12px">
+    <em class="link">
+        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
+        </a>
+    </em>
+</p>
+<div style="width:500px; height:500px;background-color: black;">
+    <div id="map" style="width:500px;height:350px;"></div>
+</div>
+<!-- <oembed url="https://www.youtube.com/watch?v=BG5CW8rXnzQ"></oembed>
+
+<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;">
+    <iframe src="https://youtu.be/CZ01qB0EHZ8"
+        style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+</div>
+-->
+
+
+
+<figure class="media"><oembed url="https://www.youtube.com/watch?v=BG5CW8rXnzQ"></oembed></figure>
+아아아아앙
+<!-- <figure class="media">
+    <div data-oembed-url="https://www.youtube.com/watch?v=BG5CW8rXnzQ">
+        <iframe src="https://www.youtube.com/watch?v=BG5CW8rXnzQ"></iframe>
     </div>
-    <!--  -->
+</figure> -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b1ae05cf3f44682ccf7ffba8606235b3&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
+<script>
+    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+        iframely.load( element, element.attributes.url.value );
+    } );
+</script>
+</body>
+</html>

@@ -1461,3 +1461,16 @@ body {
 
     font-size: 15px;
 }
+
+
+
+#submitLoc{
+    background-color:black;
+    color:white;
+    border-radius:3px
+}
+#submitLoc:hover{
+transform: scale(1.01);
+transition: transform 0.5s;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}

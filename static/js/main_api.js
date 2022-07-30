@@ -108,6 +108,8 @@ const GetUserInfo = () => {
       }
     });
 };
+//EXP는 1659096952
+console.log(Date.now()) //경과된 밀리초를 반환 1659093401862
 
 const Refresh_Token = () => {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
@@ -195,7 +197,7 @@ function upload_modal_submit() {
   }
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
-    fetch(`${backend_base_url}user`, {
+    fetch(`${backend_base_url}user/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -240,7 +242,9 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
+
     fetch(`${backend_base_url}article/`, {
+
       method: "POST",
       body: formData,
       headers: {
@@ -478,7 +482,7 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(`${backend_base_url}article/myarticle/${id}`, {
+    fetch(`${backend_base_url}article/myarticle/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -513,7 +517,7 @@ const ArticleEdit = (id) => {
       const data = {
         content: content,
       };
-      fetch(`${backend_base_url}article/myarticle/${id}`, {
+      fetch(`${backend_base_url}article/myarticle/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
