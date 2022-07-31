@@ -9,44 +9,20 @@
 
     <!------CSS---------->
     <link rel="stylesheet" type="text/css" href="./static/css/mypage.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/hashtag.css">
 
-    
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
     <script src="https://use.fortawesome.com/99966411.js"></script>
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
-    <style>
-
-    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
-            <nav class="navbar">
-                <div class="logo">
-                    Petrasche
-                </div>
-                <div class="serch">
-                    <input name="search" id="words_for_search" type="text" placeholder="Petrasche">
-                    <button class="serch_button" type="button" onclick="search()">검색</button>
-                </div>
-                <div class="user_info">
-                    <div onclick="UserPage()" id="user_profile" class="user_profile">
-                        <img src="https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/867/444/81867444_1616662460652_1_600x600.JPG"
-                            alt="">
-                    </div>
-                    <div onclick="alarm(this)" id="alarm" class="alarm">
-                        <i class="fa-solid fa-bell"></i>
-                        <div class="history">
-
-                        </div>
-                    </div>
-                    <div class="user">
-                        <span class="user_name" id="user">유저님</span>
-                    </div>
-                    <div onclick="Logout()" class="logout">로그아웃</div>
-                </div>
-            </nav>
-            <div class="top_section">
+        <nav id="bar-nav">
+            <script>$("#bar-nav").load("nav.html");</script>
+        </nav>
+        <div class="top_section">
             <div class="left_menu">
                 <div class="menu_dog" id="menu_like" onclick="loadMyArticle(1)">
                     <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
@@ -78,7 +54,8 @@
                             </div>
                             <div class="username_box">
                                 <span class="username" id="username">
-                                </span>
+                                </span>	&nbsp;	&nbsp;
+                                <button id="submitLoc" id="submitLoc()" >내 위치 저장</button>
                             </div>
                         </div>
                         <div class="user_introduction">
@@ -123,7 +100,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 비밀번호 변경 모달 -->
     <div id="update_pw_modal_box" class="update_pw_modal_box">
         <div class="update_pw_modal_content">
@@ -216,21 +193,26 @@
     <div id="modal_box" class="modal_box">
         <div class="modal_content">
             <div class="modal_img_box" style="width:220%">
-                <img id="modal_box_img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg"
-                alt="" style="width: 100%;">
+                <img id="modal_box_img"
+                    src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt=""
+                    style="width: 100%;">
                 <div id="slide_left" class="slide_left"><i class="fa-solid fa-caret-left"></i></div>
                 <div id="slide_right" class="slide_right"><i class="fa-solid fa-caret-right"></i></div>
                 <div id="like_user_list" class="like_user_list">
                     <h4>좋아요 없음</h4>
                 </div>
             </div>
-            <div id="like_icon_on" class="like_icon_on" style="display:flex"><i class="fa-solid fa-heart"></i><span id="modal_like_num1"> 45</span></div>
-            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span id="modal_like_num2"> 45</span></div>
+            <div id="like_icon_on" class="like_icon_on" style="display:flex"><i class="fa-solid fa-heart"></i><span
+                    id="modal_like_num1"> 45</span></div>
+            <div id="like_icon_off" class="like_icon_off"><i class="fa-regular fa-heart"></i><span id="modal_like_num2">
+                    45</span></div>
             <div id="heart_ani" class="heart_ani"><i class="fa-solid fa-heart"></i></div>
 
             <div id="modal_desc" class="modal_desc">
-                <div id="article_delete" class="article_delete" onclick="articleDelete()"><i class="fa-solid fa-trash"></i></div>
-                <div id="article_edit" class="article_edit" onclick="articleEdit()"><i class="fa-solid fa-pen-to-square"></i></div>
+                <div id="article_delete" class="article_delete" onclick="articleDelete()"><i
+                        class="fa-solid fa-trash"></i></div>
+                <div id="article_edit" class="article_edit" onclick="articleEdit()"><i
+                        class="fa-solid fa-pen-to-square"></i></div>
                 <div class="modal_user_profile">
                     <img id="author_profile_img" src="" alt="" srcset="">
                     <div id="author">유저</div>
@@ -262,8 +244,11 @@
 
 
     <!------JS---------->
+    <script src="./static/js/urls.js"></script>
     <script src="./static/js/api.js"></script>
+    <script src="./static/js/hashtag.js"></script>
     <script src="./static/js/mypage.js"></script>
+    <script src="./static/js/search.js"></script>
 </body>
 
 </html>

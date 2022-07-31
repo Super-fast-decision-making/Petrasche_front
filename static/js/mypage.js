@@ -57,8 +57,7 @@ async function loadMyArticle(page) {
     const response = await getMyArticle(page)
     const articles = response.results
     const total_pages = parseInt(response_json.count / PAGE_LIMIT) + 1;
-    const next = response.next
-    const prev = response.previous
+
 
     //페이지네이션 값 만들기
     for (let i = 0; i < total_pages; i++) {
@@ -97,6 +96,8 @@ async function loadMyArticle(page) {
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
     // document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
 
     username.innerHTML = user.username
     introduction.innerHTML = user.introduction
@@ -137,30 +138,32 @@ async function openDetailModal(id) {
     const article = await getDetailArticle(id)
     console.log(article)
 
-    const modal_box_img = document.getElementById("modal_box_img")
-    const author = document.getElementById("author")
-    const author_profile_img = document.getElementById("author_profile_img")
-    const content = document.getElementById("content")
-    const comment_list = document.getElementById("mypage_modal_comment_list")
-    const submit_button = document.getElementById("modal_comment_submit")
-    const modal_follow = document.getElementById("modal_follow")
-    const article_delete = document.getElementById("article_delete")
-    const article_edit = document.getElementById("article_edit")
-    const modal_like_num1 = document.getElementById("modal_like_num1")
-    const modal_like_num2 = document.getElementById("modal_like_num2")
 
+    const modal_box_img = document.getElementById("modal_box_img");
+    const author = document.getElementById("author");
+    const author_profile_img = document.getElementById("author_profile_img");
+    const content = document.getElementById("content");
+    const comment_list = document.getElementById("mypage_modal_comment_list");
+    const submit_button = document.getElementById("modal_comment_submit");
+    const modal_follow = document.getElementById("modal_follow");
+    const article_delete = document.getElementById("article_delete");
+    const article_edit = document.getElementById("article_edit");
+    const modal_like_num1 = document.getElementById("modal_like_num1");
+    const modal_like_num2 = document.getElementById("modal_like_num2");
+    const modal_edit_text = document.getElementById("modal_edit_text");
 
-    author.innerText = article.author
-    author_profile_img.src = article.profile_img[0]
-    content.innerText = article.content
-    modal_like_num1.innerText = article.like_num
-    modal_like_num2.innerText = article.like_num
-    modal_box_img.src = article.images[0]
-    article_delete.setAttribute("onClick", `articleDelete(${article.id})`)
-    article_edit.setAttribute("onClick", `articleEdit(${article.id})`)
+    author.innerText = article.author;
+    author_profile_img.src = article.profile_img[0];
+    content.innerHTML = tagToLink(article.content);
+    modal_like_num1.innerText = article.like_num;
+    modal_like_num2.innerText = article.like_num;
+    modal_box_img.src = article.images[0];
+    article_delete.setAttribute("onClick", `articleDelete(${article.id})`);
+    article_edit.setAttribute("onClick", `articleEdit(${article.id})`);
+    modal_edit_text.innerHTML = article.content;
 
-    submit_button.setAttribute("onClick", `sendComment(${article.id})`)
-    modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`)
+    submit_button.setAttribute("onClick", `sendComment(${article.id})`);
+    modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`);
 
     //이미지
     let images = article.images;
@@ -765,23 +768,83 @@ const LikeUserList = (like_user) => {
 
 
 
-// function listLikeUser(likes){
-//     if (likes.length == 0) {
-//         document.getElementById("like_user_list").style.display = "flex";
-//     } else {
-//         document.getElementById("like_user_list").innerHTML = "";
-//         likes.forEach((user) => {
-//             document.getElementById(
-//                 "like_user_list"
-//             ).innerHTML += `<div> ${ user }</div>`;
-//         });
-//         document.getElementById("like_user_list").style.display = "flex";
-//     }
-//     document.getElementById("like_user_list").onclick = () => {
-//         if (document.getElementById("like_user_list").style.display == "flex") {
-//             document.getElementById("like_user_list").style.display = "none";
-//         }
-//     };
-// }
+function listLikeUser(likes) {
+    if (likes.length == 0) {
+        document.getElementById("like_user_list").style.display = "flex";
+    } else {
+        document.getElementById("like_user_list").innerHTML = "";
+        likes.forEach((user) => {
+            document.getElementById(
+                "like_user_list"
+            ).innerHTML += `<div> ${user}</div>`;
+        });
+        document.getElementById("like_user_list").style.display = "flex";
+    }
+    document.getElementById("like_user_list").onclick = () => {
+        if (document.getElementById("like_user_list").style.display == "flex") {
+            document.getElementById("like_user_list").style.display = "none";
+        }
+    };
+}
+
+
+// 검색
+async function search() {
+    let words_for_search = document.getElementById("words_for_search").value;
+    if (words_for_search.startsWith("#")) {
+        words_for_search = words_for_search.replace("#", "%23");
+    }
+    var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
+    const search_results = await fetch(url)
+        .then(response => {
+            var status_code = response.status;
+            return Promise.resolve(response.json())
+                .then(data => ({ data, status_code }))
+        })
+    localStorage.setItem('search_results', JSON.stringify(search_results.data));
+    if (search_results.status_code == 200) {
+        window.location.replace(`${frontend_base_url}search_result.html`);
+    } else {
+        alert(search_results.data.message)
+    }
+}
+
+
+async function submitLoc(id){
+    let loData = await getLocation()
+    // setTimeout('', 500)
+    console.log(loData)
+    const response = await fetch(`${backend_base_url}user/location/${id}/`,{
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+        body: JSON.stringify(loData)
+    })
+    response_json = await response.json()
+    return response_json
+}
+//밑에서 써도 위에서 부를 수 있다?!?!?!
+const getLocation = () =>{
+    return new Promise(function(resolve, reject) {//성공, 실패시
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position)=> {
+                var lat = position.coords.latitude, // 위도
+                lon = position.coords.longitude; // 경도
+                console.log(lat, lon)
+                const locationData = {
+                    latitude: lat,
+                    longitude: lon
+                }
+                // console.log(locationData)  
+                resolve(locationData)  
+            })         
+        } else {
+            reject(null)
+        }      
+    }); 
+}
 
 loadMyArticle(1)

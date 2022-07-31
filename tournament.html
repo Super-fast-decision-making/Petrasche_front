@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main_style.css">
+    <link rel="stylesheet" href="/static/css/hashtag.css">
+    <link rel="stylesheet" href="/static/css/tournament.css">
+    <!-- <link rel="stylesheet" href="/static/css/nav.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
+    <title>tournament</title>
+</head>
+
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="main_screen">
+
+        <!-- 네비바 -->
+        <nav id="bar-nav">
+            <script>$("#bar-nav").load("nav.html");</script>
+        </nav>
+
+        <!-- 업로드 모달 -->
+        <div id="event_modal" class="event_modal">
+            <div id="event_img_upload" class="event_img_upload">
+                <input type="file" id="event_img_upload" name="event_img_upload" accept="image/jpeg, image/png" hidden>
+                <div id="img_drag">이벤트 이미지 드래그 해주세요!</div>
+                <img id="event_img" src="">
+                <button id="event_up_btn" class="event_up_btn">참여하기</button>
+            </div>
+        </div>
+        <!--  -->
+
+        <!-- 왼쪽메뉴 -->
+        <div class="top_section">
+            
+            <div class="left_menu">
+                <div class="menu_dog">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
+                    댕댕이
+                </div>
+
+                <div class="menu_cat">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
+                    냥냥이
+                </div>
+
+                <div class="menu_petshop">
+                    <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
+                    펫샵
+                </div>
+                <div onclick="upload_modal_open()" class="menu_upload">
+                    <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                    업로드
+                </div>
+                <div onclick="petevent()" class="menu_upload">
+                    <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
+                    뽐뽐뽐
+                </div>
+            </div>
+
+            <!-- 이벤트 리스트  -->
+            <div id="tournament" class="tournament">
+                <div id="event" class="event">
+                    <div class="event_logo"><img src="https://pbs.twimg.com/tweet_video_thumb/CYvPv6tUkAEJ6zG.png">드루와~Come Here~</div>
+                    <div class="event_list">
+                        <div onclick="event_start(1,true);" class="event_title">
+                            댕댕이 웃긴짤 콘테스트!
+                            <div style="font-size:15px; color: blue;">
+                                <i class="fa-solid fa-circle-info"></i> 재밌는 댕댕이 짤을 올려주세요! 박장대소 할수 있는 댕댕이가 필요해용^-^
+                            </div>
+                        </div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div style="background-color:red;" class="event_active">참여하기</div>
+                    </div>
+                    <div onclick="tournament_start(this,false)" class="event_list">
+                        <div class="event_title">
+                            슬푸구나 댕댕아 콘테스트!
+                            <div style="font-size:12px; color: blue;">
+                                <i class="fa-solid fa-circle-info"></i> 슬픈 표정에 댕댕이를 올려주세요! 댕댕이와 슬픔을 함께 나눠요!~
+                            </div>
+                        </div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+                    </div>
+                    <div onclick="tournament_start(this,false)" class="event_list">
+                        <div class="event_title">
+                            이쁘니 댕댕이! 콘테스트!
+                            <div style="font-size:12px; color: blue;">
+                                <i class="fa-solid fa-circle-info"></i> 댕댕이와 숨박꼭질 하는 사진을 올려주세요! 소정의 사은품을 드립니다!
+                            </div>
+                        </div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+                    </div>
+                    <div onclick="tournament_start(this,false)" class="event_list">
+                        <div class="event_title">
+                            없서용 댕댕이 콘테스트!
+                            <div style="font-size:12px; color: blue;">
+                                <i class="fa-solid fa-circle-info"></i> 댕댕이와 숨박꼭질 하는 사진을 올려주세요! 소정의 사은품을 드립니다!
+                            </div>
+                        </div>
+                        <div class="event_time">
+                            기간 7월 25일 ~ 7월 30일
+                        </div>
+                        <div class="event_active">만료</div>
+
+                    </div>
+                    <div onclick="tournament_start(this,false)" class="event_list">
+                        <div class="event_title">
+                            잘먹는 먹방 댕댕이 콘테스트!
+                            <div style="font-size:12px; color: blue;">
+                                <i class="fa-solid fa-circle-info"></i> 잘먹고 잘싸는 강아지들을 올려주시면 포인트를 가장 많이 받은 분께 사은품을 드리고
+                                있습니다.
+                            </div>
+                        </div>
+                        <div class="event_time">기간 7월 25일 ~ 7월 30일</div>
+                        <div class="event_active">만료</div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+
+            <!-- 이벤트 선택메뉴 -->
+            <div id="tournament_info" class="tournament_info">
+                <div id="event_rank" class="event_rank">
+                    <div class="event_rank_img">
+                        <div class="rank_num">1위</div>
+                        <img src="https://t1.daumcdn.net/cfile/tistory/18307B4A4FD94B051A">
+                    </div>
+                    <div class="event_rank_img">
+                        <div class="rank_num">2위</div>
+                        <img src="http://openimage.interpark.com/goods_image_big/3/9/9/0/7658923990_l.jpg">
+                    </div>
+                    <div class="event_rank_img">
+                        <div class="rank_num">3위</div>
+                        <img src="http://img4.tmon.kr/cdn3/deals/2021/04/30/5431313902/front_299fd_yynou.jpg">
+                    </div>
+                    <div class="event_rank_img">
+                        <div class="rank_num">4위</div>
+                        <img src="https://t1.daumcdn.net/cfile/tistory/99C874405B873C262E">
+                    </div>
+                    <div class="event_rank_img">
+                        <div class="rank_num">5위</div>
+                        <img
+                            src="https://story.holapet.com/wp-content/uploads/2020/03/231611571563024951056526658525032060289024n-1514195370702-1024x1024.jpg">
+                    </div>
+                </div>
+                <div class="event_join">
+                    이벤트 기간은 7월 12일 ~ 7월 30일 입니다. 참여를 원하시면 <button onclick="event_img_uoload_open()" class="event_join_btn">이벤트 참여</button> 버튼을 눌러주세요!
+                </div>
+                <div id="event_vote" class="event_vote">
+                    <div class="versus">
+                        VS
+                    </div>
+                    <div id="event_left" class="event_left_img">
+                        <img id="event_left_img" src="https://t1.daumcdn.net/cfile/tistory/18307B4A4FD94B051A">
+                        <div id="left_win"><img src="/static/load_img/thank.gif" alt="" srcset=""></div>
+                    </div>
+                    <div id="event_right" class="event_right_img">
+                        <img id="event_right_img" src="http://openimage.interpark.com/goods_image_big/3/9/9/0/7658923990_l.jpg">
+                        <div id="right_win"><img src="/static/load_img/thank.gif" alt="" srcset=""></div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+
+        </div>
+        <script src="./static/js/urls.js"></script>
+        <script src="/static/js/refresh.js"></script>
+        <script src="/static/js/hashtag.js"></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script src="./static/js/kakao.js"></script>
+        <script src="./static/js/tournament.js"></script>
+        <script src="./static/js/search.js"></script>
+
+</body>
+
+</html>

@@ -1,8 +1,3 @@
-const BACK_END_URL = "http://127.0.0.1:8000/article/";
-const USER_URL = "http://127.0.0.1:8000/user/";
-const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/"
-
 // page 전역변수
 page_num = 1;
 page = true;
@@ -28,37 +23,37 @@ window.onscroll = function () {
 
 async function handleLogin() {
   const loginData = {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value
   }
   const response = await fetch(`${backend_base_url}user/login/`, {
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(loginData)
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(loginData)
   })
   response_json = await response.json()
   if (response.status == 200) {
-      localStorage.setItem("user_access_token", response_json.access)
-      localStorage.setItem("user_refresh_token", response_json.refresh)
+    localStorage.setItem("user_access_token", response_json.access)
+    localStorage.setItem("user_refresh_token", response_json.refresh)
 
-      const base64Url = response_json.access.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-      localStorage.setItem("payload", jsonPayload)
-      window.location.reload()
+    localStorage.setItem("payload", jsonPayload)
+    window.location.reload()
   } else {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.")
   }
 }
 
 const GetImgListPage = (page) => {
-  fetch(BACK_END_URL + "page/" + page + "/", {
+  fetch(`${backend_base_url}article/page/${page}/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -96,7 +91,7 @@ const GetImgListPage = (page) => {
 
 
 const GetUserInfo = () => {
-  fetch(USER_URL, {
+  fetch(`${backend_base_url}user/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -113,33 +108,12 @@ const GetUserInfo = () => {
       }
     });
 };
-
-const Refresh_Token = () => {
-  const PayLoad = JSON.parse(localStorage.getItem("payload"));
-  if (PayLoad.exp > Date.now() / 1000) {
-    return;
-  } else {
-    fetch(USER_URL + "refresh/", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      },
-      body: JSON.stringify({
-        refresh: localStorage.getItem("user_refresh_token"),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        localStorage.setItem("user_access_token", res.access);
-      });
-  }
-};
+//EXP는 1659096952
+console.log(Date.now()) //경과된 밀리초를 반환 1659093401862
 
 const GetImgList = () => {
   // document.getElementById("main_article_list").innerHTML = "";
-  fetch(BACK_END_URL)
+  fetch(`${backend_base_url}article/`)
     .then((res) => res.json())
     .then((data) => {
       data.forEach((item) => {
@@ -160,7 +134,7 @@ const GetImgList = () => {
 };
 
 const GetTopList = () => {
-  fetch(`${BACK_END_URL}top/`)
+  fetch(`${backend_base_url}article/top/`)
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("top_article").innerHTML = "";
@@ -200,7 +174,7 @@ function upload_modal_submit() {
   }
   if (upload_content == "") {
     upload_modal_content.style.display = "flex";
-    fetch(USER_URL, {
+    fetch(`${backend_base_url}user/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -245,7 +219,9 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
-    fetch(BACK_END_URL, {
+
+    fetch(`${backend_base_url}article/`, {
+
       method: "POST",
       body: formData,
       headers: {
@@ -266,23 +242,23 @@ function modal_open(id) {
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
   let modal_box = document.getElementById("modal_box")
-  if (modal_box.style.display == "" || modal_box.style.display == "none") {
-    modal_box.childNodes[1].animate([
-      // { transform: "scale(0.8)" },
-      // { transform: "scale(1.0)" },
-      { transform: "translateX(0px)" },
-      { transform: "translateX(50px)" },
-    ], {
-      duration: 300,
-      fill: "forwards",
-    });
-    modal_box.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
-  }
-  fetch(`http://127.0.0.1:8000/article/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
+  fetch(`${backend_base_url}article/${id}/`)
+  .then((res) => res.json())
+  .then((data) => {
+      if (modal_box.style.display == "" || modal_box.style.display == "none") {
+        modal_box.childNodes[1].animate([
+          // { transform: "scale(0.8)" },
+          // { transform: "scale(1.0)" },
+          { transform: "translateX(0px)" },
+          { transform: "translateX(50px)" },
+        ], {
+          duration: 300,
+          fill: "forwards",
+        });
+        modal_box.style.display = "flex";
+        document.body.style.overflow = "hidden";
+        document.body.style.touchAction = "none";
+      }
       if (data.likes.indexOf(user_id) != -1) {
         document.getElementById("like_icon_off").style.display = "none";
         document.getElementById(
@@ -326,7 +302,9 @@ function modal_open(id) {
         document.getElementById("article_edit").style.display = "none";
       }
       let images = data.images;
-      let content = data.content;
+      let content_raw = data.content;
+      let content = tagToLink(content_raw)
+
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
 
@@ -391,6 +369,8 @@ function modal_open(id) {
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
+      document.getElementById("modal_edit_text").value = content_raw;
+
       comments.forEach((item) => {
         if (item.user == user_id) {
           let html = `<div class="modal_comment_text">
@@ -444,7 +424,7 @@ const CommentUpload = (id) => {
   const data = {
     comment: comment_content,
   };
-  fetch(`${BACK_END_URL}comment/${id}/`, {
+  fetch(`${backend_base_url}article/comment/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -458,15 +438,8 @@ const CommentUpload = (id) => {
     });
 };
 
-const Logout = () => {
-  localStorage.removeItem("user_access_token");
-  localStorage.removeItem("user_refresh_token");
-  localStorage.removeItem("payload");
-  window.location.href = "./login.html";
-};
-
 const LikeOn = (id) => {
-  fetch(`${BACK_END_URL}like/${id}/`, {
+  fetch(`${backend_base_url}article/like/${id}/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -486,7 +459,7 @@ const LikeOn = (id) => {
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "myarticle/" + id + "/", {
+    fetch(`${backend_base_url}article/myarticle/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -505,9 +478,9 @@ const ArticleDelete = (id) => {
 
 const ArticleEdit = (id) => {
   document.getElementById("modal_edit_box").style.display = "flex";
-  document.getElementById("modal_edit_text").value = document
-    .getElementById("modal_content_text")
-    .innerHTML.replace(/<br>/g, "\n");
+  // document.getElementById("modal_edit_text").value = document
+  //   .getElementById("modal_content_text")
+  //   .innerHTML.replace( /\<[^\>]+/g, "").replace(/\>/g, "").replace(/<br>/g, "\n");
 
   document.getElementById("modal_edit_button").onclick = () => {
     let content = document.getElementById("modal_edit_text").value;
@@ -521,7 +494,7 @@ const ArticleEdit = (id) => {
       const data = {
         content: content,
       };
-      fetch(BACK_END_URL + `myarticle/${id}/`, {
+      fetch(`${backend_base_url}article/myarticle/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -562,7 +535,7 @@ const CommentEdit = (id, article_id, text) => {
       const data = {
         comment: comment,
       };
-      fetch(BACK_END_URL + `comment/${id}/`, {
+      fetch(`${backend_base_url}article/comment/${id}/`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -585,7 +558,7 @@ const CommentEdit = (id, article_id, text) => {
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
-    fetch(BACK_END_URL + "comment/" + id + "/", {
+    fetch(`${backend_base_url}article/comment/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -626,7 +599,7 @@ const Follow = (user, article) => {
   const data = {
     username: user,
   };
-  fetch(USER_URL + "follow/", {
+  fetch(`${backend_base_url}user/follow/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
@@ -641,69 +614,7 @@ const Follow = (user, article) => {
     });
 };
 
-function alarm(id) {
-  id.childNodes[3].innerHTML = "";
-  fetch(USER_URL + "history/", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.length == 0) {
-        id.childNodes[3].innerHTML = "알림이 없습니다.";
-      } else {
-        res.forEach((history) => {
-          if (history.type == "like") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물을 <span style="color: red">좋아요</span> 했습니다. ${history.time}</div>`;
-          }
-          if (history.type == "follow") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 <span style="color: blue">팔로우</span> 했습니다. ${history.time}</div>`;
-          }
-          if (history.type == "comment") {
-            id.childNodes[3].innerHTML += `<div>${history.user}님이 게시물에 <span style="color: green">댓글</span>을 남겼습니다. ${history.time}</div>`;
-          }
-        });
-      }
-    });
-
-  id.childNodes[3].style.display = "block";
-  let alarm = true;
-  id.onclick = () => {
-    if (alarm) {
-      id.childNodes[3].style.display = "none";
-      alarm = false;
-    } else {
-      id.childNodes[3].style.display = "block";
-      alarm = true;
-    }
-  };
-}
-
-// 검색
-async function search() {
-  const words_for_search = document.getElementById("words_for_search").value;
-
-  var url = new URL(backend_base_url + `article/search/?words=${words_for_search}`);
-  const search_results = await fetch(url)
-    .then(response => {
-      var status_code = response.status;
-      return Promise.resolve(response.json())
-        .then(data => ({ data, status_code }))
-    })
-
-  localStorage.setItem('search_results', JSON.stringify(search_results.data));
-
-  if (search_results.status_code == 200) {
-    window.location.replace(`${frontend_base_url}search_result.html`);
-  } else {
-    alert(search_results.data.message)
-  }
-}
 
 GetUserInfo();
 GetImgList();
 GetTopList();
-Refresh_Token();

@@ -1,5 +1,3 @@
-const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/"
 
 
 // 회원가입
@@ -20,11 +18,9 @@ async function handleSignup() {
         alert("성별을 선택해 주세요!")
         return
     }
-
     gender_check.forEach((ch) => {
         gender = ch.value
     })
-
     const signupData = {
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
@@ -33,7 +29,6 @@ async function handleSignup() {
         is_active_val: document.getElementById("is_active").value,
         gender_choice: gender,
     }
-
     const response = await fetch(`${backend_base_url}user/`, {
         headers: {
             Accept: 'application/json',
@@ -43,7 +38,6 @@ async function handleSignup() {
         body: JSON.stringify(signupData)
     })
     response_json = await response.json()
-
     if (response.status == 200) {
         window.location.replace(`${frontend_base_url}login.html`);
     } else {
@@ -144,7 +138,7 @@ async function postComment(id, comment) {
         comment: comment
     }
     console.log(commentData)
-    const response = await fetch(`http://127.0.0.1:8000/article/comment/${id}/`, {
+    const response = await fetch(`${backend_base_url}article/comment/${id}/`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -192,7 +186,7 @@ async function postPetProfile(name, birthday, type, gender, size) {
         birthday: birthday,
         type: type,
         gender: gender,
-        size: size
+        size: size,
         // pet_profile_img: pet_profile_img
     }
     const response = await fetch(`${backend_base_url}user/mypet/`, {
@@ -233,7 +227,7 @@ async function putPetInfo(pet_id, name, birthday, type, gender, size) {
 
 //코멘트 삭제
 function CommentDelete(id, article_id) {
-    let confirm_delete = confirm("삭제하시겠습니까?"); 
+    let confirm_delete = confirm("삭제하시겠습니까?");
     if (confirm_delete) {
         fetch(`${backend_base_url}article/comment/${id}/`, {
             method: "DELETE",
@@ -253,7 +247,7 @@ function CommentDelete(id, article_id) {
     }
 };
 //코멘트 수정
-function CommentEdit(id,article_id) {
+function CommentEdit(id, article_id) {
     console.log(id)
     console.log(article_id)
     document.getElementById("modal_edit_box").style.display = "flex";
@@ -298,7 +292,7 @@ function CommentEdit(id,article_id) {
 
 //팔로우 +언팔로우
 
-function Follow(author, article_id){
+function Follow(author, article_id) {
     const data = {
         username: author,
     };
@@ -365,7 +359,7 @@ async function putPassword(user_id, new_password) {
 }
 
 //아티클 삭제
-function articleDelete(id){
+function articleDelete(id) {
     let confirm_delete = confirm("삭제하시겠습니까?");
     if (confirm_delete) {
         fetch(`${backend_base_url}article/myarticle/${id}/`, {
@@ -378,7 +372,7 @@ function articleDelete(id){
             .then((res) => res.json())
             .then((res) => {
                 alert("삭제 완료");
-            window.location.reload();
+                window.location.reload();
             });
     } else {
         return;
@@ -386,11 +380,8 @@ function articleDelete(id){
 }
 
 //아티클 수정
-function articleEdit(id){
+function articleEdit(id) {
     document.getElementById("modal_edit_box").style.display = "flex";
-    document.getElementById("modal_edit_text").value = document
-        .getElementById("content")
-        .innerHTML.replace(/<br>/g, "\n");
     document.getElementById("modal_edit_button").onclick = () => {
         let content = document.getElementById("modal_edit_text").value;
         content = content.replace(/\n/g, "<br>");
@@ -405,19 +396,19 @@ function articleEdit(id){
             };
             console.log(content)
             fetch(`${backend_base_url}article/myarticle/${id}/`, {
-            method: "PUT",
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+                method: "PUT",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
             })
-            .then((res) => res.json())
-            .then((res) => {
-                alert("수정 완료");
-                document.getElementById("modal_edit_box").style.display = "none";
-                openDetailModal(id);
-            });
+                .then((res) => res.json())
+                .then((res) => {
+                    alert("수정 완료");
+                    document.getElementById("modal_edit_box").style.display = "none";
+                    openDetailModal(id);
+                });
         } else {
             return;
         }
@@ -475,3 +466,4 @@ const LikeOn = (id) => {
             openDetailModal(id);
         });
 };
+
