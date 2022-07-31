@@ -23,8 +23,20 @@
             <script>$("#bar-nav").load("nav.html");</script>
         </nav>
 
+        <!-- 업로드 모달 -->
+        <div id="event_modal" class="event_modal">
+            <div id="event_img_upload" class="event_img_upload">
+                <input type="file" id="event_img_upload" name="event_img_upload" accept="image/jpeg, image/png" hidden>
+                <div id="img_drag">이벤트 이미지 드래그 해주세요!</div>
+                <img id="event_img" src="">
+                <button id="event_up_btn" class="event_up_btn">참여하기</button>
+            </div>
+        </div>
+        <!--  -->
+
         <!-- 왼쪽메뉴 -->
         <div class="top_section">
+            
             <div class="left_menu">
                 <div class="menu_dog">
                     <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
@@ -44,16 +56,20 @@
                     <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
                     업로드
                 </div>
+                <div onclick="petevent()" class="menu_upload">
+                    <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
+                    뽐뽐뽐
+                </div>
             </div>
 
             <!-- 이벤트 리스트  -->
             <div id="tournament" class="tournament">
-                <div class="event">
-                    <img class="event_logo" src="/static/event_logo.png">
+                <div id="event" class="event">
+                    <div class="event_logo"><img src="https://pbs.twimg.com/tweet_video_thumb/CYvPv6tUkAEJ6zG.png">드루와~Come Here~</div>
                     <div class="event_list">
                         <div onclick="event_start(1,true);" class="event_title">
                             댕댕이 웃긴짤 콘테스트!
-                            <div style="font-size:12px; color: blue;">
+                            <div style="font-size:15px; color: blue;">
                                 <i class="fa-solid fa-circle-info"></i> 재밌는 댕댕이 짤을 올려주세요! 박장대소 할수 있는 댕댕이가 필요해용^-^
                             </div>
                         </div>
@@ -110,7 +126,7 @@
 
             <!-- 이벤트 선택메뉴 -->
             <div id="tournament_info" class="tournament_info">
-                <div class="event_rank">
+                <div id="event_rank" class="event_rank">
                     <div class="event_rank_img">
                         <div class="rank_num">1위</div>
                         <img src="https://t1.daumcdn.net/cfile/tistory/18307B4A4FD94B051A">
@@ -134,17 +150,19 @@
                     </div>
                 </div>
                 <div class="event_join">
-                    이벤트 기간은 7월 12일 ~ 7월 30일 입니다. 참여를 원하시면 <button class="event_join_btn">이미지 업로드</button> 버튼을 눌러주세요!
+                    이벤트 기간은 7월 12일 ~ 7월 30일 입니다. 참여를 원하시면 <button onclick="event_img_uoload_open()" class="event_join_btn">이벤트 참여</button> 버튼을 눌러주세요!
                 </div>
-                <div class="event_vote">
+                <div id="event_vote" class="event_vote">
                     <div class="versus">
                         VS
                     </div>
-                    <div id="event_left_img" class="event_left_img">
-                        <img src="https://t1.daumcdn.net/cfile/tistory/18307B4A4FD94B051A">
+                    <div id="event_left" class="event_left_img">
+                        <img id="event_left_img" src="https://t1.daumcdn.net/cfile/tistory/18307B4A4FD94B051A">
+                        <div id="left_win"><img src="/static/load_img/thank.gif" alt="" srcset=""></div>
                     </div>
-                    <div id="event_right_img" class="event_right_img">
-                        <img src="http://openimage.interpark.com/goods_image_big/3/9/9/0/7658923990_l.jpg">
+                    <div id="event_right" class="event_right_img">
+                        <img id="event_right_img" src="http://openimage.interpark.com/goods_image_big/3/9/9/0/7658923990_l.jpg">
+                        <div id="right_win"><img src="/static/load_img/thank.gif" alt="" srcset=""></div>
                     </div>
                 </div>
             </div>
@@ -152,9 +170,8 @@
 
         </div>
         <script src="./static/js/urls.js"></script>
+        <script src="/static/js/refresh.js"></script>
         <script src="/static/js/hashtag.js"></script>
-        <script src="/static/js/main_api.js"></script>
-        <script src="/static/js/main_script.js"></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script src="./static/js/kakao.js"></script>
         <script src="./static/js/tournament.js"></script>
