@@ -35,6 +35,7 @@
 
         <!-- 왼쪽메뉴 -->
         <div class="top_section">
+            
             <div class="left_menu">
                 <div class="menu_dog">
                     <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
@@ -53,6 +54,10 @@
                 <div onclick="upload_modal_open()" class="menu_upload">
                     <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
                     업로드
+                </div>
+                <div onclick="petevent()" class="menu_upload">
+                    <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
+                    뽐뽐뽐
                 </div>
             </div>
 
@@ -144,17 +149,19 @@
                     </div>
                 </div>
                 <div class="event_join">
-                    이벤트 기간은 7월 12일 ~ 7월 30일 입니다. 참여를 원하시면 <button onclick="event_img_uoload_open()" class="event_join_btn">이미지 업로드</button> 버튼을 눌러주세요!
+                    이벤트 기간은 7월 12일 ~ 7월 30일 입니다. 참여를 원하시면 <button onclick="event_img_uoload_open()" class="event_join_btn">이벤트 참여</button> 버튼을 눌러주세요!
                 </div>
-                <div class="event_vote">
+                <div id="event_vote" class="event_vote">
                     <div class="versus">
                         VS
                     </div>
                     <div id="event_left" class="event_left_img">
                         <img id="event_left_img" src="https://t1.daumcdn.net/cfile/tistory/18307B4A4FD94B051A">
+                        <div id="left_win"><img src="/static/load_img/thank.gif" alt="" srcset=""></div>
                     </div>
                     <div id="event_right" class="event_right_img">
                         <img id="event_right_img" src="http://openimage.interpark.com/goods_image_big/3/9/9/0/7658923990_l.jpg">
+                        <div id="right_win"><img src="/static/load_img/thank.gif" alt="" srcset=""></div>
                     </div>
                 </div>
             </div>
@@ -162,6 +169,7 @@
 
         </div>
         <script src="./static/js/urls.js"></script>
+        <script src="/static/js/refresh.js"></script>
         <script src="/static/js/hashtag.js"></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script src="./static/js/kakao.js"></script>

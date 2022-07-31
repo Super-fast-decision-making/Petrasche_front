@@ -109,29 +109,6 @@ const GetUserInfo = () => {
     });
 };
 
-const Refresh_Token = () => {
-  const PayLoad = JSON.parse(localStorage.getItem("payload"));
-  if (PayLoad.exp > Date.now() / 1000) {
-    return;
-  } else {
-    fetch(`${backend_base_url}user/refresh/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      },
-      body: JSON.stringify({
-        refresh: localStorage.getItem("user_refresh_token"),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        localStorage.setItem("user_access_token", res.access);
-      });
-  }
-};
-
 const GetImgList = () => {
   // document.getElementById("main_article_list").innerHTML = "";
   fetch(`${backend_base_url}article/`)
@@ -637,4 +614,3 @@ const Follow = (user, article) => {
 GetUserInfo();
 GetImgList();
 GetTopList();
-Refresh_Token();

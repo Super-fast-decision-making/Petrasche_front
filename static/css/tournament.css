@@ -236,6 +236,11 @@
     object-fit: cover;
 }
 
+#right_win, #left_win{
+    position: absolute;
+    display: none;
+}
+
 @keyframes scale{
     0%{
         transform: scale(1);

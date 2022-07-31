@@ -113,7 +113,3 @@ function upload_modal_cancel() {
 function modal_edit_cancel() {
   document.getElementById("modal_edit_box").style.display = "none";
 }
-
-function petevent() {
-  window.location.href = "/tournament.html";
-}
