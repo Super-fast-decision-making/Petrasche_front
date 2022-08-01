@@ -16,7 +16,6 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
         document.getElementById('map_modal').style.display='none'
-
     }
     
 }
@@ -357,17 +356,6 @@ async function submitWalkArticle() {
         size: document.getElementById('m_dropbtn_s').innerText,
         contents: theEditor.getData(),
     }
-    //form data버젼
-    // const walkData = new FormData();
-    // walkData.append("place", document.getElementById('m_input_p').value)
-    // walkData.append("region", document.getElementById('m_dropbtn_r').value)
-    // walkData.append("start_date", s_list[0] + '-' + s_list[1] + '-' + s_list[2])
-    // walkData.append("time", document.getElementById('m_dropbtn_t').innerText)
-    // walkData.append("gender", document.getElementById('m_dropbtn_g').innerText)
-    // walkData.append("people_num", document.getElementById('m_dropbtn_n').innerText)
-    // walkData.append("size", document.getElementById('m_dropbtn_s').innerText)
-    // walkData.append("contents", theEditor.getData())
-
 
     if (document.getElementById('m_dropbtn_d').innerText == "날짜") {
         alert("날짜를 정해주세요")
@@ -475,10 +463,6 @@ async function openWalkDetailArticle(id) {
     } );
     document.getElementById('showmap').setAttribute('onclick',`startMap2("${response_json.place}")`)
 }
-
-
-
-
 
 diffDay()
 setInterval(diffDay, 1000)

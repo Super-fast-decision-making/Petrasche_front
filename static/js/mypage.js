@@ -846,4 +846,8 @@ const getLocation = () =>{
     });
 }
 
+const modal_edit_cancel = ()=>{
+    document.getElementById('modal_edit_box').style.display='none'
+}
+
 loadMyArticle(1)
