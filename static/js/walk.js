@@ -226,7 +226,7 @@ async function loadWalkArticle(page, gender, size, region, number){
         if ( (masMonth<month) | (masMonth==month & masDate<day) | (masMonth==month & masDate==day & masTime<time)){ 
 
             document.getElementById('gowalkbutton' + post.id).innerText = '마감'
-            document.getElementById('post_row' + post.id).style.backgroundColor = 'black'
+            document.getElementById('post_row' + post.id).style.backgroundColor = 'rgb(51, 51, 51)'
             document.getElementById('post_row' + post.id).style.color = 'white'
             document.getElementById('post_row' + post.id).setAttribute('onclick', '')
         }
@@ -369,23 +369,25 @@ async function submitWalkArticle() {
         alert("인원수를 정해주세요")
     } else if (document.getElementById('m_dropbtn_s').innerText == "강아지크기") {
         alert("강아지 크기를 정해주세요")
+    }else{
+        const response = await fetch(`${backend_base_url}walk/`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+            body: JSON.stringify(walkData)
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert("게시글이 업로드 되었습니다")
+            window.location.reload()
+        } else {
+            alert("잘못된 게시글입니다")
+        }
     }
-    const response = await fetch(`${backend_base_url}walk/`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        },
-        body: JSON.stringify(walkData)
-    })
-    response_json = await response.json()
-    if (response.status == 200) {
-        alert("게시글이 업로드 되었습니다")
-        window.location.reload()
-    } else {
-        alert("잘못된 게시글입니다")
-    }
+
 }
 
 function diffDay() {

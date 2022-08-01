@@ -178,7 +178,8 @@
     width: 80%;
     max-width: 1000px;
     margin-top: 100px;
-    height:602px /* Could be more or less, depending on screen size */
+    height:602px; /* Could be more or less, depending on screen size */
+    border-radius:7px;
 }
 
 .modal-head{
@@ -339,7 +340,27 @@
     text-decoration: none;
     display: block;
 }
-
+.m_dropbtn_r{
+    background-color: rgb(51, 51, 51);
+    border:1px white solid;
+    border-radius: 5px;
+    color:whitesmoke;
+    margin-top:10px;
+    margin-bottom:10px;
+    
+}
+.m_dropbtn_r:hover{
+    background-color: #808080;
+}
+.start_map{
+    background-color: rgb(51, 51, 51);
+    border:1px white solid;
+    border-radius: 5px;
+    color:whitesmoke;
+}
+.start_map:hover{
+    background-color: #808080;
+}
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
 
@@ -355,72 +376,6 @@
 
 
 
-/*검색창*/
-
-
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
-
-.search {
-    width: 100%;
-    /* position: relative; */
-    display: flex;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.searchTerm {
-    width: 100%;
-    border: 3px solid #00B4CC;
-    border-right: none;
-    padding: 5px;
-    height: 20px;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #9DBFAF;
-}
-
-.searchTerm:focus{
-    color: #00B4CC;
-}
-
-.searchButton {
-    width: 40px;
-    height: 36px;
-    border: 1px solid #00B4CC;
-    background: #00B4CC;
-    text-align: center;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 20px;
-}
-.attend_walk:hover{
-    background-color: #374c7a;
-    font-weight: 600;
-    font-size:1.1rem;
-} 
-
-#go_back:hover{
-    background-color: #374c7a;
-    transform: scale(1.01);
-    transition: transform 0.5s;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-.slide:hover{
-    font-size:2.2rem;
-    transform: scale(1.01);
-    transition: transform 0.5s;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-/*Resize the wrap to see the search bar change!*/
-/* .wrap{
-    width: 30%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
-/* 
 /*페이지네이션*/
 
 .pagination {
@@ -448,18 +403,18 @@
     gap: 10px;
 }
 .page:hover {
-    background-color: #6e85b7;
+    background-color: rgb(51, 51, 51);
     color: #fff;
 }
 
 .active {
-    background-color: #6e85b7;
+    background-color: rgb(51, 51, 51);
     color: #fff;
 }
 
 .btn {
     background-color: #fff;
-    border: 1px solid #6e85b7;
+    border: 1px solid rgb(51, 51, 51);
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -470,12 +425,12 @@
     justify-content: center;
 }
 .btn:hover {
-    background-color: #6e85b7;
+    background-color: rgb(51, 51, 51);
 }
 .btn--icon {
     height: 24px;
     width: 24px;
-    stroke: #6e85b7;
+    stroke: rgb(51, 51, 51);
 }
 .btn--icon:hover {
     stroke: #fff;
