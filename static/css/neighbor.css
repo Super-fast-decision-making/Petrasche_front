@@ -292,7 +292,12 @@
 .walk_button:hover{
     background-color: #374c7a;
 }
-
+.main_column::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+}
+.main_column:-webkit-scrollbar-track {
+    background-color: grey;
+}
 
 
 /*드롭다운*/
