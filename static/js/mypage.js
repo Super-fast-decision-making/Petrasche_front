@@ -535,6 +535,12 @@ async function showPetInfo(pet_id) {
 
 }
 
+// 프로필 이미지 변경 모달 활성화
+function showPiChange() {
+    const update_pi_modal_box = document.getElementById("update_pi_modal_box")
+    update_pi_modal_box.style.display = "flex"
+}
+
 // 회원 비밀번호 인증 모달 활성화
 function showAuthPassword() {
     const update_pw_modal_box = document.getElementById("update_pw_modal_box")
