@@ -535,10 +535,30 @@ async function showPetInfo(pet_id) {
 
 }
 
+// 프로필 이미지 선택 버튼
+function uploadProfileImg(user_id) {
+    const upload_pi_file = document.getElementById("upload_pi_file")
+    const preview_profile_img = document.getElementById("preview_profile_img")
+    const upload_pi_modal_btn = document.getElementById("upload_pi_modal_btn")
+    upload_pi_file.click();
+    
+    upload_pi_file.addEventListener("change", function (e) {
+        let file = e.target.files;
+        preview_profile_img.src = URL.createObjectURL(file[0])
+        preview_profile_img.style.display = "flex";
+        upload_pi_modal_btn.style.display = "none";
+
+        document.getElementById("change_pi_button").onclick = () => {
+            putProfileImg(user_id, file)
+        }
+    })
+}
+
 // 프로필 이미지 변경 모달 활성화
 function showPiChange() {
     const update_pi_modal_box = document.getElementById("update_pi_modal_box")
     update_pi_modal_box.style.display = "flex"
+    
 }
 
 // 회원 비밀번호 인증 모달 활성화
@@ -627,7 +647,9 @@ async function loadUserInfo() {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg(${user.id})`)
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =

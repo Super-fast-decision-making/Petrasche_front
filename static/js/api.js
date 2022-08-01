@@ -467,3 +467,26 @@ const LikeOn = (id) => {
         });
 };
 
+// 프로필 이미지 변경
+async function putProfileImg(user_id, file) {
+
+    let formData = new FormData();
+    for (let i = 0; i < file.length; i++) {
+        formData.append('image_file', file[i])
+    }
+    const response = await fetch(`${backend_base_url}user/authonly/${user_id}/`, {
+        method: 'PUT',
+        body: formData,
+        headers: {
+            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+        },
+    })
+    response_json = await response.json()
+
+    if (response.status == 200) {
+        alert(response_json.massege)
+        window.location.reload()
+    } else {
+        alert(response_json.massege)
+    }
+}

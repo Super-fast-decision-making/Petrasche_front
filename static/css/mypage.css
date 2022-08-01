@@ -1519,7 +1519,7 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .update_pi_modal_content input{
-    display: none;
+    display: flex;
 }
 
 .update_pi_modal_content img{
