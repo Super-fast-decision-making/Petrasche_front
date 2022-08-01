@@ -18,6 +18,11 @@ const Logout = () => {
     localStorage.removeItem("payload");
     window.location.href = "./login.html";
 };
+
+function petevent() {
+    window.location.href = "/tournament.html";
+}
+
 function alarm(id) {
     id.childNodes[3].innerHTML = "";
     fetch(`${backend_base_url}user/history/`, {
