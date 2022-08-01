@@ -153,16 +153,16 @@ function newMessage(message, sent_by_id, time) {
     message.innerHTML = ""
     if (sent_by_id == USER_ID) {
         messages.innerHTML += `<div style="padding: 10px;">
-                            <div class="my" id="my">
-                                ${message} - ${time}
-                            </div>
-                        </div>`
+                        <div class="my" id="my">
+                            ${message} - ${time}
+                        </div>
+                    </div>`
     } else {
         messages.innerHTML += `<div style="padding: 10px;">
-                            <div class="others" id="others">
-                                ${time} - ${message} 
-                            </div>
-                        </div>`
+                        <div class="others" id="others">
+                            ${time} - ${message} 
+                        </div>
+                    </div>`
     }
     messages.scrollTop = messages.scrollHeight;
 }
