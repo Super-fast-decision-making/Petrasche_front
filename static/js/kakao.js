@@ -143,10 +143,14 @@ function mapOn(search){
     
 }
 function startMap(){
-    document.getElementById('map_modal').style.display='inline'
     const search = m_input_p.value;
-    console.log("kdjfkdjf")
-    mapOn(search)
+    if (search==''){
+        alert("검색할 장소를 넣어주세요!")
+    }else{        
+        document.getElementById('map_modal').style.display='inline'
+        console.log("kdjfkdjf")
+        mapOn(search)
+    }
 }
 function startMap2(search){
     document.getElementById('map_modal').style.display='inline'

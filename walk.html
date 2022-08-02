@@ -13,7 +13,6 @@
         import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
     </script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <script charset="utf-8" src="//cdn.iframe.ly/embed.js?api_key=b80ccdef3e18b5806449ef"></script>
@@ -55,7 +54,7 @@
     </div>
 
 
-    <!-- 상단 네비바 -->
+    <!-- 상단 메뉴바 -->
     <nav id="bar-nav">
         <script>$("#bar-nav").load("nav.html");</script>
     </nav>
@@ -79,9 +78,9 @@
                 냥냥이
             </div>
 
-            <div class="menu_petshop">
-                <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
-                펫샵
+            <div onclick="petevent()" class="menu_upload">
+                <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
+                뽐뽐뽐
             </div>
             <div onclick="upload_modal_open()" class="menu_upload">
                 <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
@@ -198,7 +197,7 @@
             <div style="width:100%; min-height: 500px;">
 
                 <div class="main_column"
-                    style="display:flex; float:left;width:65%; height:120%;border-radius: 8px; background-color:white;padding:10px">
+                    style="display:flex; float:left;width:65%; height:120%;border-radius: 8px; background-color:white;padding:30px; overflow:auto">
 
                     <div style="width:100%; margin:20px; height:100%; ">
                         <div style="display:flex;justify-content: space-between;">
@@ -270,41 +269,42 @@
                 <div>
                     <div style="width:100%; height:50px;"></div>
                     <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p'
-                            style="width:90%; height:30px" placeholder="만날 장소 (상세하게 적어주세요)"></input><button
-                            onclick='startMap("서현역")' style="width:10%">지도 검색</button></div>
+                            style="width:90%; height:30px; border-radius: 3px;"
+                            placeholder="만날 장소 (상세하게 적어주세요)"></input><button class="start_map" onclick='startMap("서현역")'
+                            style="width:10%">지도 검색</button></div>
                     <div class="dropdown-row">
                         <div style="width:100%; height:30px;">
                             <div class="dropdown">
-                                <button id="m_dropbtn_r">지역</button>
+                                <button class="m_dropbtn_r" id="m_dropbtn_r">지역</button>
                                 <div class="dropdown-content" id="m_dropdown_region">
                                 </div>
                             </div>
 
                             <div class="dropdown">
-                                <button id="m_dropbtn_d">날짜</button>
+                                <button class="m_dropbtn_r" id="m_dropbtn_d">날짜</button>
                                 <div class="dropdown-content" id="m_dropdown_date">
                                 </div>
                             </div>
 
                             <div class="dropdown">
-                                <button id="m_dropbtn_t">시간</button>
+                                <button class="m_dropbtn_r" id="m_dropbtn_t">시간</button>
                                 <div class="dropdown-content" id="m_dropdown_time">
                                 </div>
                             </div>
                             <div class="dropdown">
-                                <button id="m_dropbtn_g">성별</button>
+                                <button class="m_dropbtn_r" id="m_dropbtn_g">성별</button>
                                 <div class="dropdown-content" id="m_dropdown_gender">
                                 </div>
                             </div>
 
                             <div class="dropdown">
-                                <button id="m_dropbtn_n">인원수</button>
+                                <button class="m_dropbtn_r" id="m_dropbtn_n">인원수</button>
                                 <div class="dropdown-content" id="m_dropdown_hc">
                                 </div>
                             </div>
 
                             <div class="dropdown">
-                                <button id="m_dropbtn_s">강아지크기</button>
+                                <button class="m_dropbtn_r" id="m_dropbtn_s">강아지크기</button>
                                 <div class="dropdown-content" id="m_dropdown_size">
                                 </div>
                             </div>
@@ -371,5 +371,4 @@
     <script src="./static/js/kakao.js"></script>
     <script src="./static/js/walk.js"></script>
     <script src="./static/js/dmapi.js"></script>
-
 </body>
