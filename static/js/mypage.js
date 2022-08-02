@@ -337,7 +337,6 @@ function uploadPetProfileImg() {
     const add_pi_file = document.getElementById("add_pi_file")
     const add_pet_profile_image = document.getElementById("add_pet_profile_image")
     const add_pi_modal_btn = document.getElementById("add_pi_modal_btn")
-    // const add_pet_profile_save_button = document.getElementById("add_pet_profile_save_button")
     add_pi_file.click();
     
     add_pi_file.addEventListener("change", function (e) {
@@ -345,16 +344,7 @@ function uploadPetProfileImg() {
         add_pet_profile_image.src = URL.createObjectURL(file[0])
         add_pet_profile_image.style.display = "flex";
         add_pi_modal_btn.style.display = "none";
-        // add_pet_profile_save_button.setAttribute("onclick", `addPetProfile(${file})`)
-        
-        
-        // document.getElementById("add_pet_profile_save_button").onclick = () => {
-        //     postPetProfile(file, name, birthday, type, gender, size)
-        // }
     })
-    // document.getElementById("add_pet_modal_box").style.display = "none";
-    // await loadUserInfo()
-    // alert("등록 완료")
 }
 
 // 반려동물 등록 모달 활성화
@@ -434,6 +424,8 @@ async function showPetInfo(pet_id) {
     document.getElementById("username").innerText = petprofile.name
     document.getElementById("user_profile_img").src = petprofile.pet_profile_img
     // document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('pet', ${pet_id})`)
 
     const user_button_box = document.getElementById("user_button_box")
     user_button_box.innerHTML =
@@ -555,11 +547,10 @@ async function showPetInfo(pet_id) {
     }
     let target_pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
     target_pet_profile_card.remove()
-
 }
 
 // 프로필 이미지 선택 버튼
-function uploadProfileImg(user_id) {
+function uploadProfileImg(who, _id) {
     const upload_pi_file = document.getElementById("upload_pi_file")
     const preview_profile_img = document.getElementById("preview_profile_img")
     const upload_pi_modal_btn = document.getElementById("upload_pi_modal_btn")
@@ -572,7 +563,7 @@ function uploadProfileImg(user_id) {
         upload_pi_modal_btn.style.display = "none";
 
         document.getElementById("change_pi_button").onclick = () => {
-            putProfileImg(user_id, file)
+            putProfileImg(who, _id, file)
         }
     })
 }
@@ -672,7 +663,7 @@ async function loadUserInfo() {
     document.getElementById("user_profile_img").src = user.profile_img
     document.getElementById("introduction").innerHTML = user.introduction
 
-    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg(${user.id})`)
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('user', ${user.id})`)
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
