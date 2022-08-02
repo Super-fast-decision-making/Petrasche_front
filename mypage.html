@@ -140,7 +140,11 @@
             <div class="add_pet_profile_box">
                 <div class="add_pet_profile_box_l">
                     <div class="add_pet_profile_img">
-                        <img src="" />
+                        <input type="file" multiple accept="image/*" id="add_pi_file">
+                        <button onclick="uploadPetProfileImg()" type="button" class="add_pi_modal_btn" id="add_pi_modal_btn">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <img id="add_pet_profile_image" src="" />
                     </div>
                     <div class="add_pet_profile_item">
                         <p>이름</p>
@@ -182,7 +186,7 @@
                 </div>
             </div>
             <div class="add_pet_profile_save">
-                <button type="button" onclick="addPetProfile()">등록</button>
+                <button id="add_pet_profile_save_button" type="button" onclick="addPetProfile()">등록</button>
             </div>
         </div>
     </div>

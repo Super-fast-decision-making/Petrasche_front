@@ -305,33 +305,56 @@ async function saveUserInfo(user_id) {
 
 // 반려동물 등록
 async function addPetProfile() {
+    let file = document.getElementById("add_pi_file").files
     let name = document.getElementById("add_pet_profile_name").value
     let birthday = document.getElementById("add_pet_profile_birthday").value
-
     const chkList_type = document.querySelectorAll("input[name=pet_type]:checked");
     let type = ''
     chkList_type.forEach(function (ch) {
         type = ch.value
     });
-
     const chkList_gender = document.querySelectorAll("input[name=pet_gender]:checked");
     let gender = ''
     chkList_gender.forEach(function (ch) {
         gender = ch.value
     });
-
     const chkList_size = document.querySelectorAll("input[name=pet_size]:checked");
     let size = ''
     chkList_size.forEach(function (ch) {
         size = ch.value
     });
-
-    await postPetProfile(name, birthday, type, gender, size)
+    await postPetProfile(file, name, birthday, type, gender, size)
 
     document.getElementById("add_pet_modal_box").style.display = "none";
 
-    await loadUserInfo()
+    window.location.reload()
     alert("등록 완료")
+}
+
+// 반려동물 등록 프로필 이미지 등록
+function uploadPetProfileImg() {
+
+    const add_pi_file = document.getElementById("add_pi_file")
+    const add_pet_profile_image = document.getElementById("add_pet_profile_image")
+    const add_pi_modal_btn = document.getElementById("add_pi_modal_btn")
+    // const add_pet_profile_save_button = document.getElementById("add_pet_profile_save_button")
+    add_pi_file.click();
+    
+    add_pi_file.addEventListener("change", function (e) {
+        let file = e.target.files;
+        add_pet_profile_image.src = URL.createObjectURL(file[0])
+        add_pet_profile_image.style.display = "flex";
+        add_pi_modal_btn.style.display = "none";
+        // add_pet_profile_save_button.setAttribute("onclick", `addPetProfile(${file})`)
+        
+        
+        // document.getElementById("add_pet_profile_save_button").onclick = () => {
+        //     postPetProfile(file, name, birthday, type, gender, size)
+        // }
+    })
+    // document.getElementById("add_pet_modal_box").style.display = "none";
+    // await loadUserInfo()
+    // alert("등록 완료")
 }
 
 // 반려동물 등록 모달 활성화

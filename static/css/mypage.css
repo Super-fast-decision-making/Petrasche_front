@@ -1207,13 +1207,36 @@ body {
     width: 100%;
     height: 230px;
     margin: 20px 0px 20px 0px;
-    /* border-radius: 50px; */
+    /* position: relative; */
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
     overflow: hidden;
-    background-color: #9a9a9a;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .add_pet_profile_img img {
     width: 230px;
+}
+
+.add_pet_profile_img button{
+    display: flex;
+    align-items: center;
+    color: red;
+    font-size: 50px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    background-color: initial;
+}
+
+.add_pet_profile_img input{
+    display: none;
 }
 
 .add_pet_profile_item {
@@ -1519,7 +1542,7 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .update_pi_modal_content input{
-    display: flex;
+    display: none;
 }
 
 .update_pi_modal_content img{
