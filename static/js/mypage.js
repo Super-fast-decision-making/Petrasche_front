@@ -95,13 +95,9 @@ async function loadMyArticle(page) {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
-
-    username.innerHTML = user.username
-    introduction.innerHTML = user.introduction
-    user_profile_img.src = user.profile_img
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
@@ -134,10 +130,8 @@ async function openDetailModal(id) {
 
     modal_box.style.display = "flex"
 
-
     const article = await getDetailArticle(id)
     console.log(article)
-
 
     const modal_box_img = document.getElementById("modal_box_img");
     const author = document.getElementById("author");
@@ -305,33 +299,46 @@ async function saveUserInfo(user_id) {
 
 // 반려동물 등록
 async function addPetProfile() {
+    let file = document.getElementById("add_pi_file").files
     let name = document.getElementById("add_pet_profile_name").value
     let birthday = document.getElementById("add_pet_profile_birthday").value
-
     const chkList_type = document.querySelectorAll("input[name=pet_type]:checked");
     let type = ''
     chkList_type.forEach(function (ch) {
         type = ch.value
     });
-
     const chkList_gender = document.querySelectorAll("input[name=pet_gender]:checked");
     let gender = ''
     chkList_gender.forEach(function (ch) {
         gender = ch.value
     });
-
     const chkList_size = document.querySelectorAll("input[name=pet_size]:checked");
     let size = ''
     chkList_size.forEach(function (ch) {
         size = ch.value
     });
-
-    await postPetProfile(name, birthday, type, gender, size)
+    await postPetProfile(file, name, birthday, type, gender, size)
 
     document.getElementById("add_pet_modal_box").style.display = "none";
 
-    await loadUserInfo()
+    window.location.reload()
     alert("등록 완료")
+}
+
+// 반려동물 등록 프로필 이미지 등록
+function uploadPetProfileImg() {
+
+    const add_pi_file = document.getElementById("add_pi_file")
+    const add_pet_profile_image = document.getElementById("add_pet_profile_image")
+    const add_pi_modal_btn = document.getElementById("add_pi_modal_btn")
+    add_pi_file.click();
+    
+    add_pi_file.addEventListener("change", function (e) {
+        let file = e.target.files;
+        add_pet_profile_image.src = URL.createObjectURL(file[0])
+        add_pet_profile_image.style.display = "flex";
+        add_pi_modal_btn.style.display = "none";
+    })
 }
 
 // 반려동물 등록 모달 활성화
@@ -411,6 +418,8 @@ async function showPetInfo(pet_id) {
     document.getElementById("username").innerText = petprofile.name
     document.getElementById("user_profile_img").src = petprofile.pet_profile_img
     // document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('pet', ${pet_id})`)
 
     const user_button_box = document.getElementById("user_button_box")
     user_button_box.innerHTML =
@@ -532,8 +541,42 @@ async function showPetInfo(pet_id) {
     }
     let target_pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
     target_pet_profile_card.remove()
-
 }
+
+// 프로필 이미지 선택 버튼
+function uploadProfileImg(who, _id) {
+    const upload_pi_file = document.getElementById("upload_pi_file")
+    const preview_profile_img = document.getElementById("preview_profile_img")
+    const upload_pi_modal_btn = document.getElementById("upload_pi_modal_btn")
+    upload_pi_file.click();
+    
+    upload_pi_file.addEventListener("change", function (e) {
+        let file = e.target.files;
+        preview_profile_img.src = URL.createObjectURL(file[0])
+        preview_profile_img.style.display = "flex";
+        upload_pi_modal_btn.style.display = "none";
+
+        document.getElementById("change_pi_button").onclick = () => {
+            putProfileImg(who, _id, file)
+        }
+    })
+}
+
+// 프로필 이미지 변경 모달 활성화
+function showPiChange() {
+    const update_pi_modal_box = document.getElementById("update_pi_modal_box")
+    update_pi_modal_box.style.display = "flex"
+    
+}
+
+// 프로필 이미지 변경 모달 비활성화(바디 클릭)
+document.body.addEventListener("click", function (e) {
+    if (e.target.id == "update_pi_modal_box") {
+        document.getElementById("update_pi_modal_box").style.display = "none";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+    }
+});
 
 // 회원 비밀번호 인증 모달 활성화
 function showAuthPassword() {
@@ -621,7 +664,9 @@ async function loadUserInfo() {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('user', ${user.id})`)
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =

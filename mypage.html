@@ -48,9 +48,9 @@
                 <div class="user_container">
                     <div class="user_box">
                         <div class="main_user_profile">
-                            <div class="user_img_box">
+                            <div class="user_img_box" onclick="showPiChange()">
                                 <img id="user_profile_img"
-                                    src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
+                                    src="">
                             </div>
                             <div class="username_box">
                                 <span class="username" id="username">
@@ -60,7 +60,6 @@
                         </div>
                         <div class="user_introduction">
                             <div id="introduction" class="introduction">
-                                안녕하세요 김고은입니다.
                             </div>
                         </div>
                     </div>
@@ -101,6 +100,22 @@
         </div>
     </div>
 
+    <!-- 프로필 이미지 변경 모달 -->
+    <div id="update_pi_modal_box" class="update_pi_modal_box">
+        <div id="update_pi_modal_content" class="update_pi_modal_content">
+            <input type="file" multiple accept="image/*" id="upload_pi_file">
+            <button onclick="" type="button" class="upload_pi_modal_btn" id="upload_pi_modal_btn">
+                <i class="fa-solid fa-camera"></i>
+            </button>
+            <img id="preview_profile_img" class="preview_profile_img"
+                src=""
+                alt="" srcset="">
+            <button type="button" id="change_pi_button">
+                저장
+            </button>
+        </div>
+    </div>
+
     <!-- 비밀번호 변경 모달 -->
     <div id="update_pw_modal_box" class="update_pw_modal_box">
         <div class="update_pw_modal_content">
@@ -124,7 +139,11 @@
             <div class="add_pet_profile_box">
                 <div class="add_pet_profile_box_l">
                     <div class="add_pet_profile_img">
-                        <img src="" />
+                        <input type="file" multiple accept="image/*" id="add_pi_file">
+                        <button onclick="uploadPetProfileImg()" type="button" class="add_pi_modal_btn" id="add_pi_modal_btn">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <img id="add_pet_profile_image" src="" />
                     </div>
                     <div class="add_pet_profile_item">
                         <p>이름</p>
@@ -166,7 +185,7 @@
                 </div>
             </div>
             <div class="add_pet_profile_save">
-                <button type="button" onclick="addPetProfile()">등록</button>
+                <button id="add_pet_profile_save_button" type="button" onclick="addPetProfile()">등록</button>
             </div>
         </div>
     </div>
@@ -245,8 +264,8 @@
 
     <!------JS---------->
     <script src="./static/js/urls.js"></script>
-    <script src="./static/js/api.js"></script>
     <script src="./static/js/hashtag.js"></script>
+    <script src="./static/js/api.js"></script>
     <script src="./static/js/mypage.js"></script>
     <script src="./static/js/search.js"></script>
 </body>
