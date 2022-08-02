@@ -350,12 +350,6 @@ const CommentUpload = (id) => {
     });
 };
 
-const Logout = () => {
-  localStorage.removeItem("user_access_token");
-  localStorage.removeItem("user_refresh_token");
-  localStorage.removeItem("payload");
-  window.location.href = "./login.html";
-};
 
 const LikeOn = (id) => {
   fetch(`${backend_base_url}article/like/${id}/`, {
