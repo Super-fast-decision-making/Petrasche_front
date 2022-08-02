@@ -1,5 +1,5 @@
 const backend_base_url = "http://127.0.0.1:8000/"
-// const backend_base_url = "http://3.34.181.243/"
+// const backend_base_url = "http://3.39.219.239/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
 
@@ -21,6 +21,10 @@ const Logout = () => {
 
 function petevent() {
     window.location.href = "/tournament.html";
+}
+
+function walk() {
+    window.location.href = "/walk.html"
 }
 
 function alarm(id) {
