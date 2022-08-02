@@ -15,10 +15,10 @@ function walkModalOpen() {
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
-        document.getElementById('map_modal').style.display='none'
+        document.getElementById('map_modal').style.display = 'none'
 
     }
-    
+
 }
 
 function goBack() {
@@ -158,7 +158,7 @@ async function getWalkArticle(page, gender, size, region, number) {
     let url = `${backend_base_url}walk/?`
     if (sessionStorage.getItem('start_date') != null) {
         let s_date = sessionStorage.getItem('start_date').replace('.', '-').replace('.', '-').replace('.', '')
-    
+
         url = url + `start_date=${s_date}&`
     }
 
@@ -174,8 +174,8 @@ async function getWalkArticle(page, gender, size, region, number) {
     if (number != 'number') {
         url = url + `number=${number}&`
     }
-    if(page!=null & page!='page'){
-        url = url+`p=${page}`
+    if (page != null & page != 'page') {
+        url = url + `p=${page}`
 
     }
     const response = await fetch(url, {
@@ -193,20 +193,20 @@ async function getWalkArticle(page, gender, size, region, number) {
 
 //모든 아티클 뿌려주기
 
-async function loadWalkArticle(page, gender, size, region, number){
-    
+async function loadWalkArticle(page, gender, size, region, number) {
+
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
     const res = response.results
-    
+
 
     customers = document.getElementById('customers')
     customers.innerHTML = ''
     res.forEach(post => {
         customers.innerHTML +=
             `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
-                <td>${post.start_date.substring(5,10)}</td>
-                <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
+                <td>${post.start_date.substring(5, 10)}</td>
+                <td>${post.start_time.split(' ')[1].substring(0, 5)}~${post.end_time.split(' ')[1].substring(0, 5)}</td>
                 <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
                 <td>${post.people_num}</td>
                 <td id='gowalkbutton${post.id}'>산책가기</td>
@@ -214,17 +214,17 @@ async function loadWalkArticle(page, gender, size, region, number){
 
         let mas = post.start_time
 
-        
-        let masMonth= mas.split('.')[1];
-        let masDate=mas.split('.')[2].split(' ')[0];
-        let masTime =mas.split(' ')[1].split(':')[0];
+
+        let masMonth = mas.split('.')[1];
+        let masDate = mas.split('.')[2].split(' ')[0];
+        let masTime = mas.split(' ')[1].split(':')[0];
 
         let today = new Date()
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
         let day = ('0' + today.getDate()).slice(-2);
-        let time = ('0' + today.getHours()).slice(-2); 
+        let time = ('0' + today.getHours()).slice(-2);
 
-        if ( (masMonth<month) | (masMonth==month & masDate<day) | (masMonth==month & masDate==day & masTime<time)){ 
+        if ((masMonth < month) | (masMonth == month & masDate < day) | (masMonth == month & masDate == day & masTime < time)) {
 
             document.getElementById('gowalkbutton' + post.id).innerText = '마감'
             document.getElementById('post_row' + post.id).style.backgroundColor = 'black'
@@ -233,7 +233,7 @@ async function loadWalkArticle(page, gender, size, region, number){
         }
     });
 
-    const total_pages = parseInt(count/12)+1
+    const total_pages = parseInt(count / 12) + 1
 
 
 
@@ -243,27 +243,27 @@ async function loadWalkArticle(page, gender, size, region, number){
         document.getElementById("pages").innerHTML += `<a class="page" id=page onclick="loadWalkArticle(${i},'gender', 'size', 'region', 'number')">${i}</a>`
     }
     document.getElementById("right_page")
-    
 
 
-    if (page=='page'| page==1){
-        let page_num=1
-        
-        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
-    }else if (page==total_pages){
-        
-        let page_num=page
-        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
-    }else{    
-        
-        let page_num=page
-        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
-        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
+
+    if (page == 'page' | page == 1) {
+        let page_num = 1
+
+        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num + 1}, "gender", "size", "region", "number")`)
+    } else if (page == total_pages) {
+
+        let page_num = page
+        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num - 1}, "gender", "size", "region", "number")`)
+    } else {
+
+        let page_num = page
+        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num + 1}, "gender", "size", "region", "number")`)
+        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num - 1}, "gender", "size", "region", "number")`)
     }
 
 
 }
-loadWalkArticle('page','gender', 'size', 'region', 'number')
+loadWalkArticle('page', 'gender', 'size', 'region', 'number')
 
 function searchStart(filter_num, click_name) {
 
@@ -287,7 +287,7 @@ function searchStart(filter_num, click_name) {
     if (filter_num == 4) {
         dropbtn_n.innerText = click_name
     }
-    
+
 
 
     const gender = dropbtn_g.innerText
@@ -301,7 +301,7 @@ function searchStart(filter_num, click_name) {
 }
 
 async function goWalk(id, attending_user) {
-    
+
     const updateWalkData = {
         attending_user: attending_user
     }
@@ -414,7 +414,7 @@ function diffDay() {
     timer.innerHTML = `<span style="font-size=0.5rem">모임까지 남은 시간</span><br>${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초`;
 }
 
-
+// var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
 
@@ -433,6 +433,9 @@ async function openWalkDetailArticle(id) {
         }
     })
     response_json = await response.json()
+    // console.log(response_json.host)
+    // host_id = response_json.host
+    sessionStorage.setItem('host_id', response_json.host)
     const host_name = document.getElementById("host_name")
     const detail_contents = document.getElementById("detail_contents")
     const detail_date = document.getElementById("detail_date")
@@ -466,18 +469,25 @@ async function openWalkDetailArticle(id) {
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
     }
 
-    
+
     // document.getElementById('w_d_img_box').setAttribute('src',`${response_json.host_pic}`)
-    document.getElementById('detail_profile').setAttribute('src',`${response_json.host_pic}`)
+    document.getElementById('detail_profile').setAttribute('src', `${response_json.host_pic}`)
     //임베드 동영상 띄워주기
-    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
-    iframely.load( element, element.attributes.url.value );
-    } );
-    document.getElementById('showmap').setAttribute('onclick',`startMap2("${response_json.place}")`)
+    document.querySelectorAll('oembed[url]').forEach(element => {
+        iframely.load(element, element.attributes.url.value);
+    });
+    document.getElementById('showmap').setAttribute('onclick', `startMap2("${response_json.place}")`)
 }
 
 
-
+// 룸 생성
+async function postHeader() {
+    let host_id = sessionStorage.getItem('host_id')
+    console.log(host_id)
+    const response_json = await createHeader(host_id)
+    console.log(response_json)
+    window.location.href = "/dm.html";
+}
 
 
 diffDay()
