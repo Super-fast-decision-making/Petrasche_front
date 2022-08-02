@@ -20,6 +20,11 @@ body {
     width: 100vw;
     display: flex;
 }
+.modal_user_profile:hover{
+    color:#9a9a9a;
+    cursor: pointer;
+}
+
 
 
 /* 메인 */
@@ -35,7 +40,7 @@ body {
     /* border: 10px solid #e7e7e7;
     border-style: dotted; */
 
-    background-color: #baced7;
+    /* background-color: #baced7; */
 }
 
 .left_menu {
@@ -1498,6 +1503,14 @@ transition: transform 0.5s;
 box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
+
+.article_card{
+    background-color:beige; 
+    width:258px; 
+    height:350px; 
+    margin:10px;
+    border-radius:5px;
+}
 /* 프로필 이미지 변경 모달 */
 
 .update_pi_modal_box {
@@ -1551,3 +1564,4 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     object-fit: cover;
     display: none;
 }
+

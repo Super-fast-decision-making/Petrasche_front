@@ -2,6 +2,16 @@ const backend_base_url = "http://127.0.0.1:8000/"
 // const backend_base_url = "http://3.39.219.239/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
+async function profile (user_id){
+    sessionStorage.setItem('profile_page_id', user_id)
+    payload = localStorage.getItem("payload")
+    if (user_id==JSON.parse(payload).user_id){
+        UserPage()
+    }else{
+        window.location.href = "/personal.html"
+    }  
+}
+
 
 const DM = () => {
     window.location.href = "/dm.html";
@@ -67,3 +77,6 @@ function alarm(id) {
         }
     };
 }
+
+
+
