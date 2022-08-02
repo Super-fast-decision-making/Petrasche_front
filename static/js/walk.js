@@ -45,7 +45,7 @@ const slidesContainer = document.getElementById("slides-container");
 for (let i = 0; i < 14; i++) {
     let date = m_dropdown_region_date[i].split('2. ')[1].replace(/ /g, '')
     let search_date = '2022.' + date
-    slidesContainer.innerHTML += `<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'>클릭해주세요</span></li>`
+    slidesContainer.innerHTML += `<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'></span></li>`
 }
 
 
@@ -177,6 +177,7 @@ async function getWalkArticle(page, gender, size, region, number) {
         url = url+`p=${page}`
 
     }
+    console.log(url)
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -193,6 +194,7 @@ async function getWalkArticle(page, gender, size, region, number) {
 //모든 아티클 뿌려주기
 
 async function loadWalkArticle(page, gender, size, region, number){
+    console.log(page, gender, size, region, number)
     
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
@@ -295,7 +297,8 @@ function searchStart(filter_num, click_name) {
     const number = dropbtn_n.innerText
 
     customers.innerHTML = ""
-    loadWalkArticle(gender, size, region, number)
+    
+    loadWalkArticle('page', gender, size, region, number)
 
 }
 
