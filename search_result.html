@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/main_style.css">
     <link rel="stylesheet" href="/static/css/hashtag.css">
+    <link rel="stylesheet" href="/static/css/search.css">
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
     <title>검색 결과|Petrasche</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -119,16 +120,29 @@
                     <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
                     업로드
                 </div>
+                <div onclick="petevent()" class="menu_upload">
+                    <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
+                    뽐뽐뽐
+                </div>
             </div>
+
             <div class="right_section">
                 <h1 class="top_title">검색 결과</h1>
-                <div id="top_article" class="top_article">
-                </div>
-                <div class="scroll_button">
-                    <div onclick="top_left_scroll()"><i class="fa-solid fa-angle-left"></i></div>
-                    <div onclick="top_right_scroll()"><i class="fa-solid fa-angle-right"></i></div>
+                <div id="search_result" class="search_result">
+
+                    <figure class="search_item">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                            alt="">
+                        <figcaption>
+                            <h4>불러오는 중...</h4>
+                            <div>불러오는 중...</div>
+                            <p>불러오는 중...</p>
+                        </figcaption>
+                    </figure>
+
                 </div>
             </div>
+
         </div>
         <script src="./static/js/urls.js"></script>
         <script src="/static/js/hashtag.js"></script>

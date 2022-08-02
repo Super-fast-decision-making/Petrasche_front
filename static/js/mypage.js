@@ -706,7 +706,6 @@ async function loadLikeArticle() {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
 
     for (let i = 0; i < user['like_articles'].length; i++) {
         let like_article = user['like_articles'][i]
@@ -791,7 +790,7 @@ function listLikeUser(likes) {
 async function submitLoc(id){
     let loData = await getLocation()
     // setTimeout('', 500)
-    console.log(loData)
+    
     const response = await fetch(`${backend_base_url}user/location/${id}/`,{
         method: 'PUT',
         headers: {
@@ -802,7 +801,7 @@ async function submitLoc(id){
         body: JSON.stringify(loData)
     })
     response_json = await response.json()
-    return response_json
+    alert('위도: '+String(response_json.latitude) +' '+'경도: '+ String(response_json.longitude))
 }
 //밑에서 써도 위에서 부를 수 있다?!?!?!
 const getLocation = () =>{
@@ -822,7 +821,11 @@ const getLocation = () =>{
         } else {
             reject(null)
         }      
-    }); 
+    });
+}
+
+const modal_edit_cancel = ()=>{
+    document.getElementById('modal_edit_box').style.display='none'
 }
 
 loadMyArticle(1)

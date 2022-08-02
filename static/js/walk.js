@@ -16,7 +16,6 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
         document.getElementById('map_modal').style.display='none'
-
     }
     
 }
@@ -46,7 +45,7 @@ const slidesContainer = document.getElementById("slides-container");
 for (let i = 0; i < 14; i++) {
     let date = m_dropdown_region_date[i].split('2. ')[1].replace(/ /g, '')
     let search_date = '2022.' + date
-    slidesContainer.innerHTML += `<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'>클릭해주세요</span></li>`
+    slidesContainer.innerHTML += `<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'></span></li>`
 }
 
 
@@ -178,6 +177,7 @@ async function getWalkArticle(page, gender, size, region, number) {
         url = url+`p=${page}`
 
     }
+    console.log(url)
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -194,6 +194,7 @@ async function getWalkArticle(page, gender, size, region, number) {
 //모든 아티클 뿌려주기
 
 async function loadWalkArticle(page, gender, size, region, number){
+    console.log(page, gender, size, region, number)
     
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
@@ -227,7 +228,7 @@ async function loadWalkArticle(page, gender, size, region, number){
         if ( (masMonth<month) | (masMonth==month & masDate<day) | (masMonth==month & masDate==day & masTime<time)){ 
 
             document.getElementById('gowalkbutton' + post.id).innerText = '마감'
-            document.getElementById('post_row' + post.id).style.backgroundColor = 'black'
+            document.getElementById('post_row' + post.id).style.backgroundColor = 'rgb(51, 51, 51)'
             document.getElementById('post_row' + post.id).style.color = 'white'
             document.getElementById('post_row' + post.id).setAttribute('onclick', '')
         }
@@ -296,7 +297,8 @@ function searchStart(filter_num, click_name) {
     const number = dropbtn_n.innerText
 
     customers.innerHTML = ""
-    loadWalkArticle(gender, size, region, number)
+    
+    loadWalkArticle('page', gender, size, region, number)
 
 }
 
@@ -357,17 +359,6 @@ async function submitWalkArticle() {
         size: document.getElementById('m_dropbtn_s').innerText,
         contents: theEditor.getData(),
     }
-    //form data버젼
-    // const walkData = new FormData();
-    // walkData.append("place", document.getElementById('m_input_p').value)
-    // walkData.append("region", document.getElementById('m_dropbtn_r').value)
-    // walkData.append("start_date", s_list[0] + '-' + s_list[1] + '-' + s_list[2])
-    // walkData.append("time", document.getElementById('m_dropbtn_t').innerText)
-    // walkData.append("gender", document.getElementById('m_dropbtn_g').innerText)
-    // walkData.append("people_num", document.getElementById('m_dropbtn_n').innerText)
-    // walkData.append("size", document.getElementById('m_dropbtn_s').innerText)
-    // walkData.append("contents", theEditor.getData())
-
 
     if (document.getElementById('m_dropbtn_d').innerText == "날짜") {
         alert("날짜를 정해주세요")
@@ -381,23 +372,25 @@ async function submitWalkArticle() {
         alert("인원수를 정해주세요")
     } else if (document.getElementById('m_dropbtn_s').innerText == "강아지크기") {
         alert("강아지 크기를 정해주세요")
+    }else{
+        const response = await fetch(`${backend_base_url}walk/`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+            body: JSON.stringify(walkData)
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert("게시글이 업로드 되었습니다")
+            window.location.reload()
+        } else {
+            alert("잘못된 게시글입니다")
+        }
     }
-    const response = await fetch(`${backend_base_url}walk/`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        },
-        body: JSON.stringify(walkData)
-    })
-    response_json = await response.json()
-    if (response.status == 200) {
-        alert("게시글이 업로드 되었습니다")
-        window.location.reload()
-    } else {
-        alert("잘못된 게시글입니다")
-    }
+
 }
 
 function diffDay() {
@@ -475,10 +468,6 @@ async function openWalkDetailArticle(id) {
     } );
     document.getElementById('showmap').setAttribute('onclick',`startMap2("${response_json.place}")`)
 }
-
-
-
-
 
 diffDay()
 setInterval(diffDay, 1000)
