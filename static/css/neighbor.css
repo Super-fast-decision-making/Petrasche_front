@@ -1,27 +1,29 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-.right_section{
-    width:65%;
+.right_section {
+    width: 65%;
     margin-left: 50px;
-    padding:20px
+    padding: 20px
 }
-.r_section_title{
-    height:50px;
+
+.r_section_title {
+    height: 50px;
     margin-top: 100px;
     font-size: 1.4rem;
     font-weight: 600;
 }
 
-.time_bar{
+.time_bar {
     background-color: white;
-    width:100%; 
-    height:15vh;
+    width: 100%;
+    height: 15vh;
     border-radius: 8px;
 }
+
 /*날짜 캐로셀*/
 
 
@@ -81,8 +83,8 @@
     height: 100%;
     flex: 1 0 100%;
     font-size: 2rem;
-    color:#f9f9f9;
-    text-align:center;
+    color: #f9f9f9;
+    text-align: center;
 }
 
 .slide:nth-child(1) {
@@ -118,6 +120,7 @@
 .slide:nth-child(8) {
     background-color: #da6f2b;
 }
+
 .slide:nth-child(9) {
     background-color: #49b293;
 }
@@ -134,6 +137,7 @@
 .slide:nth-child(12) {
     background-color: #2bb4da;
 }
+
 .slide:nth-child(13) {
     background-color: #49b293;
 }
@@ -143,13 +147,13 @@
 }
 
 
-.neighbor_list{
-    background-color: #ffffff; 
-    width:100%; 
-    min-height:100px;
-    margin-top:50px;
-    border-radius:8px; 
-    padding:15px
+.neighbor_list {
+    background-color: #ffffff;
+    width: 100%;
+    min-height: 100px;
+    margin-top: 50px;
+    border-radius: 8px;
+    padding: 15px
 }
 
 
@@ -157,51 +161,61 @@
 /*모달*/
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
 }
 
-  /* Modal Content/Box */
+/* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
+    /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 1000px;
     margin-top: 100px;
-    height:602px; /* Could be more or less, depending on screen size */
-    border-radius:7px;
+    height: 602px;
+    /* Could be more or less, depending on screen size */
+    border-radius: 7px;
 }
 
-.modal-head{
+.modal-head {
     display: flex;
     justify-content: space-between;
 }
 
-.m_submit_button{
-    margin-bottom: 10px; 
+.m_submit_button {
+    margin-bottom: 10px;
     background-color: black;
-    color:white;
-    padding:8px;
-    border-radius:5px;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
 }
 
-.m_submit_button:hover{
+.m_submit_button:hover {
     transform: scale(1.01);
     transition: transform 0.5s;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-  /* The Close Button */
+/* The Close Button */
 .close {
     color: #aaa;
     float: right;
@@ -217,8 +231,8 @@
 }
 
 
-.dropdown button{
-    height:32px; 
+.dropdown button {
+    height: 32px;
     width: 120px;
 }
 
@@ -240,7 +254,7 @@
 
 
 
-.right_column{
+.right_column {
     position: sticky;
     top: 10px;
     left: 0;
@@ -266,14 +280,19 @@
     width: 100%;
 }
 
-#customers td, #customers th {
+#customers td,
+#customers th {
     /* border: 1px solid #ddd; */
     padding: 8px;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover {
+    background-color: #ddd;
+}
 
 #customers th {
     padding-top: 12px;
@@ -287,15 +306,17 @@
     background-color: #6e85b7;
     border-radius: 5px;
     text-align: center;
-    color:whitesmoke
+    color: whitesmoke
 }
 
-.walk_button:hover{
+.walk_button:hover {
     background-color: #374c7a;
 }
+
 .main_column::-webkit-scrollbar-thumb {
     background-color: #2f3542;
 }
+
 .main_column:-webkit-scrollbar-track {
     background-color: grey;
 }
@@ -310,17 +331,16 @@
     color: white;
     font-size: 16px;
     border-radius: 5px;
-    border:none;
+    border: none;
     cursor: pointer;
-    width:100px
-    
+    width: 100px
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-right:30px;
+    margin-right: 30px;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -329,7 +349,7 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -340,29 +360,36 @@
     text-decoration: none;
     display: block;
 }
-.m_dropbtn_r{
+
+.m_dropbtn_r {
     background-color: rgb(51, 51, 51);
-    border:1px white solid;
+    border: 1px white solid;
     border-radius: 5px;
-    color:whitesmoke;
-    margin-top:10px;
-    margin-bottom:10px;
-    
+    color: whitesmoke;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
 }
-.m_dropbtn_r:hover{
+
+.m_dropbtn_r:hover {
     background-color: #808080;
 }
-.start_map{
+
+.start_map {
     background-color: rgb(51, 51, 51);
-    border:1px white solid;
+    border: 1px white solid;
     border-radius: 5px;
-    color:whitesmoke;
+    color: whitesmoke;
 }
-.start_map:hover{
+
+.start_map:hover {
     background-color: #808080;
 }
+
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
@@ -384,13 +411,15 @@
     justify-content: center;
     /* gap: 16px; */
     margin-top: 100px;
-    
+
 }
+
 .pages {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
+
 .page {
     height: 40px;
     width: 40px;
@@ -402,6 +431,7 @@
     justify-content: center;
     gap: 10px;
 }
+
 .page:hover {
     background-color: rgb(51, 51, 51);
     color: #fff;
@@ -424,14 +454,19 @@
     align-items: center;
     justify-content: center;
 }
+
 .btn:hover {
     background-color: rgb(51, 51, 51);
 }
+
 .btn--icon {
     height: 24px;
     width: 24px;
     stroke: rgb(51, 51, 51);
 }
+
 .btn--icon:hover {
     stroke: #fff;
 }
+
+.dmbtn {}
