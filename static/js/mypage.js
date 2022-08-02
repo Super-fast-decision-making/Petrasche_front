@@ -569,6 +569,15 @@ function showPiChange() {
     
 }
 
+// 프로필 이미지 변경 모달 비활성화(바디 클릭)
+document.body.addEventListener("click", function (e) {
+    if (e.target.id == "update_pi_modal_box") {
+        document.getElementById("update_pi_modal_box").style.display = "none";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+    }
+});
+
 // 회원 비밀번호 인증 모달 활성화
 function showAuthPassword() {
     const update_pw_modal_box = document.getElementById("update_pw_modal_box")
