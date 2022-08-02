@@ -204,10 +204,13 @@
                             <div style="display:flex"><img id="detail_profile"
                                     style="border-radius: 71%;height:30px; width:30px"></img>
                                 <h2 id="host_name">00 산책장</h2>
-                            </div><button id="go_back" onclick=goBack()
+                            </div>
+                            <button class="dm_btn" id="dm_btn" onclick=postHeader()
+                                style="background-color:black; color:white; border:none; margin-right: -40%;; padding: 0 10px;border-radius:10px">문의하기</button>
+                            <button id="go_back" onclick=goBack()
                                 style="background-color:black; color:white; border:none; padding: 0 10px;border-radius:10px">뒤로가기</button>
                         </div>
-                        <button class="dmbtn" id="dmbtn" onclick="postHeader()">DM</button>
+
                         <div
                             style="width:400px; height:100px; background-color:white; margin:30px auto;display: flex; justify-content: space-between;">
                             <span></span>
