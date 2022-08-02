@@ -95,13 +95,9 @@ async function loadMyArticle(page) {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
-
-    username.innerHTML = user.username
-    introduction.innerHTML = user.introduction
-    user_profile_img.src = user.profile_img
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
@@ -134,10 +130,8 @@ async function openDetailModal(id) {
 
     modal_box.style.display = "flex"
 
-
     const article = await getDetailArticle(id)
     console.log(article)
-
 
     const modal_box_img = document.getElementById("modal_box_img");
     const author = document.getElementById("author");
