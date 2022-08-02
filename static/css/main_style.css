@@ -226,6 +226,10 @@ body {
     display: flex;
     /* align-items: center; */
 }
+.top_article_user_name:hover{
+    color: black;
+    cursor: pointer;
+}
 
 .top_article_info div:nth-child(2) img {
     margin: 0;
@@ -529,7 +533,10 @@ body {
     font-weight: bold;
     font-size: 12px;
 }
-
+.modal_username:hover {
+    color:#545454;
+    cursor:pointer
+}
 .modal_content_list {
     padding: 15px;
     padding-top: 0px;

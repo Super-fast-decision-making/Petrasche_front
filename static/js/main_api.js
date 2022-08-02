@@ -140,6 +140,7 @@ const GetTopList = () => {
       document.getElementById("top_article").innerHTML = "";
 
       data.forEach((item) => {
+
         let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
       <img src="${item.images[0]}" alt="">
       <div class="top_article_info">
@@ -149,7 +150,7 @@ const GetTopList = () => {
           </div>
           <div>
               <img src="${item.images[0]}" alt="">
-              <div class="top_article_user_name">${item.author}</div>
+              <div onclick='profile(${item.user})' class="top_article_user_name">${item.author}</div>
           </div>
           <div>
               ${item.content}
@@ -235,6 +236,83 @@ function upload_modal_submit() {
       });
   }
 }
+// 디테일 모달 열기+보여주기
+async function openDetailModal(id) {
+
+    document.getElementById("mypage_modal_comment_list").innerHTML = ""
+    const PayLoad = JSON.parse(localStorage.getItem("payload"));
+    const modal_box = document.getElementById("modal_box")
+
+    modal_box.style.display = "flex"
+
+
+    const article = await getDetailArticle(id)
+    console.log(article)
+
+
+    const modal_box_img = document.getElementById("modal_box_img");
+    const author = document.getElementById("author");
+    const author_profile_img = document.getElementById("author_profile_img");
+    const content = document.getElementById("content");
+    const comment_list = document.getElementById("mypage_modal_comment_list");
+    const submit_button = document.getElementById("modal_comment_submit");
+    const modal_follow = document.getElementById("modal_follow");
+    const article_delete = document.getElementById("article_delete");
+    const article_edit = document.getElementById("article_edit");
+    const modal_like_num1 = document.getElementById("modal_like_num1");
+    const modal_like_num2 = document.getElementById("modal_like_num2");
+    const modal_edit_text = document.getElementById("modal_edit_text");
+
+    author.innerText = article.author;
+    author_profile_img.src = article.profile_img[0];
+    content.innerHTML = tagToLink(article.content);
+    modal_like_num1.innerText = article.like_num;
+    modal_like_num2.innerText = article.like_num;
+    modal_box_img.src = article.images[0];
+    article_delete.setAttribute("onClick", `articleDelete(${article.id})`);
+    article_edit.setAttribute("onClick", `articleEdit(${article.id})`);
+    modal_edit_text.innerHTML = article.content;
+
+    submit_button.setAttribute("onClick", `sendComment(${article.id})`);
+    modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`);
+
+    //이미지
+    let images = article.images;
+    document.getElementById("slide_left").onclick = () => {
+        let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+        );
+        if (index == 0) {
+            index = images.length - 1;
+        } else {
+            index--;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+                duration: 1000,
+                fill: "forwards",
+            });
+    };
+    document.getElementById("slide_right").onclick = () => {
+        let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+        );
+        if (index == images.length - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+        document.getElementById("modal_box_img").src = images[index];
+        document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+                duration: 1000,
+                fill: "forwards",
+            });
+    }
+};
 
 function modal_open(id) {
   Refresh_Token();
@@ -369,6 +447,8 @@ function modal_open(id) {
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
+
+      document.getElementById("modal_username").setAttribute("onclick", `profile(${data.user})`)
       document.getElementById("modal_edit_text").value = content_raw;
 
       comments.forEach((item) => {
