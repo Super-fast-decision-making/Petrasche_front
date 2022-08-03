@@ -206,7 +206,7 @@ function image_upload(file, id) {
 }
 
 function event_point_up(id, period, user) {
-  if (user == "left"){
+  if (user == "left") {
     document.getElementById("left_win").style.display = "block";
   } else {
     document.getElementById("right_win").style.display = "block";
