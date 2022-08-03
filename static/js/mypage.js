@@ -666,7 +666,7 @@ async function loadUserInfo() {
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
         `<div class="user_profile_box">
-            <div class="user_profile_item">
+            <div class="user_profile_item user_profile_item_btn">
                 <p>비밀번호</p>
                 <button type="button" onclick="showAuthPassword()">변경</button>
             </div>
@@ -677,7 +677,6 @@ async function loadUserInfo() {
             <div class="user_profile_item">
                 <p>연락처</p>
                 <input id="user_profile_phone" type="text" value=""/>
-                <button type="button" onclick="">변경</button>
             </div>
             <div class="user_profile_item">
                 <p>생년월일</p>
@@ -703,7 +702,7 @@ async function loadUserInfo() {
     email.innerText = user.email
     phone.setAttribute("value", user.phone_num)
     birthday.setAttribute("value", user.birthday)
-
+    
     if (user.gender == 1) {
         gender_male.checked = true
     }

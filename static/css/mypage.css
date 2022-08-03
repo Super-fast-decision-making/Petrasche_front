@@ -291,12 +291,21 @@ body {
     margin: 20px 5px 60px 5px;
 }
 
+.user_profile_item_btn {
+    display: flex;
+    align-items: center;
+}
+
 .user_profile_item p {
     margin: 10px 0 10px 0;
 }
 
 .user_profile_item button {
-    margin-left: 10px;
+    width: 40px;
+    height: 26px;
+
+    font-size: 15px;
+    margin-left: 20px;
     padding: 0;
 
 }
