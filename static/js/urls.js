@@ -81,11 +81,11 @@ function alarm(id) {
 
 
 //로그인 했을때만 해당 유저 인포 가져온다
-const GetUserInfo = () => {
+async function GetUserInfo() {
     // payload = localStorage.getItem("payload")
     // console.log(JSON.parse(payload))
     if (localStorage.getItem("payload")!=null){
-        fetch(`${backend_base_url}user/`, {
+        await fetch(`${backend_base_url}user/`, {
             method: "GET",
             headers: {
                 Accept: "application/json",

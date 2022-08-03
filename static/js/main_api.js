@@ -695,6 +695,6 @@ const Follow = (user, article) => {
 };
 
 
-GetUserInfo();
+// GetUserInfo();
 GetImgList();
 GetTopList();
