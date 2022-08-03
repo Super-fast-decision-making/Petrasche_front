@@ -4,6 +4,10 @@ body {
     background-color: #C4D7E0;
 }
 
+button {
+    cursor: pointer;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -131,6 +135,7 @@ body {
     overflow: hidden;
 
     background-color: black;
+    cursor: pointer;
 }
 
 .user_img_box img {
@@ -146,12 +151,39 @@ body {
     margin: 10px;
 }
 
+.change_introduction {
+    display: none;
+    margin-left: 5px;
+    background-color: #6e85b7;
+    color: #ffffff;
+    border: 2px solid #6e85b7;
+    border-radius: 3px;
+}
+
+.change_introduction:hover{
+    transform: scale(1.01);
+    transition: transform 0.5s;
+    box-shadow: 0 0 20px rgba(90, 121, 188, 0.4);
+    }
+
 .username {
     font-size: 20px;
 }
 
 .user_introduction {
     padding-left: 10px;
+    display: flex;
+}
+
+.user_introduction input{
+    display: none;
+    height: 22px;
+}
+
+.user_introduction button{
+    display: none;
+    align-items: center;
+    margin-left: 5px;
 }
 
 .introduction {

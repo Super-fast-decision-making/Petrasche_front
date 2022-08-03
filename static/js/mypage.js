@@ -98,6 +98,7 @@ async function loadMyArticle(page) {
     document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
+    document.getElementById("change_introduction").style.display = "none"
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
@@ -415,6 +416,7 @@ async function showPetInfo(pet_id) {
     // document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('pet', ${pet_id})`)
+    // document.getElementById("change_introduction").setAttribute("onclick", `showIntroInput('pet', ${pet_id})`)
 
     const user_button_box = document.getElementById("user_button_box")
     user_button_box.innerHTML =
@@ -573,6 +575,33 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
+async function changeIntoriduction(who, _id) {
+    const change_intro_input = document.getElementById("change_intro_input").value
+    let response = await putIntroduction(who, _id, change_intro_input)
+}
+
+// 소개글 변경
+function showIntroInput(who, _id) {
+    const user_introduction = document.getElementById("user_introduction")
+    const introduction = document.getElementById("introduction")
+    const change_intro_input = document.getElementById("change_intro_input")
+    const change_intro_button = document.getElementById("change_intro_button")
+
+    let current_intro = introduction.innerText
+
+    introduction.style.display = "none"
+    change_intro_input.style.display = "flex"
+    change_intro_input.value = current_intro
+    change_intro_button.style.display = "flex"
+    change_intro_button.setAttribute("onclick", `changeIntoriduction('${who}', ${_id})`)
+
+    
+
+
+    
+}
+
+
 // 회원 비밀번호 인증 모달 활성화
 function showAuthPassword() {
     const update_pw_modal_box = document.getElementById("update_pw_modal_box")
@@ -662,6 +691,8 @@ async function loadUserInfo() {
     document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('user', ${user.id})`)
+    document.getElementById("change_introduction").style.display = "flex"
+    document.getElementById("change_introduction").setAttribute("onclick", `showIntroInput('user', ${user.id})`)
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
@@ -746,6 +777,7 @@ async function loadLikeArticle() {
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
     // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("change_introduction").style.display = "none"
 
     for (let i = 0; i < user['like_articles'].length; i++) {
         let like_article = user['like_articles'][i]

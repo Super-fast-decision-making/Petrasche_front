@@ -506,3 +506,49 @@ async function putProfileImg(who, _id, file) {
         }
     }
 }
+
+// 프로필 소개글 변경
+async function putIntroduction(who, _id, introduction) {
+
+    const introductionData = {
+        introduction: introduction
+    }
+
+    if (who == 'user') {
+        console.log('user')
+        let response = await fetch(`${backend_base_url}user/authonly/${_id}/`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+            body: JSON.stringify(introductionData),
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert(response_json.massege)
+            window.location.reload()
+        } else {
+            alert(response_json.massege)
+        }
+    } else {
+        console.log('pet')
+        let response = await fetch(`${backend_base_url}user/mypet/${_id}/`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+            body: JSON.stringify(introductionData),
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert(response_json.massege)
+            window.location.reload()
+        } else {
+            alert(response_json.massege)
+        }
+    }
+}
