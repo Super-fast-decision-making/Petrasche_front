@@ -89,7 +89,7 @@
     display:flex;
     justify-content: center;
     align-items: center;
-
+    cursor: pointer;
 }
 
 .slide:nth-child(1) {
