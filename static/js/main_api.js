@@ -726,6 +726,5 @@ const Follow = (user, article) => {
     });
 };
 
-GetUserInfo();
 GetImgList();
 GetTopList();
