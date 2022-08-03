@@ -13,20 +13,18 @@ function walkModalOpen() {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
-
     if (event.target == modal) {
         modal.style.display = "none";
+        document.getElementById('map_modal').style.display='none'
     }
     
-    
 }
-if (document.getElementById('map_modal').style.display=='inline') {
-    body.addEventListener('click', modelClose);
-    function modelClose(e) {
-        console.log(e)
-        document.getElementById('map_modal').style.display = 'none'
-    }
-}
+
+    // if (document.getElementById('map_modal').style.display=='inline') {
+    //     console.log("***")
+    //     document.getElementById('map_modal').style.display='none'
+    // }
+
 
 function goBack() {
     const detail_r_sec = document.getElementById("detail_r_sec")
