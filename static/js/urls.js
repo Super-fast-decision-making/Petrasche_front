@@ -92,6 +92,8 @@ const GetUserInfo = () => {
     .then((res) => {
         if (res.username == null) {
         // window.location.href = "./login.html";
+        document.getElementById('logout').innerText='로그인';
+        document.getElementById('user_profile').style.display='none';
         } else {
             document.getElementById("user").innerHTML = res.username;
             console.log(res.profile_img)
@@ -100,10 +102,9 @@ const GetUserInfo = () => {
     });
 };
 
-window.onload = function checkUser() {
-    const user = document.getElementById('user')
-    if (user.innerText == '유저님'){
-        document.getElementById('logout').innerText='로그인';
-        document.getElementById('user_profile').style.display='none';
-    } 
-}
+// window.onload = function checkUser() {
+//     const user = document.getElementById('user')
+//     if (user.innerText == '유저님'){
+
+//     } 
+// }
