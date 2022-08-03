@@ -98,6 +98,7 @@ async function loadMyArticle(page) {
     document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
+    document.getElementById("change_introduction").style.display = "none"
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
@@ -410,6 +411,7 @@ async function showPetInfo(pet_id) {
     // document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('pet', ${pet_id})`)
+    // document.getElementById("change_introduction").setAttribute("onclick", `showIntroInput('pet', ${pet_id})`)
 
     const user_button_box = document.getElementById("user_button_box")
     user_button_box.innerHTML =
@@ -568,6 +570,35 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
+// 소개글 변경
+async function changeIntoriduction(who, _id) {
+    const change_intro_input = document.getElementById("change_intro_input").value
+    let response = await putIntroduction(who, _id, change_intro_input)
+}
+
+// 소개글 변경 모드 활성화
+function showIntroInput(who, _id) {
+    const user_introduction = document.getElementById("user_introduction")
+    const introduction = document.getElementById("introduction")
+    const change_intro_input = document.getElementById("change_intro_input")
+    const change_introduction = document.getElementById("change_introduction")
+
+    let current_intro = introduction.innerText
+
+    introduction.style.display = "none"
+    change_intro_input.style.display = "flex"
+    change_intro_input.value = current_intro
+    // change_intro_button.style.display = "flex"
+    change_introduction.setAttribute("onclick", `changeIntoriduction('${who}', ${_id})`)
+    change_introduction.innerHTML = "저장"
+
+    
+
+
+    
+}
+
+
 // 회원 비밀번호 인증 모달 활성화
 function showAuthPassword() {
     const update_pw_modal_box = document.getElementById("update_pw_modal_box")
@@ -657,11 +688,13 @@ async function loadUserInfo() {
     document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('user', ${user.id})`)
+    document.getElementById("change_introduction").style.display = "flex"
+    document.getElementById("change_introduction").setAttribute("onclick", `showIntroInput('user', ${user.id})`)
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
         `<div class="user_profile_box">
-            <div class="user_profile_item">
+            <div class="user_profile_item user_profile_item_btn">
                 <p>비밀번호</p>
                 <button type="button" onclick="showAuthPassword()">변경</button>
             </div>
@@ -672,7 +705,6 @@ async function loadUserInfo() {
             <div class="user_profile_item">
                 <p>연락처</p>
                 <input id="user_profile_phone" type="text" value=""/>
-                <button type="button" onclick="">변경</button>
             </div>
             <div class="user_profile_item">
                 <p>생년월일</p>
@@ -698,7 +730,7 @@ async function loadUserInfo() {
     email.innerText = user.email
     phone.setAttribute("value", user.phone_num)
     birthday.setAttribute("value", user.birthday)
-
+    
     if (user.gender == 1) {
         gender_male.checked = true
     }
@@ -741,6 +773,8 @@ async function loadLikeArticle() {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
+    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("change_introduction").style.display = "none"
 
     for (let i = 0; i < user['like_articles'].length; i++) {
         let like_article = user['like_articles'][i]
@@ -816,7 +850,7 @@ const getLocation = () =>{
                 }
                 // console.log(locationData)  
                 resolve(locationData)  
-            })         
+            })
         } else {
             reject(null)
         }      
