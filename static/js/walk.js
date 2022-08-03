@@ -16,9 +16,15 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
         document.getElementById('map_modal').style.display='none'
+        document.getElementById('map_modal').style.display = 'none'
     }
-    
+
 }
+
+// if (document.getElementById('map_modal').style.display=='inline') {
+//     console.log("***")
+//     document.getElementById('map_modal').style.display='none'
+// }
 
 
 function goBack() {
@@ -413,6 +419,8 @@ function diffDay() {
 async function openWalkDetailArticle(id) {
     document.getElementById('pagination').style.display='none'
     document.getElementById('right_page').style.display='none'
+    document.getElementById('pagination').style.display = 'none'
+    document.getElementById('right_page').style.display = 'none'
 
     const detail_r_sec = document.getElementById("detail_r_sec")
     const r_sec = document.getElementById("r_sec")
@@ -445,6 +453,7 @@ async function openWalkDetailArticle(id) {
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
 
+    // console.log(response_json)
     detail_detail.innerHTML = response_json.contents
 
     detail_date.innerText = response_json.start_date
