@@ -15,14 +15,14 @@ async function getUser() {
     response_json = await response.json()
     console.log(response_json)
 
-    document.getElementById('username').innerText=response_json.username
-    document.getElementById('user_profile_img').src=response_json.profile_img
-    document.getElementById('introduction').innerText=response_json.introduction
+    document.getElementById('username').innerText = response_json.username
+    document.getElementById('user_profile_img').src = response_json.profile_img
+    document.getElementById('introduction').innerText = response_json.introduction
     const article_box = document.getElementById('article_box')
-    let articles =response_json.articles
-    article_box.innerHTML=''
-    articles.forEach (article => {
-        article_box.innerHTML+=`<div class='article_card'><img src=${article.images[0]} onclick="openDetailModal(${article.id})"></div>`
+    let articles = response_json.articles
+    article_box.innerHTML = ''
+    articles.forEach(article => {
+        article_box.innerHTML += `<div class='article_card'><img src=${article.images[0]} onclick="openDetailModal(${article.id})"></div>`
         console.log(article)
 
     })

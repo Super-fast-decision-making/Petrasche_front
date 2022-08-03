@@ -1,7 +1,7 @@
 // const backend_base_url = "http://127.0.0.1:8000/"
-const backend_base_url = "http://3.39.219.239/"
+const backend_base_url = "http://13.209.74.72/"
 const frontend_base_url = "http://127.0.0.1:5500/"
-const ws_base_url = "3.39.219.239:8001/"
+const ws_base_url = "ws://13.209.74.72:8001/"
 
 async function profile(user_id) {
     sessionStorage.setItem('profile_page_id', user_id)

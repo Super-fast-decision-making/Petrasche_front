@@ -106,6 +106,7 @@ async function chatroomSelect(id) {
     }
     await loadMessage(id)
 
+    let url = ws_base_url + "chat/" + id
     const chatSocket = new ReconnectingWebSocket(url)
     connectedChatSocket = chatSocket
     chatSocket.onopen = async function (e) {
