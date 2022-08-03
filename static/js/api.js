@@ -7,7 +7,7 @@ async function handleSignup() {
     const day = document.getElementById("day").value.split("일")[0]
     const month = document.getElementById("month").value.split("월")[0]
     const year = document.getElementById("year").value.split("년")[0]
-    console.log(year + "-" + month + "-" + day)
+    
 
     const birthday = year + "-" + month + "-" + day
     if (birthday == "") {
@@ -137,7 +137,7 @@ async function postComment(id, comment) {
     const commentData = {
         comment: comment
     }
-    console.log(id,commentData)
+
     const response = await fetch(`${backend_base_url}article/comment/${id}/`, {
         method: 'POST',
         headers: {
@@ -156,7 +156,7 @@ async function putUserInfo(user_id) {
     const chkList = document.querySelectorAll("input[name=gender]:checked");
     gender = ''
     chkList.forEach(function (ch) {
-        console.log(ch.value);
+
         gender = ch.value
     });
 
@@ -165,7 +165,7 @@ async function putUserInfo(user_id) {
         birthday: document.getElementById("user_profile_birthday").value,
         gender: gender
     }
-    console.log(userData)
+
     const response = await fetch(`${backend_base_url}user/authonly/${user_id}/`, {
         method: 'PUT',
         headers: {
@@ -248,8 +248,7 @@ function CommentDelete(id, article_id) {
 };
 //코멘트 수정
 function CommentEdit(id, article_id) {
-    console.log(id)
-    console.log(article_id)
+
     document.getElementById("modal_edit_box").style.display = "flex";
     let node = event.target.parentNode;
     let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
@@ -394,7 +393,7 @@ function articleEdit(id) {
             const data = {
                 content: content,
             };
-            console.log(content)
+
             fetch(`${backend_base_url}article/myarticle/${id}/`, {
                 method: "PUT",
                 headers: {
@@ -515,7 +514,7 @@ async function putIntroduction(who, _id, introduction) {
     }
 
     if (who == 'user') {
-        console.log('user')
+
         let response = await fetch(`${backend_base_url}user/authonly/${_id}/`, {
             method: 'PUT',
             headers: {
@@ -533,7 +532,7 @@ async function putIntroduction(who, _id, introduction) {
             alert(response_json.massege)
         }
     } else {
-        console.log('pet')
+
         let response = await fetch(`${backend_base_url}user/mypet/${_id}/`, {
             method: 'PUT',
             headers: {

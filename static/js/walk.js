@@ -21,10 +21,7 @@ window.onclick = function (event) {
 
 }
 
-// if (document.getElementById('map_modal').style.display=='inline') {
-//     console.log("***")
-//     document.getElementById('map_modal').style.display='none'
-// }
+
 
 
 function goBack() {
@@ -414,6 +411,7 @@ function diffDay() {
     timer.innerHTML = `<span style="font-size=0.5rem">모임까지 남은 시간</span><br>${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초`;
 }
 
+
 // var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
@@ -453,7 +451,6 @@ async function openWalkDetailArticle(id) {
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
 
-    // console.log(response_json)
     detail_detail.innerHTML = response_json.contents
 
     detail_date.innerText = response_json.start_date
