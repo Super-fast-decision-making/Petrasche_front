@@ -20,11 +20,6 @@ window.onclick = function (event) {
     
 }
 
-    // if (document.getElementById('map_modal').style.display=='inline') {
-    //     console.log("***")
-    //     document.getElementById('map_modal').style.display='none'
-    // }
-
 
 function goBack() {
     const detail_r_sec = document.getElementById("detail_r_sec")
@@ -183,7 +178,7 @@ async function getWalkArticle(page, gender, size, region, number) {
         url = url + `p=${page}`
 
     }
-    console.log(url)
+
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -200,7 +195,7 @@ async function getWalkArticle(page, gender, size, region, number) {
 //모든 아티클 뿌려주기
 
 async function loadWalkArticle(page, gender, size, region, number) {
-    console.log(page, gender, size, region, number)
+
 
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
@@ -449,9 +444,9 @@ async function openWalkDetailArticle(id) {
 
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
-    console.log(response_json)
+
     detail_detail.innerHTML = response_json.contents
-    // detail_contents.innerHTML = response_json.contents
+
     detail_date.innerText = response_json.start_date
     detail_gender.innerText = response_json.gender
     detail_place.innerText = response_json.place
@@ -491,9 +486,9 @@ async function openWalkDetailArticle(id) {
 // 룸 생성
 async function postHeader() {
     let host_id = sessionStorage.getItem('host_id')
-    // console.log(host_id)
+
     const response_json = await createHeader(host_id)
-    // console.log(response_json)
+
     window.location.href = "/dm.html";
 }
 
