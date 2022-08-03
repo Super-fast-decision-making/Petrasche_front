@@ -12,6 +12,10 @@ body {
     background-color: #C4D7E0;
 }
 
+button {
+    cursor: pointer;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -144,6 +148,7 @@ body {
     overflow: hidden;
 
     background-color: black;
+    cursor: pointer;
 }
 
 .user_img_box img {
@@ -159,16 +164,50 @@ body {
     margin: 10px;
 }
 
+.change_introduction {
+    display: none;
+    margin-left: 5px;
+    background-color: #6e85b7;
+    color: #ffffff;
+    border: 2px solid #6e85b7;
+    border-radius: 3px;
+}
+
+.change_introduction:hover{
+    transform: scale(1.01);
+    transition: transform 0.5s;
+    box-shadow: 0 0 20px rgba(90, 121, 188, 0.4);
+    }
+
 .username {
     font-size: 20px;
 }
 
 .user_introduction {
     padding-left: 10px;
+    display: flex;
+}
+
+.user_introduction textarea{
+    display: none;
+    height: 22px;
+
+    width: 450px;
+    height: 60px;
+
+    background-color: rgb(223 227 235);
+    border: 0;
+}
+
+.user_introduction button{
+    display: none;
+    align-items: center;
+    margin-left: 5px;
 }
 
 .introduction {
     font-size: 15px;
+    width: 450px;
 }
 
 .user_button_box {
@@ -304,12 +343,21 @@ body {
     margin: 20px 5px 60px 5px;
 }
 
+.user_profile_item_btn {
+    display: flex;
+    align-items: center;
+}
+
 .user_profile_item p {
     margin: 10px 0 10px 0;
 }
 
 .user_profile_item button {
-    margin-left: 10px;
+    width: 40px;
+    height: 26px;
+
+    font-size: 15px;
+    margin-left: 20px;
     padding: 0;
 
 }
