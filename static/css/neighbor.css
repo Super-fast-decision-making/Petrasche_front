@@ -34,7 +34,7 @@
 }
 
 .slides-container {
-    height: 10vh;
+    height: 13vh;
     width: 100%;
     display: flex;
     overflow: scroll;
@@ -88,7 +88,7 @@
     text-align: center;
     display:flex;
     justify-content: center;
-
+    align-items: center;
 
 }
 
