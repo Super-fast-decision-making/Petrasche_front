@@ -137,7 +137,7 @@ async function postComment(id, comment) {
     const commentData = {
         comment: comment
     }
-    console.log(commentData)
+    console.log(id,commentData)
     const response = await fetch(`${backend_base_url}article/comment/${id}/`, {
         method: 'POST',
         headers: {
@@ -180,23 +180,23 @@ async function putUserInfo(user_id) {
 }
 
 // 반려동물 등록
-async function postPetProfile(name, birthday, type, gender, size) {
-    const petProfileData = {
-        name: name,
-        birthday: birthday,
-        type: type,
-        gender: gender,
-        size: size,
-        // pet_profile_img: pet_profile_img
+async function postPetProfile(file, name, birthday, gender, size) {
+    let formData = new FormData();
+    formData.append('name', name)
+    formData.append('birthday', birthday)
+    formData.append('gender', gender)
+    formData.append('size', size)
+    for (let i = 0; i < file.length; i++) {
+        formData.append('image_file', file[i])
     }
     const response = await fetch(`${backend_base_url}user/mypet/`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
-            'Content-type': 'application/json',
+            // 'Content-type': 'application/json',
             'Authorization': "Bearer " + localStorage.getItem("user_access_token")
         },
-        body: JSON.stringify(petProfileData)
+        body: formData
     })
     response_json = await response.json()
     return response_json
@@ -467,3 +467,42 @@ const LikeOn = (id) => {
         });
 };
 
+// 프로필 이미지 변경
+async function putProfileImg(who, _id, file) {
+
+    let formData = new FormData();
+    for (let i = 0; i < file.length; i++) {
+        formData.append('image_file', file[i])
+    }
+    if (who == 'user') {
+        let response = await fetch(`${backend_base_url}user/authonly/${_id}/`, {
+            method: 'PUT',
+            body: formData,
+            headers: {
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert(response_json.massege)
+            window.location.reload()
+        } else {
+            alert(response_json.massege)
+        }
+    } else {
+        let response = await fetch(`${backend_base_url}user/mypet/${_id}/`, {
+            method: 'PUT',
+            body: formData,
+            headers: {
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert(response_json.massege)
+            window.location.reload()
+        } else {
+            alert(response_json.massege)
+        }
+    }
+}
