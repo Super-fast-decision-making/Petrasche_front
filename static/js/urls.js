@@ -123,16 +123,18 @@ const GetUserInfo = () => {
         .then((res) => res.json())
         .then((res) => {
             if (res.username == null) {
-            // window.location.href = "./login.html";
-            
-        } else {
+
+            } else {
                 document.getElementById("user").innerHTML = res.username;
                 console.log(res.profile_img)
                 document.getElementById('user_img').src=res.profile_img
             }
         });
         
-    } else{
+    
+    } 
+    else{
+        console.log("***")
         document.getElementById('loginout').innerText='로그인';
         document.getElementById('user_profile').style.display='none';
     }
