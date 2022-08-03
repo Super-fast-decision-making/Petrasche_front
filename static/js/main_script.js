@@ -93,6 +93,11 @@ function upload_file() {
     });
 }
 function upload_modal_open() {
+  const PayLoad = JSON.parse(localStorage.getItem("payload"));
+  if (PayLoad == null) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
   document.getElementById("upload_modal").style.display = "flex";
   document.body.style.overflow = "hidden";
   document.body.style.touchAction = "none";

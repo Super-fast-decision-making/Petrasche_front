@@ -343,8 +343,11 @@ async function openDetailModal(id) {
 }
 
 function modal_open(id) {
-  Refresh_Token();
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
+  if (PayLoad == null) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
   let modal_box = document.getElementById("modal_box");
