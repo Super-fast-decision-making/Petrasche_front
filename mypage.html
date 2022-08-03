@@ -54,13 +54,17 @@
                             </div>
                             <div class="username_box">
                                 <span class="username" id="username">
-                                </span> &nbsp; &nbsp;
-                                <button id="submitLoc" id="submitLoc()" onclick="postHeader(id)">내 위치 저장</button>
+                                </span>	&nbsp;	&nbsp;
+                                <button id="submitLoc" onclick="submitLoc()">내 위치 저장</button>
+                                <button id="change_introduction" class="change_introduction" onclick="" >소개글 변경</button>
                             </div>
                         </div>
-                        <div class="user_introduction">
+                        <div class="user_introduction" id="user_introduction">
                             <div id="introduction" class="introduction">
                             </div>
+                            <textarea id="change_intro_input" type="textarea" value="" ></textarea>
+                            <!-- <input id="change_intro_input" type="textarea" value="" /> -->
+                            <!-- <button id="change_intro_button" type="button" onclick="changeIntoriduction()">저장</button> -->
                         </div>
                     </div>
                     <div id="user_button_box" class="user_button_box">
