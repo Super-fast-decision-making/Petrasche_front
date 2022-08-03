@@ -106,14 +106,7 @@ async function chatroomSelect(id) {
     }
     await loadMessage(id)
 
-
-    let wsStart = 'ws://'
-    if (window.location.protocol == 'https:') {
-        wsStart = 'wss://'
-    }
-    let backend = backend_base_url.split('//')[1]
-    //챗 소켓 서버를 오픈하는 부분 
-    var url = wsStart + backend + 'chat/' + id
+    let url = ws_base_url + "chat/" + id
     const chatSocket = new ReconnectingWebSocket(url)
     connectedChatSocket = chatSocket
     chatSocket.onopen = async function (e) {

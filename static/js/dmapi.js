@@ -8,6 +8,17 @@ async function getUserInfo() {
         }
     })
     response_json = await response.json()
+    console.log(response_json.gender, response.status)
+    // response_json = await response.json()
+    if (response.status == 401) {
+        alert("로그인을 해주세요")
+        window.location.replace(`${frontend_base_url}login.html`);
+    } else {
+        if (response_json.gender == "입력해주세요") {
+            alert("프로필을 등록해주세요")
+            window.location.replace(`${frontend_base_url}mypage.html`);
+        }
+    }
     return response_json
 }
 
