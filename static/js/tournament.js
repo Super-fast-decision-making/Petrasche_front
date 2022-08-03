@@ -88,7 +88,7 @@ function event_start(data) {
   const event_rank = document.getElementById("event_rank");
 
   if (data.pet.length < 5) {
-    console.log("이벤트 참여자가 부족함");
+
     event_div.style.display = "none";
     event_vote.innerHTML =
       "참여자가 5인 이하라 이벤트를 진행할수 없습니다. 이벤트 참여 버튼을 눌러주세요!";

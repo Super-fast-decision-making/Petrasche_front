@@ -8,7 +8,7 @@ async function openDetailModal(id) {
 
 
     const article = await getDetailArticle(id)
-    console.log(article)
+    
 
 
     const modal_box_img = document.getElementById("modal_box_img");
@@ -34,7 +34,7 @@ async function openDetailModal(id) {
     article_delete.setAttribute("onClick", `articleDelete(${article.id})`);
     article_edit.setAttribute("onClick", `articleEdit(${article.id})`);
     // modal_edit_text.innerHTML = article.content;
-    console.log(article.id)
+    
     submit_button.setAttribute("onClick", `sendComment(${article.id})`);
     modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`);
 
@@ -165,9 +165,9 @@ document.body.addEventListener("click", function (e) {
 
 // 댓글 전송하기
 async function sendComment(id) {
-    console.log("##########",id)
+    
     const comment = document.getElementById("modal_comment_text").value
-    console.log(id, comment)
+    
     await postComment(id, comment)
     openDetailModal(id)
     document.getElementById("modal_comment_text").value = ""

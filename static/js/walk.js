@@ -21,10 +21,7 @@ window.onclick = function (event) {
 
 }
 
-// if (document.getElementById('map_modal').style.display=='inline') {
-//     console.log("***")
-//     document.getElementById('map_modal').style.display='none'
-// }
+
 
 
 function goBack() {
@@ -328,6 +325,7 @@ async function goWalk(id, attending_user) {
         alert("산책에 참여해주셔서 감사합니다")
         // attend_walk.style.backgroundColor = '#ADD8E6'
         // attend_walk.innerText = '모임에 참여 신청 하셨습니다'
+        openWalkDetailArticle(id)
     } else {
         alert("잘못된 결과입니다")
     }
@@ -347,6 +345,7 @@ async function goHome(id, attending_user) {
         alert("산책을 취소하셨습니다")
         attend_walk.style.backgroundColor = 'pink'
         attend_walk.innerText = '모임 참여를 취소하셨습니다'
+        openWalkDetailArticle(id)
     } else {
         alert("잘못된 결과입니다")
 
@@ -414,6 +413,7 @@ function diffDay() {
     timer.innerHTML = `<span style="font-size=0.5rem">모임까지 남은 시간</span><br>${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초`;
 }
 
+
 // var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
@@ -453,7 +453,6 @@ async function openWalkDetailArticle(id) {
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
 
-    // console.log(response_json)
     detail_detail.innerHTML = response_json.contents
 
     detail_date.innerText = response_json.start_date
@@ -468,17 +467,19 @@ async function openWalkDetailArticle(id) {
         attend_walk.innerText = '모임에 참여 신청 하셨습니다'
         attend_walk.style.backgroundColor = '#ADD8E6'
         attend_walk.setAttribute('onclick', `goHome(${response_json.id}, ${response_json.attending_user})`)
-        openWalkDetailArticle(id)
+        // openWalkDetailArticle(id)
     } else if (response_json.host == PayLoad.user_id) {
         attend_walk.innerText = '모임 주최자는 신청하실 수 없습니다'
         attend_walk.style.backgroundColor = 'rgb(17, 17, 17)'
         attend_walk.style.color = 'white'
-        openWalkDetailArticle(id)
+        // openWalkDetailArticle(id)
     } else if (response_json.attending == false){
         attend_walk.innerHTML = `산책가기 <br><span id='left_seat'>${response_json.left_seat}</span>자리 남았습니다.`
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
         attend_walk.style.backgroundColor = 'pink'
-        openWalkDetailArticle(id)
+        // openWalkDetailArticle(id)
+    }else{
+
     }
 
 
