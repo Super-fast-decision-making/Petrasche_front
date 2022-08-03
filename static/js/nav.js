@@ -28,6 +28,7 @@
 // }
 
 
+
 //챗 소켓 서버를 오픈하는 부분 
 console.log("왜 안됨 0")
 let url = `ws://127.0.0.1:8000/chat/1`
@@ -86,3 +87,4 @@ function newMessage(message, sent_by_id, time) {
     }
     messages.scrollTop = messages.scrollHeight;
 }
+

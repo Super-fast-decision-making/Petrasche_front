@@ -137,7 +137,7 @@ async function postComment(id, comment) {
     const commentData = {
         comment: comment
     }
-    console.log(commentData)
+    console.log(id,commentData)
     const response = await fetch(`${backend_base_url}article/comment/${id}/`, {
         method: 'POST',
         headers: {
@@ -180,14 +180,10 @@ async function putUserInfo(user_id) {
 }
 
 // 반려동물 등록
-async function postPetProfile(file, name, birthday, type, gender, size) {
-
-    console.log(file, name, birthday, type, gender, size)
-
+async function postPetProfile(file, name, birthday, gender, size) {
     let formData = new FormData();
     formData.append('name', name)
     formData.append('birthday', birthday)
-    formData.append('type', type)
     formData.append('gender', gender)
     formData.append('size', size)
     for (let i = 0; i < file.length; i++) {

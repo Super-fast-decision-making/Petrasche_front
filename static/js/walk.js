@@ -15,10 +15,16 @@ function walkModalOpen() {
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
-        document.getElementById('map_modal').style.display = 'none'
+        document.getElementById('map_modal').style.display='none'
     }
-
+    
 }
+
+    // if (document.getElementById('map_modal').style.display=='inline') {
+    //     console.log("***")
+    //     document.getElementById('map_modal').style.display='none'
+    // }
+
 
 function goBack() {
     const detail_r_sec = document.getElementById("detail_r_sec")
@@ -243,7 +249,7 @@ async function loadWalkArticle(page, gender, size, region, number) {
     for (let i = 1; i < total_pages + 1; i++) {
         document.getElementById("pages").innerHTML += `<a class="page" id=page onclick="loadWalkArticle(${i},'gender', 'size', 'region', 'number')">${i}</a>`
     }
-    document.getElementById("right_page")
+    // document.getElementById("right_page")
 
 
 
@@ -410,6 +416,8 @@ function diffDay() {
 // var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
+    document.getElementById('pagination').style.display='none'
+    document.getElementById('right_page').style.display='none'
 
     const detail_r_sec = document.getElementById("detail_r_sec")
     const r_sec = document.getElementById("r_sec")
@@ -426,8 +434,7 @@ async function openWalkDetailArticle(id) {
         }
     })
     response_json = await response.json()
-    // console.log(response_json.host)
-    // host_id = response_json.host
+
     sessionStorage.setItem('host_id', response_json.host)
     const host_name = document.getElementById("host_name")
     const detail_contents = document.getElementById("detail_contents")
@@ -435,11 +442,14 @@ async function openWalkDetailArticle(id) {
     const detail_gender = document.getElementById("detail_gender")
     const detail_place = document.getElementById("detail_place")
     const detail_number = document.getElementById("detail_number")
+    const detail_detail = document.getElementById("detail_detail")
+
     const left_seat = document.getElementById("left_seat")
     const attend_walk = document.getElementById('attend_walk')
 
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
+    // console.log(response_json.contents)
     detail_detail.innerHTML = response_json.contents
     // detail_contents.innerHTML = response_json.contents
     detail_date.innerText = response_json.start_date
@@ -476,9 +486,9 @@ async function openWalkDetailArticle(id) {
 // 룸 생성
 async function postHeader() {
     let host_id = sessionStorage.getItem('host_id')
-    console.log(host_id)
+    // console.log(host_id)
     const response_json = await createHeader(host_id)
-    console.log(response_json)
+    // console.log(response_json)
     window.location.href = "/dm.html";
 }
 

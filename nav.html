@@ -17,6 +17,7 @@
     <div class="wrap-nav">
         <nav class="navbar">
             <div class="logo" onclick="home()">
+                <img style="width:40px;" src='https://velog.velcdn.com/images/tasha_han_1234/post/59e0d749-79a1-43ca-835a-a5f3181a49df/image.png'>
                 Petrasche
             </div>
             <div class="serch">
@@ -25,11 +26,11 @@
             </div>
             <div class="user_info">
                 <div onclick="DM()" id="dm" class="dm">
-                    <img src="https://image.shutterstock.com/z/stock-vector-animal-dog-paw-print-isolated-silhouette-vector-illustration-1499728328.jpg"
+                    <img id ='n_profile_pic' src="https://image.shutterstock.com/z/stock-vector-animal-dog-paw-print-isolated-silhouette-vector-illustration-1499728328.jpg"
                         alt="">
                 </div>
                 <div onclick="UserPage()" id="user_profile" class="user_profile">
-                    <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt="">
+                    <img id='user_img' src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt="">
                 </div>
                 <div onclick="alarm(this)" id="alarm" class="alarm">
                     <i class="fa-solid fa-bell"></i>
@@ -39,7 +40,9 @@
                 <div class="user">
                     <span class="user_name" id="user">유저님</span>
                 </div>
-                <div onclick="Logout()" class="logout">로그아웃</div>
+
+                <div id='loginout' onclick="Logout()" class="logout">로그아웃</div>
+
             </div>
         </nav>
     </div>
