@@ -7,7 +7,7 @@ async function handleSignup() {
     const day = document.getElementById("day").value.split("일")[0]
     const month = document.getElementById("month").value.split("월")[0]
     const year = document.getElementById("year").value.split("년")[0]
-    
+
 
     const birthday = year + "-" + month + "-" + day
     if (birthday == "") {
@@ -39,19 +39,19 @@ async function handleSignup() {
     })
     response_json = await response.json()
     if (response.status == 200) {
-        window.location.replace(`${frontend_base_url}login.html`);
+        window.location.replace('/login.html');
     } else {
         if (response_json.email) {
             alert("중복된 이메일 입니다.")
-            window.location.replace(`${frontend_base_url}signup.html`);
+            window.location.replace('/signup.html');
         }
         else if (response_json.username) {
             alert("중복된 닉네임 입니다.")
-            window.location.replace(`${frontend_base_url}signup.html`);
+            window.location.replace('/signup.html');
         }
         else {
             alert("오류가 발생했습니다.")
-            window.location.replace(`${frontend_base_url}signup.html`);
+            window.location.replace('/signup.html');
         }
     }
 }
