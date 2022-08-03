@@ -302,11 +302,6 @@ async function addPetProfile() {
     let file = document.getElementById("add_pi_file").files
     let name = document.getElementById("add_pet_profile_name").value
     let birthday = document.getElementById("add_pet_profile_birthday").value
-    const chkList_type = document.querySelectorAll("input[name=pet_type]:checked");
-    let type = ''
-    chkList_type.forEach(function (ch) {
-        type = ch.value
-    });
     const chkList_gender = document.querySelectorAll("input[name=pet_gender]:checked");
     let gender = ''
     chkList_gender.forEach(function (ch) {
@@ -317,7 +312,7 @@ async function addPetProfile() {
     chkList_size.forEach(function (ch) {
         size = ch.value
     });
-    await postPetProfile(file, name, birthday, type, gender, size)
+    await postPetProfile(file, name, birthday, gender, size)
 
     document.getElementById("add_pet_modal_box").style.display = "none";
 
