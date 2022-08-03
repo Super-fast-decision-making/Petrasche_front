@@ -1,0 +1,35 @@
+@media (max-width: 1000px) {
+    .modal_content {
+        height: 80%;
+        width: 90%;
+        flex-direction: column;
+    }
+    .modal_img_box{
+        width: 100%;
+        height: 30%;
+    }
+    .modal_desc{
+        width: 100%;
+    }
+    .modal_comment_list{
+        height: 45%;
+        overflow: scroll;
+    }
+    .main_article_list{
+        border: none;
+        justify-content: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .article_list_box{
+        width: 150px;
+        height: 150px; 
+    }
+    /* .top_article_list{
+        width: 200px;
+        height: 300px;
+    } */
+    .top_article{
+        height: fit-content;
+    }
+}

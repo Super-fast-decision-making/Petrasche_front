@@ -410,8 +410,8 @@ body {
 
 .modal_content {
     position: relative;
-    width: 1000px;
-    height: 800px;
+    width: 90%;
+    height: 90%;
     background-color: white;
     border-radius: 8px;
     display: flex;

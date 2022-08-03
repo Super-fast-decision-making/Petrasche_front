@@ -254,7 +254,6 @@ async function openDetailModal(id) {
   modal_box.style.display = "flex";
 
   const article = await getDetailArticle(id);
-  console.log(article);
 
   const modal_box_img = document.getElementById("modal_box_img");
   const author = document.getElementById("author");
