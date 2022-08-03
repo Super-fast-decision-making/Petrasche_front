@@ -113,3 +113,10 @@ function upload_modal_cancel() {
 function modal_edit_cancel() {
   document.getElementById("modal_edit_box").style.display = "none";
 }
+
+
+//메인페이지 유저아닐때 식별하는 함수
+//1.이름이 유저님이면 로그인
+//2.유저면 이미지 프로파일 불러오기
+//3.유저가 아니면 프로필 이미지 display non
+
