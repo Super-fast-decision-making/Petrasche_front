@@ -175,9 +175,15 @@ button {
     display: flex;
 }
 
-.user_introduction input{
+.user_introduction textarea{
     display: none;
     height: 22px;
+
+    width: 450px;
+    height: 60px;
+
+    background-color: rgb(223 227 235);
+    border: 0;
 }
 
 .user_introduction button{
@@ -188,6 +194,7 @@ button {
 
 .introduction {
     font-size: 15px;
+    width: 450px;
 }
 
 .user_button_box {

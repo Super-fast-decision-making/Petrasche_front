@@ -575,25 +575,27 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
+// 소개글 변경
 async function changeIntoriduction(who, _id) {
     const change_intro_input = document.getElementById("change_intro_input").value
     let response = await putIntroduction(who, _id, change_intro_input)
 }
 
-// 소개글 변경
+// 소개글 변경 모드 활성화
 function showIntroInput(who, _id) {
     const user_introduction = document.getElementById("user_introduction")
     const introduction = document.getElementById("introduction")
     const change_intro_input = document.getElementById("change_intro_input")
-    const change_intro_button = document.getElementById("change_intro_button")
+    const change_introduction = document.getElementById("change_introduction")
 
     let current_intro = introduction.innerText
 
     introduction.style.display = "none"
     change_intro_input.style.display = "flex"
     change_intro_input.value = current_intro
-    change_intro_button.style.display = "flex"
-    change_intro_button.setAttribute("onclick", `changeIntoriduction('${who}', ${_id})`)
+    // change_intro_button.style.display = "flex"
+    change_introduction.setAttribute("onclick", `changeIntoriduction('${who}', ${_id})`)
+    change_introduction.innerHTML = "저장"
 
     
 
