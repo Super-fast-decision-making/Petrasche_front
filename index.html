@@ -85,7 +85,6 @@
     <div id="upload_modal" class="upload_modal">
         <div class="upload_modal_box">
             <input type="file" multiple accept="image/*" id="upload_file" hidden>
-            <input type="file" multiple accept="image/*" id="add_file" hidden>
             <div id="upload_submit_button" class="upload_submit_button">
                 <i onclick="upload_modal_submit()" class="fa-solid fa-circle-check"></i>
                 <i onclick="upload_modal_cancel()" class="fa-solid fa-circle-xmark"></i>
@@ -121,12 +120,12 @@
 
         <div class="top_section">
             <div class="left_menu">
-                <div class="menu_dog">
+                <div onclick="GetSelectPetArticle(1)" class="menu_dog">
                     <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                     댕댕이
                 </div>
 
-                <div class="menu_cat">
+                <div onclick="GetSelectPetArticle(2)" class="menu_cat">
                     <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
                     냥냥이
                 </div>
