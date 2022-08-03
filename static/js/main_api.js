@@ -90,24 +90,6 @@ const GetImgListPage = (page) => {
 }
 
 
-const GetUserInfo = () => {
-  fetch(`${backend_base_url}user/`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.username == null) {
-        // window.location.href = "./login.html";
-      } else {
-        document.getElementById("user").innerHTML = res.username;
-      }
-    });
-};
 //EXP는 1659096952
 console.log(Date.now()) //경과된 밀리초를 반환 1659093401862
 

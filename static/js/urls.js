@@ -67,3 +67,33 @@ function alarm(id) {
         }
     };
 }
+
+
+const GetUserInfo = () => {
+    fetch(`${backend_base_url}user/`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+        },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        if (res.username == null) {
+        // window.location.href = "./login.html";
+        } else {
+            document.getElementById("user").innerHTML = res.username;
+            console.log(res.profile_img)
+            document.getElementById('user_img').src=res.profile_img
+        }
+    });
+};
+
+window.onload = function checkUser() {
+    const user = document.getElementById('user')
+    if (user.innerText == '유저님'){
+        document.getElementById('logout').innerText='로그인';
+        document.getElementById('user_profile').style.display='none';
+    } 
+}
