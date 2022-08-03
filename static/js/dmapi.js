@@ -1,4 +1,4 @@
-async function getUserInfo() {
+async function UserInfo() {
     const response = await fetch(`${backend_base_url}user/`, {
         method: 'GET',
         headers: {

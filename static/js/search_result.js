@@ -1,67 +1,4 @@
 
-const GetUserInfo = () => {
-  fetch(`${backend_base_url}user`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.username == null) {
-        window.location.href = "./login.html";
-      } else {
-        document.getElementById("user").innerHTML = res.username;
-      }
-    });
-};
-
-const Refresh_Token = () => {
-  const PayLoad = JSON.parse(localStorage.getItem("payload"));
-  if (PayLoad.exp > Date.now() / 1000) {
-    return;
-  } else {
-    fetch(`${backend_base_url}user/refresh/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      },
-      body: JSON.stringify({
-        refresh: localStorage.getItem("user_refresh_token"),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        localStorage.setItem("user_access_token", res.access);
-      });
-  }
-};
-
-const GetImgList = () => {
-  document.getElementById("main_article_list").innerHTML = "";
-  fetch(`${backend_base_url}article/`)
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((item) => {
-        // 기울기 0
-        // let random = 0;
-        // 기울기 -5 ~ 5
-        let random = Math.floor(Math.random() * 10) - 5;
-        let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
-          <img src="${item.images[0]}" alt="">
-          <div id="article_list_like" class="article_list_like">
-          <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
-          <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
-          </div>
-          </div>`;
-        document.getElementById("main_article_list").innerHTML += html;
-      });
-    });
-};
 
 const GetSearchResultList = () => {
   var search_results = JSON.parse(localStorage.getItem('search_results'));
@@ -179,8 +116,8 @@ function modal_open(id) {
   let user_id = PayLoad.user_id;
   let modal_box = document.getElementById("modal_box")
   fetch(`${backend_base_url}article/${id}/`)
-  .then((res) => res.json())
-  .then((data) => {
+    .then((res) => res.json())
+    .then((data) => {
       if (modal_box.style.display == "" || modal_box.style.display == "none") {
         modal_box.childNodes[1].animate([
           // { transform: "scale(0.8)" },
@@ -547,7 +484,4 @@ const Follow = (user, article) => {
     });
 };
 
-GetUserInfo();
-// GetImgList();
 GetSearchResultList();
-Refresh_Token();
