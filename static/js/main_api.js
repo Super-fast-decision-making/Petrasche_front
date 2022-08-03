@@ -64,7 +64,6 @@ const GetSelectPetArticle = (pet_id) => {
     .then((res) => {
       console.log(res);
       res.forEach((item) => {
-        console.log(item);
         let random = Math.floor(Math.random() * 10) - 5;
         let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
             <img src="${item.images[0]}" alt="">
