@@ -44,10 +44,11 @@ button {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin-left:60px;
 
     width: 60%;
     min-width: 960px;
-    padding: 20px 20px 50px 50px;
+    padding: 20px 50px 50px 50px;
     border-radius: 15px;
     /* border: 10px solid #e7e7e7;
     border-style: dotted; */
@@ -135,6 +136,7 @@ button {
 }
 
 .main_user_profile {
+    margin-top: 50px;
     display: flex;
 }
 
@@ -163,7 +165,10 @@ button {
     align-items: center;
     margin: 10px;
 }
-
+#introduction{
+    margin-left: 73px;
+    margin-bottom:110px
+}
 .change_introduction {
     display: none;
     margin-left: 5px;
@@ -244,12 +249,12 @@ button {
 }
 
 .show_box {
-    width: 900px;
+    width: 1140px;
     border-radius: 3px;
 }
 
 #article_box_wrapper {
-    width: 855px;
+    width: 1115px;
     display: flex;
     background-color: white;
     padding: 23px;
@@ -257,7 +262,7 @@ button {
 }
 
 #pet_article_box_wrapper {
-    width: 855px;
+    width: 1115px;
     display: flex;
     background-color: white;
     padding: 23px;
@@ -265,7 +270,7 @@ button {
 }
 
 #like_article_box_wrapper {
-    width: 855px;
+    width: 1115px;
     display: flex;
     background-color: white;
     padding: 23px;
@@ -274,7 +279,7 @@ button {
 
 .article_box {
     display: flex;
-    width: 850px;
+    width: 1115px;
     flex-wrap: wrap;
     justify-content: space-around;
     border-radius: 8px;
@@ -305,13 +310,15 @@ button {
     transform: scale(1.01);
     transition: transform 0.5s;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    background-color:black;
+    /* opacity:0.8; */
 }
 
 
 
 .like_article_box {
     display: flex;
-    width: 850px;
+    width: 1115px;
     flex-wrap: wrap;
     justify-content: space-around;
     border-radius: 8px;
@@ -397,18 +404,20 @@ button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
 
     margin: 7px;
     height: 210px;
 
     cursor: pointer;
     border-radius: 17px;
-    border: 1px solid #9a9a9a;
+    /* border: 1px solid #9a9a9a; */
     background-color: #ffffff;
 }
 
 .pet_img {
     width: 160px;
+    
 
     margin: 10px 10px 10px 10px;
     overflow: hidden;
@@ -417,7 +426,9 @@ button {
 }
 
 .pet_img img {
-    height: 160px;
+    height: 100%;
+    width:100%;
+    object-fit:cover;
 }
 
 .pet_name {
