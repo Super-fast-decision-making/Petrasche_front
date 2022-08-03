@@ -95,13 +95,9 @@ async function loadMyArticle(page) {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("introduction").innerHTML = user.introduction
 
     document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
-
-    username.innerHTML = user.username
-    introduction.innerHTML = user.introduction
-    user_profile_img.src = user.profile_img
 
     const pet_select_box = document.getElementById("pet_select_box")
     pet_select_box.style.display = "flex"
@@ -127,175 +123,168 @@ async function loadMyArticle(page) {
 }
 
 // 디테일 모달 열기+보여주기
-async function openDetailModal(id) {
-    document.getElementById("mypage_modal_comment_list").innerHTML = ""
-    const PayLoad = JSON.parse(localStorage.getItem("payload"));
-    const modal_box = document.getElementById("modal_box")
+// async function openDetailModal(id) {
+//     document.getElementById("mypage_modal_comment_list").innerHTML = ""
+//     const PayLoad = JSON.parse(localStorage.getItem("payload"));
+//     const modal_box = document.getElementById("modal_box")
 
-    modal_box.style.display = "flex"
-
-
-    const article = await getDetailArticle(id)
-    console.log(article)
+//     modal_box.style.display = "flex"
 
 
-    const modal_box_img = document.getElementById("modal_box_img");
-    const author = document.getElementById("author");
-    const author_profile_img = document.getElementById("author_profile_img");
-    const content = document.getElementById("content");
-    const comment_list = document.getElementById("mypage_modal_comment_list");
-    const submit_button = document.getElementById("modal_comment_submit");
-    const modal_follow = document.getElementById("modal_follow");
-    const article_delete = document.getElementById("article_delete");
-    const article_edit = document.getElementById("article_edit");
-    const modal_like_num1 = document.getElementById("modal_like_num1");
-    const modal_like_num2 = document.getElementById("modal_like_num2");
-    const modal_edit_text = document.getElementById("modal_edit_text");
-
-    author.innerText = article.author;
-    author_profile_img.src = article.profile_img[0];
-    content.innerHTML = tagToLink(article.content);
-    modal_like_num1.innerText = article.like_num;
-    modal_like_num2.innerText = article.like_num;
-    modal_box_img.src = article.images[0];
-    article_delete.setAttribute("onClick", `articleDelete(${article.id})`);
-    article_edit.setAttribute("onClick", `articleEdit(${article.id})`);
-    modal_edit_text.innerHTML = article.content;
-
-    submit_button.setAttribute("onClick", `sendComment(${article.id})`);
-    modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`);
-
-    //이미지
-    let images = article.images;
-    document.getElementById("slide_left").onclick = () => {
-        let index = images.indexOf(
-            document.getElementById("modal_box_img").src
-        );
-        if (index == 0) {
-            index = images.length - 1;
-        } else {
-            index--;
-        }
-        document.getElementById("modal_box_img").src = images[index];
-        document
-            .getElementById("modal_box_img")
-            .animate([{ opacity: 0 }, { opacity: 1 }], {
-                duration: 1000,
-                fill: "forwards",
-            });
-    };
-    document.getElementById("slide_right").onclick = () => {
-        let index = images.indexOf(
-            document.getElementById("modal_box_img").src
-        );
-        if (index == images.length - 1) {
-            index = 0;
-        } else {
-            index++;
-        }
-        document.getElementById("modal_box_img").src = images[index];
-        document
-            .getElementById("modal_box_img")
-            .animate([{ opacity: 0 }, { opacity: 1 }], {
-                duration: 1000,
-                fill: "forwards",
-            });
-    };
-
-    //좋아요 기능
-    document.getElementById("modal_box_img").ondblclick = () => { //더블클릭시 article.id값 좋아요되는 함수 실행
-        LikeOn(article.id);
-    };
-    document.getElementById("like_icon_off").onclick = () => {//라익 아이콘? 클릭시 라이크 유저 리스트되는 함수 실행
-        LikeUserList(article.likes);
-    };
-    document.getElementById("like_icon_on").onclick = () => {
-        LikeUserList(article.likes);
-    };
+//     const article = await getDetailArticle(id)
+//     console.log(article)
 
 
-    //캐로셀 좌우 버튼 보이기
-    if (article.images.length <= 1) {
-        document.getElementById("slide_left").style.display = "none";
-        document.getElementById("slide_right").style.display = "none";
-    } else {
-        document.getElementById("slide_left").style.display = "block";
-        document.getElementById("slide_right").style.display = "block";
-    }
+//     const modal_box_img = document.getElementById("modal_box_img");
+//     const author = document.getElementById("author");
+//     const author_profile_img = document.getElementById("author_profile_img");
+//     const content = document.getElementById("content");
+//     const comment_list = document.getElementById("mypage_modal_comment_list");
+//     const submit_button = document.getElementById("modal_comment_submit");
+//     const modal_follow = document.getElementById("modal_follow");
+//     const article_delete = document.getElementById("article_delete");
+//     const article_edit = document.getElementById("article_edit");
+//     const modal_like_num1 = document.getElementById("modal_like_num1");
+//     const modal_like_num2 = document.getElementById("modal_like_num2");
+//     const modal_edit_text = document.getElementById("modal_edit_text");
 
-    //코멘트 달기
-    for (let i = 0; i < article.comment.length; i++) {
-        if (article.comment[i].user == PayLoad.user_id) {
-            comment_list.innerHTML +=
-                `<div class="modal_comment_text">
-                    <div class="balloon_03">
-                    <div>
-                    ${article.comment[i].comment}
-                    </div>
-                    </div>
-                    <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
-                    <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
-                    <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
-                    </div>
-                    </div>`
-        } else if (article.comment[i].user != PayLoad.user_id) {
-            comment_list.innerHTML +=
-                `<div class="modal_comment_text">
-                    <div class="balloon_03">
-                    <div>
-                    ${article.comment[i].comment}
-                    </div>
-                    </div>
-                    <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
-                    </div>
-                    </div>`
-        }
-    }
-    // 수정 삭제 버튼+팔로우 버튼 보이기
-    if (article.user == PayLoad.user_id) {
-        document.getElementById("article_delete").style.display = "flex"
-        document.getElementById("article_edit").style.display = "flex"
-        document.getElementById("modal_follow").style.display = "none"
-    } else if (article.user != PayLoad.user_id) {
-        document.getElementById("article_delete").style.display = "none"
-        document.getElementById("article_edit").style.display = "none"
-        document.getElementById("modal_follow").style.display = "flex"
-    }
+//     author.innerText = article.author;
+//     author_profile_img.src = article.profile_img[0];
+//     content.innerHTML = tagToLink(article.content);
+//     modal_like_num1.innerText = article.like_num;
+//     modal_like_num2.innerText = article.like_num;
+//     modal_box_img.src = article.images[0];
+//     article_delete.setAttribute("onClick", `articleDelete(${article.id})`);
+//     article_edit.setAttribute("onClick", `articleEdit(${article.id})`);
+//     modal_edit_text.innerHTML = article.content;
 
-    document.getElementById("modal_box_img").ondblclick = () => {
-        LikeOn(id);
-    };
-    document.getElementById("like_icon_on").onclick = () => {
-        LikeOn(id);
-    };
-    document.getElementById("like_icon_off").onclick = () => {
-        LikeOn(id);
-    };
-    document.getElementById("like_icon_off").onmouseover = () => {
-        LikeUserList(article.like_users);
-    };
-    document.getElementById("like_icon_on").onmouseover = () => {
-        LikeUserList(article.like_users);
-    };
-}
+//     submit_button.setAttribute("onClick", `sendComment(${article.id})`);
+//     modal_follow.setAttribute("onClick", `Follow('${article.author}', ${article.id})`);
 
-// 바디 클릭시 모달 창 닫기 기본 모달
-document.body.addEventListener("click", function (e) {
-    if (e.target.id == "modal_box") {
-        document.getElementById("modal_box").style.display = "none";
-        document.getElementById("modal_box_img").src = "";
-        document.body.style.overflow = "auto";
-        document.body.style.touchAction = "auto";
-    }
-});
+//     //이미지
+//     let images = article.images;
+//     document.getElementById("slide_left").onclick = () => {
+//         let index = images.indexOf(
+//             document.getElementById("modal_box_img").src
+//         );
+//         if (index == 0) {
+//             index = images.length - 1;
+//         } else {
+//             index--;
+//         }
+//         document.getElementById("modal_box_img").src = images[index];
+//         document
+//             .getElementById("modal_box_img")
+//             .animate([{ opacity: 0 }, { opacity: 1 }], {
+//                 duration: 1000,
+//                 fill: "forwards",
+//             });
+//     };
+//     document.getElementById("slide_right").onclick = () => {
+//         let index = images.indexOf(
+//             document.getElementById("modal_box_img").src
+//         );
+//         if (index == images.length - 1) {
+//             index = 0;
+//         } else {
+//             index++;
+//         }
+//         document.getElementById("modal_box_img").src = images[index];
+//         document
+//             .getElementById("modal_box_img")
+//             .animate([{ opacity: 0 }, { opacity: 1 }], {
+//                 duration: 1000,
+//                 fill: "forwards",
+//             });
+//     };
 
-// 댓글 전송하기
-async function sendComment(id) {
-    const comment = document.getElementById("modal_comment_text").value
-    await postComment(id, comment)
-    openDetailModal(id)
-    document.getElementById("modal_comment_text").value = ""
-}
+//     //좋아요 기능
+//     document.getElementById("modal_box_img").ondblclick = () => { //더블클릭시 article.id값 좋아요되는 함수 실행
+//         LikeOn(article.id);
+//     };
+//     document.getElementById("like_icon_off").onclick = () => {//라익 아이콘? 클릭시 라이크 유저 리스트되는 함수 실행
+//         LikeUserList(article.likes);
+//     };
+//     document.getElementById("like_icon_on").onclick = () => {
+//         LikeUserList(article.likes);
+//     };
+
+
+//     //캐로셀 좌우 버튼 보이기
+//     if (article.images.length <= 1) {
+//         document.getElementById("slide_left").style.display = "none";
+//         document.getElementById("slide_right").style.display = "none";
+//     } else {
+//         document.getElementById("slide_left").style.display = "block";
+//         document.getElementById("slide_right").style.display = "block";
+//     }
+
+//     //코멘트 달기
+//     for (let i = 0; i < article.comment.length; i++) {
+//         if (article.comment[i].user == PayLoad.user_id) {
+//             comment_list.innerHTML +=
+//                 `<div class="modal_comment_text">
+//                     <div class="balloon_03">
+//                     <div>
+//                     ${article.comment[i].comment}
+//                     </div>
+//                     </div>
+//                     <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
+//                     <div onclick="CommentDelete(${article.comment[i].id},${article.id})" class="comment_delete">삭제</div>
+//                     <div onclick="CommentEdit(${article.comment[i].id},${article.id})" class="comment_edit">수정</div>
+//                     </div>
+//                     </div>`
+//         } else if (article.comment[i].user != PayLoad.user_id) {
+//             comment_list.innerHTML +=
+//                 `<div class="modal_comment_text">
+//                     <div class="balloon_03">
+//                     <div>
+//                     ${article.comment[i].comment}
+//                     </div>
+//                     </div>
+//                     <div class="modal_comment_user">${article.comment[i].username} <span>${article.comment[i].date}</span>
+//                     </div>
+//                     </div>`
+//         }
+//     }
+//     // 수정 삭제 버튼+팔로우 버튼 보이기
+//     if (article.user == PayLoad.user_id) {
+//         document.getElementById("article_delete").style.display = "flex"
+//         document.getElementById("article_edit").style.display = "flex"
+//         document.getElementById("modal_follow").style.display = "none"
+//     } else if (article.user != PayLoad.user_id) {
+//         document.getElementById("article_delete").style.display = "none"
+//         document.getElementById("article_edit").style.display = "none"
+//         document.getElementById("modal_follow").style.display = "flex"
+//     }
+
+//     document.getElementById("modal_box_img").ondblclick = () => {
+//         LikeOn(id);
+//     };
+//     document.getElementById("like_icon_on").onclick = () => {
+//         LikeOn(id);
+//     };
+//     document.getElementById("like_icon_off").onclick = () => {
+//         LikeOn(id);
+//     };
+//     document.getElementById("like_icon_off").onmouseover = () => {
+//         LikeUserList(article.like_users);
+//     };
+//     document.getElementById("like_icon_on").onmouseover = () => {
+//         LikeUserList(article.like_users);
+//     };
+// }
+
+// // 바디 클릭시 모달 창 닫기 기본 모달
+// document.body.addEventListener("click", function (e) {
+//     if (e.target.id == "modal_box") {
+//         document.getElementById("modal_box").style.display = "none";
+//         document.getElementById("modal_box_img").src = "";
+//         document.body.style.overflow = "auto";
+//         document.body.style.touchAction = "auto";
+//     }
+// });
+
 
 // 유저 정보 수정
 async function saveUserInfo(user_id) {
@@ -305,33 +294,41 @@ async function saveUserInfo(user_id) {
 
 // 반려동물 등록
 async function addPetProfile() {
+    let file = document.getElementById("add_pi_file").files
     let name = document.getElementById("add_pet_profile_name").value
     let birthday = document.getElementById("add_pet_profile_birthday").value
-
-    const chkList_type = document.querySelectorAll("input[name=pet_type]:checked");
-    let type = ''
-    chkList_type.forEach(function (ch) {
-        type = ch.value
-    });
-
     const chkList_gender = document.querySelectorAll("input[name=pet_gender]:checked");
     let gender = ''
     chkList_gender.forEach(function (ch) {
         gender = ch.value
     });
-
     const chkList_size = document.querySelectorAll("input[name=pet_size]:checked");
     let size = ''
     chkList_size.forEach(function (ch) {
         size = ch.value
     });
-
-    await postPetProfile(name, birthday, type, gender, size)
+    await postPetProfile(file, name, birthday, gender, size)
 
     document.getElementById("add_pet_modal_box").style.display = "none";
 
-    await loadUserInfo()
+    window.location.reload()
     alert("등록 완료")
+}
+
+// 반려동물 등록 프로필 이미지 등록
+function uploadPetProfileImg() {
+
+    const add_pi_file = document.getElementById("add_pi_file")
+    const add_pet_profile_image = document.getElementById("add_pet_profile_image")
+    const add_pi_modal_btn = document.getElementById("add_pi_modal_btn")
+    add_pi_file.click();
+    
+    add_pi_file.addEventListener("change", function (e) {
+        let file = e.target.files;
+        add_pet_profile_image.src = URL.createObjectURL(file[0])
+        add_pet_profile_image.style.display = "flex";
+        add_pi_modal_btn.style.display = "none";
+    })
 }
 
 // 반려동물 등록 모달 활성화
@@ -411,6 +408,8 @@ async function showPetInfo(pet_id) {
     document.getElementById("username").innerText = petprofile.name
     document.getElementById("user_profile_img").src = petprofile.pet_profile_img
     // document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('pet', ${pet_id})`)
 
     const user_button_box = document.getElementById("user_button_box")
     user_button_box.innerHTML =
@@ -532,8 +531,42 @@ async function showPetInfo(pet_id) {
     }
     let target_pet_profile_card = document.getElementById(`pet_profile_card${pet_id}`)
     target_pet_profile_card.remove()
-
 }
+
+// 프로필 이미지 선택 버튼
+function uploadProfileImg(who, _id) {
+    const upload_pi_file = document.getElementById("upload_pi_file")
+    const preview_profile_img = document.getElementById("preview_profile_img")
+    const upload_pi_modal_btn = document.getElementById("upload_pi_modal_btn")
+    upload_pi_file.click();
+    
+    upload_pi_file.addEventListener("change", function (e) {
+        let file = e.target.files;
+        preview_profile_img.src = URL.createObjectURL(file[0])
+        preview_profile_img.style.display = "flex";
+        upload_pi_modal_btn.style.display = "none";
+
+        document.getElementById("change_pi_button").onclick = () => {
+            putProfileImg(who, _id, file)
+        }
+    })
+}
+
+// 프로필 이미지 변경 모달 활성화
+function showPiChange() {
+    const update_pi_modal_box = document.getElementById("update_pi_modal_box")
+    update_pi_modal_box.style.display = "flex"
+    
+}
+
+// 프로필 이미지 변경 모달 비활성화(바디 클릭)
+document.body.addEventListener("click", function (e) {
+    if (e.target.id == "update_pi_modal_box") {
+        document.getElementById("update_pi_modal_box").style.display = "none";
+        document.body.style.overflow = "auto";
+        document.body.style.touchAction = "auto";
+    }
+});
 
 // 회원 비밀번호 인증 모달 활성화
 function showAuthPassword() {
@@ -621,7 +654,9 @@ async function loadUserInfo() {
 
     document.getElementById("username").innerText = user.username
     document.getElementById("user_profile_img").src = user.profile_img
-    // document.getElementById("introduction").innerHTML = user.introduction
+    document.getElementById("introduction").innerHTML = user.introduction
+
+    document.getElementById("upload_pi_modal_btn").setAttribute("onclick", `uploadProfileImg('user', ${user.id})`)
 
     const user_profile_section = document.getElementById("user_profile_section")
     user_profile_section.innerHTML =
@@ -741,50 +776,14 @@ async function loadPetprofile(id, div) {
     for (let i = 0; i < pet.article.length; i++) {
         let article = pet.article[i]
         pet_article_box.innerHTML +=
-            `<div class="article_card">
+            `<div class="article_card"}'>
             <img src='${article.images[0]}' onclick="openDetailModal(${article.id})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>${article.like_num} </div>
             </div>`
     }
 }
 
-const LikeUserList = (like_user) => {
-    if (like_user.length == 0) {
-        document.getElementById("like_user_list").style.display = "flex";
-    } else {
-        document.getElementById("like_user_list").innerHTML = "";
-        like_user.forEach((user) => {
-            document.getElementById("like_user_list").innerHTML += `<div>${user}</div>`;
-        });
-        document.getElementById("like_user_list").style.display = "flex";
-    }
-    document.getElementById("like_user_list").onclick = () => {
-        if (document.getElementById("like_user_list").style.display == "flex") {
-            document.getElementById("like_user_list").style.display = "none";
-        }
-    };
-};
 
-
-
-function listLikeUser(likes) {
-    if (likes.length == 0) {
-        document.getElementById("like_user_list").style.display = "flex";
-    } else {
-        document.getElementById("like_user_list").innerHTML = "";
-        likes.forEach((user) => {
-            document.getElementById(
-                "like_user_list"
-            ).innerHTML += `<div> ${user}</div>`;
-        });
-        document.getElementById("like_user_list").style.display = "flex";
-    }
-    document.getElementById("like_user_list").onclick = () => {
-        if (document.getElementById("like_user_list").style.display == "flex") {
-            document.getElementById("like_user_list").style.display = "none";
-        }
-    };
-}
 
 
 async function submitLoc(id){

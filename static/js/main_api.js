@@ -19,76 +19,98 @@ window.onscroll = function () {
       page = true;
     }, 1000);
   }
-}
+};
 
 async function handleLogin() {
   const loginData = {
     email: document.getElementById("email").value,
-    password: document.getElementById("password").value
-  }
+    password: document.getElementById("password").value,
+  };
   const response = await fetch(`${backend_base_url}user/login/`, {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    method: 'POST',
-    body: JSON.stringify(loginData)
-  })
-  response_json = await response.json()
+    method: "POST",
+    body: JSON.stringify(loginData),
+  });
+  response_json = await response.json();
   if (response.status == 200) {
-    localStorage.setItem("user_access_token", response_json.access)
-    localStorage.setItem("user_refresh_token", response_json.refresh)
+    localStorage.setItem("user_access_token", response_json.access);
+    localStorage.setItem("user_refresh_token", response_json.refresh);
 
-    const base64Url = response_json.access.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    const base64Url = response_json.access.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
 
-    localStorage.setItem("payload", jsonPayload)
-    window.location.reload()
+    localStorage.setItem("payload", jsonPayload);
+    window.location.reload();
   } else {
-    alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.");
   }
 }
+
+const GetSelectPetArticle = (pet_id) => {
+  document.getElementById("main_article_list").innerHTML = "";
+  fetch(`${backend_base_url}article/pet/${pet_id}/`)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      res.forEach((item) => {
+        console.log(item);
+        let random = Math.floor(Math.random() * 10) - 5;
+        let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
+            <img src="${item.images[0]}" alt="">
+        <div id="article_list_like" class="article_list_like">
+        <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
+        <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
+        </div>
+        </div>`;
+        document.getElementById("main_article_list").innerHTML += html;
+      });
+    });
+};
 
 const GetImgListPage = (page) => {
   fetch(`${backend_base_url}article/page/${page}/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + localStorage.getItem("user_access_token"),
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
     },
-  })
-    .then((res) => {
-      if (res.status == 401) {
-        document.getElementById("login_modal_box").style.display = "flex";
+  }).then((res) => {
+    if (res.status == 401) {
+      document.getElementById("login_modal_box").style.display = "flex";
+      return;
+    }
+    res.json().then((data) => {
+      if (data.length == 0) {
         return;
-      }
-      res.json()
-        .then((data) => {
-          if (data.length == 0) {
-            return;
-          } else {
-            data.forEach((item) => {
-              // 기울기 0
-              // 기울기 -5 ~ 5
-              let random = Math.floor(Math.random() * 10) - 5;
-              let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
+      } else {
+        data.forEach((item) => {
+          // 기울기 0
+          // 기울기 -5 ~ 5
+          let random = Math.floor(Math.random() * 10) - 5;
+          let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
             <img src="${item.images[0]}" alt="">
             <div id="article_list_like" class="article_list_like">
             <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
             <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
             </div>
             </div>`;
-              document.getElementById("main_article_list").innerHTML += html;
-            });
-          }
-        }
-        );
+          document.getElementById("main_article_list").innerHTML += html;
+        });
+      }
     });
-}
-
+  });
+};
 
 const GetUserInfo = () => {
   fetch(`${backend_base_url}user/`, {
@@ -108,9 +130,6 @@ const GetUserInfo = () => {
       }
     });
 };
-//EXP는 1659096952
-console.log(Date.now()) //경과된 밀리초를 반환 1659093401862
-
 const GetImgList = () => {
   // document.getElementById("main_article_list").innerHTML = "";
   fetch(`${backend_base_url}article/`)
@@ -149,7 +168,7 @@ const GetTopList = () => {
           </div>
           <div>
               <img src="${item.images[0]}" alt="">
-              <div class="top_article_user_name">${item.author}</div>
+              <div onclick='profile(${item.user})' class="top_article_user_name">${item.author}</div>
           </div>
           <div>
               ${item.content}
@@ -221,19 +240,99 @@ function upload_modal_submit() {
     document.getElementById("now_loading").style.display = "flex";
 
     fetch(`${backend_base_url}article/`, {
-
       method: "POST",
       body: formData,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
       },
     })
-      .then((res) => res.json())
       .then((res) => {
-        alert("업로드 완료");
+        if (res.status === 401) {
+          alert("로그인이 필요합니다.");
+          window.location.href = "/login.html";
+        } else {
+          alert("업로드 완료");
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        alert("서버 오류가 발생 되었습니다.");
         window.location.reload();
       });
   }
+}
+// 디테일 모달 열기+보여주기
+async function openDetailModal(id) {
+  document.getElementById("mypage_modal_comment_list").innerHTML = "";
+  const PayLoad = JSON.parse(localStorage.getItem("payload"));
+  const modal_box = document.getElementById("modal_box");
+
+  modal_box.style.display = "flex";
+
+  const article = await getDetailArticle(id);
+  console.log(article);
+
+  const modal_box_img = document.getElementById("modal_box_img");
+  const author = document.getElementById("author");
+  const author_profile_img = document.getElementById("author_profile_img");
+  const content = document.getElementById("content");
+  const comment_list = document.getElementById("mypage_modal_comment_list");
+  const submit_button = document.getElementById("modal_comment_submit");
+  const modal_follow = document.getElementById("modal_follow");
+  const article_delete = document.getElementById("article_delete");
+  const article_edit = document.getElementById("article_edit");
+  const modal_like_num1 = document.getElementById("modal_like_num1");
+  const modal_like_num2 = document.getElementById("modal_like_num2");
+  const modal_edit_text = document.getElementById("modal_edit_text");
+
+  author.innerText = article.author;
+  author_profile_img.src = article.profile_img[0];
+  content.innerHTML = tagToLink(article.content);
+  modal_like_num1.innerText = article.like_num;
+  modal_like_num2.innerText = article.like_num;
+  modal_box_img.src = article.images[0];
+  article_delete.setAttribute("onClick", `articleDelete(${article.id})`);
+  article_edit.setAttribute("onClick", `articleEdit(${article.id})`);
+  modal_edit_text.innerHTML = article.content;
+
+  submit_button.setAttribute("onClick", `sendComment(${article.id})`);
+  modal_follow.setAttribute(
+    "onClick",
+    `Follow('${article.author}', ${article.id})`
+  );
+
+  //이미지
+  let images = article.images;
+  document.getElementById("slide_left").onclick = () => {
+    let index = images.indexOf(document.getElementById("modal_box_img").src);
+    if (index == 0) {
+      index = images.length - 1;
+    } else {
+      index--;
+    }
+    document.getElementById("modal_box_img").src = images[index];
+    document
+      .getElementById("modal_box_img")
+      .animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 1000,
+        fill: "forwards",
+      });
+  };
+  document.getElementById("slide_right").onclick = () => {
+    let index = images.indexOf(document.getElementById("modal_box_img").src);
+    if (index == images.length - 1) {
+      index = 0;
+    } else {
+      index++;
+    }
+    document.getElementById("modal_box_img").src = images[index];
+    document
+      .getElementById("modal_box_img")
+      .animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 1000,
+        fill: "forwards",
+      });
+  };
 }
 
 function modal_open(id) {
@@ -241,20 +340,23 @@ function modal_open(id) {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
-  let modal_box = document.getElementById("modal_box")
+  let modal_box = document.getElementById("modal_box");
   fetch(`${backend_base_url}article/${id}/`)
-  .then((res) => res.json())
-  .then((data) => {
+    .then((res) => res.json())
+    .then((data) => {
       if (modal_box.style.display == "" || modal_box.style.display == "none") {
-        modal_box.childNodes[1].animate([
-          // { transform: "scale(0.8)" },
-          // { transform: "scale(1.0)" },
-          { transform: "translateX(0px)" },
-          { transform: "translateX(50px)" },
-        ], {
-          duration: 300,
-          fill: "forwards",
-        });
+        modal_box.childNodes[1].animate(
+          [
+            // { transform: "scale(0.8)" },
+            // { transform: "scale(1.0)" },
+            { transform: "translateX(0px)" },
+            { transform: "translateX(50px)" },
+          ],
+          {
+            duration: 300,
+            fill: "forwards",
+          }
+        );
         modal_box.style.display = "flex";
         document.body.style.overflow = "hidden";
         document.body.style.touchAction = "none";
@@ -303,11 +405,10 @@ function modal_open(id) {
       }
       let images = data.images;
       let content_raw = data.content;
-      let content = tagToLink(content_raw)
+      let content = tagToLink(content_raw);
 
       let comments = data.comment;
       document.getElementById("modal_box_img").src = images[0];
-
 
       if (data.images.length <= 1) {
         document.getElementById("slide_left").style.display = "none";
@@ -369,6 +470,10 @@ function modal_open(id) {
       document.getElementById("modal_content_text").innerHTML = content;
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
+
+      document
+        .getElementById("modal_username")
+        .setAttribute("onclick", `profile(${data.user})`);
       document.getElementById("modal_edit_text").value = content_raw;
 
       comments.forEach((item) => {
@@ -613,7 +718,6 @@ const Follow = (user, article) => {
       modal_open(article);
     });
 };
-
 
 GetUserInfo();
 GetImgList();
