@@ -15,6 +15,7 @@ function walkModalOpen() {
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        document.getElementById('map_modal').style.display='none'
         document.getElementById('map_modal').style.display = 'none'
     }
 
@@ -183,7 +184,7 @@ async function getWalkArticle(page, gender, size, region, number) {
         url = url + `p=${page}`
 
     }
-    console.log(url)
+
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -200,7 +201,7 @@ async function getWalkArticle(page, gender, size, region, number) {
 //모든 아티클 뿌려주기
 
 async function loadWalkArticle(page, gender, size, region, number) {
-    console.log(page, gender, size, region, number)
+
 
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
@@ -416,6 +417,8 @@ function diffDay() {
 // var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
+    document.getElementById('pagination').style.display='none'
+    document.getElementById('right_page').style.display='none'
     document.getElementById('pagination').style.display = 'none'
     document.getElementById('right_page').style.display = 'none'
 
@@ -449,9 +452,10 @@ async function openWalkDetailArticle(id) {
 
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
+
     // console.log(response_json)
     detail_detail.innerHTML = response_json.contents
-    // detail_contents.innerHTML = response_json.contents
+
     detail_date.innerText = response_json.start_date
     detail_gender.innerText = response_json.gender
     detail_place.innerText = response_json.place
@@ -470,7 +474,7 @@ async function openWalkDetailArticle(id) {
         attend_walk.style.backgroundColor = 'rgb(17, 17, 17)'
         attend_walk.style.color = 'white'
         openWalkDetailArticle(id)
-    } else if (response_json.attending == false) {
+    } else if (response_json.attending == false){
         attend_walk.innerHTML = `산책가기 <br><span id='left_seat'>${response_json.left_seat}</span>자리 남았습니다.`
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
         attend_walk.style.backgroundColor = 'pink'
@@ -491,9 +495,9 @@ async function openWalkDetailArticle(id) {
 // 룸 생성
 async function postHeader() {
     let host_id = sessionStorage.getItem('host_id')
-    // console.log(host_id)
+
     const response_json = await createHeader(host_id)
-    // console.log(response_json)
+
     window.location.href = "/dm.html";
 }
 
