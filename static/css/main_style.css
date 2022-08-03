@@ -2,7 +2,6 @@
 
 * {
     font-family: 'Poor Story', cursive;
-    font-size: 15px;
 }
 
 body,
@@ -226,6 +225,10 @@ body {
     color: #545454;
     display: flex;
     /* align-items: center; */
+}
+.top_article_user_name:hover{
+    color: black;
+    cursor: pointer;
 }
 
 .top_article_info div:nth-child(2) img {
@@ -530,7 +533,10 @@ body {
     font-weight: bold;
     font-size: 12px;
 }
-
+.modal_username:hover {
+    color:#545454;
+    cursor:pointer
+}
 .modal_content_list {
     padding: 15px;
     padding-top: 0px;
@@ -538,8 +544,8 @@ body {
 
 .modal_content_list div {
     padding: 5px;
-    font-size: 14px;
-    /* border-bottom: 1px solid #e7e7e7; */
+    font-size: 18px;
+    word-break: break-all;
 }
 
 .modal_comment_text {
@@ -557,7 +563,7 @@ body {
     background: #EAF6F6;
     border-radius: 10px;
     color: #FF0063;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     /* justify-content: center; */
 }
@@ -684,6 +690,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: scroll;
+    font-size: 16px;
 }
 
 .modal_desc {
@@ -949,7 +956,7 @@ input[type=radio]:checked+label img {
     resize: none;
     outline: none;
     overflow: scroll;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     border-radius: 10px;
     -ms-overflow-style: none;

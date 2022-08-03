@@ -137,7 +137,7 @@ async function postComment(id, comment) {
     const commentData = {
         comment: comment
     }
-    console.log(commentData)
+    console.log(id,commentData)
     const response = await fetch(`${backend_base_url}article/comment/${id}/`, {
         method: 'POST',
         headers: {

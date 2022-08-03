@@ -1,7 +1,17 @@
-const backend_base_url = "http://127.0.0.1:8000/"
-// const backend_base_url = "http://3.34.181.243/"
+// const backend_base_url = "http://127.0.0.1:8000/"
+const backend_base_url = "http://3.39.219.239/"
 const frontend_base_url = "http://127.0.0.1:5500/"
+const ws_base_url = "ws://3.39.219.239:8001/"
 
+async function profile(user_id) {
+    sessionStorage.setItem('profile_page_id', user_id)
+    payload = localStorage.getItem("payload")
+    if (user_id == JSON.parse(payload).user_id) {
+        UserPage()
+    } else {
+        window.location.href = "/personal.html"
+    }
+}
 
 const DM = () => {
     window.location.href = "/dm.html";
@@ -21,6 +31,10 @@ const Logout = () => {
 
 function petevent() {
     window.location.href = "/tournament.html";
+}
+
+function walk() {
+    window.location.href = "/walk.html"
 }
 
 function alarm(id) {
@@ -63,3 +77,40 @@ function alarm(id) {
         }
     };
 }
+
+
+// 로그인 했을때만 해당 유저 인포 가져온다
+const GetUserInfo = () => {
+    // payload = localStorage.getItem("payload")
+    // console.log(JSON.parse(payload))
+    if (localStorage.getItem("payload") != null) {
+        fetch(`${backend_base_url}user/`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.username == null) {
+
+                } else {
+                    document.getElementById("user").innerHTML = res.username;
+                    console.log(res.profile_img)
+                    document.getElementById('user_img').src = res.profile_img
+                }
+            });
+
+
+    }
+    else {
+        console.log("***")
+        let user_profile = document.getElementById('user_profile')
+        user_profile.style.display = 'none';
+        document.getElementById('loginout').innerHTML = '로그인';
+    }
+};
+GetUserInfo()
+

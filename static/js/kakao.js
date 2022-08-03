@@ -32,8 +32,6 @@ function handleKakaoSignup(authoObj, signupData) {//signup
         body: JSON.stringify(kakaoSignupData)
     })
         .then((res) => {
-            console.log(res.status)
-            console.log(res.error)
             if (res.status === 200) {
                 res.json().then((res) => {
                     localStorage.setItem("user_access_token", res.access);
@@ -83,7 +81,6 @@ function mapOn(search){
             var bounds = new kakao.maps.LatLngBounds();
     
             for (var i=0; i<data.length; i++) {
-                console.log(data[i].place_name)
                 displayMarker(data[i]);    
                 bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
             }       
@@ -120,7 +117,6 @@ function mapOn(search){
     
             var lat = position.coords.latitude, // 위도
                 lon = position.coords.longitude; // 경도
-            console.log(lat, lon)
             var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png' // 마커이미지의 주소입니다    
             var imageSize = new kakao.maps.Size(44, 49) // 마커이미지의 크기입니다
             var imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -143,10 +139,13 @@ function mapOn(search){
     
 }
 function startMap(){
-    document.getElementById('map_modal').style.display='inline'
     const search = m_input_p.value;
-    console.log("kdjfkdjf")
-    mapOn(search)
+    if (search==''){
+        alert("검색할 장소를 넣어주세요!")
+    }else{        
+        document.getElementById('map_modal').style.display='inline'
+        mapOn(search)
+    }
 }
 function startMap2(search){
     document.getElementById('map_modal').style.display='inline'

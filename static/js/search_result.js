@@ -1,89 +1,36 @@
 
-const GetUserInfo = () => {
-  fetch(`${backend_base_url}user`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.username == null) {
-        window.location.href = "./login.html";
-      } else {
-        document.getElementById("user").innerHTML = res.username;
-      }
-    });
-};
-
-const Refresh_Token = () => {
-  const PayLoad = JSON.parse(localStorage.getItem("payload"));
-  if (PayLoad.exp > Date.now() / 1000) {
-    return;
-  } else {
-    fetch(`${backend_base_url}user/refresh/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-      },
-      body: JSON.stringify({
-        refresh: localStorage.getItem("user_refresh_token"),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        localStorage.setItem("user_access_token", res.access);
-      });
-  }
-};
-
-const GetImgList = () => {
-  document.getElementById("main_article_list").innerHTML = "";
-  fetch(`${backend_base_url}article/`)
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((item) => {
-        // 기울기 0
-        // let random = 0;
-        // 기울기 -5 ~ 5
-        let random = Math.floor(Math.random() * 10) - 5;
-        let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
-          <img src="${item.images[0]}" alt="">
-          <div id="article_list_like" class="article_list_like">
-          <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
-          <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
-          </div>
-          </div>`;
-        document.getElementById("main_article_list").innerHTML += html;
-      });
-    });
-};
 
 const GetSearchResultList = () => {
   var search_results = JSON.parse(localStorage.getItem('search_results'));
-  document.getElementById("top_article").innerHTML = "";
+  document.getElementById("search_result").innerHTML = "";
 
   search_results.forEach((item) => {
-    let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
-      <img src="${item.images[0]}" alt="">
-      <div class="top_article_info">
-          <div class="article_like_info">
-            <div>좋아요 ${item.like_num}개</div>
-            <div>댓글 ${item.comment.length}개</div>
-          </div>
-          <div>
-              <img src="${item.images[0]}" alt="">
-              <div class="top_article_user_name">${item.author}</div>
-          </div>
-          <div>
-              ${item.content}
-          </div>
-      </div>`;
-    document.getElementById("top_article").innerHTML += html;
+    // let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
+    //   <img src="${item.images[0]}" alt="">
+    //   <div class="top_article_info">
+    //       <div class="article_like_info">
+    //         <div>좋아요 ${item.like_num}개</div>
+    //         <div>댓글 ${item.comment.length}개</div>
+    //       </div>
+    //       <div>
+    //           <img src="${item.images[0]}" alt="">
+    //           <div class="top_article_user_name">${item.author}</div>
+    //       </div>
+    //       <div>
+    //           ${item.content}
+    //       </div>
+    //   </div>`;
+
+    let html = `<figure onclick="modal_open(${item.id})" class="search_item">
+    <img src="${item.images[0]}" alt="">
+    <figcaption>
+        <h4>${item.author}</h4>
+        <div>좋아요 ${item.like_num}개 댓글 ${item.comment.length}개</div>
+        <p>${item.content}</p>
+    </figcaption>
+</figure>`
+
+    document.getElementById("search_result").innerHTML += html;
   });
   localStorage.removeItem('search_results');
 
@@ -147,7 +94,7 @@ function upload_modal_submit() {
       formData.append("image_lists", upload_file[i]);
     }
     document.getElementById("now_loading").style.display = "flex";
-    fetch(`${backend_base_url}article`, {
+    fetch(`${backend_base_url}article/`, {
       method: "POST",
       body: formData,
       headers: {
@@ -163,15 +110,28 @@ function upload_modal_submit() {
 }
 
 function modal_open(id) {
+  Refresh_Token();
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
-  document.body.style.overflow = "hidden";
-  document.body.style.touchAction = "none";
-  document.getElementById("modal_box").style.display = "flex";
+  let modal_box = document.getElementById("modal_box")
   fetch(`${backend_base_url}article/${id}/`)
     .then((res) => res.json())
     .then((data) => {
+      if (modal_box.style.display == "" || modal_box.style.display == "none") {
+        modal_box.childNodes[1].animate([
+          // { transform: "scale(0.8)" },
+          // { transform: "scale(1.0)" },
+          { transform: "translateX(0px)" },
+          { transform: "translateX(50px)" },
+        ], {
+          duration: 300,
+          fill: "forwards",
+        });
+        modal_box.style.display = "flex";
+        document.body.style.overflow = "hidden";
+        document.body.style.touchAction = "none";
+      }
       if (data.likes.indexOf(user_id) != -1) {
         document.getElementById("like_icon_off").style.display = "none";
         document.getElementById(
@@ -283,6 +243,7 @@ function modal_open(id) {
       document.getElementById("modal_comment_list").innerHTML = "";
       document.getElementById("modal_username").innerHTML = data.author;
       document.getElementById("modal_edit_text").value = content_raw;
+
       comments.forEach((item) => {
         if (item.user == user_id) {
           let html = `<div class="modal_comment_text">
@@ -350,12 +311,6 @@ const CommentUpload = (id) => {
     });
 };
 
-const Logout = () => {
-  localStorage.removeItem("user_access_token");
-  localStorage.removeItem("user_refresh_token");
-  localStorage.removeItem("payload");
-  window.location.href = "./login.html";
-};
 
 const LikeOn = (id) => {
   fetch(`${backend_base_url}article/like/${id}/`, {
@@ -529,7 +484,4 @@ const Follow = (user, article) => {
     });
 };
 
-GetUserInfo();
-// GetImgList();
 GetSearchResultList();
-Refresh_Token();

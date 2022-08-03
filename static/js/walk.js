@@ -16,10 +16,15 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
         document.getElementById('map_modal').style.display='none'
-
     }
     
 }
+
+    // if (document.getElementById('map_modal').style.display=='inline') {
+    //     console.log("***")
+    //     document.getElementById('map_modal').style.display='none'
+    // }
+
 
 function goBack() {
     const detail_r_sec = document.getElementById("detail_r_sec")
@@ -46,7 +51,7 @@ const slidesContainer = document.getElementById("slides-container");
 for (let i = 0; i < 14; i++) {
     let date = m_dropdown_region_date[i].split('2. ')[1].replace(/ /g, '')
     let search_date = '2022.' + date
-    slidesContainer.innerHTML += `<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'>클릭해주세요</span></li>`
+    slidesContainer.innerHTML += `<li class="slide" onclick='searchStart(0,"${search_date}")'>${date}<span style='font-size:0.5rem'></span></li>`
 }
 
 
@@ -158,7 +163,7 @@ async function getWalkArticle(page, gender, size, region, number) {
     let url = `${backend_base_url}walk/?`
     if (sessionStorage.getItem('start_date') != null) {
         let s_date = sessionStorage.getItem('start_date').replace('.', '-').replace('.', '-').replace('.', '')
-    
+
         url = url + `start_date=${s_date}&`
     }
 
@@ -174,10 +179,11 @@ async function getWalkArticle(page, gender, size, region, number) {
     if (number != 'number') {
         url = url + `number=${number}&`
     }
-    if(page!=null & page!='page'){
-        url = url+`p=${page}`
+    if (page != null & page != 'page') {
+        url = url + `p=${page}`
 
     }
+    console.log(url)
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -193,20 +199,21 @@ async function getWalkArticle(page, gender, size, region, number) {
 
 //모든 아티클 뿌려주기
 
-async function loadWalkArticle(page, gender, size, region, number){
-    
+async function loadWalkArticle(page, gender, size, region, number) {
+    console.log(page, gender, size, region, number)
+
     const response = await getWalkArticle(page, gender, size, region, number)
     const count = response.count
     const res = response.results
-    
+
 
     customers = document.getElementById('customers')
     customers.innerHTML = ''
     res.forEach(post => {
         customers.innerHTML +=
             `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
-                <td>${post.start_date.substring(5,10)}</td>
-                <td>${post.start_time.split(' ')[1].substring(0,5)}~${post.end_time.split(' ')[1].substring(0,5)}</td>
+                <td>${post.start_date.substring(5, 10)}</td>
+                <td>${post.start_time.split(' ')[1].substring(0, 5)}~${post.end_time.split(' ')[1].substring(0, 5)}</td>
                 <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
                 <td>${post.people_num}</td>
                 <td id='gowalkbutton${post.id}'>산책가기</td>
@@ -214,26 +221,26 @@ async function loadWalkArticle(page, gender, size, region, number){
 
         let mas = post.start_time
 
-        
-        let masMonth= mas.split('.')[1];
-        let masDate=mas.split('.')[2].split(' ')[0];
-        let masTime =mas.split(' ')[1].split(':')[0];
+
+        let masMonth = mas.split('.')[1];
+        let masDate = mas.split('.')[2].split(' ')[0];
+        let masTime = mas.split(' ')[1].split(':')[0];
 
         let today = new Date()
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
         let day = ('0' + today.getDate()).slice(-2);
-        let time = ('0' + today.getHours()).slice(-2); 
+        let time = ('0' + today.getHours()).slice(-2);
 
-        if ( (masMonth<month) | (masMonth==month & masDate<day) | (masMonth==month & masDate==day & masTime<time)){ 
+        if ((masMonth < month) | (masMonth == month & masDate < day) | (masMonth == month & masDate == day & masTime < time)) {
 
             document.getElementById('gowalkbutton' + post.id).innerText = '마감'
-            document.getElementById('post_row' + post.id).style.backgroundColor = 'black'
+            document.getElementById('post_row' + post.id).style.backgroundColor = 'rgb(51, 51, 51)'
             document.getElementById('post_row' + post.id).style.color = 'white'
             document.getElementById('post_row' + post.id).setAttribute('onclick', '')
         }
     });
 
-    const total_pages = parseInt(count/12)+1
+    const total_pages = parseInt(count / 12) + 1
 
 
 
@@ -242,28 +249,28 @@ async function loadWalkArticle(page, gender, size, region, number){
     for (let i = 1; i < total_pages + 1; i++) {
         document.getElementById("pages").innerHTML += `<a class="page" id=page onclick="loadWalkArticle(${i},'gender', 'size', 'region', 'number')">${i}</a>`
     }
-    document.getElementById("right_page")
-    
+    // document.getElementById("right_page")
 
 
-    if (page=='page'| page==1){
-        let page_num=1
-        
-        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
-    }else if (page==total_pages){
-        
-        let page_num=page
-        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
-    }else{    
-        
-        let page_num=page
-        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num+1}, "gender", "size", "region", "number")`)
-        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num-1}, "gender", "size", "region", "number")`)
+
+    if (page == 'page' | page == 1) {
+        let page_num = 1
+
+        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num + 1}, "gender", "size", "region", "number")`)
+    } else if (page == total_pages) {
+
+        let page_num = page
+        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num - 1}, "gender", "size", "region", "number")`)
+    } else {
+
+        let page_num = page
+        document.getElementById('right_page').setAttribute('onclick', `loadWalkArticle(${page_num + 1}, "gender", "size", "region", "number")`)
+        document.getElementById('left_page').setAttribute('onclick', `loadWalkArticle(${page_num - 1}, "gender", "size", "region", "number")`)
     }
 
 
 }
-loadWalkArticle('page','gender', 'size', 'region', 'number')
+loadWalkArticle('page', 'gender', 'size', 'region', 'number')
 
 function searchStart(filter_num, click_name) {
 
@@ -287,7 +294,7 @@ function searchStart(filter_num, click_name) {
     if (filter_num == 4) {
         dropbtn_n.innerText = click_name
     }
-    
+
 
 
     const gender = dropbtn_g.innerText
@@ -296,12 +303,13 @@ function searchStart(filter_num, click_name) {
     const number = dropbtn_n.innerText
 
     customers.innerHTML = ""
-    loadWalkArticle(gender, size, region, number)
+
+    loadWalkArticle('page', gender, size, region, number)
 
 }
 
 async function goWalk(id, attending_user) {
-    
+
     const updateWalkData = {
         attending_user: attending_user
     }
@@ -317,8 +325,8 @@ async function goWalk(id, attending_user) {
     response_json = await response.json()
     if (response.status == 200) {
         alert("산책에 참여해주셔서 감사합니다")
-        attend_walk.style.backgroundColor = '#ADD8E6'
-        attend_walk.innerText = '모임에 참여 신청 하셨습니다'
+        // attend_walk.style.backgroundColor = '#ADD8E6'
+        // attend_walk.innerText = '모임에 참여 신청 하셨습니다'
     } else {
         alert("잘못된 결과입니다")
     }
@@ -357,17 +365,6 @@ async function submitWalkArticle() {
         size: document.getElementById('m_dropbtn_s').innerText,
         contents: theEditor.getData(),
     }
-    //form data버젼
-    // const walkData = new FormData();
-    // walkData.append("place", document.getElementById('m_input_p').value)
-    // walkData.append("region", document.getElementById('m_dropbtn_r').value)
-    // walkData.append("start_date", s_list[0] + '-' + s_list[1] + '-' + s_list[2])
-    // walkData.append("time", document.getElementById('m_dropbtn_t').innerText)
-    // walkData.append("gender", document.getElementById('m_dropbtn_g').innerText)
-    // walkData.append("people_num", document.getElementById('m_dropbtn_n').innerText)
-    // walkData.append("size", document.getElementById('m_dropbtn_s').innerText)
-    // walkData.append("contents", theEditor.getData())
-
 
     if (document.getElementById('m_dropbtn_d').innerText == "날짜") {
         alert("날짜를 정해주세요")
@@ -381,23 +378,25 @@ async function submitWalkArticle() {
         alert("인원수를 정해주세요")
     } else if (document.getElementById('m_dropbtn_s').innerText == "강아지크기") {
         alert("강아지 크기를 정해주세요")
-    }
-    const response = await fetch(`${backend_base_url}walk/`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("user_access_token")
-        },
-        body: JSON.stringify(walkData)
-    })
-    response_json = await response.json()
-    if (response.status == 200) {
-        alert("게시글이 업로드 되었습니다")
-        window.location.reload()
     } else {
-        alert("잘못된 게시글입니다")
+        const response = await fetch(`${backend_base_url}walk/`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem("user_access_token")
+            },
+            body: JSON.stringify(walkData)
+        })
+        response_json = await response.json()
+        if (response.status == 200) {
+            alert("게시글이 업로드 되었습니다")
+            window.location.reload()
+        } else {
+            alert("잘못된 게시글입니다")
+        }
     }
+
 }
 
 function diffDay() {
@@ -414,9 +413,11 @@ function diffDay() {
     timer.innerHTML = `<span style="font-size=0.5rem">모임까지 남은 시간</span><br>${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초`;
 }
 
-
+// var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
+    document.getElementById('pagination').style.display='none'
+    document.getElementById('right_page').style.display='none'
 
     const detail_r_sec = document.getElementById("detail_r_sec")
     const r_sec = document.getElementById("r_sec")
@@ -433,17 +434,22 @@ async function openWalkDetailArticle(id) {
         }
     })
     response_json = await response.json()
+
+    sessionStorage.setItem('host_id', response_json.host)
     const host_name = document.getElementById("host_name")
     const detail_contents = document.getElementById("detail_contents")
     const detail_date = document.getElementById("detail_date")
     const detail_gender = document.getElementById("detail_gender")
     const detail_place = document.getElementById("detail_place")
     const detail_number = document.getElementById("detail_number")
+    const detail_detail = document.getElementById("detail_detail")
+
     const left_seat = document.getElementById("left_seat")
     const attend_walk = document.getElementById('attend_walk')
 
 
     host_name.innerText = '모임장 ' + response_json.host_name + '님'
+    console.log(response_json)
     detail_detail.innerHTML = response_json.contents
     // detail_contents.innerHTML = response_json.contents
     detail_date.innerText = response_json.start_date
@@ -458,25 +464,38 @@ async function openWalkDetailArticle(id) {
         attend_walk.innerText = '모임에 참여 신청 하셨습니다'
         attend_walk.style.backgroundColor = '#ADD8E6'
         attend_walk.setAttribute('onclick', `goHome(${response_json.id}, ${response_json.attending_user})`)
+        openWalkDetailArticle(id)
     } else if (response_json.host == PayLoad.user_id) {
         attend_walk.innerText = '모임 주최자는 신청하실 수 없습니다'
         attend_walk.style.backgroundColor = 'rgb(17, 17, 17)'
         attend_walk.style.color = 'white'
-    } else {
+        openWalkDetailArticle(id)
+    } else if (response_json.attending == false){
+        attend_walk.innerHTML = `산책가기 <br><span id='left_seat'>${response_json.left_seat}</span>자리 남았습니다.`
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
+        attend_walk.style.backgroundColor = 'pink'
+        openWalkDetailArticle(id)
     }
 
-    
+
     // document.getElementById('w_d_img_box').setAttribute('src',`${response_json.host_pic}`)
-    document.getElementById('detail_profile').setAttribute('src',`${response_json.host_pic}`)
+    document.getElementById('detail_profile').setAttribute('src', `${response_json.host_pic}`)
     //임베드 동영상 띄워주기
-    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
-    iframely.load( element, element.attributes.url.value );
-    } );
-    document.getElementById('showmap').setAttribute('onclick',`startMap2("${response_json.place}")`)
+    document.querySelectorAll('oembed[url]').forEach(element => {
+        iframely.load(element, element.attributes.url.value);
+    });
+    document.getElementById('showmap').setAttribute('onclick', `startMap2("${response_json.place}")`)
 }
 
 
+// 룸 생성
+async function postHeader() {
+    let host_id = sessionStorage.getItem('host_id')
+    // console.log(host_id)
+    const response_json = await createHeader(host_id)
+    // console.log(response_json)
+    window.location.href = "/dm.html";
+}
 
 
 

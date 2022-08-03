@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <script src="https://kit.fontawesome.com/0e01622099.js" crossorigin="anonymous"></script>
-    <title>Main Page</title>
+    <title>Petrasche | Main</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
@@ -85,7 +85,6 @@
     <div id="upload_modal" class="upload_modal">
         <div class="upload_modal_box">
             <input type="file" multiple accept="image/*" id="upload_file" hidden>
-            <input type="file" multiple accept="image/*" id="add_file" hidden>
             <div id="upload_submit_button" class="upload_submit_button">
                 <i onclick="upload_modal_submit()" class="fa-solid fa-circle-check"></i>
                 <i onclick="upload_modal_cancel()" class="fa-solid fa-circle-xmark"></i>
@@ -121,19 +120,19 @@
 
         <div class="top_section">
             <div class="left_menu">
-                <div class="menu_dog">
+                <div onclick="GetSelectPetArticle(1)" class="menu_dog">
                     <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                     댕댕이
                 </div>
 
-                <div class="menu_cat">
+                <div onclick="GetSelectPetArticle(2)" class="menu_cat">
                     <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
                     냥냥이
                 </div>
 
-                <div class="menu_petshop">
+                <div onclick="walk()" class="menu_petshop">
                     <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
-                    펫샵
+                    산책
                 </div>
                 <div onclick="upload_modal_open()" class="menu_upload">
                     <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
@@ -157,9 +156,9 @@
                 </div>
             </div>
         </div>
-        <script src="./static/js/urls.js"></script>
         <script src="/static/js/refresh.js"></script>
         <script src="/static/js/hashtag.js"></script>
+        <script src="./static/js/urls.js"></script>
         <script src="/static/js/main_api.js"></script>
         <script src="/static/js/main_script.js"></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
