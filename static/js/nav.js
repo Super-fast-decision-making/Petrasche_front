@@ -87,3 +87,4 @@ function newMessage(message, sent_by_id, time) {
     }
     messages.scrollTop = messages.scrollHeight;
 }
+

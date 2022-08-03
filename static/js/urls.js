@@ -106,5 +106,36 @@ const GetUserInfo = () => {
 //     const user = document.getElementById('user')
 //     if (user.innerText == '유저님'){
 
-//     } 
-// }
+
+//로그인 했을때만 해당 유저 인포 가져온다
+const GetUserInfo = () => {
+    // payload = localStorage.getItem("payload")
+    // console.log(JSON.parse(payload))
+    if (localStorage.getItem("payload")!=null){
+        fetch(`${backend_base_url}user/`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+            },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.username == null) {
+            // window.location.href = "./login.html";
+            
+        } else {
+                document.getElementById("user").innerHTML = res.username;
+                console.log(res.profile_img)
+                document.getElementById('user_img').src=res.profile_img
+            }
+        });
+        
+    } else{
+        document.getElementById('loginout').innerText='로그인';
+        document.getElementById('user_profile').style.display='none';
+    }
+};
+GetUserInfo()
+

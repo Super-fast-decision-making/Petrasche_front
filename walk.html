@@ -60,14 +60,16 @@
     </nav>
     <!--  -->
     <div id="map_modal"
-        style="background-color:black;display: none;padding:20px;left:30%;width:500px;height:500px;z-index:10000;position:absolute;">
-        <div id="map" style="height:460px; width: 460px;"></div>
+        style="background-color:black;color:white;display: none;padding:10px;left:30%;width:500px;height:510px;z-index:10000;position:absolute;padding:auto">
+        
+        <div onclick="mapClose()">x</div>
+        <div id="map" style="height:460px; width: 460px;margin: auto;"></div>
     </div>
 
 
 
     <div class="top_section">
-        <div class="left_menu" style="height:400px">
+        <div class="left_menu" style="height:400px;margin-right:170px">
             <div class="menu_dog">
                 <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
                 댕댕이
@@ -221,15 +223,7 @@
                     </div>
                     
                 </div>
-                <button class="btn" id="right_page">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="btn--icon" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
             </div>
-
-
         </div>
 
 
@@ -404,6 +398,9 @@
         <!-------------------------------->
     </div>
     <script>
+        const mapClose = () =>{
+            document.getElementById('map_modal').style.display='none'
+        }
 
     </script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
