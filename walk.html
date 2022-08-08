@@ -69,15 +69,24 @@
 
 
     <div class="top_section">
-        <div class="left_menu" style="height:270px;margin-right:170px">
+        <div class="left_menu" style="height:400px;margin-right:170px">
             <div class="menu_dog">
-                <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
-                홈으로
+                <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
+                댕댕이
+            </div>
+
+            <div class="menu_cat">
+                <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
+                냥냥이
             </div>
 
             <div onclick="petevent()" class="menu_upload">
                 <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
                 뽐뽐뽐
+            </div>
+            <div onclick="upload_modal_open()" class="menu_upload">
+                <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
+                업로드
             </div>
             <div onclick="walkModalOpen()" class="menu_dog">
                 <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
@@ -189,10 +198,7 @@
                             <div style="display:flex"><img id="detail_profile"
                                     style="border-radius: 71%;height:30px; width:30px"></img>
                                 <h2 id="host_name">00 산책장</h2>
-                            </div>
-                            <button class="dm_btn" id="dm_btn" onclick=postHeader()
-                                style="background-color:black; color:white; border:none; margin-right: -40%;; padding: 0 10px;border-radius:10px">문의하기</button>
-                            <button id="go_back" onclick=goBack()
+                            </div><button id="go_back" onclick=goBack()
                                 style="background-color:black; color:white; border:none; padding: 0 10px;border-radius:10px">뒤로가기</button>
                         </div>
                         <div
@@ -233,117 +239,178 @@
 
             </div>
         </div>
-        <!-- </div> -->
+    </div>
 
 
+    <!--  detail 페이지 본문 -->
+    <div id="detail_r_sec" class="right_section" style="width:70%;margin-left: 50px;padding:20px;display:none">
 
-        <!----- 업로드 모달------->
-        <!-- Trigger/Open The Modal -->
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
+        <div style="width:100%; min-height: 500px;">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <!-- <span class="close">&times;</span> -->
-                <div class="modal-head">
-                    <div>
-                        <h3>산책가기</h3>
+            <div class="main_column"
+                style="display:flex; float:left;width:65%; height:120%;border-radius: 8px; background-color:white;padding:30px; overflow:auto">
+
+                <div style="width:100%; margin:20px; height:100%; ">
+                    <div style="display:flex;justify-content: space-between;">
+                        <div style="display:flex"><img id="detail_profile"
+                                style="border-radius: 71%;height:30px; width:30px"></img>
+                            <h2 id="host_name">00 산책장</h2>
+                        </div>
+                        <button class="dm_btn" id="dm_btn" onclick=postHeader()
+                            style="background-color:black; color:white; border:none; margin-right: -40%;; padding: 0 10px;border-radius:10px">문의하기</button>
+                        <button id="go_back" onclick=goBack()
+                            style="background-color:black; color:white; border:none; padding: 0 10px;border-radius:10px">뒤로가기</button>
                     </div>
-                    <div class="m_submit_button" onclick="submitWalkArticle()">등록</div>
+
+                    <div
+                        style="width:400px; height:100px; background-color:white; margin:30px auto;display: flex; justify-content: space-between;">
+                        <span></span>
+                        <h1 id="timer" style="margin:auto 0;">05:30:33</h1>
+                        <span></span>
+
+                    </div>
+                    <hr>
+                    <div style="width:100%; height:30px"></div>
+                    <div id='detail_detail' style="width:90%; height:500px;margin:0 auto;">
+
+                        <!-- <img id='w_d_img_box'style="width:300px; height:300px; background-color: grey;border-radius: 5px;margin: 20px auto;display:block; margin:10px auto;over-fit:cover"/> -->
+
+                        <div id="detail_contents" style="text-align: center;">우리 뿌숑이랑 같이 산책 갈 사람 구함여~<br>우리 이쁘고 착한
+                            뿌숑이는 짖지도않고 사람을 좋아해요~~ 단 한번도 물지 않은 뿌숑이랑 같이 산책 나가실 분 구합니다!<br>사람을 좋아하긴하는데 다른 강아지들은 조금
+                            무서워해요..ㅜㅜ 착한 친구 강아지 구합니다!</div>
+                    </div>
 
                 </div>
-                <hr>
+            </div>
+            <div class="right_column"
+                style="display:flex; float:right; width:30%; height:400px; background-color:white;margin:20px;display:flex; border-radius:8px;position:relative;padding:20px">
+                <div style="width:100%; height:300px; margin-bottom:20px; margin-left: 20px;font-weight:600">
+                    <br>
+                    <p style="display: block;">날짜: <span id="detail_date">7/23</span></p><br>
+                    <p>위치: <span id="detail_place">장지동</span>&nbsp;<button id='showmap'
+                            style="background-color:black; color:white;padding:3px;border-radius:5px">지도 보기</button>
+                    </p><br>
+                    <p>성별: <span id="detail_gender">남,여</span></p><br>
+                    <p>인원: <span id="detail_number">4명</span></p><br>
+                    <p>사이즈: 대형견만</p>
+                </div>
+                <button class="attend_walk" id="attend_walk"
+                    style="width:85%; height:100px; background-color:pink; border-radius: 8px;text-align: center; position:absolute; bottom: 20px;">
+                    산책가기 <br> <span id="left_seat"></span>자리 남았습니다</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!----- 업로드 모달------->
+    <!-- Trigger/Open The Modal -->
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <!-- <span class="close">&times;</span> -->
+            <div class="modal-head">
                 <div>
-                    <div style="width:100%; height:50px;"></div>
-                    <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p'
-                            style="width:90%; height:30px; border-radius: 3px;"
-                            placeholder="만날 장소 (상세하게 적어주세요)"></input><button class="start_map" onclick='startMap("서현역")'
-                            style="width:10%">지도 검색</button></div>
-                    <div class="dropdown-row">
-                        <div style="width:100%; height:30px;">
-                            <div class="dropdown">
-                                <button class="m_dropbtn_r" id="m_dropbtn_r">지역</button>
-                                <div class="dropdown-content" id="m_dropdown_region">
-                                </div>
-                            </div>
+                    <h3>산책가기</h3>
+                </div>
+                <div class="m_submit_button" onclick="submitWalkArticle()">등록</div>
 
-                            <div class="dropdown">
-                                <button class="m_dropbtn_r" id="m_dropbtn_d">날짜</button>
-                                <div class="dropdown-content" id="m_dropdown_date">
-                                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="width:100%; height:50px;"></div>
+                <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p'
+                        style="width:90%; height:30px; border-radius: 3px;"
+                        placeholder="만날 장소 (상세하게 적어주세요)"></input><button class="start_map" onclick='startMap("서현역")'
+                        style="width:10%">지도 검색</button></div>
+                <div class="dropdown-row">
+                    <div style="width:100%; height:30px;">
+                        <div class="dropdown">
+                            <button class="m_dropbtn_r" id="m_dropbtn_r">지역</button>
+                            <div class="dropdown-content" id="m_dropdown_region">
                             </div>
+                        </div>
 
-                            <div class="dropdown">
-                                <button class="m_dropbtn_r" id="m_dropbtn_t">시간</button>
-                                <div class="dropdown-content" id="m_dropdown_time">
-                                </div>
+                        <div class="dropdown">
+                            <button class="m_dropbtn_r" id="m_dropbtn_d">날짜</button>
+                            <div class="dropdown-content" id="m_dropdown_date">
                             </div>
-                            <div class="dropdown">
-                                <button class="m_dropbtn_r" id="m_dropbtn_g">성별</button>
-                                <div class="dropdown-content" id="m_dropdown_gender">
-                                </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="m_dropbtn_r" id="m_dropbtn_t">시간</button>
+                            <div class="dropdown-content" id="m_dropdown_time">
                             </div>
-
-                            <div class="dropdown">
-                                <button class="m_dropbtn_r" id="m_dropbtn_n">인원수</button>
-                                <div class="dropdown-content" id="m_dropdown_hc">
-                                </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="m_dropbtn_r" id="m_dropbtn_g">성별</button>
+                            <div class="dropdown-content" id="m_dropdown_gender">
                             </div>
+                        </div>
 
-                            <div class="dropdown">
-                                <button class="m_dropbtn_r" id="m_dropbtn_s">강아지크기</button>
-                                <div class="dropdown-content" id="m_dropdown_size">
-                                </div>
+                        <div class="dropdown">
+                            <button class="m_dropbtn_r" id="m_dropbtn_n">인원수</button>
+                            <div class="dropdown-content" id="m_dropdown_hc">
                             </div>
+                        </div>
 
-                            <div>
-                                <!-- <div id="editor" style="height: 400px;"></div> -->
-                                <textarea id="editor" style="height: 400px;"></textarea>
-                                <script>
-                                    // import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
-                                    let theEditor;
-                                    ClassicEditor
-                                        .create(document.querySelector('#editor'), {
-                                            ckfinder: {
-                                                uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-                                            },
-                                            ckbox: {
-                                                // Be careful - do not use the development token endpoint on production systems!
-                                                tokenUrl: 'https://91089.cke-cs.com/token/dev/pTQSFfbNFeBz8KX6jK2ffRoVQHXLXFumOuat?limit=10'
-                                            },
-                                            // License key is required only by the Pagination plugin and non-realtime Comments/Track changes.
-                                            licenseKey: 'KREcHocR6yx/TtQXynOqpakvUBUsvs/fvs/OJUijozOThhHN/HCjI1TW6g==',
-                                            // plugins: [ ImageInsert, AutoImage],
-                                            // toolbar: ['insertImage']
-                                            // toolbar: [ 'bold', 'italic', 'link', 'undo', 'redo', 'numberedList', 'bulletedList' ]
-                                        })
-                                        .then(editor => {
-                                            theEditor = editor
-                                        })
-                                        .catch(error => {
-                                            console.error(error);
-                                        });
-                                </script>
-
+                        <div class="dropdown">
+                            <button class="m_dropbtn_r" id="m_dropbtn_s">강아지크기</button>
+                            <div class="dropdown-content" id="m_dropdown_size">
                             </div>
+                        </div>
 
+                        <div>
+                            <!-- <div id="editor" style="height: 400px;"></div> -->
+                            <textarea id="editor" style="height: 400px;"></textarea>
+                            <script>
+                                // import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+                                let theEditor;
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        ckfinder: {
+                                            uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+                                        },
+                                        ckbox: {
+                                            // Be careful - do not use the development token endpoint on production systems!
+                                            tokenUrl: 'https://91089.cke-cs.com/token/dev/pTQSFfbNFeBz8KX6jK2ffRoVQHXLXFumOuat?limit=10'
+                                        },
+                                        // License key is required only by the Pagination plugin and non-realtime Comments/Track changes.
+                                        licenseKey: 'KREcHocR6yx/TtQXynOqpakvUBUsvs/fvs/OJUijozOThhHN/HCjI1TW6g==',
+                                        // plugins: [ ImageInsert, AutoImage],
+                                        // toolbar: ['insertImage']
+                                        // toolbar: [ 'bold', 'italic', 'link', 'undo', 'redo', 'numberedList', 'bulletedList' ]
+                                    })
+                                    .then(editor => {
+                                        theEditor = editor
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            </script>
 
                         </div>
 
-                    </div>
-                    <div style="width:100%; height:40px;"></div>
-                </div>
-                <!---try-->
-                <!-- <textarea class="form-control" id="p_content"></textarea> -->
 
-                <!---try-->
-                <div class="text-editor-wrapper"
-                    style="width:100%; min-height: 600px; background-color: aliceblue; display:none">
-                    <!--text menu-->
+                    </div>
+
                 </div>
+                <div style="width:100%; height:40px;"></div>
+            </div>
+            <!---try-->
+            <!-- <textarea class="form-control" id="p_content"></textarea> -->
+
+            <!---try-->
+            <div class="text-editor-wrapper"
+                style="width:100%; min-height: 600px; background-color: aliceblue; display:none">
+                <!--text menu-->
             </div>
         </div>
-        <!-------------------------------->
+    </div>
+    <!-------------------------------->
     </div>
     <script>
         const mapClose = () => {
