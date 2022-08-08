@@ -233,117 +233,117 @@
 
             </div>
         </div>
-    <!-- </div> -->
+        <!-- </div> -->
 
 
 
-    <!----- 업로드 모달------->
-    <!-- Trigger/Open The Modal -->
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+        <!----- 업로드 모달------->
+        <!-- Trigger/Open The Modal -->
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <!-- <span class="close">&times;</span> -->
-            <div class="modal-head">
-                <div>
-                    <h3>산책가기</h3>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <!-- <span class="close">&times;</span> -->
+                <div class="modal-head">
+                    <div>
+                        <h3>산책가기</h3>
+                    </div>
+                    <div class="m_submit_button" onclick="submitWalkArticle()">등록</div>
+
                 </div>
-                <div class="m_submit_button" onclick="submitWalkArticle()">등록</div>
-
-            </div>
-            <hr>
-            <div>
-                <div style="width:100%; height:50px;"></div>
-                <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p'
-                        style="width:90%; height:30px; border-radius: 3px;"
-                        placeholder="만날 장소 (상세하게 적어주세요)"></input><button class="start_map" onclick='startMap("서현역")'
-                        style="width:10%">지도 검색</button></div>
-                <div class="dropdown-row">
-                    <div style="width:100%; height:30px;">
-                        <div class="dropdown">
-                            <button class="m_dropbtn_r" id="m_dropbtn_r">지역</button>
-                            <div class="dropdown-content" id="m_dropdown_region">
+                <hr>
+                <div>
+                    <div style="width:100%; height:50px;"></div>
+                    <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p'
+                            style="width:90%; height:30px; border-radius: 3px;"
+                            placeholder="만날 장소 (상세하게 적어주세요)"></input><button class="start_map" onclick='startMap("서현역")'
+                            style="width:10%">지도 검색</button></div>
+                    <div class="dropdown-row">
+                        <div style="width:100%; height:30px;">
+                            <div class="dropdown">
+                                <button class="m_dropbtn_r" id="m_dropbtn_r">지역</button>
+                                <div class="dropdown-content" id="m_dropdown_region">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="dropdown">
-                            <button class="m_dropbtn_r" id="m_dropbtn_d">날짜</button>
-                            <div class="dropdown-content" id="m_dropdown_date">
+                            <div class="dropdown">
+                                <button class="m_dropbtn_r" id="m_dropbtn_d">날짜</button>
+                                <div class="dropdown-content" id="m_dropdown_date">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="dropdown">
-                            <button class="m_dropbtn_r" id="m_dropbtn_t">시간</button>
-                            <div class="dropdown-content" id="m_dropdown_time">
+                            <div class="dropdown">
+                                <button class="m_dropbtn_r" id="m_dropbtn_t">시간</button>
+                                <div class="dropdown-content" id="m_dropdown_time">
+                                </div>
                             </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="m_dropbtn_r" id="m_dropbtn_g">성별</button>
-                            <div class="dropdown-content" id="m_dropdown_gender">
+                            <div class="dropdown">
+                                <button class="m_dropbtn_r" id="m_dropbtn_g">성별</button>
+                                <div class="dropdown-content" id="m_dropdown_gender">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="dropdown">
-                            <button class="m_dropbtn_r" id="m_dropbtn_n">인원수</button>
-                            <div class="dropdown-content" id="m_dropdown_hc">
+                            <div class="dropdown">
+                                <button class="m_dropbtn_r" id="m_dropbtn_n">인원수</button>
+                                <div class="dropdown-content" id="m_dropdown_hc">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="dropdown">
-                            <button class="m_dropbtn_r" id="m_dropbtn_s">강아지크기</button>
-                            <div class="dropdown-content" id="m_dropdown_size">
+                            <div class="dropdown">
+                                <button class="m_dropbtn_r" id="m_dropbtn_s">강아지크기</button>
+                                <div class="dropdown-content" id="m_dropdown_size">
+                                </div>
                             </div>
+
+                            <div>
+                                <!-- <div id="editor" style="height: 400px;"></div> -->
+                                <textarea id="editor" style="height: 400px;"></textarea>
+                                <script>
+                                    // import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+                                    let theEditor;
+                                    ClassicEditor
+                                        .create(document.querySelector('#editor'), {
+                                            ckfinder: {
+                                                uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+                                            },
+                                            ckbox: {
+                                                // Be careful - do not use the development token endpoint on production systems!
+                                                tokenUrl: 'https://91089.cke-cs.com/token/dev/pTQSFfbNFeBz8KX6jK2ffRoVQHXLXFumOuat?limit=10'
+                                            },
+                                            // License key is required only by the Pagination plugin and non-realtime Comments/Track changes.
+                                            licenseKey: 'KREcHocR6yx/TtQXynOqpakvUBUsvs/fvs/OJUijozOThhHN/HCjI1TW6g==',
+                                            // plugins: [ ImageInsert, AutoImage],
+                                            // toolbar: ['insertImage']
+                                            // toolbar: [ 'bold', 'italic', 'link', 'undo', 'redo', 'numberedList', 'bulletedList' ]
+                                        })
+                                        .then(editor => {
+                                            theEditor = editor
+                                        })
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                </script>
+
+                            </div>
+
+
                         </div>
-
-                        <div>
-                            <!-- <div id="editor" style="height: 400px;"></div> -->
-                            <textarea id="editor" style="height: 400px;"></textarea>
-                            <script>
-                                // import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
-                                let theEditor;
-                                ClassicEditor
-                                    .create(document.querySelector('#editor'), {
-                                        ckfinder: {
-                                            uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-                                        },
-                                        ckbox: {
-                                            // Be careful - do not use the development token endpoint on production systems!
-                                            tokenUrl: 'https://91089.cke-cs.com/token/dev/pTQSFfbNFeBz8KX6jK2ffRoVQHXLXFumOuat?limit=10'
-                                        },
-                                        // License key is required only by the Pagination plugin and non-realtime Comments/Track changes.
-                                        licenseKey: 'KREcHocR6yx/TtQXynOqpakvUBUsvs/fvs/OJUijozOThhHN/HCjI1TW6g==',
-                                        // plugins: [ ImageInsert, AutoImage],
-                                        // toolbar: ['insertImage']
-                                        // toolbar: [ 'bold', 'italic', 'link', 'undo', 'redo', 'numberedList', 'bulletedList' ]
-                                    })
-                                    .then(editor => {
-                                        theEditor = editor
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
-                            </script>
-
-                        </div>
-
 
                     </div>
-
+                    <div style="width:100%; height:40px;"></div>
                 </div>
-                <div style="width:100%; height:40px;"></div>
-            </div>
-            <!---try-->
-            <!-- <textarea class="form-control" id="p_content"></textarea> -->
+                <!---try-->
+                <!-- <textarea class="form-control" id="p_content"></textarea> -->
 
-            <!---try-->
-            <div class="text-editor-wrapper"
-                style="width:100%; min-height: 600px; background-color: aliceblue; display:none">
-                <!--text menu-->
+                <!---try-->
+                <div class="text-editor-wrapper"
+                    style="width:100%; min-height: 600px; background-color: aliceblue; display:none">
+                    <!--text menu-->
+                </div>
             </div>
         </div>
-    </div>
-    <!-------------------------------->
+        <!-------------------------------->
     </div>
     <script>
         const mapClose = () => {

@@ -54,13 +54,15 @@
                             </div>
                             <div class="username_box">
                                 <span class="username" id="username">
-                                </span>	&nbsp;	&nbsp;
-                                <button id="submitLoc">쪽지보내기</button>
+                                </span> &nbsp; &nbsp;
+                                <div id="postHeader">
+                                    <button id="submitLoc" onclick=postHeader()>쪽지보내기</button>
+                                </div>
                             </div>
                         </div>
                         <div class="user_introduction">
                             <div id="introduction" class="introduction">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -70,9 +72,9 @@
                 <div id="show_container" class="show_container">
                     <div id="show_box" class="show_box">
                         <!-- 전체 게시물 메뉴 -->
-                        <div id="article_box_wrapper" class="article_box_wrapper">                            
+                        <div id="article_box_wrapper" class="article_box_wrapper">
                             <div id="article_box" class="article_box" style="display:flex;padding:10px">
-                                
+
 
 
                             </div>
@@ -141,10 +143,10 @@
     <script src="./static/js/urls.js"></script>
     <script src="./static/js/api.js"></script>
     <script src="./static/js/hashtag.js"></script>
-    <!-- <script src="./static/js/mypage.js"></script> -->
     <script src="./static/js/search.js"></script>
     <script src="./static/js/personal.js"></script>
     <script src="./static/js/detailmodal.js"></script>
+    <script src="./static/js/dmapi.js"></script>
 </body>
 
 </html>

@@ -179,6 +179,3 @@ function init() {
     }
 }
 init();
-
-
-

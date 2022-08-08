@@ -69,3 +69,11 @@ async function createHeader(id) {
 }
 
 
+// 룸 생성
+async function postHeader() {
+    let profile_page_id = sessionStorage.getItem('profile_page_id')
+
+    const response_json = await createHeader(profile_page_id)
+    window.location.href = "/dm.html";
+}
+

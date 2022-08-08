@@ -13,8 +13,6 @@ async function getUser() {
     })
 
     response_json = await response.json()
-    
-
     document.getElementById('username').innerText = response_json.username
     document.getElementById('user_profile_img').src = response_json.profile_img
     document.getElementById('introduction').innerText = response_json.introduction
@@ -23,13 +21,11 @@ async function getUser() {
     article_box.innerHTML = ''
     articles.forEach(article => {
         article_box.innerHTML += `<div class='article_card'><img src=${article.images[0]} onclick="openDetailModal(${article.id})"></div>`
-        
+
 
     })
 }
 getUser()
-
-
 
 // }
 // loadPersonal()

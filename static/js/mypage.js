@@ -97,7 +97,7 @@ async function loadMyArticle(page) {
     document.getElementById("user_profile_img").src = user.profile_img
     document.getElementById("introduction").innerHTML = user.introduction
 
-    document.getElementById('submitLoc').setAttribute("onclick",`submitLoc(${user.id})`)
+    document.getElementById('submitLoc').setAttribute("onclick", `submitLoc(${user.id})`)
     document.getElementById("change_introduction").style.display = "none"
 
     const pet_select_box = document.getElementById("pet_select_box")
@@ -160,7 +160,7 @@ function uploadPetProfileImg() {
     const add_pet_profile_image = document.getElementById("add_pet_profile_image")
     const add_pi_modal_btn = document.getElementById("add_pi_modal_btn")
     add_pi_file.click();
-    
+
     add_pi_file.addEventListener("change", function (e) {
         let file = e.target.files;
         add_pet_profile_image.src = URL.createObjectURL(file[0])
@@ -378,7 +378,7 @@ function uploadProfileImg(who, _id) {
     const preview_profile_img = document.getElementById("preview_profile_img")
     const upload_pi_modal_btn = document.getElementById("upload_pi_modal_btn")
     upload_pi_file.click();
-    
+
     upload_pi_file.addEventListener("change", function (e) {
         let file = e.target.files;
         preview_profile_img.src = URL.createObjectURL(file[0])
@@ -395,7 +395,7 @@ function uploadProfileImg(who, _id) {
 function showPiChange() {
     const update_pi_modal_box = document.getElementById("update_pi_modal_box")
     update_pi_modal_box.style.display = "flex"
-    
+
 }
 
 // 프로필 이미지 변경 모달 비활성화(바디 클릭)
@@ -429,10 +429,10 @@ function showIntroInput(who, _id) {
     change_introduction.setAttribute("onclick", `changeIntoriduction('${who}', ${_id})`)
     change_introduction.innerHTML = "저장"
 
-    
 
 
-    
+
+
 }
 
 
@@ -567,7 +567,7 @@ async function loadUserInfo() {
     email.innerText = user.email
     phone.setAttribute("value", user.phone_num)
     birthday.setAttribute("value", user.birthday)
-    
+
     if (user.gender == 1) {
         gender_male.checked = true
     }
@@ -657,11 +657,11 @@ async function loadPetprofile(id, div) {
 
 
 
-async function submitLoc(id){
+async function submitLoc(id) {
     let loData = await getLocation()
     // setTimeout('', 500)
-    
-    const response = await fetch(`${backend_base_url}user/location/${id}/`,{
+
+    const response = await fetch(`${backend_base_url}user/location/${id}/`, {
         method: 'PUT',
         headers: {
             Accept: 'application/json',
@@ -671,31 +671,31 @@ async function submitLoc(id){
         body: JSON.stringify(loData)
     })
     response_json = await response.json()
-    alert('위도: '+String(response_json.latitude) +' '+'경도: '+ String(response_json.longitude))
+    alert('위도: ' + String(response_json.latitude) + ' ' + '경도: ' + String(response_json.longitude))
 }
 //밑에서 써도 위에서 부를 수 있다?!?!?!
-const getLocation = () =>{
-    return new Promise(function(resolve, reject) {//성공, 실패시
+const getLocation = () => {
+    return new Promise(function (resolve, reject) {//성공, 실패시
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position)=> {
+            navigator.geolocation.getCurrentPosition((position) => {
                 var lat = position.coords.latitude, // 위도
-                lon = position.coords.longitude; // 경도
-                
+                    lon = position.coords.longitude; // 경도
+
                 const locationData = {
                     latitude: lat,
                     longitude: lon
                 }
-                
-                resolve(locationData)  
+
+                resolve(locationData)
             })
         } else {
             reject(null)
-        }      
+        }
     });
 }
 
-const modal_edit_cancel = ()=>{
-    document.getElementById('modal_edit_box').style.display='none'
+const modal_edit_cancel = () => {
+    document.getElementById('modal_edit_box').style.display = 'none'
 }
 
 loadMyArticle(1)
