@@ -15,7 +15,7 @@ function walkModalOpen() {
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
-        document.getElementById('map_modal').style.display='none'
+        document.getElementById('map_modal').style.display = 'none'
         document.getElementById('map_modal').style.display = 'none'
     }
 
@@ -417,8 +417,8 @@ function diffDay() {
 // var host_id = 0;
 //디테일 페이지 들어가는 함수
 async function openWalkDetailArticle(id) {
-    document.getElementById('pagination').style.display='none'
-    document.getElementById('right_page').style.display='none'
+    document.getElementById('pagination').style.display = 'none'
+    document.getElementById('right_page').style.display = 'none'
     document.getElementById('pagination').style.display = 'none'
     document.getElementById('right_page').style.display = 'none'
 
@@ -438,7 +438,7 @@ async function openWalkDetailArticle(id) {
     })
     response_json = await response.json()
 
-    sessionStorage.setItem('host_id', response_json.host)
+    // sessionStorage.setItem('host_id', response_json.host)
     const host_name = document.getElementById("host_name")
     const detail_contents = document.getElementById("detail_contents")
     const detail_date = document.getElementById("detail_date")
@@ -473,12 +473,12 @@ async function openWalkDetailArticle(id) {
         attend_walk.style.backgroundColor = 'rgb(17, 17, 17)'
         attend_walk.style.color = 'white'
         // openWalkDetailArticle(id)
-    } else if (response_json.attending == false){
+    } else if (response_json.attending == false) {
         attend_walk.innerHTML = `산책가기 <br><span id='left_seat'>${response_json.left_seat}</span>자리 남았습니다.`
         attend_walk.setAttribute('onclick', `goWalk(${response_json.id}, ${response_json.attending_user})`)
         attend_walk.style.backgroundColor = 'pink'
         // openWalkDetailArticle(id)
-    }else{
+    } else {
 
     }
 
@@ -491,18 +491,6 @@ async function openWalkDetailArticle(id) {
     });
     document.getElementById('showmap').setAttribute('onclick', `startMap2("${response_json.place}")`)
 }
-
-
-// 룸 생성
-async function postHeader() {
-    let host_id = sessionStorage.getItem('host_id')
-
-    const response_json = await createHeader(host_id)
-
-    window.location.href = "/dm.html";
-}
-
-
 
 diffDay()
 setInterval(diffDay, 1000)

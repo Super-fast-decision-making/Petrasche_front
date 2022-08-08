@@ -106,12 +106,12 @@ const GetImgListPage = (page) => {
             </div>
             </div>`;
 
-              document.getElementById("main_article_list").innerHTML += html;
-            });
-          }
-        }
-        );
-    });
+          document.getElementById("main_article_list").innerHTML += html;
+        });
+      }
+    }
+    );
+  });
 }
 
 
