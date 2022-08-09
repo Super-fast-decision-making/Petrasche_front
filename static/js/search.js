@@ -1,6 +1,5 @@
-async function search() {
-
-    let words_for_search = document.getElementById("words_for_search").value;
+async function search(div) {
+    let words_for_search = div.parentNode.childNodes[1].value
     if (words_for_search.startsWith("#")) {
       words_for_search = words_for_search.replace("#", "%23");
     }
