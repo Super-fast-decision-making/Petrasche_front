@@ -3,7 +3,7 @@
 const frontend_base_url = "https://www.petrasche.com/"
 const backend_base_url = "https://www.petrasche.site/"
 // const backend_base_url = "http://3.39.219.239/"
-const ws_base_url = "ws://3.39.219.239:8001/"
+const ws_base_url = "wss://3.39.219.239:8001/"
 
 
 async function profile(user_id) {
