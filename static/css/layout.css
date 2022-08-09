@@ -1,0 +1,146 @@
+@media (max-width: 500px) {
+    .left_menu {
+        display: none;
+    }
+
+    .right_section {
+        width: 100%;
+        margin: 0;
+        border: none;
+    }
+
+    .top_article {
+        margin: 30px 0px;
+    }
+
+    .top_article_list {
+        width: 60%;
+        height: auto;
+        margin: 5px;
+    }
+
+    .scroll_button {
+        display: none;
+    }
+
+    .main_article_list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 0;
+        border: none;
+        grid-gap: 5px;
+        margin: 5px;
+    }
+
+    .article_list_box {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        border: none;
+        border-radius: 0px;
+    }
+
+    .article_list_box img {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 0px 10px #000000;
+    }
+
+    .main_screen {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .logo {
+        width: fit-content;
+        height: auto;
+    }
+
+    .serch {
+        display: none;
+    }
+    .serchs{
+        width: 100vw;
+        margin: 15px -15px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .serchs input{
+        /* width: 100%; */
+        margin: 0 5px 0 0;
+        height: 100%;
+        padding: 7px;
+        border-radius: 5px;
+        border: none;
+    }
+    .top_title{
+        margin-top: 20px;
+    }
+
+    .navbar {
+        width: 100%;
+        margin: 0px;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .wrap-nav{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .user_info {
+        width: fit-content;
+    }
+    .modal_content{
+        flex-direction: column;
+        height: 95%;
+    }
+    .modal_img_box{
+        width: 100%;
+        height: 60%;
+    }
+    .modal_desc{
+        width: 100%;
+        overflow: scroll;
+    }
+    .modal_comment_input{
+        height: 35%;
+        border: none;
+    }
+    .modal_comment_input textarea{
+        height: auto;
+    }
+    .like_icon_on{
+        top: 10px;
+        height: fit-content;
+    }
+    .like_icon_off{
+        top: 10px;
+        height: fit-content;
+    }
+    .like_user_list{
+        height: fit-content;
+        top: 10px;
+    }
+    .modal_content_text{
+        width: 100%;
+        height: auto;
+        overflow: scroll;
+    }
+    .search_result{
+        width: 100%;
+        overflow: hidden;
+        grid-gap: 0;
+        grid-template-columns: 1fr;
+    }
+    .search_item{
+        margin: 20px auto;
+    }
+}

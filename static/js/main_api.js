@@ -98,6 +98,9 @@ const GetImgListPage = (page) => {
           // 기울기 0
           // 기울기 -5 ~ 5
           let random = Math.floor(Math.random() * 10) - 5;
+          if (window.innerWidth < 500) {
+            random = 0;
+          }
           let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
             <img src="${item.images[0]}" alt="">
             <div id="article_list_like" class="article_list_like">
@@ -147,6 +150,9 @@ const GetImgList = () => {
         // let random = 0;
         // 기울기 -5 ~ 5
         let random = Math.floor(Math.random() * 10) - 5;
+        if (window.innerWidth < 500) {
+          random = 0;
+        }
         let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
           <img src="${item.images[0]}" alt="">
           <div id="article_list_like" class="article_list_like">
@@ -355,18 +361,18 @@ function modal_open(id) {
     .then((res) => res.json())
     .then((data) => {
       if (modal_box.style.display == "" || modal_box.style.display == "none") {
-        modal_box.childNodes[1].animate(
-          [
-            // { transform: "scale(0.8)" },
-            // { transform: "scale(1.0)" },
-            { transform: "translateX(0px)" },
-            { transform: "translateX(50px)" },
-          ],
-          {
-            duration: 300,
-            fill: "forwards",
-          }
-        );
+        // modal_box.childNodes[1].animate(
+        //   [
+        //     // { transform: "scale(0.8)" },
+        //     // { transform: "scale(1.0)" },
+        //     { transform: "translateX(0px)" },
+        //     { transform: "translateX(50px)" },
+        //   ],
+        //   {
+        //     duration: 300,
+        //     fill: "forwards",
+        //   }
+        // );
         modal_box.style.display = "flex";
         document.body.style.overflow = "hidden";
         document.body.style.touchAction = "none";
