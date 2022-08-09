@@ -62,9 +62,7 @@ const GetSelectPetArticle = (pet_id) => {
   fetch(`${backend_base_url}article/pet/${pet_id}/`)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       res.forEach((item) => {
-        console.log(item);
         let random = Math.floor(Math.random() * 10) - 5;
         let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
             <img src="${item.images[0]}" alt="">
@@ -136,9 +134,6 @@ const GetImgListPage = (page) => {
 //       }
 //     });
 // };
-
-//EXP는 1659096952
-console.log(Date.now()) //경과된 밀리초를 반환 1659093401862
 
 const GetImgList = () => {
   // document.getElementById("main_article_list").innerHTML = "";
@@ -283,7 +278,6 @@ async function openDetailModal(id) {
   modal_box.style.display = "flex";
 
   const article = await getDetailArticle(id);
-  console.log(article);
 
   const modal_box_img = document.getElementById("modal_box_img");
   const author = document.getElementById("author");

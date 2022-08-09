@@ -33,7 +33,7 @@
                 </div>
                 <div onclick="UserPage()" id="user_profile" class="user_profile">
                     <img id='user_img'
-                        src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" alt="">
+                        src="https://mblogthumb-phinf.pstatic.net/MjAxNzEyMThfMjQ1/MDAxNTEzNjA3MTcwNTg4.f9D3x971p8iDr_ox3nOQZmp2bHHA3YEtAvWI6-Zq6aAg.1E7HSp02TKDPZwC1wdciQdKiMEEzo0TvuY0ts5OmK4Mg.PNG.ooza-/IMG_9198.PNG?type=w800" alt="">
                 </div>
                 <div onclick="alarm(this)" id="alarm" class="alarm">
                     <i class="fa-solid fa-bell"></i>
@@ -41,10 +41,10 @@
                     </div>
                 </div>
                 <div class="user">
-                    <span class="user_name" id="user">유저님</span>
+                    <span class="user_name" id="user">로딩중..</span>
                 </div>
 
-                <div id='loginout' onclick="Logout()" class="logout">로그아웃</div>
+                <div id='loginout' onclick="Logout()" class="logout">로그인</div>
 
             </div>
 
@@ -64,37 +64,30 @@
                 // 로그인 했을때만 해당 유저 인포 가져온다
 
         const GetUserInfo = () => {
-            // payload = localStorage.getItem("payload")
-            // console.log(JSON.parse(payload))
-            if (localStorage.getItem("payload") != null) {
-                fetch(`${backend_base_url}user/`, {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-type": "application/json",
-                        Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-                    },
-                })
-                    .then((res) => res.json())
-                    .then((res) => {
-                        if (res.username == null) {
-
-                        } else {
-                            document.getElementById("user").innerHTML = res.username;
-                            console.log(res.profile_img)
-                            document.getElementById('user_img').src = res.profile_img
-                        }
-                    });
-
-
+            const token = localStorage.getItem('user_access_token');
+            fetch(`${backend_base_url}user/`,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                if(res.ok){
+                    res.json().then(data => {
+                        document.getElementById('user').innerHTML = data.username;
+                        document.getElementById('user_img').src = data.profile_img;
+                    })
+                }
+                else{
+                    document.getElementById('user_profile').style.display = 'none';
+                    document.getElementById('user').style.display = 'none';
+                    document.getElementById('loginout').innerHTML = '로그인';                   
+                }
+            })
             }
-            else {
-                console.log("***")
-                let user_profile = document.getElementById('user_profile')
-                user_profile.style.display = 'none';
-                document.getElementById('loginout').innerHTML = '로그인';
-            }
-        };
+            
+        
         GetUserInfo()
 
 
