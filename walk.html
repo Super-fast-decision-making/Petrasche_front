@@ -24,6 +24,9 @@
         .ck-editor__editable {
             min-height: 300px;
         }
+        button{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -60,33 +63,23 @@
     </nav>
     <!--  -->
     <div id="map_modal"
-        style="background-color:black;color:white;display: none;padding:10px;left:30%;width:500px;height:510px;z-index:10000;position:absolute;padding:auto">
+        style="background-color:whitesmoke;color:black;display: none;padding:10px;left:30%;width:500px;height:510px;z-index:10000;position:absolute;padding:auto">
 
-        <div onclick="mapClose()">x</div>
+        <div onclick="mapClose()" style="cursor:pointer">x</div>
         <div id="map" style="height:460px; width: 460px;margin: auto;"></div>
     </div>
 
 
 
     <div class="top_section">
-        <div class="left_menu" style="height:400px;margin-right:170px">
-            <div class="menu_dog">
-                <img src="https://cdn-icons-png.flaticon.com/512/2754/2754652.png" alt="">
-                댕댕이
+        <div class="left_menu" style="height:250px;margin-right:170px">
+            <div onclick="home()" class="menu_upload">
+                <img src="https://cdn-icons-png.flaticon.com/512/452/452823.png" alt="">
+                홈으로
             </div>
-
-            <div class="menu_cat">
-                <img src="https://cdn-icons-png.flaticon.com/512/4445/4445870.png" alt="">
-                냥냥이
-            </div>
-
             <div onclick="petevent()" class="menu_upload">
                 <img src="https://t1.daumcdn.net/cfile/blog/2365C75056A0DAB01B" alt="">
                 뽐뽐뽐
-            </div>
-            <div onclick="upload_modal_open()" class="menu_upload">
-                <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
-                업로드
             </div>
             <div onclick="walkModalOpen()" class="menu_dog">
                 <img src="https://kr.seaicons.com/wp-content/uploads/2015/11/arrow-upload-icon.png" alt="">
@@ -100,6 +93,7 @@
         <div id="r_sec" class="right_section">
             <div class="r_section_title">
                 <p>소셜 산책</p>
+                <p style="font-size:1rem">:산책가고 싶은 날짜를 클릭해주세요!</p>
             </div>
             <div class="time_bar">
 
@@ -316,7 +310,7 @@
                 <div>
                     <h3>산책가기</h3>
                 </div>
-                <div class="m_submit_button" onclick="submitWalkArticle()">등록</div>
+                <div class="m_submit_button" onclick="submitWalkArticle()" style="cursor:pointer">등록</div>
 
             </div>
             <hr>
@@ -325,7 +319,7 @@
                 <div style="width:100%; height:30px;display:flex;float:left"><input id='m_input_p'
                         style="width:90%; height:30px; border-radius: 3px;"
                         placeholder="만날 장소 (상세하게 적어주세요)"></input><button class="start_map" onclick='startMap("서현역")'
-                        style="width:10%">지도 검색</button></div>
+                        style="width:10%;cursor:pointer">지도 검색</button></div>
                 <div class="dropdown-row">
                     <div style="width:100%; height:30px;">
                         <div class="dropdown">
