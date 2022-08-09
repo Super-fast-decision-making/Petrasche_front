@@ -77,12 +77,13 @@
                     res.json().then(data => {
                         document.getElementById('user').innerHTML = data.username;
                         document.getElementById('user_img').src = data.profile_img;
+                        document.getElementById('loginout').innerHTML = '로그아웃';
                     })
                 }
                 else{
                     document.getElementById('user_profile').style.display = 'none';
                     document.getElementById('user').style.display = 'none';
-                    document.getElementById('loginout').innerHTML = '로그인';                   
+                    document.getElementById('loginout').innerHTML = '로그인';
                 }
             })
             }
