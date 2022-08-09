@@ -593,9 +593,7 @@ const ArticleDelete = (id) => {
 
 const ArticleEdit = (id) => {
   document.getElementById("modal_edit_box").style.display = "flex";
-  // document.getElementById("modal_edit_text").value = document
-  //   .getElementById("modal_content_text")
-  //   .innerHTML.replace( /\<[^\>]+/g, "").replace(/\>/g, "").replace(/<br>/g, "\n");
+  document.getElementById("modal_edit_text").value = document.getElementById("modal_content_text").innerHTML.replace( /\<[^\>]+/g, "").replaceAll('>','')
 
   document.getElementById("modal_edit_button").onclick = () => {
     let content = document.getElementById("modal_edit_text").value;
@@ -633,14 +631,15 @@ const CommentEdit = (id, article_id, text) => {
   document.getElementById("modal_edit_box").style.display = "flex";
   let node = event.target.parentNode;
   let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
-  document.getElementById("modal_edit_text").value = comment_value.replace(
-    /<br>/g,
-    "\n"
-  );
+  document.getElementById("modal_edit_text").value = comment_value.replace(/<br>/g,"\n")
+  // console.log(comment_value.replace(/<br>/g,"\n"))
+  console.log("?????")
+  console.log(document.getElementById("modal_edit_text").value)
+  // document.getElementById("modal_edit_text").value = comment_value.replace(/<br\s*[\/]?>/gi,"\n");
 
   document.getElementById("modal_edit_button").onclick = () => {
     let comment = document.getElementById("modal_edit_text").value;
-    comment = comment.replace(/\n/g, "<br>");
+    comment = comment.replace(/\n/g, "<br>")
     if (comment == "") {
       alert("내용을 입력해주세요");
       return;
