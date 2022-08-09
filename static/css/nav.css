@@ -22,6 +22,21 @@
 
 .serch {
     position: relative;
+    margin-left: auto;
+}
+.serchs{
+    display: none;
+}
+.wrap-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .serch input {
@@ -49,8 +64,8 @@
 .user_info {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    /* margin-right: 20px; */
+    justify-content: center;
+    margin-left: auto;
 }
 
 .alarm {
