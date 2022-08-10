@@ -62,7 +62,14 @@ async function handleLogin() {
 // 펫 메뉴 부분
 const GetSelectPetArticle = (pet_id) => {
   document.getElementById("main_article_list").innerHTML = "";
-  fetch(`${backend_base_url}article/pet/${pet_id}/`)
+  fetch(`${backend_base_url}article/pet/${pet_id}/`{
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("user_access_token")}`,
+    },
+  })
     .then((res) => res.json())
     .then((res) => {
       res.forEach((item) => {
