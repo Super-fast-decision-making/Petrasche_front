@@ -747,11 +747,12 @@ const Follow = (user, article) => {
       alert("로그인이 필요합니다.");
       return;
     }
+      res.json().then((res) => {
+      alert(res.message);
+      modal_open(article);
+    });
   });
-  res.json().then((res) => {
-    alert(res.message);
-    modal_open(article);
-  });
+  
 };
 
 GetImgList();
