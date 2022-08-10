@@ -110,6 +110,7 @@ function upload_modal_submit() {
   }
 }
 
+// 아티클 모달 페이지 보여주기
 function modal_open(id) {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   if (PayLoad == null) {
@@ -119,144 +120,145 @@ function modal_open(id) {
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
   let modal_box = document.getElementById("modal_box");
-  fetch(`${backend_base_url}article/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (modal_box.style.display == "" || modal_box.style.display == "none") {
-        // modal_box.childNodes[1].animate(
-        //   [
-        //     // { transform: "scale(0.8)" },
-        //     // { transform: "scale(1.0)" },
-        //     { transform: "translateX(0px)" },
-        //     { transform: "translateX(50px)" },
-        //   ],
-        //   {
-        //     duration: 300,
-        //     fill: "forwards",
-        //   }
-        // );
-        modal_box.style.display = "flex";
-        document.body.style.overflow = "hidden";
-        document.body.style.touchAction = "none";
-      }
-      if (data.likes.indexOf(user_id) != -1) {
-        document.getElementById("like_icon_off").style.display = "none";
-        document.getElementById(
-          "like_icon_on"
-        ).innerHTML = `<i class="fa-solid fa-heart"></i><span> ${data.likes.length}</span>`;
-        document.getElementById("like_icon_on").style.display = "flex";
-      } else {
-        document.getElementById("like_icon_on").style.display = "none";
-        document.getElementById(
-          "like_icon_off"
-        ).innerHTML = `<i class="fa-regular fa-heart"></i><span> ${data.likes.length}</span>`;
-        document.getElementById("like_icon_off").style.display = "flex";
-      }
+  fetch(`${backend_base_url}article/${id}/`, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+    },
+  })
+  .then((res) => {
+    if (res.status === 401) {
+      alert("로그인이 필요합니다.");
+      window.location.href = "/login.html";
+      return;
+    } else {
+      res.json().then((data) => {
+        if (
+          modal_box.style.display == "" ||
+          modal_box.style.display == "none"
+        ) {
+          modal_box.style.display = "flex";
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        }
+        if (data.likes.indexOf(user_id) != -1) {
+          document.getElementById("like_icon_off").style.display = "none";
+          document.getElementById(
+            "like_icon_on"
+          ).innerHTML = `<i class="fa-solid fa-heart"></i><span> ${data.likes.length}</span>`;
+          document.getElementById("like_icon_on").style.display = "flex";
+        } else {
+          document.getElementById("like_icon_on").style.display = "none";
+          document.getElementById(
+            "like_icon_off"
+          ).innerHTML = `<i class="fa-regular fa-heart"></i><span> ${data.likes.length}</span>`;
+          document.getElementById("like_icon_off").style.display = "flex";
+        }
 
-      document.getElementById("modal_follow").style.display = "flex";
-      document.getElementById("modal_follow").innerText = "팔로우";
-      document.getElementById("modal_follow_count").innerText =
-        data.user_following.length;
-
-      if (data.user_following.indexOf(user_id) != -1) {
-        document.getElementById("modal_follow").innerText = "언팔로우";
+        document.getElementById("modal_follow").style.display = "flex";
+        document.getElementById("modal_follow").innerText = "팔로우";
         document.getElementById("modal_follow_count").innerText =
           data.user_following.length;
-      }
 
-      if (data.user == user_id) {
-        document.getElementById("modal_follow").style.display = "none";
-      }
-
-      if (data.user == user_id) {
-        document.getElementById("article_delete").style.display = "block";
-        document.getElementById("article_edit").style.display = "block";
-        document.getElementById("article_delete").onclick = () => {
-          ArticleDelete(id);
-        };
-        document.getElementById("article_edit").onclick = () => {
-          ArticleEdit(id);
-        };
-      } else {
-        document.getElementById("article_delete").style.display = "none";
-        document.getElementById("article_edit").style.display = "none";
-      }
-      let images = data.images;
-      let content_raw = data.content;
-      let content = tagToLink(content_raw);
-
-      let comments = data.comment;
-      document.getElementById("modal_box_img").src = images[0];
-
-      if (data.images.length <= 1) {
-        document.getElementById("slide_left").style.display = "none";
-        document.getElementById("slide_right").style.display = "none";
-      } else {
-        document.getElementById("slide_left").style.display = "block";
-        document.getElementById("slide_right").style.display = "block";
-      }
-
-      document.getElementById("slide_left").onclick = () => {
-        let index = images.indexOf(
-          document.getElementById("modal_box_img").src
-        );
-        if (index == 0) {
-          index = images.length - 1;
-        } else {
-          index--;
+        if (data.user_following.indexOf(user_id) != -1) {
+          document.getElementById("modal_follow").innerText = "언팔로우";
+          document.getElementById("modal_follow_count").innerText =
+            data.user_following.length;
         }
-        document.getElementById("modal_box_img").src = images[index];
-        document
-          .getElementById("modal_box_img")
-          .animate([{ opacity: 0 }, { opacity: 1 }], {
-            duration: 1000,
-            fill: "forwards",
-          });
-      };
-      document.getElementById("slide_right").onclick = () => {
-        let index = images.indexOf(
-          document.getElementById("modal_box_img").src
-        );
-        if (index == images.length - 1) {
-          index = 0;
-        } else {
-          index++;
+
+        if (data.user == user_id) {
+          document.getElementById("modal_follow").style.display = "none";
         }
-        document.getElementById("modal_box_img").src = images[index];
+
+        if (data.user == user_id) {
+          document.getElementById("article_delete").style.display = "block";
+          document.getElementById("article_edit").style.display = "block";
+          document.getElementById("article_delete").onclick = () => {
+            ArticleDelete(id);
+          };
+          document.getElementById("article_edit").onclick = () => {
+            ArticleEdit(id);
+          };
+        } else {
+          document.getElementById("article_delete").style.display = "none";
+          document.getElementById("article_edit").style.display = "none";
+        }
+        let images = data.images;
+        let content_raw = data.content;
+        let content = tagToLink(content_raw);
+
+        let comments = data.comment;
+        document.getElementById("modal_box_img").src = images[0];
+
+        if (data.images.length <= 1) {
+          document.getElementById("slide_left").style.display = "none";
+          document.getElementById("slide_right").style.display = "none";
+        } else {
+          document.getElementById("slide_left").style.display = "block";
+          document.getElementById("slide_right").style.display = "block";
+        }
+
+        document.getElementById("slide_left").onclick = () => {
+          let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+          );
+          if (index == 0) {
+            index = images.length - 1;
+          } else {
+            index--;
+          }
+          document.getElementById("modal_box_img").src = images[index];
+          document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+              duration: 1000,
+              fill: "forwards",
+            });
+        };
+        document.getElementById("slide_right").onclick = () => {
+          let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+          );
+          if (index == images.length - 1) {
+            index = 0;
+          } else {
+            index++;
+          }
+          document.getElementById("modal_box_img").src = images[index];
+          document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+              duration: 1000,
+              fill: "forwards",
+            });
+        };
+        document.getElementById("modal_box_img").ondblclick = () => {
+          LikeOn(id);
+        };
+        document.getElementById("like_icon_on").onclick = () => {
+          LikeOn(id);
+        };
+        document.getElementById("like_icon_off").onclick = () => {
+          LikeOn(id);
+        };
+        document.getElementById("like_icon_off").onmouseover = () => {
+          LikeUserList(data.like_users);
+        };
+        document.getElementById("like_icon_on").onmouseover = () => {
+          LikeUserList(data.like_users);
+        };
+        document.getElementById("modal_content_text").innerHTML = content;
+        document.getElementById("modal_comment_list").innerHTML = "";
+        document.getElementById("modal_username").innerHTML = data.author;
+
         document
-          .getElementById("modal_box_img")
-          .animate([{ opacity: 0 }, { opacity: 1 }], {
-            duration: 1000,
-            fill: "forwards",
-          });
-      };
-      document.getElementById("modal_box_img").ondblclick = () => {
-        LikeOn(id);
-      };
-      document.getElementById("like_icon_on").onclick = () => {
-        LikeOn(id);
-      };
-      document.getElementById("like_icon_off").onclick = () => {
-        LikeOn(id);
-      };
-      document.getElementById("like_icon_off").onmouseover = () => {
-        LikeUserList(data.like_users);
-      };
-      document.getElementById("like_icon_on").onmouseover = () => {
-        LikeUserList(data.like_users);
-      };
-      document.getElementById("modal_content_text").innerHTML = content;
-      document.getElementById("modal_comment_list").innerHTML = "";
-      document.getElementById("modal_username").innerHTML = data.author;
+          .getElementById("modal_username")
+          .setAttribute("onclick", `profile(${data.user})`);
+        document.getElementById("modal_edit_text").value = content_raw;
 
-      document
-        .getElementById("modal_username")
-        .setAttribute("onclick", `profile(${data.user})`);
-      document.getElementById("modal_edit_text").value = content_raw;
-
-      comments.forEach((item) => {
-        if (item.user == user_id) {
-          let html = `<div class="modal_comment_text">
+        comments.forEach((item) => {
+          if (item.user == user_id) {
+            let html = `<div class="modal_comment_text">
                           <div class="balloon_03">
                               <div>
                                   ${item.comment}
@@ -270,9 +272,9 @@ function modal_open(id) {
                           </div>
                       </div>
                       `;
-          document.getElementById("modal_comment_list").innerHTML += html;
-        } else {
-          let html = `<div class="modal_comment_text">
+            document.getElementById("modal_comment_list").innerHTML += html;
+          } else {
+            let html = `<div class="modal_comment_text">
                       <div class="balloon_03">
                       <div>
                       ${item.comment}
@@ -283,18 +285,20 @@ function modal_open(id) {
                       <div>${item.date}</div>
                       </div>
                       </div>`;
-          document.getElementById("modal_comment_list").innerHTML += html;
-        }
-      });
-      let comment_html = `<textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
+            document.getElementById("modal_comment_list").innerHTML += html;
+          }
+        });
+        let comment_html = `<textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
         <div onclick="CommentUpload(${id})" id="modal_comment_submit" class="modal_comment_submit">전송</div>`;
 
-      document.getElementById("modal_comment_input").innerHTML = comment_html;
+        document.getElementById("modal_comment_input").innerHTML = comment_html;
 
-      document.getElementById("modal_follow").onclick = () => {
-        Follow(data.author, data.id);
-      };
-    });
+        document.getElementById("modal_follow").onclick = () => {
+          Follow(data.author, data.id);
+        };
+      });
+    }
+  });
 }
 
 const CommentUpload = (id) => {
