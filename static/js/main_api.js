@@ -335,7 +335,13 @@ function modal_open(id) {
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
   let modal_box = document.getElementById("modal_box");
-  fetch(`${backend_base_url}article/${id}/`).then((res) => {
+  fetch(`${backend_base_url}article/${id}/`, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("user_access_token"),
+    },
+  })
+  .then((res) => {
     if (res.status === 401) {
       alert("로그인이 필요합니다.");
       window.location.href = "/login.html";
