@@ -4,6 +4,7 @@ const GetSearchResultList = () => {
   var search_results = JSON.parse(localStorage.getItem('search_results'));
   document.getElementById("search_result").innerHTML = "";
 
+  console.log(search_results);
   search_results.forEach((item) => {
     // let html = `<div onclick="modal_open(${item.id})" class="top_article_list">
     //   <img src="${item.images[0]}" alt="">
