@@ -82,8 +82,6 @@ function tournament_start(id) {
 }
 
 function event_start(data) {
-  console.log(data.event_start);
-  console.log(data.event_end);
   const event_date = document.getElementById("event_join");
   const event_div = document.getElementById("tournament");
   const tournament_menu = document.getElementById("tournament_info");
