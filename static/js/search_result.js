@@ -26,7 +26,7 @@ const GetSearchResultList = () => {
     <img src="${item.images[0]}" alt="">
     <figcaption>
         <h4>${item.author}</h4>
-        <div>좋아요 ${item.like_num}개 댓글 ${item.comment.length}개</div>
+        <div>좋아요 ${item.like_num}개 댓글 ${item.comments.length}개</div>
         <p>${item.content}</p>
     </figcaption>
 </figure>`
