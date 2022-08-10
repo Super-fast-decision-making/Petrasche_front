@@ -82,10 +82,15 @@ function tournament_start(id) {
 }
 
 function event_start(data) {
+  console.log(data.event_start);
+  console.log(data.event_end);
+  const event_date = document.getElementById("event_join");
   const event_div = document.getElementById("tournament");
   const tournament_menu = document.getElementById("tournament_info");
   const event_vote = document.getElementById("event_vote");
   const event_rank = document.getElementById("event_rank");
+
+  event_date.innerHTML = `이벤트 기간은 ${data.event_start} ~ ${data.event_end} 입니다. 참여를 원하시면 <button onclick="event_img_uoload_open()" class="event_join_btn">이벤트 참여</button> 버튼을 눌러주세요!`;
 
   if (data.pet.length < 5) {
 
