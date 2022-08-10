@@ -81,7 +81,7 @@ const GetSelectPetArticle = (pet_id) => {
             <img src="${item.images[0]}" alt="">
         <div id="article_list_like" class="article_list_like">
         <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
-        <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
+        <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comments.length}</span></div>
         </div>
         </div>`;
         document.getElementById("main_article_list").innerHTML += html;
