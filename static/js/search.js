@@ -24,6 +24,6 @@ async function search(div) {
   if (search_results.status_code == 200) {
     window.location.replace(`${frontend_base_url}search_result.html`);
   } else {
-    alert(search_results.data.message);
+    alert("로그인 후 이용해주세요.");
   }
 }
