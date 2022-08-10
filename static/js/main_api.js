@@ -1,7 +1,8 @@
 // page 전역변수
-page_num = 1;
-page = true;
+let page_num = 1;
+let page = true;
 
+// 스크롤 이벤트 부분
 window.onscroll = function () {
   let timer;
   let scroll_top = document.documentElement.scrollTop;
@@ -21,6 +22,7 @@ window.onscroll = function () {
   }
 };
 
+// 로그인 부분
 async function handleLogin() {
   const loginData = {
     email: document.getElementById("email").value,
@@ -57,6 +59,7 @@ async function handleLogin() {
   }
 }
 
+// 펫 메뉴 부분
 const GetSelectPetArticle = (pet_id) => {
   document.getElementById("main_article_list").innerHTML = "";
   fetch(`${backend_base_url}article/pet/${pet_id}/`)
@@ -64,6 +67,9 @@ const GetSelectPetArticle = (pet_id) => {
     .then((res) => {
       res.forEach((item) => {
         let random = Math.floor(Math.random() * 10) - 5;
+        if (window.innerWidth < 500) {
+          random = 0;
+        }
         let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
             <img src="${item.images[0]}" alt="">
         <div id="article_list_like" class="article_list_like">
@@ -76,6 +82,7 @@ const GetSelectPetArticle = (pet_id) => {
     });
 };
 
+// 페이지 리스트 불러오기
 const GetImgListPage = (page) => {
   fetch(`${backend_base_url}article/page/${page}/`, {
     method: "GET",
@@ -93,8 +100,6 @@ const GetImgListPage = (page) => {
         return;
       } else {
         data.forEach((item) => {
-          // 기울기 0
-          // 기울기 -5 ~ 5
           let random = Math.floor(Math.random() * 10) - 5;
           if (window.innerWidth < 500) {
             random = 0;
@@ -110,40 +115,16 @@ const GetImgListPage = (page) => {
           document.getElementById("main_article_list").innerHTML += html;
         });
       }
-    }
-    );
+    });
   });
-}
+};
 
-
-// const GetUserInfo = () => {
-//   fetch(`${backend_base_url}user/`, {
-//     method: "GET",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-type": "application/json",
-//       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
-//     },
-//   })
-//     .then((res) => res.json())
-//     .then((res) => {
-//       if (res.username == null) {
-//         // window.location.href = "./login.html";
-//       } else {
-//         document.getElementById("user").innerHTML = res.username;
-//       }
-//     });
-// };
-
+// 메인 이미지 리스트 불러오기 (비회원 20개)
 const GetImgList = () => {
-  // document.getElementById("main_article_list").innerHTML = "";
   fetch(`${backend_base_url}article/`)
     .then((res) => res.json())
     .then((data) => {
       data.forEach((item) => {
-        // 기울기 0
-        // let random = 0;
-        // 기울기 -5 ~ 5
         let random = Math.floor(Math.random() * 10) - 5;
         if (window.innerWidth < 500) {
           random = 0;
@@ -160,6 +141,7 @@ const GetImgList = () => {
     });
 };
 
+// 메인 인기게시물 불러오기 (비회원 9개)
 const GetTopList = () => {
   fetch(`${backend_base_url}article/top/`)
     .then((res) => res.json())
@@ -187,11 +169,11 @@ const GetTopList = () => {
     });
 };
 
+//이미지 업로드 부분
 function upload_modal_submit() {
   let upload_content = document.getElementById("upload_content").value;
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
-  // radio check get
   let pet_check = document.getElementsByName("pet_profile");
   let pet_profile_check = "";
   for (let i = 0; i < pet_check.length; i++) {
@@ -269,6 +251,7 @@ function upload_modal_submit() {
       });
   }
 }
+
 // 디테일 모달 열기+보여주기
 async function openDetailModal(id) {
   document.getElementById("mypage_modal_comment_list").innerHTML = "";
@@ -342,6 +325,7 @@ async function openDetailModal(id) {
   };
 }
 
+// 아티클 모달 페이지 보여주기
 function modal_open(id) {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   if (PayLoad == null) {
@@ -351,144 +335,139 @@ function modal_open(id) {
   let user_name = PayLoad.username;
   let user_id = PayLoad.user_id;
   let modal_box = document.getElementById("modal_box");
-  fetch(`${backend_base_url}article/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (modal_box.style.display == "" || modal_box.style.display == "none") {
-        // modal_box.childNodes[1].animate(
-        //   [
-        //     // { transform: "scale(0.8)" },
-        //     // { transform: "scale(1.0)" },
-        //     { transform: "translateX(0px)" },
-        //     { transform: "translateX(50px)" },
-        //   ],
-        //   {
-        //     duration: 300,
-        //     fill: "forwards",
-        //   }
-        // );
-        modal_box.style.display = "flex";
-        document.body.style.overflow = "hidden";
-        document.body.style.touchAction = "none";
-      }
-      if (data.likes.indexOf(user_id) != -1) {
-        document.getElementById("like_icon_off").style.display = "none";
-        document.getElementById(
-          "like_icon_on"
-        ).innerHTML = `<i class="fa-solid fa-heart"></i><span> ${data.likes.length}</span>`;
-        document.getElementById("like_icon_on").style.display = "flex";
-      } else {
-        document.getElementById("like_icon_on").style.display = "none";
-        document.getElementById(
-          "like_icon_off"
-        ).innerHTML = `<i class="fa-regular fa-heart"></i><span> ${data.likes.length}</span>`;
-        document.getElementById("like_icon_off").style.display = "flex";
-      }
+  fetch(`${backend_base_url}article/${id}/`).then((res) => {
+    if (res.status === 401) {
+      alert("로그인이 필요합니다.");
+      window.location.href = "/login.html";
+      return;
+    } else {
+      res.json().then((data) => {
+        if (
+          modal_box.style.display == "" ||
+          modal_box.style.display == "none"
+        ) {
+          modal_box.style.display = "flex";
+          document.body.style.overflow = "hidden";
+          document.body.style.touchAction = "none";
+        }
+        if (data.likes.indexOf(user_id) != -1) {
+          document.getElementById("like_icon_off").style.display = "none";
+          document.getElementById(
+            "like_icon_on"
+          ).innerHTML = `<i class="fa-solid fa-heart"></i><span> ${data.likes.length}</span>`;
+          document.getElementById("like_icon_on").style.display = "flex";
+        } else {
+          document.getElementById("like_icon_on").style.display = "none";
+          document.getElementById(
+            "like_icon_off"
+          ).innerHTML = `<i class="fa-regular fa-heart"></i><span> ${data.likes.length}</span>`;
+          document.getElementById("like_icon_off").style.display = "flex";
+        }
 
-      document.getElementById("modal_follow").style.display = "flex";
-      document.getElementById("modal_follow").innerText = "팔로우";
-      document.getElementById("modal_follow_count").innerText =
-        data.user_following.length;
-
-      if (data.user_following.indexOf(user_id) != -1) {
-        document.getElementById("modal_follow").innerText = "언팔로우";
+        document.getElementById("modal_follow").style.display = "flex";
+        document.getElementById("modal_follow").innerText = "팔로우";
         document.getElementById("modal_follow_count").innerText =
           data.user_following.length;
-      }
 
-      if (data.user == user_id) {
-        document.getElementById("modal_follow").style.display = "none";
-      }
-
-      if (data.user == user_id) {
-        document.getElementById("article_delete").style.display = "block";
-        document.getElementById("article_edit").style.display = "block";
-        document.getElementById("article_delete").onclick = () => {
-          ArticleDelete(id);
-        };
-        document.getElementById("article_edit").onclick = () => {
-          ArticleEdit(id);
-        };
-      } else {
-        document.getElementById("article_delete").style.display = "none";
-        document.getElementById("article_edit").style.display = "none";
-      }
-      let images = data.images;
-      let content_raw = data.content;
-      let content = tagToLink(content_raw);
-
-      let comments = data.comment;
-      document.getElementById("modal_box_img").src = images[0];
-
-      if (data.images.length <= 1) {
-        document.getElementById("slide_left").style.display = "none";
-        document.getElementById("slide_right").style.display = "none";
-      } else {
-        document.getElementById("slide_left").style.display = "block";
-        document.getElementById("slide_right").style.display = "block";
-      }
-
-      document.getElementById("slide_left").onclick = () => {
-        let index = images.indexOf(
-          document.getElementById("modal_box_img").src
-        );
-        if (index == 0) {
-          index = images.length - 1;
-        } else {
-          index--;
+        if (data.user_following.indexOf(user_id) != -1) {
+          document.getElementById("modal_follow").innerText = "언팔로우";
+          document.getElementById("modal_follow_count").innerText =
+            data.user_following.length;
         }
-        document.getElementById("modal_box_img").src = images[index];
-        document
-          .getElementById("modal_box_img")
-          .animate([{ opacity: 0 }, { opacity: 1 }], {
-            duration: 1000,
-            fill: "forwards",
-          });
-      };
-      document.getElementById("slide_right").onclick = () => {
-        let index = images.indexOf(
-          document.getElementById("modal_box_img").src
-        );
-        if (index == images.length - 1) {
-          index = 0;
-        } else {
-          index++;
+
+        if (data.user == user_id) {
+          document.getElementById("modal_follow").style.display = "none";
         }
-        document.getElementById("modal_box_img").src = images[index];
+
+        if (data.user == user_id) {
+          document.getElementById("article_delete").style.display = "block";
+          document.getElementById("article_edit").style.display = "block";
+          document.getElementById("article_delete").onclick = () => {
+            ArticleDelete(id);
+          };
+          document.getElementById("article_edit").onclick = () => {
+            ArticleEdit(id);
+          };
+        } else {
+          document.getElementById("article_delete").style.display = "none";
+          document.getElementById("article_edit").style.display = "none";
+        }
+        let images = data.images;
+        let content_raw = data.content;
+        let content = tagToLink(content_raw);
+
+        let comments = data.comment;
+        document.getElementById("modal_box_img").src = images[0];
+
+        if (data.images.length <= 1) {
+          document.getElementById("slide_left").style.display = "none";
+          document.getElementById("slide_right").style.display = "none";
+        } else {
+          document.getElementById("slide_left").style.display = "block";
+          document.getElementById("slide_right").style.display = "block";
+        }
+
+        document.getElementById("slide_left").onclick = () => {
+          let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+          );
+          if (index == 0) {
+            index = images.length - 1;
+          } else {
+            index--;
+          }
+          document.getElementById("modal_box_img").src = images[index];
+          document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+              duration: 1000,
+              fill: "forwards",
+            });
+        };
+        document.getElementById("slide_right").onclick = () => {
+          let index = images.indexOf(
+            document.getElementById("modal_box_img").src
+          );
+          if (index == images.length - 1) {
+            index = 0;
+          } else {
+            index++;
+          }
+          document.getElementById("modal_box_img").src = images[index];
+          document
+            .getElementById("modal_box_img")
+            .animate([{ opacity: 0 }, { opacity: 1 }], {
+              duration: 1000,
+              fill: "forwards",
+            });
+        };
+        document.getElementById("modal_box_img").ondblclick = () => {
+          LikeOn(id);
+        };
+        document.getElementById("like_icon_on").onclick = () => {
+          LikeOn(id);
+        };
+        document.getElementById("like_icon_off").onclick = () => {
+          LikeOn(id);
+        };
+        document.getElementById("like_icon_off").onmouseover = () => {
+          LikeUserList(data.like_users);
+        };
+        document.getElementById("like_icon_on").onmouseover = () => {
+          LikeUserList(data.like_users);
+        };
+        document.getElementById("modal_content_text").innerHTML = content;
+        document.getElementById("modal_comment_list").innerHTML = "";
+        document.getElementById("modal_username").innerHTML = data.author;
+
         document
-          .getElementById("modal_box_img")
-          .animate([{ opacity: 0 }, { opacity: 1 }], {
-            duration: 1000,
-            fill: "forwards",
-          });
-      };
-      document.getElementById("modal_box_img").ondblclick = () => {
-        LikeOn(id);
-      };
-      document.getElementById("like_icon_on").onclick = () => {
-        LikeOn(id);
-      };
-      document.getElementById("like_icon_off").onclick = () => {
-        LikeOn(id);
-      };
-      document.getElementById("like_icon_off").onmouseover = () => {
-        LikeUserList(data.like_users);
-      };
-      document.getElementById("like_icon_on").onmouseover = () => {
-        LikeUserList(data.like_users);
-      };
-      document.getElementById("modal_content_text").innerHTML = content;
-      document.getElementById("modal_comment_list").innerHTML = "";
-      document.getElementById("modal_username").innerHTML = data.author;
+          .getElementById("modal_username")
+          .setAttribute("onclick", `profile(${data.user})`);
+        document.getElementById("modal_edit_text").value = content_raw;
 
-      document
-        .getElementById("modal_username")
-        .setAttribute("onclick", `profile(${data.user})`);
-      document.getElementById("modal_edit_text").value = content_raw;
-
-      comments.forEach((item) => {
-        if (item.user == user_id) {
-          let html = `<div class="modal_comment_text">
+        comments.forEach((item) => {
+          if (item.user == user_id) {
+            let html = `<div class="modal_comment_text">
                           <div class="balloon_03">
                               <div>
                                   ${item.comment}
@@ -502,9 +481,9 @@ function modal_open(id) {
                           </div>
                       </div>
                       `;
-          document.getElementById("modal_comment_list").innerHTML += html;
-        } else {
-          let html = `<div class="modal_comment_text">
+            document.getElementById("modal_comment_list").innerHTML += html;
+          } else {
+            let html = `<div class="modal_comment_text">
                       <div class="balloon_03">
                       <div>
                       ${item.comment}
@@ -515,22 +494,26 @@ function modal_open(id) {
                       <div>${item.date}</div>
                       </div>
                       </div>`;
-          document.getElementById("modal_comment_list").innerHTML += html;
-        }
-      });
-      let comment_html = `<textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
+            document.getElementById("modal_comment_list").innerHTML += html;
+          }
+        });
+        let comment_html = `<textarea id="modal_comment_text" name="" id="" placeholder="댓글....."></textarea>
         <div onclick="CommentUpload(${id})" id="modal_comment_submit" class="modal_comment_submit">전송</div>`;
 
-      document.getElementById("modal_comment_input").innerHTML = comment_html;
+        document.getElementById("modal_comment_input").innerHTML = comment_html;
 
-      document.getElementById("modal_follow").onclick = () => {
-        Follow(data.author, data.id);
-      };
-    });
+        document.getElementById("modal_follow").onclick = () => {
+          Follow(data.author, data.id);
+        };
+      });
+    }
+  });
 }
 
+// 코멘트 달기
 const CommentUpload = (id) => {
   let comment_content = document.getElementById("modal_comment_text").value;
+  comment_content = replace_text(comment_content);
   if (comment_content == "") {
     alert("댓글을 입력해주세요");
     return;
@@ -546,13 +529,18 @@ const CommentUpload = (id) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((res) => {
+  }).then((res) => {
+    if (res.status == 401) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    res.json().then((res) => {
       modal_open(id);
     });
+  });
 };
 
+// 좋아요 눌러주기
 const LikeOn = (id) => {
   fetch(`${backend_base_url}article/like/${id}/`, {
     method: "POST",
@@ -571,6 +559,8 @@ const LikeOn = (id) => {
       modal_open(id);
     });
 };
+
+// 아티클 삭제하기
 const ArticleDelete = (id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
@@ -580,12 +570,16 @@ const ArticleDelete = (id) => {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => res.json())
-      .then((res) => {
+    }).then((res) => {
+      if (res.status == 401) {
+        alert("로그인이 필요합니다.");
+        return;
+      }
+      res.json().then((res) => {
         alert("삭제 완료");
         window.location.reload();
       });
+    });
   } else {
     return;
   }
@@ -593,7 +587,10 @@ const ArticleDelete = (id) => {
 
 const ArticleEdit = (id) => {
   document.getElementById("modal_edit_box").style.display = "flex";
-  document.getElementById("modal_edit_text").value = document.getElementById("modal_content_text").innerHTML.replace( /\<[^\>]+/g, "").replaceAll('>','')
+  document.getElementById("modal_edit_text").value = document
+    .getElementById("modal_content_text")
+    .innerHTML.replace(/\<[^\>]+/g, "")
+    .replaceAll(">", "");
 
   document.getElementById("modal_edit_button").onclick = () => {
     let content = document.getElementById("modal_edit_text").value;
@@ -614,32 +611,40 @@ const ArticleEdit = (id) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((res) => {
+      }).then((res) => {
+        if (res.status == 401) {
+          alert("로그인이 필요합니다.");
+          return;
+        }
+        res.json().then((res) => {
           alert("수정 완료");
           document.getElementById("modal_edit_box").style.display = "none";
           modal_open(id);
         });
+      });
     } else {
       return;
     }
   };
 };
 
+// 아티클 수정하기
 const CommentEdit = (id, article_id, text) => {
   document.getElementById("modal_edit_box").style.display = "flex";
   let node = event.target.parentNode;
   let comment_value = node.parentNode.childNodes[1].childNodes[1].innerText;
-  document.getElementById("modal_edit_text").value = comment_value.replace(/<br>/g,"\n")
+  document.getElementById("modal_edit_text").value = comment_value.replace(
+    /<br>/g,
+    "\n"
+  );
   // console.log(comment_value.replace(/<br>/g,"\n"))
-  console.log("?????")
-  console.log(document.getElementById("modal_edit_text").value)
+  console.log("?????");
+  console.log(document.getElementById("modal_edit_text").value);
   // document.getElementById("modal_edit_text").value = comment_value.replace(/<br\s*[\/]?>/gi,"\n");
 
   document.getElementById("modal_edit_button").onclick = () => {
     let comment = document.getElementById("modal_edit_text").value;
-    comment = comment.replace(/\n/g, "<br>")
+    comment = comment.replace(/\n/g, "<br>");
     if (comment == "") {
       alert("내용을 입력해주세요");
       return;
@@ -656,19 +661,24 @@ const CommentEdit = (id, article_id, text) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((res) => {
+      }).then((res) => {
+        if (res.status == 401) {
+          alert("로그인이 필요합니다.");
+          return;
+        }
+        res.json().then((res) => {
           alert("수정 완료");
           document.getElementById("modal_edit_box").style.display = "none";
           modal_open(article_id);
         });
+      });
     } else {
       return;
     }
   };
 };
 
+//댓글 지우기
 const CommentDelete = (id, article_id) => {
   let confirm_delete = confirm("삭제하시겠습니까?");
   if (confirm_delete) {
@@ -678,17 +688,22 @@ const CommentDelete = (id, article_id) => {
         Authorization: "Bearer " + localStorage.getItem("user_access_token"),
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => res.json())
-      .then((res) => {
+    }).then((res) => {
+      if (res.status == 401) {
+        alert("로그인이 필요합니다.");
+        return;
+      }
+      res.json().then((res) => {
         alert("삭제 완료");
         modal_open(article_id);
       });
+    });
   } else {
     return;
   }
 };
 
+// 라이크 유저 리스트
 const LikeUserList = (like_user) => {
   if (like_user.length == 0) {
     document.getElementById("like_user_list").innerHTML = "좋아요 없음";
@@ -709,6 +724,7 @@ const LikeUserList = (like_user) => {
   };
 };
 
+// 팔로우 하기
 const Follow = (user, article) => {
   const data = {
     username: user,
@@ -720,12 +736,16 @@ const Follow = (user, article) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      alert(res.message);
-      modal_open(article);
-    });
+  }).then((res) => {
+    if (res.status == 401) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+  });
+  res.json().then((res) => {
+    alert(res.message);
+    modal_open(article);
+  });
 };
 
 GetImgList();
