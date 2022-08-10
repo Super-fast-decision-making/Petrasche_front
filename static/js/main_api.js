@@ -133,7 +133,7 @@ const GetImgList = () => {
           <img src="${item.images[0]}" alt="">
           <div id="article_list_like" class="article_list_like">
           <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
-          <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comment.length}</span></div>
+          <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comments.length}</span></div>
           </div>
           </div>`;
         document.getElementById("main_article_list").innerHTML += html;
@@ -154,7 +154,7 @@ const GetTopList = () => {
       <div class="top_article_info">
           <div class="article_like_info">
             <div>좋아요 ${item.like_num}개</div>
-            <div>댓글 ${item.comment.length}개</div>
+            <div>댓글 ${item.comments.length}개</div>
           </div>
           <div>
               <img src="${item.images[0]}" alt="">
@@ -402,7 +402,7 @@ function modal_open(id) {
         let content_raw = data.content;
         let content = tagToLink(content_raw);
 
-        let comments = data.comment;
+        let comments = data.comments;
         document.getElementById("modal_box_img").src = images[0];
 
         if (data.images.length <= 1) {
@@ -472,7 +472,7 @@ function modal_open(id) {
         document.getElementById("modal_edit_text").value = content_raw;
 
         comments.forEach((item) => {
-          if (item.user == user_id) {
+          if (item.userid == user_id) {
             let html = `<div class="modal_comment_text">
                           <div class="balloon_03">
                               <div>
@@ -481,7 +481,7 @@ function modal_open(id) {
                           </div>
                           <div class="modal_comment_user">
                           <div>${item.username}</div>
-                          <div>${item.date}</div>
+                          <div>${item.created_at}</div>
                           <div onclick="CommentDelete(${item.id},${data.id})" class="comment_delete">삭제</div>
                           <div onclick="CommentEdit(${item.id},${data.id})" class="comment_edit">수정</div>
                           </div>
@@ -497,7 +497,7 @@ function modal_open(id) {
                       </div>
                       <div class="modal_comment_user">
                       <div>${item.username}</div>
-                      <div>${item.date}</div>
+                      <div>${item.created_at}</div>
                       </div>
                       </div>`;
             document.getElementById("modal_comment_list").innerHTML += html;
