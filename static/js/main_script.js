@@ -95,7 +95,7 @@ function upload_file() {
 function upload_modal_open() {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   if (PayLoad == null) {
-    alert("로그인이 필요합니다.");
+    swal("로그인", "로그인후 이용이 가능합니다.", "error");
     return;
   }
   document.getElementById("upload_modal").style.display = "flex";
