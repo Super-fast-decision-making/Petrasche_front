@@ -13,6 +13,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="static\petrasche_배경좁게.ico" />
     <title>DirectMessage</title>
     <link rel="stylesheet" type="text/css" href="./static/css/login.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./static/css/dm.css"> -->
     <link rel="stylesheet" type="text/css" href="./static/css/dm.css">
     <link rel="stylesheet" href="/static/css/hashtag.css">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
@@ -29,59 +30,86 @@
         <script>$("#bar-nav").load("nav.html");</script>
     </nav>
 
-    <section>
-        <div class="wrapper">
-            <!-- 유저가 보유한 채팅방(header) 리스트 -->
-            <div class="header">
-                <div class="header_list" id="header_list">
+    <div class="dm_container">
+        <div class="user_select">
 
+            <!-- 채팅 유저 -->
+            <div class="user_info" id="user_info">
+                <!-- <div class="user_box" id="user_box">
+                    <div class="user_pr_img">
+                        <img src="https://img.sbs.co.kr/newsnet/etv/upload/2019/03/11/30000624395_700.jpg" alt="">
+                    </div>
+                    <div class="chat_user_pr_info">
+                        <div class="chat_user_id">
+                            송혜교
+                        </div>
+                        <div class="chat_user_profile">
+                            왕년에 잘나갔었는데 지금은.....
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <!-- 채팅 유저 -->
+
+            <!-- 채팅 유저 -->
+            <div class="user_info">
+                <!-- <div class="user_box">
+                    <div class="user_pr_img">
+                        <img src="https://www.sisaweek.com/news/photo/202009/137414_128346_2310.jpg" alt="">
+                    </div>
+                    <div class="chat_user_pr_info">
+                        <div class="chat_user_id">
+                            이민기
+                        </div>
+                        <div class="chat_user_profile">
+                            늙어서 취직이 안됩니다..ㅋㅋㅋ
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <!-- 채팅 유저 -->
+
+        </div>
+
+        <!-- 우측 채팅 박스 -->
+        <div class="chat_box" id="chat_box">
+            <div class="chat_list" id="chat_list">
+                <div class="target_user">
+                    <div class="target_user_id">송혜교</div>
+                    <div class="target_user_chat">반갑습니다!</div>
+                </div>
+                <div class="my_user">
+                    <div class="my_user_id">이민기</div>
+                    <div class="target_user_chat">저는 안방가워요~</div>
+                </div>
+                <div class="target_user">
+                    <div class="target_user_id">송혜교</div>
+                    <div class="target_user_chat">무슨일 하세요????</div>
+                </div>
+                <div class="my_user">
+                    <div class="my_user_id">이민기</div>
+                    <div class="target_user_chat">저는 백수 입니다.</div>
+                </div>
+                <div class="target_user">
+                    <div class="target_user_id">송혜교</div>
+                    <div class="target_user_chat">동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 기리 보전하세
+                    </div>
                 </div>
             </div>
-
-            <!-- 채팅방 이너  -->
-            <div class="main_container">
-                <div class="user_container">
-                    <div class="user_box">
-                        <div class="user_profile">
-                            <!-- <div class="user_img_box">
-                            <img id="user_profile_img"
-                                src="https://photo.jtbc.joins.com/news/jam_photo/202109/24/1cafd5d0-6a05-4c52-a0fb-e4079839650c.jpg">
-                        </div> -->
-                        </div>
-                        <div class="user_introduction">
-                            <div id="introduction" class="introduction">
-                                <!-- Username -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="show_container" class="show_container">
-                    <div id="show_box" class="show_box">
-                        <div id="chat_box_wrapper">
-
-                            <div id="chat_box" class="chat_box" style="display:flex">
-                                <div id="messages" class="messages">
-                                    asd
-                                </div>
-                                <div id="messages" class="messages">
-
-                                </div>
-                            </div>
-                            <div class="chat_input_box" id="input-message">
-                                <form id="form" class="sendbox">
-                                    <input class="sendbox_inner" type="text" name="message" placeholder="메세지 입력...">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="chat_input" id="input-message">
+                <form id="form">
+                    <input type="text" name="message" placeholder="메세지를 입력하세요">
+                </form>
             </div>
         </div>
-    </section>
 
-    <script src="./static/js/search.js"></script>
-    <script src="./static/js/urls.js"></script>
-    <script src="/static/js/dm.js"></script>
+        <!-- 우측 채팅 박스 -->
+
+    </div>
 </body>
 
 </html>
+<script src="./static/js/search.js"></script>
+<script src="./static/js/urls.js"></script>
+<script src="/static/js/dm.js"></script>
+<!-- <script src="/static/js/dmapi.js"></script> -->
