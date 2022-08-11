@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 40%;
+    width: 100%;
     margin-left: 1%;
 }
 
@@ -152,7 +152,10 @@ body {
     position: fixed;
     top: 400px;
     width: 700px;
+}
 
+.show_container {
+    display: none;
 }
 
 .chat_box {
