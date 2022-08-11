@@ -59,7 +59,7 @@
     cursor: pointer;
 }
 
-.user_info {
+.user_infos {
     display: flex;
     align-items: center;
     justify-content: center;

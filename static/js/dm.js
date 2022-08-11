@@ -21,13 +21,13 @@ async function loadMessage(id) {
         if (USER_NAME == sender) {
             chat_box.innerHTML += ` 
                                 <div class="my_user">
-                                    <div class="target_user_chat">${message} - ${time}</div>
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
                                 </div>
                                 `
         } else {
             chat_box.innerHTML += `                            
                                 <div class="target_user">
-                                    <div class="target_user_chat">${time} - ${message}</div>
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
                                 </div>`
         }
         chat_box.scrollTop = chat_box.scrollHeight;
@@ -91,6 +91,7 @@ loadHeaders()
 // 웹소켓 커넥트
 let connectedChatSocket = ''
 async function chatroomSelect(id) {
+    // document.getElementById("not_chat_info").style.display = "none"
     if (connectedChatSocket != '') {
         connectedChatSocket.close()
     }
@@ -137,11 +138,11 @@ function newMessage(message, sent_by_id, time) {
     message.innerHTML = ""
     if (sent_by_id == USER_ID) {
         messages.innerHTML += `<div class="my_user">
-                                    <div class="target_user_chat">${message} - ${time}</div>
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
                                 </div>`
     } else {
         messages.innerHTML += `<div class="target_user">
-                                    <div class="target_user_chat">${time} - ${message}</div>
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
                                 </div>`
     }
     messages.scrollTop = messages.scrollHeight;
