@@ -245,11 +245,15 @@ function upload_modal_submit() {
     })
       .then((res) => {
         if (res.status === 401) {
-          alert("로그인이 필요합니다.");
-          window.location.href = "/login.html";
+          document.getElementById("now_loading").style.display = "none";
+          swal("로그인", "로그인후 이용이 가능합니다.", "error").then(() => {
+            window.location.href = "./login.html";
+          });
         } else {
-          alert("업로드 완료");
-          window.location.reload();
+          document.getElementById("now_loading").style.display = "none";
+          swal("업로드 완료", "업로드가 정상으로 완료 되셨습니다.", "success").then(() => {
+            window.location.reload();
+          });
         }
       })
       .catch((err) => {
@@ -336,7 +340,7 @@ async function openDetailModal(id) {
 function modal_open(id) {
   const PayLoad = JSON.parse(localStorage.getItem("payload"));
   if (PayLoad == null) {
-    alert("로그인이 필요합니다.");
+    swal("로그인", "로그인후 이용이 가능합니다.", "error");
     return;
   }
   let user_name = PayLoad.username;
@@ -350,8 +354,7 @@ function modal_open(id) {
   })
     .then((res) => {
       if (res.status === 401) {
-        alert("로그인이 필요합니다.");
-        window.location.href = "/login.html";
+        swal("로그인", "로그인후 이용이 가능합니다.", "error");
         return;
       } else {
         res.json().then((data) => {
