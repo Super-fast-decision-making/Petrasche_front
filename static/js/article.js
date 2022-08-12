@@ -13,7 +13,7 @@ document.body.addEventListener("click", function (e) {
 });
 
 function modal_loading() {
-    document.getElementById("modal_box_img").src = "https://t1.daumcdn.net/cfile/tistory/233F6D505786DA870A";
+    document.getElementById("modal_box_img").src = "https://blog.kakaocdn.net/dn/c3Rwqs/btqVugu1Dvv/SWkENtL39bcQ7fTrWNBxu0/img.gif";
     document.getElementById("modal_username").innerHTML = "로딩중..";
     document.getElementById("modal_content_text").innerHTML = "로딩중..";
     document.getElementById("modal_follow").value = "로딩중";
