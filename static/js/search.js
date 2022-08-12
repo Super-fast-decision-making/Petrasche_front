@@ -22,7 +22,7 @@ async function search(div) {
   localStorage.setItem("search_results", JSON.stringify(search_results.data));
 
   if (search_results.status_code == 200) {
-    window.location.replace(`${frontend_base_url}search_result.html`);
+    window.location.replace(`/search_result.html`);
   } else {
     alert("로그인 후 이용해주세요.");
   }

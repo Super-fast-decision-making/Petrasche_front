@@ -19,9 +19,9 @@ function modal_open(id) {
         swal("로그인", "로그인후 이용이 가능합니다.", "error");
         return;
     }
+    let modal_box = document.getElementById("modal_box");
     let user_name = PayLoad.username;
     let user_id = PayLoad.user_id;
-    let modal_box = document.getElementById("modal_box");
     fetch(`${backend_base_url}article/${id}/`, {
         method: "GET",
         headers: {

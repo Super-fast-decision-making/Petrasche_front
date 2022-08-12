@@ -2,7 +2,7 @@ function moveToProfileInput() {
     let pass = document.getElementById('password').value;
     let pass2 = document.getElementById('password2').value;
     if (pass != pass2) {
-        alert("비밀번호가 일치하지 않습니다.");
+        swal("비밀번호가 일치하지 않습니다.", "error");
         return;
     }
     document.getElementById('sign-in-first-page').style.display = "none"
@@ -18,11 +18,11 @@ const yearSelect = document.getElementById("year");
 const monthSelect = document.getElementById("month");
 const daySelect = document.getElementById("day");
 
-const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
 
-(function populateMonths(){
-    for(let i = 0; i < months.length; i++){
+(function populateMonths() {
+    for (let i = 0; i < months.length; i++) {
         const option = document.createElement('option');
         option.textContent = months[i];
         monthSelect.appendChild(option);
@@ -32,56 +32,56 @@ const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','
 
 let previousDay;
 
-function populateDays(month){
+function populateDays(month) {
     //기존에 있는 값 지우기
-    while(daySelect.firstChild){
+    while (daySelect.firstChild) {
         daySelect.removeChild(daySelect.firstChild);
     }
     //한달에 있는 날짜수를 저장하는 변수
     let dayNum;
 
     let year = yearSelect.value.split("년")[0];
-    if(month === '1월' || month === '3월' || 
-    month === '5월' || month === '7월' || month === '8월' 
-    || month === '10월' || month === '12월') {
+    if (month === '1월' || month === '3월' ||
+        month === '5월' || month === '7월' || month === '8월'
+        || month === '10월' || month === '12월') {
         dayNum = 31;
-    } else if(month === '4월' || month === '6월' 
-    || month === '9월' || month === '11월') {
+    } else if (month === '4월' || month === '6월'
+        || month === '9월' || month === '11월') {
         dayNum = 30;
-    }else{ 
+    } else {
         //2월 윤년 확인
-        if(new Date(year, 1, 29).getMonth() === 1){
+        if (new Date(year, 1, 29).getMonth() === 1) {
             dayNum = 29;
-        }else{
+        } else {
             dayNum = 28;
         }
     }
 
-    for(let i = 1; i <= dayNum; i++){
+    for (let i = 1; i <= dayNum; i++) {
         const option = document.createElement("option");
-        option.textContent = i+"일";
+        option.textContent = i + "일";
         daySelect.appendChild(option);
     }
-    if(previousDay){
+    if (previousDay) {
         daySelect.value = previousDay;
-        if(daySelect.value === ""){
+        if (daySelect.value === "") {
             daySelect.value = previousDay - 1;
         }
-        if(daySelect.value === ""){
+        if (daySelect.value === "") {
             daySelect.value = previousDay - 2;
         }
-        if(daySelect.value === ""){
+        if (daySelect.value === "") {
             daySelect.value = previousDay - 3;
         }
     }
 }
 
-function populateYears(){
+function populateYears() {
     let year = new Date().getFullYear();
     //100년을 옵션으로 지정
-    for(let i = 0; i < 101; i++){
+    for (let i = 0; i < 101; i++) {
         const option = document.createElement("option");
-        option.textContent = (year - i)+"년";
+        option.textContent = (year - i) + "년";
         yearSelect.appendChild(option);
     }
 }
@@ -89,12 +89,12 @@ function populateYears(){
 populateDays(monthSelect.value);
 populateYears();
 
-yearSelect.onchange = function() {
+yearSelect.onchange = function () {
     populateDays(monthSelect.value);
 }
-monthSelect.onchange = function() {
+monthSelect.onchange = function () {
     populateDays(monthSelect.value);
 }
-daySelect.onchange = function() {
+daySelect.onchange = function () {
     previousDay = daySelect.value;
 }

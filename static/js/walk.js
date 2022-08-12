@@ -322,12 +322,12 @@ async function goWalk(id, attending_user) {
     })
     response_json = await response.json()
     if (response.status == 200) {
-        alert("산책에 참여해주셔서 감사합니다")
+        swal("산책에 참여해주셔서 감사합니다", "success")
         // attend_walk.style.backgroundColor = '#ADD8E6'
         // attend_walk.innerText = '모임에 참여 신청 하셨습니다'
         openWalkDetailArticle(id)
     } else {
-        alert("잘못된 결과입니다")
+        swal("잘못된 결과입니다", "error")
     }
 }
 async function goHome(id, attending_user) {
@@ -342,12 +342,12 @@ async function goHome(id, attending_user) {
     })
     response_json = await response.json()
     if (response.status == 200) {
-        alert("산책을 취소하셨습니다")
+        swal("산책을 취소하셨습니다", "success")
         attend_walk.style.backgroundColor = 'pink'
         attend_walk.innerText = '모임 참여를 취소하셨습니다'
         openWalkDetailArticle(id)
     } else {
-        alert("잘못된 결과입니다")
+        swal("잘못된 결과입니다", "error")
 
     }
 }
@@ -367,17 +367,17 @@ async function submitWalkArticle() {
     }
 
     if (document.getElementById('m_dropbtn_d').innerText == "날짜") {
-        alert("날짜를 정해주세요")
+        swal("날짜를 정해주세요", "warning")
     } else if (document.getElementById('m_dropbtn_r').innerText == "지역") {
-        alert("지역을 정해주세요")
+        swal("지역을 정해주세요", "warning")
     } else if (document.getElementById('m_dropbtn_t').innerText == "시간") {
-        alert("시간을 정해주세요")
+        swal("시간을 정해주세요", "warning")
     } else if (document.getElementById('m_dropbtn_g').innerText == "성별") {
-        alert("성별을 정해주세요")
+        swal("성별을 정해주세요", "warning")
     } else if (document.getElementById('m_dropbtn_n').innerText == "인원수") {
-        alert("인원수를 정해주세요")
+        swal("인원수를 정해주세요", "warning")
     } else if (document.getElementById('m_dropbtn_s').innerText == "강아지크기") {
-        alert("강아지 크기를 정해주세요")
+        swal("강아지 크기를 정해주세요", "warning")
     } else {
         const response = await fetch(`${backend_base_url}walk/`, {
             method: 'POST',
@@ -390,10 +390,10 @@ async function submitWalkArticle() {
         })
         response_json = await response.json()
         if (response.status == 200) {
-            alert("게시글이 업로드 되었습니다")
+            swal("게시글이 업로드 되었습니다", "success")
             window.location.reload()
         } else {
-            alert("잘못된 게시글입니다")
+            swal("잘못된 게시글입니다", "error")
         }
     }
 

@@ -154,10 +154,10 @@ async function postAuthPassword() {
     response_json = await response.json()
 
     if (response.status == 200) {
-        alert(response_json.massege)
+        swal(response_json.massege, "success")
         showUpdatePassword(response_json.response)
     } else {
-        alert(response_json.massege)
+        swal(response_json.massege, "error")
     }
 }
 
@@ -177,10 +177,10 @@ async function putPassword(user_id, new_password) {
     response_json = await response.json()
 
     if (response.status == 200) {
-        alert(response_json.massege)
+        swal(response_json.massege, "success")
         window.location.reload()
     } else {
-        alert(response_json.massege)
+        swal(response_json.massege, "error")
     }
 }
 
@@ -202,10 +202,10 @@ async function putProfileImg(who, _id, file) {
         })
         response_json = await response.json()
         if (response.status == 200) {
-            alert(response_json.massege)
+            swal(response_json.massege, "success")
             window.location.reload()
         } else {
-            alert(response_json.massege)
+            swal(response_json.massege, "error")
         }
     } else {
         let response = await fetch(`${backend_base_url}user/mypet/${_id}/`, {
@@ -217,10 +217,10 @@ async function putProfileImg(who, _id, file) {
         })
         response_json = await response.json()
         if (response.status == 200) {
-            alert(response_json.massege)
+            swal(response_json.massege, "success")
             window.location.reload()
         } else {
-            alert(response_json.massege)
+            swal(response_json.massege, "error")
         }
     }
 }
@@ -246,10 +246,10 @@ async function putIntroduction(who, _id, introduction) {
         })
         response_json = await response.json()
         if (response.status == 200) {
-            alert(response_json.massege)
+            swal(response_json.massege, "success")
             window.location.reload()
         } else {
-            alert(response_json.massege)
+            swal(response_json.massege, "error")
         }
     } else {
 
@@ -264,10 +264,10 @@ async function putIntroduction(who, _id, introduction) {
         })
         response_json = await response.json()
         if (response.status == 200) {
-            alert(response_json.massege)
+            swal(response_json.massege, "success")
             window.location.reload()
         } else {
-            alert(response_json.massege)
+            swal(response_json.massege, "error")
         }
     }
 }

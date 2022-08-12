@@ -71,7 +71,7 @@ function tournament_start(id) {
     },
   }).then((res) => {
     if (res.ok == false) {
-      alert("기간이 만료 되었거나 참여가 불가능합니다.");
+      swal("기간이 만료 되었거나 참여가 불가능합니다.", "error");
       return;
     } else {
       res.json().then((res) => {
@@ -194,12 +194,12 @@ function image_upload(file, id) {
     },
   }).then((res) => {
     if (res.ok == false) {
-      alert("업로드에 실패 하였거나 이미 참여하셨습니다.");
+      swal("업로드에 실패 하였거나 이미 참여하셨습니다.", "error");
       event_img_uoload_close();
       return;
     } else {
       res.json().then((res) => {
-        alert("이벤트 참여에 성공했습니다.");
+        swal("이벤트 참여에 성공했습니다.", "success");
         tournament_start(id);
         event_img_uoload_close();
         return;
@@ -222,13 +222,13 @@ function event_point_up(id, period, user) {
   }).then((res) => {
     if (res.ok == false) {
       res.json().then((res) => {
-        alert(res.message);
+        swal(res.message, "error");
         tournament_start(period);
       });
       return;
     } else {
       res.json().then((res) => {
-        alert("투표가 완료 되셨습니다.");
+        swal("투표가 완료 되셨습니다.", "success");
         tournament_start(period);
         return;
       });
