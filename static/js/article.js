@@ -12,14 +12,30 @@ document.body.addEventListener("click", function (e) {
     }
 });
 
+function modal_loading() {
+    document.getElementById("modal_box_img").src = "https://t1.daumcdn.net/cfile/tistory/233F6D505786DA870A";
+    document.getElementById("modal_username").innerHTML = "로딩중..";
+    document.getElementById("modal_content_text").innerHTML = "로딩중..";
+    document.getElementById("modal_follow").value = "로딩중";
+    document.getElementById("modal_follow_count").innerHTML = "로딩중";
+    document.getElementById("like_icon_on").style.display = "none";
+    document.getElementById("like_icon_off").style.display = "none";
+    document.getElementById("modal_comment_list").innerHTML = "";
+}
+
 // 아티클 모달 페이지 보여주기
 function modal_open(id) {
+    modal_loading();
+    let modal_box = document.getElementById("modal_box");
+    modal_box.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
     const PayLoad = JSON.parse(localStorage.getItem("payload"));
     if (PayLoad == null) {
         swal("로그인", "로그인후 이용이 가능합니다.", "error");
+        modal_close();
         return;
     }
-    let modal_box = document.getElementById("modal_box");
     let user_name = PayLoad.username;
     let user_id = PayLoad.user_id;
     fetch(`${backend_base_url}article/${id}/`, {
@@ -30,7 +46,8 @@ function modal_open(id) {
     })
         .then((res) => {
             if (res.status === 401) {
-                swal("로그인", "로그인후 이용이 가능합니다.", "error");
+                swal("로그인", "로그인후 이용이 가능합니다.", "error")
+                modal_close();
                 return;
             } else {
                 res.json().then((data) => {
