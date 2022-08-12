@@ -2,6 +2,47 @@
 let page_num = 1;
 let page = true;
 
+function article_loading() {
+  const article_list = document.getElementById("main_article_list")
+  for (let i = 0; i < 20; i++) {
+  let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open()" style="transform: rotate();" class="article_list_box">
+            <img src="https://blog.kakaocdn.net/dn/c3Rwqs/btqVugu1Dvv/SWkENtL39bcQ7fTrWNBxu0/img.gif" alt="">
+        <div id="article_list_like" class="article_list_like">
+        <div><i style="color: red;" class="fa-solid fa-heart"></i><span></span></div>
+        <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span></span></div>
+        </div>
+        </div>`;
+
+  article_list.innerHTML += html;
+  }
+}
+
+function top_article_loading() {
+  const top_article = document.getElementById("top_article")
+
+  for (let i = 0; i < 9; i++) {
+    let html = `<div onclick="modal_open()" class="top_article_list">
+    <img src="https://blog.kakaocdn.net/dn/c3Rwqs/btqVugu1Dvv/SWkENtL39bcQ7fTrWNBxu0/img.gif" alt="">
+    <div class="top_article_info">
+        <div class="article_like_info">
+          <div>읽어 오는중.....</div>
+          <div>읽어 오는중.....</div>
+        </div>
+        <div>
+            <img src="https://blog.kakaocdn.net/dn/c3Rwqs/btqVugu1Dvv/SWkENtL39bcQ7fTrWNBxu0/img.gif" alt="">
+            <div onclick='profile()' class="top_article_user_name">읽어 오는중..</div>
+        </div>
+        <div>
+            읽어 오는중....
+        </div>
+    </div>`;
+    top_article.innerHTML += html;
+  }
+}
+
+top_article_loading();
+article_loading();
+
 // 스크롤 이벤트 부분
 window.onscroll = function () {
   let timer;
@@ -94,6 +135,7 @@ const GetImgList = () => {
   fetch(`${backend_base_url}article/`)
     .then((res) => res.json())
     .then((data) => {
+      document.getElementById("main_article_list").innerHTML = "";
       data.forEach((item) => {
         let random = Math.floor(Math.random() * 10) - 5;
         if (window.innerWidth < 500) {
