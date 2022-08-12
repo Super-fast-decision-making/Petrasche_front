@@ -104,7 +104,7 @@
     }
     .modal_img_box{
         width: 100%;
-        height: 60%;
+        height: 40%;
     }
     .modal_desc{
         width: 100%;
@@ -142,5 +142,37 @@
     }
     .search_item{
         margin: 20px auto;
+    }
+    .mobile_menu{
+        display: flex;
+        width: 100%;
+        height: 50px;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 30px;
+    }
+    .mobile_menu div{
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .mobile_menu div i{
+        font-size: 20px;
+        color: firebrick;
+    }
+    .upload_modal{
+        display: none;
+        flex-direction: column;
+    }
+    .upload_modal_box{
+        width: 100%;
+        height: 50%;
+        border-radius: 0px;
+    }
+    .upload_model_content{
+        width: 100%;
+        height: auto;
+        overflow: scroll;
+        border-radius: 0px;
     }
 }

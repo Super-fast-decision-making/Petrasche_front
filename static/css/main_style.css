@@ -58,6 +58,9 @@ body {
     font-weight: bold;
     color: #000;
 }
+.mobile_menu{
+    display: none;
+}
 
 .menu_dog {
     display: flex;
@@ -322,8 +325,8 @@ body {
 
 .upload_modal_box {
     position: relative;
-    width: 800px;
-    height: 700px;
+    width: 50%;
+    height: 60%;
     background-color: white;
     border-radius: 8px;
     display: flex;
@@ -469,7 +472,7 @@ input[type=radio]:checked+label img {
 .upload_model_content {
     width: 20%;
     margin-left: 5px;
-    height: 700px;
+    height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
