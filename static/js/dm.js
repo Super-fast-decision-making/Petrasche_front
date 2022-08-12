@@ -91,7 +91,7 @@ loadHeaders()
 // 웹소켓 커넥트
 let connectedChatSocket = ''
 async function chatroomSelect(id) {
-    document.getElementById("not_chat_info").style.display = "none"
+    // document.getElementById("not_chat_info").style.display = "none"
     if (connectedChatSocket != '') {
         connectedChatSocket.close()
     }

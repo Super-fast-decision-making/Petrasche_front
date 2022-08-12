@@ -769,9 +769,9 @@ GetImgList();
 GetTopList();
 
 
-async function loadUserinfo() {
-  const response_json = await UserInfo()
-  sessionStorage.setItem('id', response_json.id)
-  sessionStorage.setItem('username', response_json.username)
-}
-loadUserinfo()
+// async function loadUserinfo() {
+//   const response_json = await UserInfo()
+//   sessionStorage.setItem('id', response_json.id)
+//   sessionStorage.setItem('username', response_json.username)
+// }
+// loadUserinfo()
