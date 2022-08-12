@@ -11,11 +11,11 @@ async function handleSignup() {
 
     const birthday = year + "-" + month + "-" + day
     if (birthday == "") {
-        alert("생년월일을 입력해 주세요!")
+        swal("입력 오류", "생년월일을 입력해 주세요.", "error");
         return
     }
     if (gender_check.length <= 0) {
-        alert("성별을 선택해 주세요!")
+        swal("입력 오류", "성별을 입력해 주세요.", "error");
         return
     }
     gender_check.forEach((ch) => {
@@ -42,15 +42,15 @@ async function handleSignup() {
         window.location.replace('/login.html');
     } else {
         if (response_json.email) {
-            alert("중복된 이메일 입니다.")
+            swal("가입 오류", "중복된 이메일 입니다.", "error");
             window.location.replace('/signup.html');
         }
         else if (response_json.username) {
-            alert("중복된 닉네임 입니다.")
+            swal("가입 오류", "중복된 닉네임 입니다.", "error");
             window.location.replace('/signup.html');
         }
         else {
-            alert("오류가 발생했습니다.")
+            swal("가입 오류", "서버 오류가 발생 되었습니다.", "error");
             window.location.replace('/signup.html');
         }
     }
@@ -84,7 +84,7 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload)
         window.location.replace(`${frontend_base_url}`)
     } else {
-        alert("아이디 또는 비밀번호가 일치하지 않습니다.")
+        swal("로그인 오류", "아이디 또는 비밀번호가 일치 하지 않습니다.", "error");
     }
 }
 
