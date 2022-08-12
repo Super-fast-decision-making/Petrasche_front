@@ -8,8 +8,6 @@ async function UserInfo() {
         }
     })
     response_json = await response.json()
-    console.log(response_json.gender, response.status)
-    // response_json = await response.json()
     if (response.status == 401) {
         // replace
         alert("로그인을 해주세요")

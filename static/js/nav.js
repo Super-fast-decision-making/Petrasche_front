@@ -28,6 +28,15 @@
 // }
 
 
+async function loadUserinfo() {
+    const response_json = await UserInfo()
+    sessionStorage.setItem('id', response_json.id)
+    sessionStorage.setItem('username', response_json.username)
+}
+loadUserinfo()
+const USER_ID = sessionStorage.getItem('id')
+const USER_NAME = sessionStorage.getItem('username')
+
 
 //챗 소켓 서버를 오픈하는 부분 
 

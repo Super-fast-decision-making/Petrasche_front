@@ -1,12 +1,12 @@
-async function loadUserinfo() {
-    const response_json = await UserInfo()
-    sessionStorage.setItem('id', response_json.id)
-    sessionStorage.setItem('username', response_json.username)
-}
+// async function loadUserinfo() {
+//     const response_json = await UserInfo()
+//     sessionStorage.setItem('id', response_json.id)
+//     sessionStorage.setItem('username', response_json.username)
+// }
 loadUserinfo()
+
 const USER_ID = sessionStorage.getItem('id')
 const USER_NAME = sessionStorage.getItem('username')
-
 
 // 메세지 기록 불러오기 
 async function loadMessage(id) {
@@ -91,7 +91,7 @@ loadHeaders()
 // 웹소켓 커넥트
 let connectedChatSocket = ''
 async function chatroomSelect(id) {
-    // document.getElementById("not_chat_info").style.display = "none"
+    document.getElementById("not_chat_info").style.display = "none"
     if (connectedChatSocket != '') {
         connectedChatSocket.close()
     }
@@ -147,23 +147,3 @@ function newMessage(message, sent_by_id, time) {
     }
     messages.scrollTop = messages.scrollHeight;
 }
-
-
-// // 헤더div 클릭시 색 변경
-// var header_div = document.getElementsByClassName("header");
-// function handleClick(event) {
-//     if (event.target.classList[1] === "clicked") {
-//         event.target.classList.remove("clicked");
-//     } else {
-//         for (var i = 0; i < header_div.length; i++) {
-//             header_div[i].classList.remove("clicked");
-//         }
-//         event.target.classList.add("clicked");
-//     }
-// }
-// function init() {
-//     for (var i = 0; i < header_div.length; i++) {
-//         header_div[i].addEventListener("click", handleClick);
-//     }
-// }
-// init();
