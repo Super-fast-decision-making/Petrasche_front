@@ -2,6 +2,14 @@
 let page_num = 1;
 let page = true;
 
+function page_loading(){
+  document.getElementById("now_loading_page").style.display = "flex";
+}
+
+function page_loading_hide(){
+  document.getElementById("now_loading_page").style.display = "none";
+}
+
 function article_loading() {
   const article_list = document.getElementById("main_article_list")
   for (let i = 0; i < 20; i++) {
@@ -40,9 +48,6 @@ function top_article_loading() {
   }
 }
 
-top_article_loading();
-article_loading();
-
 // 스크롤 이벤트 부분
 window.onscroll = function () {
   let timer;
@@ -65,7 +70,7 @@ window.onscroll = function () {
 
 // 펫 메뉴 부분
 const GetSelectPetArticle = (pet_id) => {
-  document.getElementById("main_article_list").innerHTML = "";
+  article_loading();
   fetch(`${backend_base_url}article/pet/${pet_id}/`, {
     method: "GET",
     headers: {
@@ -74,27 +79,37 @@ const GetSelectPetArticle = (pet_id) => {
       Authorization: `Bearer ${localStorage.getItem("user_access_token")}`,
     },
   })
-    .then((res) => res.json())
     .then((res) => {
-      res.forEach((item) => {
-        let random = Math.floor(Math.random() * 10) - 5;
-        if (window.innerWidth < 500) {
-          random = 0;
-        }
-        let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
-            <img src="${item.images[0]}" alt="">
-        <div id="article_list_like" class="article_list_like">
-        <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
-        <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comments.length}</span></div>
-        </div>
-        </div>`;
-        document.getElementById("main_article_list").innerHTML += html;
-      });
-    });
+      if (res.status == 401) {
+        alert("로그인이 필요합니다.");
+        return;
+      } else {
+        res.json()
+        .then((res) => {
+          document.getElementById("main_article_list").innerHTML = "";
+          res.forEach((item) => {
+            let random = Math.floor(Math.random() * 10) - 5;
+            if (window.innerWidth < 500) {
+              random = 0;
+            }
+            let html = `<div onmouseover="article_box_hover(this)" onclick="modal_open(${item.id})" style="transform: rotate(${random}deg);" class="article_list_box">
+                <img src="${item.images[0]}" alt="">
+            <div id="article_list_like" class="article_list_like">
+            <div><i style="color: red;" class="fa-solid fa-heart"></i><span> ${item.like_num}</span></div>
+            <div><i style="color: #cecece;" class="fa-solid fa-comment"></i><span> ${item.comments.length}</span></div>
+            </div>
+            </div>`;
+            document.getElementById("main_article_list").innerHTML += html;
+          });
+        });
+      }
+    })
+    
 };
 
 // 페이지 리스트 불러오기
 const GetImgListPage = (page) => {
+  page_loading();
   fetch(`${backend_base_url}article/page/${page}/`, {
     method: "GET",
     headers: {
@@ -102,6 +117,7 @@ const GetImgListPage = (page) => {
       Authorization: "Bearer " + localStorage.getItem("user_access_token"),
     },
   }).then((res) => {
+    page_loading_hide();
     if (res.status == 401) {
       document.getElementById("login_modal_box").style.display = "flex";
       return;
@@ -132,6 +148,7 @@ const GetImgListPage = (page) => {
 
 // 메인 이미지 리스트 불러오기 (비회원 20개)
 const GetImgList = () => {
+  article_loading();
   fetch(`${backend_base_url}article/`)
     .then((res) => res.json())
     .then((data) => {
@@ -155,6 +172,7 @@ const GetImgList = () => {
 
 // 메인 인기게시물 불러오기 (비회원 9개)
 const GetTopList = () => {
+  top_article_loading();
   fetch(`${backend_base_url}article/top/`)
     .then((res) => res.json())
     .then((data) => {
