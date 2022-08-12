@@ -1,10 +1,10 @@
 // async function loadUserinfo() {
-//     const response_json = await UserInfo()
+//     const response_json = await getUserInfo()
 //     sessionStorage.setItem('id', response_json.id)
 //     sessionStorage.setItem('username', response_json.username)
 // }
-loadUserinfo()
-
+// loadUserinfo()
+getUserInfo()
 const USER_ID = sessionStorage.getItem('id')
 const USER_NAME = sessionStorage.getItem('username')
 

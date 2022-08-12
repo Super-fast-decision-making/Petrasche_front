@@ -5,12 +5,12 @@ const backend_base_url = "https://www.petrasche.site/"
 const ws_base_url = "wss://www.petrasche.site/"
 
 
-async function loadUserinfo() {
-    const response_json = await UserInfo()
-    sessionStorage.setItem('id', response_json.id)
-    sessionStorage.setItem('username', response_json.username)
-}
-loadUserinfo()
+// async function loadUserinfo() {
+//     const response_json = await UserInfo()
+//     sessionStorage.setItem('id', response_json.id)
+//     sessionStorage.setItem('username', response_json.username)
+// }
+// loadUserinfo()
 
 function replace_text(text) {
     let text_replaced = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/gi, "");

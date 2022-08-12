@@ -86,7 +86,7 @@ async function loadMyArticle(page) {
         const article_box = document.getElementById("article_box")
         article_box.innerHTML +=
             `<div class="article_card">
-                <img src='${image}'  id="article_card_img${id}" onclick=openDetailModal(${id})>
+                <img src='${image}'  id="article_card_img${id}" onclick=modal_open(${id})>
                 <div style="position:relative; background-color:transparent; width:100%; height:20px; top:-30px;color:#FF3399;padding-left:10px;font-size:15px;"><i class="fa fa-heart"></i>  ${like_num}</div>
             </div>`
     }
@@ -127,7 +127,7 @@ async function loadMyArticle(page) {
 // 유저 정보 수정
 async function saveUserInfo(user_id) {
     let response = await putUserInfo(user_id)
-    alert('변경 완료')
+    swal("회원정보 수정 완료", "변경이 완료되었습니다.", "success");
 }
 
 // 반려동물 등록
@@ -150,7 +150,7 @@ async function addPetProfile() {
     document.getElementById("add_pet_modal_box").style.display = "none";
 
     window.location.reload()
-    alert("등록 완료")
+    swal("반려동물 등록 완료", "등록이 완료되었습니다.", "success");
 }
 
 // 반려동물 등록 프로필 이미지 등록
@@ -228,7 +228,7 @@ async function savePetInfo(pet_id) {
         size = ch.value
     });
     let pet = await putPetInfo(pet_id, name, birthday, type, gender, size)
-    alert('수정 완료')
+    swal("반려동물 정보 수정 완료", "수정이 완료되었습니다.", "success");
 }
 
 // 반려동물 정보 불러오기 [리팩토링 필수(radio 함수화)]
@@ -490,7 +490,7 @@ async function checkPassword(user_id) {
     if (new_password == check_password) {
         await putPassword(user_id, new_password)
     } else {
-        alert('비밀번호를 다시 확인해주세요.')
+        swal("비밀번호 오류", "비밀번호를 다시 확인해주세요.", "error");
     }
 
 }
@@ -618,7 +618,7 @@ async function loadLikeArticle() {
 
         like_article_box.innerHTML +=
             `<div class="article_card">
-            <img src='${like_article['imgurl'][0]}' onclick = "openDetailModal(${like_article['id']})">
+            <img src='${like_article['imgurl'][0]}' onclick = "modal_open(${like_article['id']})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i> ${like_article['author']}</div>
             </div>`
     }
@@ -648,7 +648,7 @@ async function loadPetprofile(id, div) {
         let article = pet.article[i]
         pet_article_box.innerHTML +=
             `<div class="article_card"}'>
-            <img src='${article.images[0]}' onclick="openDetailModal(${article.id})">
+            <img src='${article.images[0]}' onclick="modal_open(${article.id})">
                 <div style="position:relative; background-color:transparent; width:100%; height:30px; top:-34px;color:red;padding-left:10px"><i class="fa fa-heart"></i>${article.like_num} </div>
             </div>`
     }
@@ -671,7 +671,8 @@ async function submitLoc(id) {
         body: JSON.stringify(loData)
     })
     response_json = await response.json()
-    alert('위도: ' + String(response_json.latitude) + ' ' + '경도: ' + String(response_json.longitude))
+    swal("위치 정보", '위도: ' + String(response_json.latitude) + ' ' + '경도: ' + String(response_json.longitude));
+
 }
 //밑에서 써도 위에서 부를 수 있다?!?!?!
 const getLocation = () => {
@@ -694,8 +695,8 @@ const getLocation = () => {
     });
 }
 
-const modal_edit_cancel = () => {
-    document.getElementById('modal_edit_box').style.display = 'none'
-}
+// const modal_edit_cancel = () => {
+//     document.getElementById('modal_edit_box').style.display = 'none'
+// }
 
 loadMyArticle(1)

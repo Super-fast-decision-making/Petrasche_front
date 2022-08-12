@@ -1,16 +1,3 @@
-//바디 클릭시 모달 창 닫기 기본 모달
-document.body.addEventListener("click", function (e) {
-  if (e.target.id == "modal_box") {
-    modal_close();
-  }
-});
-
-//바디 클릭시 업로드 모달 창 닫기
-document.body.addEventListener("click", function (e) {
-  if (e.target.id == "upload_modal") {
-    upload_modal_cancel();
-  }
-});
 
 function top_left_scroll() {
   let scroll_left = document.getElementById("top_article").scrollLeft;
