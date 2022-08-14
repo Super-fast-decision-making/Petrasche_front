@@ -155,16 +155,11 @@ m_dropdown_hc_list.forEach(number => {
 //////////////////////////////////////api
 // 산책 페이지 전체 아티클 불러오기
 async function getWalkArticle(page, gender, size, region, number) {
-
-
-
     let url = `${backend_base_url}walk/?`
     if (sessionStorage.getItem('start_date') != null) {
         let s_date = sessionStorage.getItem('start_date').replace('.', '-').replace('.', '-').replace('.', '')
-
         url = url + `start_date=${s_date}&`
     }
-
     if (gender != 'gender') {
         url = url + `gender=${gender}&`
     }
@@ -175,11 +170,10 @@ async function getWalkArticle(page, gender, size, region, number) {
         url = url + `region=${region}&`
     }
     if (number != 'number') {
-        url = url + `number=${number}&`
+        url = url + `people_num=${number}&`
     }
     if (page != null & page != 'page') {
         url = url + `p=${page}`
-
     }
 
     const response = await fetch(url, {
@@ -208,33 +202,25 @@ async function loadWalkArticle(page, gender, size, region, number) {
     customers = document.getElementById('customers')
     customers.innerHTML = ''
     res.forEach(post => {
-        customers.innerHTML +=
-            `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
+        console.log(post.deadeline_status)
+        if (post.deadline_status==true){
+            customers.innerHTML +=
+                `<tr id='post_row${post.id}' onclick='openWalkDetailArticle(${post.id})'>
+                    <td>${post.start_date.substring(5, 10)}</td>
+                    <td>${post.start_time.split(' ')[1].substring(0, 5)}~${post.end_time.split(' ')[1].substring(0, 5)}</td>
+                    <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
+                    <td>${post.people_num}</td>
+                    <td id='gowalkbutton${post.id}'>산책가기</td>
+                </tr>`
+        } else if (post.deadline_status==false){
+            customers.innerHTML +=
+            `<tr id='post_row${post.id}' style='background-color:rgb(51, 51, 51);color:white;cursor:default' >
                 <td>${post.start_date.substring(5, 10)}</td>
                 <td>${post.start_time.split(' ')[1].substring(0, 5)}~${post.end_time.split(' ')[1].substring(0, 5)}</td>
                 <td>${post.place}<br><span style='font-size:0.6rem'>&#127822; ${post.region} , ${post.gender}, ${post.size}</span></td>
                 <td>${post.people_num}</td>
-                <td id='gowalkbutton${post.id}'>산책가기</td>
+                <td id='gowalkbutton${post.id}'>마감</td>
             </tr>`
-
-        let mas = post.start_time
-
-
-        let masMonth = mas.split('.')[1];
-        let masDate = mas.split('.')[2].split(' ')[0];
-        let masTime = mas.split(' ')[1].split(':')[0];
-
-        let today = new Date()
-        let month = ('0' + (today.getMonth() + 1)).slice(-2);
-        let day = ('0' + today.getDate()).slice(-2);
-        let time = ('0' + today.getHours()).slice(-2);
-
-        if ((masMonth < month) | (masMonth == month & masDate < day) | (masMonth == month & masDate == day & masTime < time)) {
-
-            document.getElementById('gowalkbutton' + post.id).innerText = '마감'
-            document.getElementById('post_row' + post.id).style.backgroundColor = 'rgb(51, 51, 51)'
-            document.getElementById('post_row' + post.id).style.color = 'white'
-            document.getElementById('post_row' + post.id).setAttribute('onclick', '')
         }
     });
 
