@@ -81,7 +81,7 @@ const GetSelectPetArticle = (pet_id) => {
   })
     .then((res) => {
       if (res.status == 401) {
-        alert("로그인이 필요합니다.");
+        swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
         return;
       } else {
         res.json()
@@ -280,7 +280,7 @@ function upload_modal_submit() {
         }
       })
       .catch((err) => {
-        alert("서버 오류가 발생 되었습니다.");
+        swal("서버 오류", "서버 오류가 발생 되었습니다.", "error");
         window.location.reload();
       });
   }

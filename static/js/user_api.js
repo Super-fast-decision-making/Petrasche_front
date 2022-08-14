@@ -81,7 +81,7 @@ async function handleLogin() {
         }).join(''));
 
         localStorage.setItem("payload", jsonPayload)
-        window.location.replace(`${frontend_base_url}`)
+        window.location.replace(`/index.html`)
     } else {
         swal("로그인 오류", "아이디 또는 비밀번호가 일치 하지 않습니다.", "error");
     }
