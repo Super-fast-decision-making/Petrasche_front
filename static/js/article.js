@@ -235,7 +235,7 @@ const CommentUpload = (id) => {
     let comment_content = document.getElementById("modal_comment_text").value;
     comment_content = replace_text(comment_content);
     if (comment_content == "") {
-        alert("댓글을 입력해주세요");
+        swal("댓글 내용 없음", "댓글을 입력해 주세요.", "error");
         return;
     }
 
@@ -251,7 +251,7 @@ const CommentUpload = (id) => {
         body: JSON.stringify(data),
     }).then((res) => {
         if (res.status == 401) {
-            alert("로그인이 필요합니다.");
+            swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
             return;
         }
         res.json().then((res) => {
@@ -292,11 +292,11 @@ const ArticleDelete = (id) => {
             },
         }).then((res) => {
             if (res.status == 401) {
-                alert("로그인이 필요합니다.");
+                swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
                 return;
             }
             res.json().then((res) => {
-                alert("삭제 완료");
+                swal("삭제 완료", "삭제가 완료 되었습니다.", "success");
                 window.location.reload();
             });
         });
@@ -316,7 +316,7 @@ const ArticleEdit = (id) => {
         let content = document.getElementById("modal_edit_text").value;
         content = content.replace(/\n/g, "<br>");
         if (content == "") {
-            alert("내용을 입력해주세요");
+            swal("내용이 없음", "내용을 입력해 주세요.", "error");
             return;
         }
         let confirm_edit = confirm("수정하시겠습니까?");
@@ -333,11 +333,11 @@ const ArticleEdit = (id) => {
                 body: JSON.stringify(data),
             }).then((res) => {
                 if (res.status == 401) {
-                    alert("로그인이 필요합니다.");
+                    swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
                     return;
                 }
                 res.json().then((res) => {
-                    alert("수정 완료");
+                    swal("수정 완료", "수정이 완료 되었습니다.", "success");
                     document.getElementById("modal_edit_box").style.display = "none";
                     modal_open(id);
                 });
@@ -366,7 +366,7 @@ const CommentEdit = (id, article_id, text) => {
         let comment = document.getElementById("modal_edit_text").value;
         comment = comment.replace(/\n/g, "<br>");
         if (comment == "") {
-            alert("내용을 입력해주세요");
+            swal("내용 없음", "내용을 입력해 주세요.", "error");
             return;
         }
         let confirm_edit = confirm("수정하시겠습니까?");
@@ -383,11 +383,11 @@ const CommentEdit = (id, article_id, text) => {
                 body: JSON.stringify(data),
             }).then((res) => {
                 if (res.status == 401) {
-                    alert("로그인이 필요합니다.");
+                    swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
                     return;
                 }
                 res.json().then((res) => {
-                    alert("수정 완료");
+                    swal("수정 완료", "수정이 완료 되었습니다.", "success");
                     document.getElementById("modal_edit_box").style.display = "none";
                     modal_open(article_id);
                 });
@@ -410,11 +410,11 @@ const CommentDelete = (id, article_id) => {
             },
         }).then((res) => {
             if (res.status == 401) {
-                alert("로그인이 필요합니다.");
+                swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
                 return;
             }
             res.json().then((res) => {
-                alert("삭제 완료");
+                swal("삭제 완료", "삭제가 완료 되었습니다.", "success");
                 modal_open(article_id);
             });
         });
@@ -458,11 +458,11 @@ const Follow = (user, article) => {
         body: JSON.stringify(data),
     }).then((res) => {
         if (res.status == 401) {
-            alert("로그인이 필요합니다.");
+            swal("로그인 안됨", "로그인이 필요한 서비스 입니다.", "error");
             return;
         }
         res.json().then((res) => {
-            alert(res.message);
+            swal("안내 메세지", res.message, "success");
             modal_open(article);
         });
     });
