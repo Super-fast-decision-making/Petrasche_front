@@ -188,7 +188,7 @@ const GetTopList = () => {
 };
 
 function upload_modal_submit() {
-  let upload_content = document.getElementById("upload_content").value;
+  let upload_content = document.getElementById("upload_content").value.replaceAll(/\<[^\>]+/g, "")
   let upload_file = document.getElementById("upload_file").files;
   let upload_modal_content = document.getElementById("upload_model_content");
   // radio check get
