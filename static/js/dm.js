@@ -1,18 +1,18 @@
-async function loadUserinfo() {
-    const response_json = await UserInfo()
-    sessionStorage.setItem('id', response_json.id)
-    sessionStorage.setItem('username', response_json.username)
-}
-loadUserinfo()
+// async function loadUserinfo() {
+//     const response_json = await getUserInfo()
+//     sessionStorage.setItem('id', response_json.id)
+//     sessionStorage.setItem('username', response_json.username)
+// }
+// loadUserinfo()
+getUserInfo()
 const USER_ID = sessionStorage.getItem('id')
 const USER_NAME = sessionStorage.getItem('username')
 
-
-// 메세지 기록 불러오기
+// 메세지 기록 불러오기 
 async function loadMessage(id) {
     const response_json = await getMessage(id)
     sessionStorage.setItem('header_id', response_json[0].id)
-    let chat_box = document.getElementById('chat_box')
+    let chat_box = document.getElementById('chat_list')
     chat_box.innerHTML = ''
     for (let i = 0; i < response_json[0].messages.length; i++) {
         let sender = response_json[0].messages[i].sender
@@ -20,28 +20,24 @@ async function loadMessage(id) {
         let time = response_json[0].messages[i].at_time
         if (USER_NAME == sender) {
             chat_box.innerHTML += ` 
-                                <div style="padding: 10px;">
-                                    <div class="my" id="my">
-                                    ${message} - ${time}
-                                    </div>
-                                </div>`
+                                <div class="my_user">
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
+                                </div>
+                                `
         } else {
             chat_box.innerHTML += `                            
-                                <div style="padding: 10px;">
-                                    <div class="others" id="others">
-                                        ${time} - ${message}
-                                    </div>
+                                <div class="target_user">
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
                                 </div>`
         }
         chat_box.scrollTop = chat_box.scrollHeight;
     }
 }
 
-
 // 헤더 리스트 불러오기
-async function loadHeader(id) {
+async function loadHeaders(id) {
     const response_json = await getHeader(id)
-    const header_list = document.getElementById("header_list")
+    const header_list = document.getElementById("user_info")
     header_list.innerHTML = ""
     for (let i = 0; i < response_json.length; i++) {
         let sender_img = response_json[i].sender_img
@@ -55,52 +51,47 @@ async function loadHeader(id) {
             let chatuser = receiver
             let chatuser_img = receiver_img
             header_list.innerHTML +=
-                `<div class="header" id="header" onclick=chatroomSelect(${header_id})>
-                <div class="header_user_profile_img">
-                    <img id="user_profile_img"
-                                src="${chatuser_img}">
-
-                </div>
-                <div class="header_user_profile" >
-                    <div class="username" id="username">${chatuser} </div>
-                    <div class="content">
-                        <div class="last_message" id="last_message">${last_message}</div>
-                        <div calss="time-before" style="margin-right: -20px; margin-top: 13px; font-size: 12px;">
-                            ${date}
+                `<div class="user_box" id="user_box" onclick=chatroomSelect(${header_id})>
+                    <div class="user_pr_img">
+                        <img src="${chatuser_img}" alt="">
+                    </div>
+                    <div class="chat_user_pr_info">
+                        <div class="chat_user_id">
+                            ${chatuser}
+                        </div>
+                        <div class="chat_user_profile">
+                            ${last_message}
                         </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
         } else {
             let chatuser = sender
             let chatuser_img = sender_img
             header_list.innerHTML +=
-                `<div class="header" id="header" onclick=chatroomSelect(${header_id})>
-                <div class="header_user_profile_img">
-                    <img id="user_profile_img"
-                                src="${chatuser_img}">
-
-                </div>
-                <div class="header_user_profile" >
-                    <div class="username" id="username">${chatuser}</div>
-                    <div class="content">
-                        <div class="last_message" id="last_message">${last_message}</div>
-                        <div calss="time-before" style="margin-right: -20px; margin-top: 13px; font-size: 12px;">
-                            ${date}
+                `<div class="user_box" id="user_box" onclick=chatroomSelect(${header_id})>
+                    <div class="user_pr_img">
+                        <img src="${chatuser_img}" alt="">
+                    </div>
+                    <div class="chat_user_pr_info">
+                        <div class="chat_user_id">
+                            ${chatuser}
+                        </div>
+                        <div class="chat_user_profile">
+                            ${last_message}
                         </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
         }
     }
 }
-loadHeader()
+loadHeaders()
 
 
 
 // 웹소켓 커넥트
 let connectedChatSocket = ''
 async function chatroomSelect(id) {
+    // document.getElementById("not_chat_info").style.display = "none"
     if (connectedChatSocket != '') {
         connectedChatSocket.close()
     }
@@ -124,6 +115,7 @@ async function chatroomSelect(id) {
         let message = data['message']
         let sent_by_id = data['sender']
         let time = data['time']
+        console.log(data)
         newMessage(message, sent_by_id, time)
     }
 
@@ -142,40 +134,16 @@ async function chatroomSelect(id) {
 }
 
 function newMessage(message, sent_by_id, time) {
-    let messages = document.getElementById("chat_box")
+    let messages = document.getElementById("chat_list")
     message.innerHTML = ""
     if (sent_by_id == USER_ID) {
-        messages.innerHTML += `<div style="padding: 10px;">
-                        <div class="my" id="my">
-                            ${message} - ${time}
-                        </div>
-                    </div>`
+        messages.innerHTML += `<div class="my_user">
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
+                                </div>`
     } else {
-        messages.innerHTML += `<div style="padding: 10px;">
-                        <div class="others" id="others">
-                            ${time} - ${message} 
-                        </div>
-                    </div>`
+        messages.innerHTML += `<div class="target_user">
+                                    <div class="target_user_chat">${message}<br><span style="font-size:12px; margin-top:2px;">${time}</span></div>
+                                </div>`
     }
     messages.scrollTop = messages.scrollHeight;
 }
-
-
-// 헤더div 클릭시 색 변경
-var header_div = document.getElementsByClassName("header");
-function handleClick(event) {
-    if (event.target.classList[1] === "clicked") {
-        event.target.classList.remove("clicked");
-    } else {
-        for (var i = 0; i < header_div.length; i++) {
-            header_div[i].classList.remove("clicked");
-        }
-        event.target.classList.add("clicked");
-    }
-}
-function init() {
-    for (var i = 0; i < header_div.length; i++) {
-        header_div[i].addEventListener("click", handleClick);
-    }
-}
-init();

@@ -71,7 +71,7 @@ function tournament_start(id) {
     },
   }).then((res) => {
     if (res.ok == false) {
-      alert("기간이 만료 되었거나 참여가 불가능합니다.");
+      swal("기간이 만료 되었거나 참여가 불가능합니다.", "error");
       return;
     } else {
       res.json().then((res) => {
@@ -82,10 +82,13 @@ function tournament_start(id) {
 }
 
 function event_start(data) {
+  const event_date = document.getElementById("event_join");
   const event_div = document.getElementById("tournament");
   const tournament_menu = document.getElementById("tournament_info");
   const event_vote = document.getElementById("event_vote");
   const event_rank = document.getElementById("event_rank");
+
+  event_date.innerHTML = `이벤트 기간은 ${data.event_start} ~ ${data.event_end} 입니다. 참여를 원하시면 <button onclick="event_img_uoload_open()" class="event_join_btn">이벤트 참여</button> 버튼을 눌러주세요!`;
 
   if (data.pet.length < 5) {
 
@@ -191,12 +194,12 @@ function image_upload(file, id) {
     },
   }).then((res) => {
     if (res.ok == false) {
-      alert("업로드에 실패 하였거나 이미 참여하셨습니다.");
+      swal("업로드에 실패 하였거나 이미 참여하셨습니다.", "error");
       event_img_uoload_close();
       return;
     } else {
       res.json().then((res) => {
-        alert("이벤트 참여에 성공했습니다.");
+        swal("이벤트 참여에 성공했습니다.", "success");
         tournament_start(id);
         event_img_uoload_close();
         return;
@@ -219,13 +222,13 @@ function event_point_up(id, period, user) {
   }).then((res) => {
     if (res.ok == false) {
       res.json().then((res) => {
-        alert(res.message);
+        swal(res.message, "error");
         tournament_start(period);
       });
       return;
     } else {
       res.json().then((res) => {
-        alert("투표가 완료 되셨습니다.");
+        swal("투표가 완료 되셨습니다.", "success");
         tournament_start(period);
         return;
       });
