@@ -13,6 +13,8 @@ document.body.addEventListener("click", function (e) {
 });
 
 function modal_loading() {
+    const modal = document.getElementById("modal_box")
+    if (modal.style.display == "none") {
     document.getElementById("modal_box_img").src = "https://blog.kakaocdn.net/dn/c3Rwqs/btqVugu1Dvv/SWkENtL39bcQ7fTrWNBxu0/img.gif";
     document.getElementById("modal_username").innerHTML = "로딩중..";
     document.getElementById("modal_content_text").innerHTML = "로딩중..";
@@ -21,6 +23,9 @@ function modal_loading() {
     document.getElementById("like_icon_on").style.display = "none";
     document.getElementById("like_icon_off").style.display = "none";
     document.getElementById("modal_comment_list").innerHTML = "";
+    } else {
+        return;
+    }
 }
 
 // 아티클 모달 페이지 보여주기
